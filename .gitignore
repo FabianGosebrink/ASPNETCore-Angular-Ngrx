@@ -1,0 +1,12 @@
+Angular1-Client/.dist
+Angular1-Client/node_modules/
+Angular2-Client/node_modules/
+Angular2-Client/typings
+Server/ASP.NET/FoodAPI/obj
+Server/ASP.NET/FoodAPI/bin
+Server/ASP.NET/packages
+Server/ASP.NETCore/src/FoodAPICore/obj
+Server/ASP.NET/.vs
+Server/ASP.NET/FoodAPI/Properties/PublishProfiles
+Server/ASP.NETCore/.vs
+Server/ASP.NETCore/src/FoodAPICore/bin

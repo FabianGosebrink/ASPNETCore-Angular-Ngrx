@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="jumbotron">
+        <foodForm-component [foodItem]="foodSelectedFromList"></foodForm-component>
+        <br/>
+        <foodList-component [foods]="foods" (currentlySelectedFood)="setCurrentlySelectedFood($event)"></foodList-component>
+         <router-outlet></router-outlet>
+    </div>
+</div>
+<!-- /.container -->

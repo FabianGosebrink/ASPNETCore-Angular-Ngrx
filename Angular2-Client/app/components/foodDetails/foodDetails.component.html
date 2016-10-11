@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="jumbotron">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Id</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{selectedFoodItem.Id}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{selectedFoodItem.Name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Calories</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{selectedFoodItem.Calories}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Created</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{selectedFoodItem.Created}}</p>
+                </div>
+            </div>
+        </form>
+
+<a [routerLink]="['/food']" class="btn btn-primary btn-xs"> back to Food</a>
+    </div>
+</div>
