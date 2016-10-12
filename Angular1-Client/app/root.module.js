@@ -12,7 +12,7 @@
         ])
         .constant('appSettings',
         {
-            serverPath: 'http://localhost:5655/'
+            serverPath: 'http://foodapi4demo.azurewebsites.net/'
         })
         .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = false;
