@@ -18,11 +18,11 @@ var FoodFormComponent = (function () {
         this.AddOrUpdateFood = function () {
             if (_this.foodItem.id) {
                 console.log("update");
-                _this.foodUpdated.next(_this.currentFood);
+                _this.foodUpdated.emit(_this.currentFood);
             }
             else {
                 console.log("add");
-                _this.foodAdded.next(_this.currentFood);
+                _this.foodAdded.emit(_this.currentFood);
             }
         };
     }

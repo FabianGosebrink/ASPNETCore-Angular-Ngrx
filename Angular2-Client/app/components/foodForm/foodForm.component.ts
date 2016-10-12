@@ -28,10 +28,10 @@ export class FoodFormComponent implements OnChanges {
     public AddOrUpdateFood = (): void => {
         if (this.foodItem.id) {
             console.log("update");
-            this.foodUpdated.next(this.currentFood);
+            this.foodUpdated.emit(this.currentFood);
         } else {
             console.log("add");
-            this.foodAdded.next(this.currentFood);
+            this.foodAdded.emit(this.currentFood);
         }
     }
 }

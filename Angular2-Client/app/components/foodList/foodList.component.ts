@@ -15,10 +15,10 @@ export class FoodListComponent {
     @Output() foodDeleted = new EventEmitter<FoodItem>();
 
     public setFoodItemForEdit = (foodItem: FoodItem): void => {
-        this.foodSelected.next(foodItem);
+        this.foodSelected.emit(foodItem);
     }
 
     public deleteFood = (foodItem: FoodItem): void => {
-        this.foodDeleted.next(foodItem);
+        this.foodDeleted.emit(foodItem);
     };
 }

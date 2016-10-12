@@ -15,10 +15,10 @@ var FoodListComponent = (function () {
         this.foodSelected = new core_1.EventEmitter();
         this.foodDeleted = new core_1.EventEmitter();
         this.setFoodItemForEdit = function (foodItem) {
-            _this.foodSelected.next(foodItem);
+            _this.foodSelected.emit(foodItem);
         };
         this.deleteFood = function (foodItem) {
-            _this.foodDeleted.next(foodItem);
+            _this.foodDeleted.emit(foodItem);
         };
     }
     __decorate([
