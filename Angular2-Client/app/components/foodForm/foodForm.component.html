@@ -23,7 +23,7 @@
         </div>
 
         <div *ngIf="f?.controls?.calories?.hasError('isInRange') && (f?.controls?.calories?.dirty && !f.submitted)" class="alert alert-danger">
-            Please enter a valid number (Int-Range)
+            Please enter a valid number (Integer-Range)
         </div>
     </div>
     <button type="submit" class="btn btn-default" (click)="AddOrUpdateFood()" [disabled]="!f?.valid">Submit</button>
