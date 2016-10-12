@@ -4,9 +4,9 @@
 
       
             <h2 *ngIf="!selectedFood">Getting your food suggestions<br />Please wait...</h2>
-            <h2 *ngIf="selectedFood">{{selectedFood.Name}}<br/>{{selectedFood.Calories}}</h2>
-
-            <h3 *ngIf="selectedFood">{{lastUpdatedDate | date:'medium'}}</h3>
+            <h2 *ngIf="selectedFood" [innerText]="selectedFood.name"></h2>
+            <h2 *ngIf="selectedFood" [innerText]="selectedFood.calories"></h2>
+            <h3 *ngIf="selectedFood" [innerText]="lastUpdatedDate | date:'medium'"></h3>
             <button type="button" class="btn btn-primary" (click)="updateFood()">Get new Food</button>
         
 

@@ -9,17 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var Configuration = (function () {
-    function Configuration() {
-        //baseUrl: string = "http://foodapi4demo.azurewebsites.net/api/";
-        this.baseUrl = "http://localhost:5000/api/";
-        this.title = "Angular 2 FoodChooser";
+var app_configuration_1 = require('../../shared/app.configuration');
+var NavigationComponent = (function () {
+    function NavigationComponent(_configuration) {
+        this._configuration = _configuration;
     }
-    Configuration = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], Configuration);
-    return Configuration;
+    NavigationComponent = __decorate([
+        core_1.Component({
+            selector: 'navigation',
+            templateUrl: 'app/components/navigation/navigation.component.html'
+        }), 
+        __metadata('design:paramtypes', [app_configuration_1.Configuration])
+    ], NavigationComponent);
+    return NavigationComponent;
 }());
-exports.Configuration = Configuration;
-//# sourceMappingURL=app.configuration.js.map
+exports.NavigationComponent = NavigationComponent;
+//# sourceMappingURL=navigation.component.js.map

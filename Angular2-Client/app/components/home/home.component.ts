@@ -4,7 +4,6 @@ import { FoodItem } from '../../models/foodItem';
 
 @Component({
     selector: 'home-component',
-    providers: [FoodDataService],
     templateUrl: 'app/components/home/home.component.html'
 })
 

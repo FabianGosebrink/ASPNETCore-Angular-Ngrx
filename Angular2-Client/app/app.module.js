@@ -21,6 +21,7 @@ var mainFood_component_1 = require('./components/mainFood/mainFood.component');
 var foodDetails_component_1 = require('./components/foodDetails/foodDetails.component');
 var foodList_component_1 = require('./components/foodList/foodList.component');
 var foodForm_component_1 = require('./components/foodForm/foodForm.component');
+var navigation_component_1 = require('./components/navigation/navigation.component');
 var food_dataservice_1 = require('./shared/food.dataservice');
 var AppModule = (function () {
     function AppModule() {
@@ -41,7 +42,8 @@ var AppModule = (function () {
                 mainFood_component_1.MainFoodComponent,
                 foodDetails_component_1.FoodDetailsComponent,
                 foodList_component_1.FoodListComponent,
-                foodForm_component_1.FoodFormComponent
+                foodForm_component_1.FoodFormComponent,
+                navigation_component_1.NavigationComponent
             ],
             providers: [
                 app_routes_1.appRoutingProviders,

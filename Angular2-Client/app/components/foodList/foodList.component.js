@@ -9,19 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var food_dataservice_1 = require('../../shared/food.dataservice');
 var FoodListComponent = (function () {
-    function FoodListComponent(_foodDataService) {
+    function FoodListComponent() {
         var _this = this;
-        this._foodDataService = _foodDataService;
-        this.currentlySelectedFood = new core_1.EventEmitter();
+        this.foodSelected = new core_1.EventEmitter();
+        this.foodDeleted = new core_1.EventEmitter();
         this.setFoodItemForEdit = function (foodItem) {
-            _this.currentlySelectedFood.next(foodItem);
+            _this.foodSelected.next(foodItem);
         };
         this.deleteFood = function (foodItem) {
-            _this._foodDataService
-                .DeleteFood(foodItem.Id)
-                .subscribe(function () { return console.log('Food deleted'); }, function (error) { return console.log(error); });
+            _this.foodDeleted.next(foodItem);
         };
     }
     __decorate([
@@ -31,13 +28,17 @@ var FoodListComponent = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], FoodListComponent.prototype, "currentlySelectedFood", void 0);
+    ], FoodListComponent.prototype, "foodSelected", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], FoodListComponent.prototype, "foodDeleted", void 0);
     FoodListComponent = __decorate([
         core_1.Component({
-            selector: 'foodList-component',
+            selector: 'foodList',
             templateUrl: 'app/components/foodList/foodList.component.html'
         }), 
-        __metadata('design:paramtypes', [food_dataservice_1.FoodDataService])
+        __metadata('design:paramtypes', [])
     ], FoodListComponent);
     return FoodListComponent;
 }());

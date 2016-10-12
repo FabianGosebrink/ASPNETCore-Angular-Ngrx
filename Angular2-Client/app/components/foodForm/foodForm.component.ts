@@ -1,47 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FoodDataService } from '../../shared/food.dataservice';
 import { FoodItem } from '../../models/foodItem';
 import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'foodForm-component',
+    selector: 'foodForm',
     templateUrl: 'app/components/foodForm/foodForm.component.html'
 })
 
-export class FoodFormComponent {
+export class FoodFormComponent implements OnChanges {
     @Input() foodItem: FoodItem;
 
-    constructor(private _foodDataService: FoodDataService) {
+    @Output() foodUpdated = new EventEmitter<FoodItem>();
+    @Output() foodAdded = new EventEmitter<FoodItem>();
+
+    private currentFood: FoodItem;
+
+    constructor() {
 
     }
 
-    get diagnostic() { return JSON.stringify(this.foodItem); }
+    ngOnChanges(changes: any) {
+        this.currentFood = Object.assign(new FoodItem(), changes.foodItem.currentValue);
+        console.log(this.currentFood);
+    }
 
     public AddOrUpdateFood = (): void => {
-        if (this.foodItem.Id) {
-            this.UpdateFood(this.foodItem);
+        if (this.foodItem.id) {
+            console.log("update");
+            this.foodUpdated.next(this.currentFood);
         } else {
-            this.AddFood(this.foodItem);
+            console.log("add");
+            this.foodAdded.next(this.currentFood);
         }
-    }
-
-    private AddFood = (foodItem: FoodItem): void => {
-        this._foodDataService
-            .AddFood(this.foodItem)
-            .subscribe((response: FoodItem) => {
-                console.log("added food");
-                this.foodItem = new FoodItem();
-            },
-            error => console.log(error));
-    }
-
-    private UpdateFood = (foodItem: FoodItem): void => {
-        this._foodDataService
-            .UpdateFood(this.foodItem.Id, this.foodItem)
-            .subscribe((response: FoodItem) => {
-                console.log("updated food");
-                this.foodItem = new FoodItem();
-            },
-            error => console.log(error));
     }
 }

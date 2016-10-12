@@ -6,15 +6,15 @@
     </tr>
     <tr *ngFor="let food of foods; let i = index">
         <td class="text-left">
-            {{food.Name}}
+            {{food.name}}
         </td>
         <td class="text-left">
-            {{food.Calories}}
+            {{food.calories}}
         </td>
         <td class="text-right">
             <button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
             <button (click)="setFoodItemForEdit(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-            <a [routerLink]="['/food', food.Id]" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Details</a>
+            <a [routerLink]="['/food', food.id]" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Details</a>
         </td>
     </tr>
 </table>

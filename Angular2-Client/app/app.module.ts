@@ -12,6 +12,7 @@ import { MainFoodComponent } from  './components/mainFood/mainFood.component';
 import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
 import { FoodListComponent } from './components/foodList/foodList.component';
 import { FoodFormComponent } from './components/foodForm/foodForm.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 import { FoodDataService } from './shared/food.dataservice';
 
@@ -32,7 +33,8 @@ import { FoodDataService } from './shared/food.dataservice';
         MainFoodComponent,
         FoodDetailsComponent,
         FoodListComponent,
-        FoodFormComponent
+        FoodFormComponent,
+        NavigationComponent
     ],
 
     providers: [

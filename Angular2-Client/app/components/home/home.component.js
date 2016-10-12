@@ -34,7 +34,6 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home-component',
-            providers: [food_dataservice_1.FoodDataService],
             templateUrl: 'app/components/home/home.component.html'
         }), 
         __metadata('design:paramtypes', [food_dataservice_1.FoodDataService])

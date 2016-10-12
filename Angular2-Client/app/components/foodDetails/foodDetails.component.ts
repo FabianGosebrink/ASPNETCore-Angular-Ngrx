@@ -5,7 +5,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'foodDetails-component',
-    providers: [FoodDataService],
     templateUrl: 'app/components/foodDetails/foodDetails.component.html'
 })
 
@@ -19,9 +18,10 @@ export class FoodDetailsComponent implements OnInit {
 
     ngOnInit() {
         this._route.params.forEach((params: Params) => {
-            let foodId = +params['foodId']; // (+) converts string 'id' to a number
+            let id = this._route.snapshot.params['foodId'];
+            //let foodId = +params['foodId']; // (+) converts string 'id' to a number
             this._foodDataService
-                .GetSingleFood(foodId)
+                .GetSingleFood(id)
                 .subscribe((foodItem: FoodItem) => {
                     this.selectedFoodItem = foodItem;
                 }, error => console.log(error));

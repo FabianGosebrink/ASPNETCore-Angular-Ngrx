@@ -31,8 +31,8 @@ export class FoodDataService {
     public AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
         let toAdd: string = JSON.stringify(
             {
-                name: foodItem.Name,
-                calories: foodItem.Calories,
+                name: foodItem.name,
+                calories: foodItem.calories,
                 created: new Date()
             });
 

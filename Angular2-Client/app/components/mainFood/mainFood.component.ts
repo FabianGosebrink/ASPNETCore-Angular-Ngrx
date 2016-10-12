@@ -7,7 +7,6 @@ import { FoodItem } from '../../models/foodItem';
 
 @Component({
     selector: 'mainFood-component',
-    providers: [FoodDataService],
     templateUrl: 'app/components/mainFood/mainFood.component.html'
 })
 
@@ -27,6 +26,36 @@ export class MainFoodComponent implements OnInit {
 
     public setCurrentlySelectedFood(foodItem: FoodItem) {
         this.foodSelectedFromList = foodItem;
+    }
+
+    public addFood = (foodItem: FoodItem): void => {
+        this._foodDataService
+            .AddFood(foodItem)
+            .subscribe((response: FoodItem) => {
+                console.log("added food");
+                this.getFood();
+            },
+            error => console.log(error));
+    }
+
+    public updateFood = (foodItem: FoodItem): void => {
+        this._foodDataService
+            .UpdateFood(foodItem.id, foodItem)
+            .subscribe((response: FoodItem) => {
+                console.log("updated food");
+                this.getFood();
+            },
+            error => console.log(error));
+    }
+
+    public deleteFood(foodItem: FoodItem) {
+        this._foodDataService
+            .DeleteFood(foodItem.id)
+            .subscribe(() => {
+                console.log('Food deleted');
+                this.getFood();
+            },
+            error => console.log(error));
     }
 
     private getFood = (): void => {

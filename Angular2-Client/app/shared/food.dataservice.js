@@ -31,8 +31,8 @@ var FoodDataService = (function () {
         };
         this.AddFood = function (foodItem) {
             var toAdd = JSON.stringify({
-                name: foodItem.Name,
-                calories: foodItem.Calories,
+                name: foodItem.name,
+                calories: foodItem.calories,
                 created: new Date()
             });
             var options = _this.prepareOptions(null);

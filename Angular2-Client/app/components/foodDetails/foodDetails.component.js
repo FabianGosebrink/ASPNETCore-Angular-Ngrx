@@ -21,9 +21,10 @@ var FoodDetailsComponent = (function () {
     FoodDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._route.params.forEach(function (params) {
-            var foodId = +params['foodId']; // (+) converts string 'id' to a number
+            var id = _this._route.snapshot.params['foodId'];
+            //let foodId = +params['foodId']; // (+) converts string 'id' to a number
             _this._foodDataService
-                .GetSingleFood(foodId)
+                .GetSingleFood(id)
                 .subscribe(function (foodItem) {
                 _this.selectedFoodItem = foodItem;
             }, function (error) { return console.log(error); });
@@ -32,7 +33,6 @@ var FoodDetailsComponent = (function () {
     FoodDetailsComponent = __decorate([
         core_1.Component({
             selector: 'foodDetails-component',
-            providers: [food_dataservice_1.FoodDataService],
             templateUrl: 'app/components/foodDetails/foodDetails.component.html'
         }), 
         __metadata('design:paramtypes', [router_1.ActivatedRoute, food_dataservice_1.FoodDataService])

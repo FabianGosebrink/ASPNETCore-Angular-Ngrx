@@ -15,6 +15,22 @@ var MainFoodComponent = (function () {
     function MainFoodComponent(_foodDataService) {
         var _this = this;
         this._foodDataService = _foodDataService;
+        this.addFood = function (foodItem) {
+            _this._foodDataService
+                .AddFood(foodItem)
+                .subscribe(function (response) {
+                console.log("added food");
+                _this.getFood();
+            }, function (error) { return console.log(error); });
+        };
+        this.updateFood = function (foodItem) {
+            _this._foodDataService
+                .UpdateFood(foodItem.id, foodItem)
+                .subscribe(function (response) {
+                console.log("updated food");
+                _this.getFood();
+            }, function (error) { return console.log(error); });
+        };
         this.getFood = function () {
             _this._foodDataService
                 .GetAllFood()
@@ -32,10 +48,18 @@ var MainFoodComponent = (function () {
     MainFoodComponent.prototype.setCurrentlySelectedFood = function (foodItem) {
         this.foodSelectedFromList = foodItem;
     };
+    MainFoodComponent.prototype.deleteFood = function (foodItem) {
+        var _this = this;
+        this._foodDataService
+            .DeleteFood(foodItem.id)
+            .subscribe(function () {
+            console.log('Food deleted');
+            _this.getFood();
+        }, function (error) { return console.log(error); });
+    };
     MainFoodComponent = __decorate([
         core_1.Component({
             selector: 'mainFood-component',
-            providers: [food_dataservice_1.FoodDataService],
             templateUrl: 'app/components/mainFood/mainFood.component.html'
         }), 
         __metadata('design:paramtypes', [food_dataservice_1.FoodDataService])
