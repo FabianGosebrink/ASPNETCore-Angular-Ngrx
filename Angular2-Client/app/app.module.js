@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
+var router_1 = require('@angular/router');
 var app_configuration_1 = require('./shared/app.configuration');
 var app_routes_1 = require('./app.routes');
 var http_1 = require('@angular/http');
@@ -30,7 +31,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
-                app_routes_1.routing,
+                router_1.RouterModule.forRoot(app_routes_1.AppRoutes),
                 http_1.HttpModule,
                 http_1.JsonpModule,
                 forms_1.FormsModule,
@@ -46,7 +47,6 @@ var AppModule = (function () {
                 navigation_component_1.NavigationComponent
             ],
             providers: [
-                app_routes_1.appRoutingProviders,
                 app_configuration_1.Configuration,
                 food_dataservice_1.FoodDataService
             ],

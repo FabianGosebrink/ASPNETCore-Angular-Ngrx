@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from './app.component';
+import { RouterModule } from '@angular/router';
 import { Configuration } from './shared/app.configuration';
-import { routing, appRoutingProviders } from './app.routes';
+import { AppRoutes } from './app.routes';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './modules/shared.module';
@@ -20,7 +21,7 @@ import { FoodDataService } from './shared/food.dataservice';
 @NgModule({
     imports: [
         BrowserModule,
-        routing,
+        RouterModule.forRoot(AppRoutes),
         HttpModule,
         JsonpModule,
         FormsModule,
@@ -38,7 +39,6 @@ import { FoodDataService } from './shared/food.dataservice';
     ],
 
     providers: [
-        appRoutingProviders,
         Configuration,
         FoodDataService
     ],
