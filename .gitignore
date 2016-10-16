@@ -11,3 +11,5 @@ Server/ASP.NET/FoodAPI/Properties/PublishProfiles
 Server/ASP.NETCore/.vs
 Server/ASP.NETCore/src/FoodAPICore/bin
 Angular2-Client/.dist
+Angular2-Client/.vscode
+Angular2-Client/npm-debug.log.*
