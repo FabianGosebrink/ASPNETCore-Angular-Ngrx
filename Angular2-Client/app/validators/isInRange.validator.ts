@@ -14,7 +14,12 @@ export class IsInRangeValidator implements Validator {
         // self value (e.g. retype password)
 
         if (c.value > 2147483647 || c.value < 0) {
-            return { isInRange: false };
+            return {
+                isInRange:
+                {
+                    valid: false
+                }
+            };
         }
 
         return null;
