@@ -8,17 +8,12 @@ namespace FoodAPICore.Repositories.Food
 {
     public class FoodRepository : IFoodRepository
     {
-        private ConcurrentDictionary<int, FoodItem> _storage = new ConcurrentDictionary<int, FoodItem>();
+        private readonly ConcurrentDictionary<int, FoodItem> _storage = new ConcurrentDictionary<int, FoodItem>();
 
         public FoodItem GetSingle(int id)
         {
             FoodItem foodItem;
-            if (_storage.TryGetValue(id, out foodItem))
-            {
-                return foodItem;
-            }
-
-            return null;
+            return _storage.TryGetValue(id, out foodItem) ? foodItem : null;
         }
 
         public FoodItem Add(FoodItem item)
@@ -30,7 +25,7 @@ namespace FoodAPICore.Repositories.Food
                 return item;
             }
 
-            throw new Exception("Adding item not possible.");
+            throw new Exception("Item could not be added");
         }
 
         public void Delete(int id)
@@ -38,14 +33,14 @@ namespace FoodAPICore.Repositories.Food
             FoodItem foodItem;
             if (!_storage.TryRemove(id, out foodItem))
             {
-                throw new Exception("Removing item not possible");
+                throw new Exception("Item could not be removed");
             }
         }
 
         public FoodItem Update(int id, FoodItem item)
         {
             _storage.TryUpdate(id, item, GetSingle(id));
-            return GetSingle(id);
+            return item;
         }
 
         public ICollection<FoodItem> GetAll()
