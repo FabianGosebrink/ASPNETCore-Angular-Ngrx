@@ -17,7 +17,9 @@ var IsNumberValidator = (function () {
         if (isNaN(+c.value)) {
             // console.log(c.value + " is not a number");
             return {
-                isNumber: false
+                isNumber: {
+                    valid: false
+                }
             };
         }
         // console.log(c.value + " is a number");

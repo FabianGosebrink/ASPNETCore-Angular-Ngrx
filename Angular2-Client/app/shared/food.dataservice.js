@@ -13,12 +13,12 @@ var http_1 = require('@angular/http');
 var Rx_1 = require('rxjs/Rx');
 var app_configuration_1 = require('../shared/app.configuration');
 var FoodDataService = (function () {
+    // @Output() foodAdded: EventEmitter<any> = new EventEmitter();
+    // @Output() foodDeleted: EventEmitter<any> = new EventEmitter();
     function FoodDataService(_http, _configuration) {
         var _this = this;
         this._http = _http;
         this._configuration = _configuration;
-        this.foodAdded = new core_1.EventEmitter();
-        this.foodDeleted = new core_1.EventEmitter();
         this.GetAllFood = function () {
             return _this._http.get(_this.actionUrl)
                 .map(function (response) { return response.json(); })
@@ -38,7 +38,6 @@ var FoodDataService = (function () {
             var options = _this.prepareOptions(null);
             return _this._http.post(_this.actionUrl, toAdd, options)
                 .map(function (response) { return response.json(); })
-                .do(function () { return _this.foodAdded.emit(null); })
                 .catch(_this.handleError);
         };
         this.UpdateFood = function (id, foodToUpdate) {
@@ -49,7 +48,6 @@ var FoodDataService = (function () {
         };
         this.DeleteFood = function (id) {
             return _this._http.delete(_this.actionUrl + id)
-                .do(function () { return _this.foodDeleted.emit(null); })
                 .catch(_this.handleError);
         };
         this.prepareOptions = function (options) {
@@ -66,14 +64,6 @@ var FoodDataService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], FoodDataService.prototype, "foodAdded", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], FoodDataService.prototype, "foodDeleted", void 0);
     FoodDataService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, app_configuration_1.Configuration])

@@ -15,9 +15,7 @@ export class MainFoodComponent implements OnInit {
     public foods: FoodItem[];
 
     constructor(private _foodDataService: FoodDataService) {
-        this.setCurrentlySelectedFood(new FoodItem());
-        this._foodDataService.foodAdded.subscribe(() => this.getFood());
-        this._foodDataService.foodDeleted.subscribe(() => this.getFood());
+        this.resetCurrentlySelectedFoodItem();
     }
 
     ngOnInit() {
@@ -66,5 +64,9 @@ export class MainFoodComponent implements OnInit {
             },
             error => console.log(error),
             () => console.log(this.foods));
+    }
+
+    private resetCurrentlySelectedFoodItem() {
+        this.setCurrentlySelectedFood(new FoodItem());
     }
 }

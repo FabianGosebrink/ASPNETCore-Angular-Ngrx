@@ -38,9 +38,7 @@ var MainFoodComponent = (function () {
                 _this.foods = response;
             }, function (error) { return console.log(error); }, function () { return console.log(_this.foods); });
         };
-        this.setCurrentlySelectedFood(new foodItem_1.FoodItem());
-        this._foodDataService.foodAdded.subscribe(function () { return _this.getFood(); });
-        this._foodDataService.foodDeleted.subscribe(function () { return _this.getFood(); });
+        this.resetCurrentlySelectedFoodItem();
     }
     MainFoodComponent.prototype.ngOnInit = function () {
         this.getFood();
@@ -56,6 +54,9 @@ var MainFoodComponent = (function () {
             console.log('Food deleted');
             _this.getFood();
         }, function (error) { return console.log(error); });
+    };
+    MainFoodComponent.prototype.resetCurrentlySelectedFoodItem = function () {
+        this.setCurrentlySelectedFood(new foodItem_1.FoodItem());
     };
     MainFoodComponent = __decorate([
         core_1.Component({
