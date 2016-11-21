@@ -1,10 +1,19 @@
+<form>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+            <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <tr>
         <th>Name</th>
         <th>Calories</th>
         <th class="text-right">Actions</th>
     </tr>
-    <tr *ngFor="let food of foods; let i = index">
+    <tr *ngFor="let food of foods | filter : 'name' : searchString; let i = index">
         <td class="text-left">
             {{food.name}}
         </td>

@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var isNumber_validator_1 = require('../validators/isNumber.validator');
 var isInRange_validator_1 = require('../validators/isInRange.validator');
+var filter_pipe_1 = require('../pipes/filter.pipe');
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -24,12 +25,14 @@ var SharedModule = (function () {
             declarations: [
                 // Components & directives
                 isNumber_validator_1.IsNumberValidator,
-                isInRange_validator_1.IsInRangeValidator
+                isInRange_validator_1.IsInRangeValidator,
+                filter_pipe_1.FilterPipe
             ],
             providers: [],
             exports: [
                 isNumber_validator_1.IsNumberValidator,
-                isInRange_validator_1.IsInRangeValidator
+                isInRange_validator_1.IsInRangeValidator,
+                filter_pipe_1.FilterPipe
             ]
         }), 
         __metadata('design:paramtypes', [])

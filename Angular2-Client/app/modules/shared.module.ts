@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IsNumberValidator } from '../validators/isNumber.validator';
 import { IsInRangeValidator } from '../validators/isInRange.validator';
 
+import { FilterPipe } from '../pipes/filter.pipe';
+
 @NgModule({
     imports: [
         // Modules
@@ -15,7 +17,8 @@ import { IsInRangeValidator } from '../validators/isInRange.validator';
         // Components & directives
 
         IsNumberValidator,
-        IsInRangeValidator
+        IsInRangeValidator,
+        FilterPipe
     ],
 
     providers: [
@@ -24,7 +27,8 @@ import { IsInRangeValidator } from '../validators/isInRange.validator';
 
     exports: [
         IsNumberValidator,
-        IsInRangeValidator
+        IsInRangeValidator,
+        FilterPipe
     ]
 })
 

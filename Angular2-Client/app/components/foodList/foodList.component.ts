@@ -9,6 +9,7 @@ import { FoodItem } from '../../models/foodItem';
 
 export class FoodListComponent {
     public foodItem: FoodItem;
+    public searchString: string;
 
     @Input() foods: FoodItem[];
     @Output() foodSelected = new EventEmitter<FoodItem>();
