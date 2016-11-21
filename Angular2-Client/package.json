@@ -4,34 +4,36 @@
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
-    "postinstall": "typings install",
     "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "tsc:w": "tsc -w"
   },
   "license": "ISC",
   "dependencies": {
-    "@angular/common": "~2.1.0",
-    "@angular/compiler": "~2.1.0",
-    "@angular/core": "~2.1.0",
-    "@angular/forms": "~2.1.0",
-    "@angular/http": "~2.1.0",
-    "@angular/platform-browser": "~2.1.0",
-    "@angular/platform-browser-dynamic": "~2.1.0",
-    "@angular/router": "~3.1.0",
-    "@angular/upgrade": "~2.1.0",
-    "core-js": "^2.4.1",
-    "reflect-metadata": "^0.1.8",
+    "@angular/common": "2.2.0",
+    "@angular/compiler": "2.2.0",
+    "@angular/core": "2.2.0",
+    "@angular/forms": "2.2.0",
+    "@angular/http": "2.2.0",
+    "@angular/platform-browser": "2.2.0",
+    "@angular/platform-browser-dynamic": "2.2.0",
+    "@angular/router": "3.2.0",
+    "@angular/upgrade": "2.2.0",
+    "angular-in-memory-web-api": "0.1.15",
+    "core-js": "2.4.1",
+    "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.39",
-    "zone.js": "^0.6.25",
-    "bootstrap": "^3.3.7",
+    "zone.js": "0.6.25",
+    "bootstrap": "3.3.7",
     "jquery": "2.2.4"
   },
   "devDependencies": {
     "lite-server": "^2.2.2",
     "rimraf": "^2.5.4",
     "concurrently": "^3.0.0",
-    "typings": "^1.4.0"
+    "typings": "^1.4.0",
+    "@types/core-js": "0.9.34",
+    "@types/node": "6.0.45",
+    "typescript": "2.0.3"
   }
 }
