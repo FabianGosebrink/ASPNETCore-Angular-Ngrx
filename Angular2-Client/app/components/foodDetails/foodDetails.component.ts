@@ -12,14 +12,12 @@ export class FoodDetailsComponent implements OnInit {
 
     public selectedFoodItem: FoodItem = new FoodItem();
 
-    constructor(private _route: ActivatedRoute, private _foodDataService: FoodDataService) {
-
-    }
+    constructor(private _route: ActivatedRoute, private _foodDataService: FoodDataService) {  }
 
     ngOnInit() {
+
         this._route.params.forEach((params: Params) => {
-            let id = this._route.snapshot.params['foodId'];
-            //let foodId = +params['foodId']; // (+) converts string 'id' to a number
+            let id = +params['foodId']
             this._foodDataService
                 .GetSingleFood(id)
                 .subscribe((foodItem: FoodItem) => {

@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { IsNumberValidator } from '../validators/isNumber.validator';
 import { IsInRangeValidator } from '../validators/isInRange.validator';
-
+import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../pipes/filter.pipe';
 
 @NgModule({
     imports: [
         // Modules
-        BrowserModule
+        CommonModule
     ],
 
     declarations: [

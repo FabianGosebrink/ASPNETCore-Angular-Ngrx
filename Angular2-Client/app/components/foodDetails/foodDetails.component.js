@@ -21,8 +21,7 @@ var FoodDetailsComponent = (function () {
     FoodDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._route.params.forEach(function (params) {
-            var id = _this._route.snapshot.params['foodId'];
-            //let foodId = +params['foodId']; // (+) converts string 'id' to a number
+            var id = +params['foodId'];
             _this._foodDataService
                 .GetSingleFood(id)
                 .subscribe(function (foodItem) {
