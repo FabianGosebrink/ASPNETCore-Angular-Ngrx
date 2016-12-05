@@ -1,5 +1,5 @@
-import { Injectable, EventEmitter, Output } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, RequestOptionsArgs} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { FoodItem } from '../models/FoodItem';
 import { Configuration } from '../shared/app.configuration';
@@ -40,7 +40,7 @@ export class FoodDataService {
 
         return this._http.post(this.actionUrl, toAdd, options)
             .map((response: Response) => <FoodItem>response.json())
-            //.do(() => this.foodAdded.emit(null))
+            // .do(() => this.foodAdded.emit(null))
             .catch(this.handleError);
     }
 
@@ -54,7 +54,7 @@ export class FoodDataService {
 
     public DeleteFood = (id: number): Observable<Response> => {
         return this._http.delete(this.actionUrl + id)
-            //.do(() => this.foodDeleted.emit(null))
+            // .do(() => this.foodDeleted.emit(null))
             .catch(this.handleError);
     }
 

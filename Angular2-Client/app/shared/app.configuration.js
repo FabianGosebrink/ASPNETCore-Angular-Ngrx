@@ -11,9 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Configuration = (function () {
     function Configuration() {
-        this.baseUrl = "http://foodapi4demo.azurewebsites.net/api/";
-        //baseUrl: string = "http://localhost:5000/api/";
-        this.title = "Angular 2 FoodChooser";
+        this.baseUrl = 'http://foodapi4demo.azurewebsites.net/api/';
+        // baseUrl: string = "http://localhost:5000/api/";
+        this.title = 'Angular 2 FoodChooser';
     }
     Configuration = __decorate([
         core_1.Injectable(), 

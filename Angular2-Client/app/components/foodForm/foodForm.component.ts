@@ -1,7 +1,5 @@
-import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
-import { FoodDataService } from '../../shared/food.dataservice';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FoodItem } from '../../models/foodItem';
-import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'foodForm',
@@ -27,10 +25,10 @@ export class FoodFormComponent implements OnChanges {
 
     public AddOrUpdateFood = (): void => {
         if (this.foodItem.id) {
-            console.log("update");
+            console.log('update');
             this.foodUpdated.emit(this.currentFood);
         } else {
-            console.log("add");
+            console.log('add');
             this.foodAdded.emit(this.currentFood);
         }
     }

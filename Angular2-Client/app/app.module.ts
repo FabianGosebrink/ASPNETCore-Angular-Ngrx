@@ -4,7 +4,7 @@ import { AppComponent }  from './app.component';
 import { RouterModule } from '@angular/router';
 import { Configuration } from './shared/app.configuration';
 import { AppRoutes } from './app.routes';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './modules/shared.module';
 
@@ -23,7 +23,6 @@ import { FoodDataService } from './shared/food.dataservice';
         BrowserModule,
         RouterModule.forRoot(AppRoutes),
         HttpModule,
-        JsonpModule,
         FormsModule,
         SharedModule
     ],

@@ -19,7 +19,7 @@ var MainFoodComponent = (function () {
             _this._foodDataService
                 .AddFood(foodItem)
                 .subscribe(function (response) {
-                console.log("added food");
+                console.log('added food');
                 _this.getFood();
             }, function (error) { return console.log(error); });
         };
@@ -27,7 +27,7 @@ var MainFoodComponent = (function () {
             _this._foodDataService
                 .UpdateFood(foodItem.id, foodItem)
                 .subscribe(function (response) {
-                console.log("updated food");
+                console.log('updated food');
                 _this.getFood();
             }, function (error) { return console.log(error); });
         };

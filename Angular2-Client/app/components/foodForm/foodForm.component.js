@@ -17,11 +17,11 @@ var FoodFormComponent = (function () {
         this.foodAdded = new core_1.EventEmitter();
         this.AddOrUpdateFood = function () {
             if (_this.foodItem.id) {
-                console.log("update");
+                console.log('update');
                 _this.foodUpdated.emit(_this.currentFood);
             }
             else {
-                console.log("add");
+                console.log('add');
                 _this.foodAdded.emit(_this.currentFood);
             }
         };

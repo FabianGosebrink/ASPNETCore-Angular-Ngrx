@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FoodFormComponent } from '../foodForm/foodForm.component';
-import { FoodListComponent } from '../foodList/foodList.component';
-import { FoodDetailsComponent } from '../foodDetails/foodDetails.component';
+import { Component, OnInit } from '@angular/core';
 import { FoodDataService } from '../../shared/food.dataservice';
 import { FoodItem } from '../../models/foodItem';
 
@@ -30,7 +27,7 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .AddFood(foodItem)
             .subscribe((response: FoodItem) => {
-                console.log("added food");
+                console.log('added food');
                 this.getFood();
             },
             error => console.log(error));
@@ -40,7 +37,7 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .UpdateFood(foodItem.id, foodItem)
             .subscribe((response: FoodItem) => {
-                console.log("updated food");
+                console.log('updated food');
                 this.getFood();
             },
             error => console.log(error));

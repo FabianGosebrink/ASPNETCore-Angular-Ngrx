@@ -5,7 +5,9 @@
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
+    "lint": "tslint ./app/**/*.ts -t verbose"
   },
   "license": "ISC",
   "dependencies": {
@@ -28,12 +30,21 @@
     "jquery": "2.2.4"
   },
   "devDependencies": {
-    "lite-server": "^2.2.2",
-    "rimraf": "^2.5.4",
-    "concurrently": "^3.0.0",
-    "typings": "^1.4.0",
     "@types/core-js": "0.9.34",
     "@types/node": "6.0.45",
-    "typescript": "2.0.3"
+    "concurrently": "^3.0.0",
+    "jasmine-core": "~2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-cli": "^0.1.2",
+    "karma-htmlfile-reporter": "^0.2.2",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "lite-server": "^2.2.2",
+    "phantomjs": "^2.1.7",
+    "protractor": "^3.3.0",
+    "rimraf": "^2.5.4",
+    "typescript": "2.0.3",
+    "typings": "^1.4.0"
   }
 }

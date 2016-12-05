@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FoodDataService } from '../../shared/food.dataservice';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FoodItem } from '../../models/foodItem';
 
 @Component({

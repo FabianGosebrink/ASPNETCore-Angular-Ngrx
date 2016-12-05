@@ -33,7 +33,6 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 router_1.RouterModule.forRoot(app_routes_1.AppRoutes),
                 http_1.HttpModule,
-                http_1.JsonpModule,
                 forms_1.FormsModule,
                 shared_module_1.SharedModule
             ],
