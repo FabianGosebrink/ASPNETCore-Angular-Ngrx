@@ -4,18 +4,18 @@ import { FoodItem } from '../../models/foodItem';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
+    moduleId: module.id,
     selector: 'foodDetails-component',
-    templateUrl: 'app/components/foodDetails/foodDetails.component.html'
+    templateUrl: './foodDetails.component.html'
 })
 
 export class FoodDetailsComponent implements OnInit {
 
     public selectedFoodItem: FoodItem = new FoodItem();
 
-    constructor(private _route: ActivatedRoute, private _foodDataService: FoodDataService) {  }
+    constructor(private _route: ActivatedRoute, private _foodDataService: FoodDataService) { }
 
     ngOnInit() {
-
         this._route.params.forEach((params: Params) => {
             let id = +params['foodId'];
             this._foodDataService

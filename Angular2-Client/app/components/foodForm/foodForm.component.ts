@@ -2,8 +2,9 @@ import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core
 import { FoodItem } from '../../models/foodItem';
 
 @Component({
+    moduleId: module.id,
     selector: 'foodForm',
-    templateUrl: 'app/components/foodForm/foodForm.component.html'
+    templateUrl: './foodForm.component.html'
 })
 
 export class FoodFormComponent implements OnChanges {

@@ -60,8 +60,9 @@ var MainFoodComponent = (function () {
     };
     MainFoodComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'mainFood-component',
-            templateUrl: 'app/components/mainFood/mainFood.component.html'
+            templateUrl: './mainFood.component.html'
         }), 
         __metadata('design:paramtypes', [food_dataservice_1.FoodDataService])
     ], MainFoodComponent);

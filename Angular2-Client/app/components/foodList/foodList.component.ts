@@ -2,8 +2,9 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FoodItem } from '../../models/foodItem';
 
 @Component({
+    moduleId: module.id,
     selector: 'foodList',
-    templateUrl: 'app/components/foodList/foodList.component.html'
+    templateUrl: './foodList.component.html'
 })
 
 export class FoodListComponent {

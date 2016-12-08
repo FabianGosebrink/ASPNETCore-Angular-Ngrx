@@ -3,8 +3,9 @@ import { FoodDataService } from '../../shared/food.dataservice';
 import { FoodItem } from '../../models/foodItem';
 
 @Component({
+    moduleId: module.id,
     selector: 'mainFood-component',
-    templateUrl: 'app/components/mainFood/mainFood.component.html'
+    templateUrl: './mainFood.component.html'
 })
 
 export class MainFoodComponent implements OnInit {

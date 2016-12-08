@@ -35,8 +35,9 @@ var FoodListComponent = (function () {
     ], FoodListComponent.prototype, "foodDeleted", void 0);
     FoodListComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'foodList',
-            templateUrl: 'app/components/foodList/foodList.component.html'
+            templateUrl: './foodList.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], FoodListComponent);

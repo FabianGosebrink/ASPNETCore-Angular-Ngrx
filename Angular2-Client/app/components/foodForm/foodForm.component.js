@@ -44,8 +44,9 @@ var FoodFormComponent = (function () {
     ], FoodFormComponent.prototype, "foodAdded", void 0);
     FoodFormComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'foodForm',
-            templateUrl: 'app/components/foodForm/foodForm.component.html'
+            templateUrl: './foodForm.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], FoodFormComponent);

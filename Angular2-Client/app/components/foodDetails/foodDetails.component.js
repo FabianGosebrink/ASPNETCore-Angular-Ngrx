@@ -31,8 +31,9 @@ var FoodDetailsComponent = (function () {
     };
     FoodDetailsComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'foodDetails-component',
-            templateUrl: 'app/components/foodDetails/foodDetails.component.html'
+            templateUrl: './foodDetails.component.html'
         }), 
         __metadata('design:paramtypes', [router_1.ActivatedRoute, food_dataservice_1.FoodDataService])
     ], FoodDetailsComponent);

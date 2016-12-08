@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Configuration } from '../../shared/app.configuration';
 
 @Component({
+    moduleId: module.id,
     selector: 'navigation',
-    templateUrl: 'app/components/navigation/navigation.component.html'
+    templateUrl: './navigation.component.html'
 })
-
 
 export class NavigationComponent {
 
