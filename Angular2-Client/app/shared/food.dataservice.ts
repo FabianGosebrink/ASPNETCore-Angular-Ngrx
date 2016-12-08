@@ -7,7 +7,7 @@ import { Configuration } from '../shared/app.configuration';
 @Injectable()
 export class FoodDataService {
 
-    private actionUrl: string;
+    public actionUrl: string;
 
     // @Output() foodAdded: EventEmitter<any> = new EventEmitter();
     // @Output() foodDeleted: EventEmitter<any> = new EventEmitter();

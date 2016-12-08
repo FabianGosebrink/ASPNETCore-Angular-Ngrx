@@ -33,8 +33,9 @@ var HomeComponent = (function () {
     };
     HomeComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'home-component',
-            templateUrl: 'app/components/home/home.component.html'
+            templateUrl: './home.component.html'
         }), 
         __metadata('design:paramtypes', [food_dataservice_1.FoodDataService])
     ], HomeComponent);

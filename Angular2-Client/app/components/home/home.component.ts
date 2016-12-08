@@ -3,8 +3,9 @@ import { FoodDataService } from '../../shared/food.dataservice';
 import { FoodItem } from '../../models/foodItem';
 
 @Component({
+    moduleId: module.id,
     selector: 'home-component',
-    templateUrl: 'app/components/home/home.component.html'
+    templateUrl: './home.component.html'
 })
 
 
