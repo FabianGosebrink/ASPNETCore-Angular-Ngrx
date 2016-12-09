@@ -31,7 +31,6 @@ describe('HomeComponent', () => {
     });
 
     it('component should be instanciated', inject([FoodDataService], (service: FoodDataService) => {
-        console.log(fixture);
         expect(comp).toBeDefined();
     }));
 
@@ -39,9 +38,21 @@ describe('HomeComponent', () => {
         expect(comp.updateFood).toBeDefined();
     }));
 
-    it('updatefood should call service-->getFood', inject([FoodDataService], (service: FoodDataService) => {
+    it('updatefood should call service --> getFood', inject([FoodDataService], (service: FoodDataService) => {
         service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
         comp.updateFood();
         expect(service.GetAllFood).toHaveBeenCalledTimes(1);
+    }));
+
+    it('selectedFood should be one foodItem', inject([FoodDataService], (service: FoodDataService) => {
+        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
+        comp.updateFood();
+        expect(comp.selectedFood).toBeDefined();
+    }));
+
+    it('lastupdatedTime should be set', inject([FoodDataService], (service: FoodDataService) => {
+        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
+        comp.updateFood();
+        expect(comp.selectedFood).toBeDefined();
     }));
 });

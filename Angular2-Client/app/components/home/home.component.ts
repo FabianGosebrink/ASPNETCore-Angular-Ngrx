@@ -11,8 +11,8 @@ import { FoodItem } from '../../models/foodItem';
 
 export class HomeComponent implements OnInit {
 
-    private selectedFood: FoodItem;
-    private lastUpdatedDate: Date;
+    public selectedFood: FoodItem;
+    public lastUpdatedDate: Date;
 
     constructor(private _foodDataService: FoodDataService) {
 

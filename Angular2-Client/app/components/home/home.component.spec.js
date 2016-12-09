@@ -26,16 +26,25 @@ describe('HomeComponent', function () {
         fixture.destroy();
     });
     it('component should be instanciated', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
-        console.log(fixture);
         expect(comp).toBeDefined();
     }));
     it('updatefood should be defined', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
         expect(comp.updateFood).toBeDefined();
     }));
-    it('updatefood should call service-->getFood', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+    it('updatefood should call service --> getFood', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
         service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
         comp.updateFood();
         expect(service.GetAllFood).toHaveBeenCalledTimes(1);
+    }));
+    it('selectedFood should be one foodItem', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
+        comp.updateFood();
+        expect(comp.selectedFood).toBeDefined();
+    }));
+    it('lastupdatedTime should be set', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
+        comp.updateFood();
+        expect(comp.selectedFood).toBeDefined();
     }));
 });
 //# sourceMappingURL=home.component.spec.js.map

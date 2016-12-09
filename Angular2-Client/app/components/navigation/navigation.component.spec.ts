@@ -30,7 +30,6 @@ describe('NavigationComponent', () => {
     });
 
     it('component should be instanciated', () => {
-        console.log(fixture);
         expect(comp).toBeDefined();
     });
 
@@ -38,3 +37,4 @@ describe('NavigationComponent', () => {
         expect(comp._configuration).toBeDefined();
     }));
 });
+

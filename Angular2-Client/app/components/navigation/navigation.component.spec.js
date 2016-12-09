@@ -25,7 +25,6 @@ describe('NavigationComponent', function () {
         fixture.destroy();
     });
     it('component should be instanciated', function () {
-        console.log(fixture);
         expect(comp).toBeDefined();
     });
     it('configuration should be defined', testing_1.inject([app_configuration_1.Configuration], function (service) {

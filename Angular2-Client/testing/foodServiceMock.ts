@@ -6,7 +6,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FoodServiceMock {
 
-    private internalFoodList: FoodItem[] = [];
+    private internalFoodList = [];
+
+    constructor() {
+        let fooditem = new FoodItem();
+        fooditem.id = 1;
+        fooditem.created = new Date();
+        fooditem.calories = 999;
+        fooditem.name = 'FoodItem1';
+        this.internalFoodList.push(fooditem);
+    }
 
     public GetAllFood = (): Observable<FoodItem[]> => {
         return Observable.create(observer => {
