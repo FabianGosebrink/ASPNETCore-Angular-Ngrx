@@ -3,8 +3,9 @@ import { Location } from '@angular/common';
 import { Configuration } from  './shared/app.configuration';
 
 @Component({
+    moduleId: module.id,
     selector: 'foodChooser-app',
-    templateUrl: 'app/app.component.html'
+    templateUrl: './app.component.html'
 })
 
 

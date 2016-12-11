@@ -19,8 +19,9 @@ var AppComponent = (function () {
     }
     AppComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'foodChooser-app',
-            templateUrl: 'app/app.component.html'
+            templateUrl: './app.component.html'
         }), 
         __metadata('design:paramtypes', [app_configuration_1.Configuration, common_1.Location])
     ], AppComponent);
