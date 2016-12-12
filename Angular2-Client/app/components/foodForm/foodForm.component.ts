@@ -3,7 +3,7 @@ import { FoodItem } from '../../models/foodItem';
 
 @Component({
     moduleId: module.id,
-    selector: 'foodForm',
+    selector: 'foodform',
     templateUrl: './foodForm.component.html'
 })
 

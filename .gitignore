@@ -13,3 +13,5 @@ Server/ASP.NETCore/src/FoodAPICore/bin
 Angular2-Client/.dist
 Angular2-Client/.vscode
 Angular2-Client/npm-debug.log.*
+Angular2-Client/.tmp
+Angular2-Client/bs-config.json
