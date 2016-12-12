@@ -1,30 +1,32 @@
 <html>
 
 <head>
-    <base href="./" />
-    <title>FoodChooser Angular 2</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="./" />
+  <title>FoodChooser Angular 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="css/custom.css">
+  <!-- inject:css -->
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- endinject -->
+
 
 </head>
 
 <!-- 3. Display the application -->
 
 <body>
-    <foodChooser-app>Loading...</foodChooser-app>
+  <foodChooser-app>Loading...</foodChooser-app>
 </body>
 
-
-<!-- 1. Load libraries -->
-<!-- Polyfill(s) for older browsers -->
+<!-- inject:js -->
 <script src="node_modules/core-js/client/shim.min.js"></script>
 <script src="node_modules/zone.js/dist/zone.js"></script>
 <script src="node_modules/reflect-metadata/Reflect.js"></script>
 <script src="node_modules/systemjs/dist/system.src.js"></script>
-<!-- 2. Configure SystemJS -->
 <script src="systemjs.config.js"></script>
+<!-- endinject -->
+
 <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
