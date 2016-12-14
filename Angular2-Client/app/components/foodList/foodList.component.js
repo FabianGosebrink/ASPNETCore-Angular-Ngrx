@@ -36,7 +36,7 @@ var FoodListComponent = (function () {
     FoodListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'foodList',
+            selector: 'foodlist',
             templateUrl: './foodList.component.html'
         }), 
         __metadata('design:paramtypes', [])

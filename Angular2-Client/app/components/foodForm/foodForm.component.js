@@ -45,7 +45,7 @@ var FoodFormComponent = (function () {
     FoodFormComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'foodForm',
+            selector: 'foodform',
             templateUrl: './foodForm.component.html'
         }), 
         __metadata('design:paramtypes', [])
