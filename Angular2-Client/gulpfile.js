@@ -70,7 +70,7 @@ gulp.task('web-copy-angular2', function (done) {
 
 gulp.task('web-build-app', function (done) {
     var builder = new sysBuilder('.tmp', './.tmp/systemjs.config.js');
-    return builder.buildStatic('app', '.dist/js/app.min.js')//, { minify: true })
+    return builder.buildStatic('app', '.dist/js/app.min.js', { minify: true })
         .catch(function (err) {
             console.error('>>> [systemjs-builder] Bundling failed'.bold.green, err);
         });

@@ -12,8 +12,8 @@
     <div class="form-group">
         <label for="calories">Calories</label>
         <input type="text" class="form-control" id="calories" placeholder="Calories" [(ngModel)]="currentFood.calories" required
-            isNumber isInRange name="calories" #calories="ngModel"> 
-            
+            isNumber isInRange minValue="0" maxValue="" name="calories" #calories="ngModel">
+
         <div *ngIf="calories.errors?.required && (calories?.dirty && !f.submitted)" class="alert alert-danger">
             *
         </div>
