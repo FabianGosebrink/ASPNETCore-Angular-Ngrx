@@ -1,13 +1,15 @@
 import { FormControl } from '@angular/forms';
 import { IsInRangeValidator } from './isInRange.validator';
 
+const INT_MAX = 2147483647;
+
 describe('IsInRange', () => {
 
     let isInRangeValidator: IsInRangeValidator;
 
     // synchronous beforeEach
     beforeEach(() => {
-        isInRangeValidator = new IsInRangeValidator();
+        isInRangeValidator = new IsInRangeValidator(0, INT_MAX);
     });
 
     it('isInRangeValidator should be instanciated', () => {

@@ -1,11 +1,12 @@
 "use strict";
 var forms_1 = require('@angular/forms');
 var isInRange_validator_1 = require('./isInRange.validator');
+var INT_MAX = 2147483647;
 describe('IsInRange', function () {
     var isInRangeValidator;
     // synchronous beforeEach
     beforeEach(function () {
-        isInRangeValidator = new isInRange_validator_1.IsInRangeValidator();
+        isInRangeValidator = new isInRange_validator_1.IsInRangeValidator(0, INT_MAX);
     });
     it('isInRangeValidator should be instanciated', function () {
         expect(isInRangeValidator).toBeDefined();

@@ -8,14 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
+var INT_MAX = 2147483647;
 var IsInRangeValidator = (function () {
-    function IsInRangeValidator() {
+    function IsInRangeValidator(minValue, maxValue) {
+        this._minValue = minValue || 0;
+        this._maxValue = maxValue || INT_MAX;
     }
     IsInRangeValidator.prototype.validate = function (c) {
-        // self value (e.g. retype password)
-        if (c.value > 50 || c.value < 0) {
+        console.log(this._maxValue);
+        if (c.value > this._maxValue || c.value < this._minValue) {
             return {
                 isInRange: {
                     valid: false
@@ -30,8 +36,10 @@ var IsInRangeValidator = (function () {
             providers: [
                 { provide: forms_1.NG_VALIDATORS, useExisting: core_1.forwardRef(function () { return IsInRangeValidator; }), multi: true }
             ]
-        }), 
-        __metadata('design:paramtypes', [])
+        }),
+        __param(0, core_1.Attribute('minValue')),
+        __param(1, core_1.Attribute('maxValue')), 
+        __metadata('design:paramtypes', [Number, Number])
     ], IsInRangeValidator);
     return IsInRangeValidator;
 }());
