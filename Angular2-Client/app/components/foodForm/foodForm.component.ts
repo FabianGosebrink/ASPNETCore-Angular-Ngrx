@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { FoodItem } from '../../models/foodItem';
 
 @Component({
@@ -19,8 +19,8 @@ export class FoodFormComponent implements OnChanges {
 
     }
 
-    ngOnChanges(changes: any) {
-        this.currentFood = Object.assign(new FoodItem(), changes.foodItem.currentValue);
+    ngOnChanges(changes: SimpleChanges) {
+        this.currentFood = Object.assign(new FoodItem(), changes["foodItem"].currentValue);
         console.log(this.currentFood);
     }
 

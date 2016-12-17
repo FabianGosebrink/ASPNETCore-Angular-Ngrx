@@ -24,7 +24,7 @@ export class IsInRangeValidator implements Validator {
 
     validate(c: FormControl): { [key: string]: any } {
         console.log(this._maxValue);
-        if (c.value > this._maxValue || c.value < this._minValue) {
+        if (+c.value > this._maxValue || +c.value < this._minValue) {
             return {
                 isInRange: {
                     valid: false

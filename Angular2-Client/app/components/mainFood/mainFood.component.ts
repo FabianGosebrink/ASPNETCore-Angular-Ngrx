@@ -29,6 +29,7 @@ export class MainFoodComponent implements OnInit {
             .AddFood(foodItem)
             .subscribe((response: FoodItem) => {
                 console.log('added food');
+                this.resetCurrentlySelectedFoodItem();
                 this.getFood();
             },
             error => console.log(error));

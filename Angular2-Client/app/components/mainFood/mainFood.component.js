@@ -20,6 +20,7 @@ var MainFoodComponent = (function () {
                 .AddFood(foodItem)
                 .subscribe(function (response) {
                 console.log('added food');
+                _this.resetCurrentlySelectedFoodItem();
                 _this.getFood();
             }, function (error) { return console.log(error); });
         };
