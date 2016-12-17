@@ -15,3 +15,6 @@ Angular2-Client/.vscode
 Angular2-Client/npm-debug.log.*
 Angular2-Client/.tmp
 Angular2-Client/bs-config.json
+Angular2-Client-Webpack/.dist
+Angular2-Client-Webpack/aot/
+Angular2-Client-Webpack/node_modules
