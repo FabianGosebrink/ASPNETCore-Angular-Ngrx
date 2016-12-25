@@ -1,6 +1,6 @@
+import { Configuration } from './shared/configuration/app.configuration';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
-import { Configuration } from  './shared/app.configuration';
 
 @Component({
     moduleId: module.id,

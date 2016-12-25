@@ -7,7 +7,8 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
-    "lint": "tslint ./app/**/*.ts -t verbose"
+    "lint": "tslint ./app/**/*.ts -t verbose",
+    "dist": "gulp build:web"
   },
   "license": "ISC",
   "dependencies": {

@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var foodItem_1 = require('./../app/shared/models/foodItem');
 var http_1 = require('@angular/http');
-var foodItem_1 = require('./../app/models/foodItem');
 var Rx_1 = require('rxjs/Rx');
 var core_1 = require('@angular/core');
 var FoodServiceMock = (function () {

@@ -1,5 +1,5 @@
+import { FoodItem } from './../app/shared/models/foodItem';
 import { Response, ResponseOptions } from '@angular/http';
-import { FoodItem } from './../app/models/foodItem';
 import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 
