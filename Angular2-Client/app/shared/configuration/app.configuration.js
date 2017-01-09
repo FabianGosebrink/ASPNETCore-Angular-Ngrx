@@ -13,7 +13,7 @@ var Configuration = (function () {
     function Configuration() {
         this.baseUrl = 'http://foodapi4demo.azurewebsites.net/api/';
         // baseUrl: string = "http://localhost:5000/api/";
-        this.title = 'Angular 2 FoodChooser';
+        this.title = 'Angular FoodChooser';
     }
     Configuration = __decorate([
         core_1.Injectable(), 
