@@ -1,12 +1,12 @@
-# ASP.NET/ASP.NET Core Angular1/Angular2 Demo
+# ASP.NET/ASP.NET Core AngularJS/Angular Demo
 
-This repository offers you a demo application with
+This repository offers you a demo application with ASP.NET/ASP.NET Core & AngularJS/Angular.
 
 This application comes with forms, validation, routing etc.
 
 ### Demo
 
-You can see an AngularJs Demo with all the techniques combined here (running on Azure)
+You can see an AngularJS Demo with all the techniques combined here (running on Azure)
 
 [Demo](http://foodapi4demo.azurewebsites.net/)
 
@@ -16,8 +16,8 @@ You can see an AngularJs Demo with all the techniques combined here (running on 
 
 ### Home
 
-![alt text](_gitAssets/screen1.jpg "Screen1")
+![ASP.NET/ASP.NET Core AngularJS/Angular Demo](_gitAssets/screen1.jpg "Screen1")
 
 ### Form
 
-![alt text](_gitAssets/screen2.jpg "Screen2")
+![ASP.NET/ASP.NET Core AngularJS/Angular Demo](_gitAssets/screen2.jpg "Screen2")
