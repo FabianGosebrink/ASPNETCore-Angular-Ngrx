@@ -14,14 +14,14 @@ export class FoodFormComponent implements OnChanges {
     @Output() foodUpdated = new EventEmitter<FoodItem>();
     @Output() foodAdded = new EventEmitter<FoodItem>();
 
-    private currentFood: FoodItem;
+    public currentFood: FoodItem;
 
     constructor() {
 
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        this.currentFood = Object.assign(new FoodItem(), changes["foodItem"].currentValue);
+        this.currentFood = Object.assign(new FoodItem(), changes['foodItem'].currentValue);
     }
 
     public AddOrUpdateFood = (): void => {

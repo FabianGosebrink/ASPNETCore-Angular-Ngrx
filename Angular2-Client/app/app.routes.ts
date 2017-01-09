@@ -1,5 +1,3 @@
-import { MainFoodComponent } from './food/components/mainFood/mainFood.component';
-import { HomeComponent } from './home/components/home/home.component';
 import { Routes } from '@angular/router';
 
 export const AppRoutes: Routes = [

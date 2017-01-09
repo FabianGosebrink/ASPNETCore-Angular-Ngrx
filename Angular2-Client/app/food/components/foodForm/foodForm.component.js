@@ -27,7 +27,7 @@ var FoodFormComponent = (function () {
         };
     }
     FoodFormComponent.prototype.ngOnChanges = function (changes) {
-        this.currentFood = Object.assign(new foodItem_1.FoodItem(), changes["foodItem"].currentValue);
+        this.currentFood = Object.assign(new foodItem_1.FoodItem(), changes['foodItem'].currentValue);
     };
     __decorate([
         core_1.Input(), 
