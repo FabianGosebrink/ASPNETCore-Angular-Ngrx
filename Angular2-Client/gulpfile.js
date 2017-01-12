@@ -11,7 +11,7 @@ require('./gulpTasks/web');
 
 gulp.task('build:all', function(done) {
     runSeq(
-        'build:web:prod',
+        'build:web',
         // 'build:electron:prod',
         // 'build:apps',
         done);

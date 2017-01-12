@@ -32,6 +32,7 @@ gulp.task('build:web', function (done) {
         'web-vendor',
         'web-inject',
         'web-clean-temp-folder',
+        'web-delete-temp-folder',
         done);
 });
 
@@ -43,6 +44,12 @@ gulp.task('web-clean-dist-folder', function (done) {
 
 gulp.task('web-clean-temp-folder', function (done) {
     del('./.tmp/web/', { force: true }).then(function () {
+        done();
+    });
+});
+
+gulp.task('web-delete-temp-folder', function (done) {
+    del('./.tmp/', { force: true }).then(function () {
         done();
     });
 });
