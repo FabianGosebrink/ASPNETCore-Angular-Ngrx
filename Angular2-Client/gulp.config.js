@@ -2,67 +2,48 @@
 
 module.exports = {
     general: {
-        appName: "FoodChooserAppAngular2",
-        rootFolder: "app/",
-        indexHtml: "./index.html"
+        appName: 'AngularFoodChooser',
     },
     assets: {
-        electron: "../assets/electron/",
-        cordova: "../assets/cordova/",
-        shared: "../assets/shared/"
+        electron: './assets/electron/',
+        cordova: '../assets/cordova/',
+        systemJsConfigProd: './assets/systemjs.config.js',
+        electronloadjQuery: './assets/electron/loadjQuery.js'
     },
     sources: {
-        sourceFolder: "src/",
-        webpackConfig: '../webpack.config.js',
-        appEntryPoint: './app/main.js',
-        allAppJsFiles: [
-            "./app/*.js",
-            "./app/*/**/*.js",
+        allAppFiles: ['app/**/*.*', '!app/**/*.spec.ts'],
+        allAppTsFiles: 'app/**/*.ts',
+        allAppJsFiles: 'app/**/*.js',
+
+        allAngular: 'node_modules/@angular/**/*.*',
+        allRxJS: 'node_modules/rxjs/**/*.*',
+        vendorAppJs: [
+            'node_modules/bootstrap/dist/js/bootstrap.js',
+            'node_modules/jquery/dist/jquery.js'
         ],
-        allAppHtmlFiles: [
-            "./app/**/*.html"
+        vendorAngularJs: [
+            'node_modules/core-js/client/shim.min.js',
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js'
         ],
-        allVendorJsFiles: [
-            "./js/*.js"
-        ],
-        allAppCssFiles: [
-            "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "./css/*.css"
-        ],
-        allAppImgFiles: [
-            "./img/*.*",
-            "./img/windows/*.*"
-        ],
-        vendorScripts: [
-            "node_modules/zone.js/dist/zone.js",
-            "node_modules/reflect-metadata/Reflect.js",
-            "node_modules/systemjs/dist/system.src.js",
-            "node_modules/jquery/dist/jquery.js",
-            "node_modules/bootstrap/dist/js/bootstrap.js"
-        ],
-        allAngular2: [
-            "node_modules/@angular/**/*.js"
-        ],
-        allRxJs: [
-            "node_modules/rxjs/**/*.js"
-        ],
-        filesToCopyAsIsCordova: [
-            "js/winstore-jscompat.js",
-            "node_modules/es6-shim/es6-shim.min.js"
-        ]
-    },
-    temp: {
-        electronTempFolder: "../.temp/electron/",
-        cordova: "../.temp/cordova/",
-        cordovaWww: "../.temp/cordova/www/",
-        web: "../.temp/web/",
+        allFonts: 'node_modules/bootstrap/dist/fonts/*.*',
+        vendorCss: 'node_modules/bootstrap/dist/css/bootstrap.css',
+        appCss: './css/*.css',
+        indexHtml: 'index.html',
+        favIcon: 'favicon.ico',
     },
     targets: {
-        vendorScriptsMinFileName: "vendor.min.js",
-        webOutputPath: "./.dist/web/",
-        electronOutputPath: "./.dist/electron/",
-        cordovaOutputPath: "./.dist/cordova/",
-        scriptsOutputPath: "./.dist/web/scripts/",
-        cssOutputPath: "./.dist/web/css/"
+        distWeb: '.dist/web/',
+        distElectron: './.dist/desktop/',
+        distCordova: './.dist/cordova/',
+        tempMain: './.tmp/',
+        tempWeb: './.tmp/web/',
+        tempElectron: './.tmp/electron/',
+        tempCordova: './.tmp/cordova/',
+    },
+    fileNames: {
+        minVendor: 'vendor.min.js',
+        minApp: 'app.min.js',
+        minStyles: 'styles.min.css'
     }
 };

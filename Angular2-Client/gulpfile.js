@@ -6,13 +6,13 @@ gulp.task('default', ['help']);
 gulp.task('help', taskListing.withFilters(/-/));
 
 require('./gulpTasks/web');
-// require('./gulpTasks/electron');
+require('./gulpTasks/electron');
 // require('./gulpTasks/cordova');
 
-gulp.task('build:all', function(done) {
+gulp.task('build:all', function (done) {
     runSeq(
         'build:web',
-        // 'build:electron:prod',
+        'build:electron',
         // 'build:apps',
         done);
 });

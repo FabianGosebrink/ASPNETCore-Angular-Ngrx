@@ -26,8 +26,8 @@
       '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
       // other libraries
       'rxjs': 'npm:rxjs',
-      'bootstrap': 'npm:bootstrap.js',
-      'jquery': 'npm:jquery.js'
+      'jquery': 'npm:jquery.js',
+      'bootstrap': 'npm:bootstrap.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

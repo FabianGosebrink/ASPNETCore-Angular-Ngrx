@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var runSeq = require('run-sequence');
 var del = require('del');
-var path = require("path");
+var path = require('path');
 var sysBuilder = require('systemjs-builder');
 var concat = require('gulp-concat');
 var inject = require('gulp-inject');
@@ -31,134 +31,122 @@ gulp.task('build:web', function (done) {
         'web-copy-fonts',
         'web-vendor',
         'web-inject',
-        'web-clean-temp-folder',
-        'web-delete-temp-folder',
+        // 'web-clean-temp-folder',
+        // 'web-delete-temp-folder',
         done);
 });
 
 gulp.task('web-clean-dist-folder', function (done) {
-    del('./.dist/web/', { force: true }).then(function () {
+    del(buildConfig.targets.distWeb, { force: true }).then(function () {
         done();
     });
 });
 
 gulp.task('web-clean-temp-folder', function (done) {
-    del('./.tmp/web/', { force: true }).then(function () {
+    del(buildConfig.targets.tempWeb, { force: true }).then(function () {
         done();
     });
 });
 
 gulp.task('web-delete-temp-folder', function (done) {
-    del('./.tmp/', { force: true }).then(function () {
+    del(buildConfig.targets.tempMain, { force: true }).then(function () {
         done();
     });
 });
 
 gulp.task('web-copy-app-to-temp', function (done) {
-    return gulp.src(['app/**/*.*', '!app/**/*.spec.ts'])
-        .pipe(gulp.dest('.tmp/web/app/'));
+    return gulp.src(buildConfig.sources.allAppFiles)
+        .pipe(gulp.dest(path.join(buildConfig.targets.tempWeb, 'app')));
 });
 
 gulp.task('web-compile-typescript', function () {
     return gulp
-        .src('.tmp/web/app/**/*.ts')
+        .src(path.join(buildConfig.targets.tempWeb, buildConfig.sources.allAppTsFiles))
         .pipe(sourcemaps.init())
         .pipe(tsc(tscConfig.compilerOptions))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('.tmp/web/app/'));
+        .pipe(gulp.dest(path.join(buildConfig.targets.tempWeb, 'app')));
 });
 
 gulp.task('web-embed-templates', function (done) {
-    return gulp.src('.tmp/web/app/**/*.js')
+    return gulp.src(path.join(buildConfig.targets.tempWeb, buildConfig.sources.allAppJsFiles))
         .pipe(embedTemplates({ sourceType: 'js' }))
-        .pipe(gulp.dest('.tmp/web/app/'));
+        .pipe(gulp.dest(path.join(buildConfig.targets.tempWeb, 'app')));
 
 });
 
 gulp.task('web-copy-angular2', function (done) {
-    return gulp.src('node_modules/@angular/**/*.*')
-        .pipe(gulp.dest('./.tmp/web/lib/@angular/'));
+    return gulp.src(buildConfig.sources.allAngular)
+        .pipe(gulp.dest(path.join(buildConfig.targets.tempWeb, 'lib', '@angular')));
+
 });
 
 gulp.task('web-copy-rxjs', function (done) {
-    return gulp.src('node_modules/rxjs/**/*.*')
-        .pipe(gulp.dest('./.tmp/web/lib/rxjs/'));
+    return gulp.src(buildConfig.sources.allRxJS)
+        .pipe(gulp.dest(path.join(buildConfig.targets.tempWeb, 'lib', 'rxjs')));
 });
 
 gulp.task('web-copy-systemjs', function (done) {
-    return gulp.src('./assets/systemjs.config.js')
-        .pipe(gulp.dest('./.tmp/web/'));
+    return gulp.src(buildConfig.assets.systemJsConfigProd)
+        .pipe(gulp.dest(buildConfig.targets.tempWeb));
 });
 
 gulp.task('web-copy-others', function (done) {
-    return gulp.src([
-        'node_modules/bootstrap/dist/js/bootstrap.js',
-        'node_modules/jquery/dist/jquery.js',
-        './assets/systemjs.config.js',
-    ])
-        .pipe(gulp.dest('./.tmp/web/lib/'));
+    return gulp.src(buildConfig.sources.vendorAppJs)
+        .pipe(gulp.dest(path.join(buildConfig.targets.tempWeb, 'lib')));
 });
 
 gulp.task('web-build-app', function (done) {
-    var builder = new sysBuilder('.tmp/web/', './.tmp/web/systemjs.config.js');
-    return builder.buildStatic('app', '.dist/web/js/app.min.js', { minify: true })
+    var builder = new sysBuilder(buildConfig.targets.tempWeb, path.join(buildConfig.targets.tempWeb, 'systemjs.config.js'));
+
+    return builder.buildStatic('app', path.join(buildConfig.targets.distWeb, 'js', buildConfig.fileNames.minApp), { minify: true })
         .catch(function (err) {
             console.error('>>> [systemjs-builder] Bundling failed'.bold.green, err);
         });
 });
 
 gulp.task('web-copy-index-html', function (done) {
-    return gulp.src(['./index.html', './favicon.ico'])
-        .pipe(gulp.dest('./.dist/web/'));
+    return gulp.src([
+        buildConfig.sources.indexHtml,
+        buildConfig.sources.favIcon
+    ])
+        .pipe(gulp.dest(buildConfig.targets.distWeb));
 });
 
 gulp.task('web-copy-css', function (done) {
     return gulp.src([
-        'node_modules/bootstrap/dist/css/bootstrap.css',
-        './css/*.css'
+        buildConfig.sources.vendorCss,
+        buildConfig.sources.appCss,
     ])
-        .pipe(concat("styles.min.css"))
+        .pipe(concat(buildConfig.fileNames.minStyles))
         .pipe(cleanCSS())
-        .pipe(gulp.dest('./.dist/web/css/'));
+        .pipe(gulp.dest(path.join(buildConfig.targets.distWeb, 'css')));
 });
 
 gulp.task('web-copy-fonts', function (done) {
-    return gulp.src('node_modules/bootstrap/dist/fonts/*.*')
-        .pipe(gulp.dest('./.dist/web/fonts/'));
+    return gulp.src(buildConfig.sources.allFonts)
+        .pipe(gulp.dest(path.join(buildConfig.targets.distWeb, 'fonts')));
 });
 
 gulp.task('web-vendor', function (done) {
-    return gulp.src([
-        'node_modules/core-js/client/shim.min.js',
-        'node_modules/zone.js/dist/zone.js',
-        'node_modules/reflect-metadata/Reflect.js'
-    ])
-        .pipe(concat("vendor.js"))
+    return gulp.src(buildConfig.sources.vendorAngularJs)
+        .pipe(concat(buildConfig.fileNames.minVendor))
         .pipe(uglify())
-        .pipe(gulp.dest('./.dist/web/js/'));
+        .pipe(gulp.dest(path.join(buildConfig.targets.distWeb, 'js')));
 });
 
 gulp.task('web-inject', function (done) {
-    var target = gulp.src('./.dist/web/index.html');
+    var target = gulp.src(path.join(buildConfig.targets.distWeb, buildConfig.sources.indexHtml));
     // It's not necessary to read the files (will speed up things), we're only after their paths: 
     var sources = gulp.src([
-        './.dist/web/js/vendor.js',
-        './.dist/web/js/app.min.js',
-        './.dist/web/css/*.css'
+        path.join(buildConfig.targets.distWeb, 'js', buildConfig.fileNames.minVendor),
+        path.join(buildConfig.targets.distWeb, 'js', buildConfig.fileNames.minApp),
+        path.join(buildConfig.targets.distWeb, 'css', buildConfig.fileNames.minStyles)
     ], { read: false });
 
     return target.pipe(inject(sources, {
-        ignorePath: ".dist/web/",
+        ignorePath: buildConfig.targets.distWeb,
         addRootSlash: false
     }))
-        .pipe(gulp.dest('./.dist/web/'));
+        .pipe(gulp.dest(buildConfig.targets.distWeb));
 });
-
-
-
-
-
-
-
-
-
