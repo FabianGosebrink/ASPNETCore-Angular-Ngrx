@@ -40,7 +40,7 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .UpdateFood(foodItem.id, foodItem)
             .subscribe((response: FoodItem) => {
-                console.log('updated food');
+                this.resetCurrentlySelectedFoodItem();
                 this.getFood();
             },
             error => console.log(error));

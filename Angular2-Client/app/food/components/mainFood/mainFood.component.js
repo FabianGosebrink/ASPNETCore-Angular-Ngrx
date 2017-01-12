@@ -28,7 +28,7 @@ var MainFoodComponent = (function () {
             _this._foodDataService
                 .UpdateFood(foodItem.id, foodItem)
                 .subscribe(function (response) {
-                console.log('updated food');
+                _this.resetCurrentlySelectedFoodItem();
                 _this.getFood();
             }, function (error) { return console.log(error); });
         };
