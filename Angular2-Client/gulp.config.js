@@ -6,7 +6,7 @@ module.exports = {
     },
     assets: {
         electron: './assets/electron/',
-        cordova: '../assets/cordova/',
+        cordova: './assets/cordova/',
         systemJsConfigProd: './assets/systemjs.config.js',
         electronloadjQuery: './assets/electron/loadjQuery.js'
     },

@@ -7,12 +7,12 @@ gulp.task('help', taskListing.withFilters(/-/));
 
 require('./gulpTasks/web');
 require('./gulpTasks/electron');
-// require('./gulpTasks/cordova');
+require('./gulpTasks/cordova');
 
 gulp.task('build:all', function (done) {
     runSeq(
         'build:web',
         'build:electron',
-        // 'build:apps',
+        'build:apps',
         done);
 });
