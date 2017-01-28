@@ -12,7 +12,6 @@
 
         ctrl.$onInit = function () {
             getFood();
-            toastr.success('Food loaded!', 'Success!');
         };
 
         ctrl.foodAdded = function (event) {
@@ -63,6 +62,7 @@
                 function (response) {
                     console.log(response.data);
                     ctrl.foods = response.data;
+                    toastr.success('Food loaded!', 'Success!');
                 },
                 function (response) {
                     //Error
