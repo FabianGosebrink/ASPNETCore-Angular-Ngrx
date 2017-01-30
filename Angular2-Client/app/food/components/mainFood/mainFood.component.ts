@@ -1,4 +1,4 @@
-import { FoodDataService } from './../../../shared/services/food.dataservice';
+import { FoodDataService } from './../../../shared/services/food-data.service';
 
 import { FoodItem } from './../../../shared/models/foodItem';
 import { Component, OnInit } from '@angular/core';

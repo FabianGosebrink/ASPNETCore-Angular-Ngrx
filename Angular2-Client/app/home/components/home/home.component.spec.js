@@ -1,6 +1,6 @@
 "use strict";
 var foodServiceMock_1 = require('./../../../../testing/foodServiceMock');
-var food_dataservice_1 = require('./../../../shared/services/food.dataservice');
+var food_data_service_1 = require('./../../../shared/services/food-data.service');
 var home_component_1 = require('./home.component');
 var testing_1 = require('@angular/core/testing');
 var testing_2 = require('@angular/core/testing');
@@ -12,7 +12,7 @@ describe('HomeComponent', function () {
         testing_1.TestBed.configureTestingModule({
             declarations: [home_component_1.HomeComponent],
             providers: [
-                { provide: food_dataservice_1.FoodDataService, useClass: foodServiceMock_1.FoodServiceMock }
+                { provide: food_data_service_1.FoodDataService, useClass: foodServiceMock_1.FoodServiceMock }
             ]
         }).compileComponents(); // compile template and css
     }));
@@ -25,23 +25,23 @@ describe('HomeComponent', function () {
     afterEach(function () {
         fixture.destroy();
     });
-    it('component should be instanciated', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+    it('component should be instanciated', testing_1.inject([food_data_service_1.FoodDataService], function (service) {
         expect(comp).toBeDefined();
     }));
-    it('updatefood should be defined', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+    it('updatefood should be defined', testing_1.inject([food_data_service_1.FoodDataService], function (service) {
         expect(comp.updateFood).toBeDefined();
     }));
-    it('updatefood should call service --> getFood', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+    it('updatefood should call service --> getFood', testing_1.inject([food_data_service_1.FoodDataService], function (service) {
         service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
         comp.updateFood();
         expect(service.GetAllFood).toHaveBeenCalledTimes(1);
     }));
-    it('selectedFood should be one foodItem', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+    it('selectedFood should be one foodItem', testing_1.inject([food_data_service_1.FoodDataService], function (service) {
         service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
         comp.updateFood();
         expect(comp.selectedFood).toBeDefined();
     }));
-    it('lastupdatedTime should be set', testing_1.inject([food_dataservice_1.FoodDataService], function (service) {
+    it('lastupdatedTime should be set', testing_1.inject([food_data_service_1.FoodDataService], function (service) {
         service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
         comp.updateFood();
         expect(comp.selectedFood).toBeDefined();

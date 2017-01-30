@@ -1,4 +1,4 @@
-import { FoodDataService } from './services/food.dataservice';
+import { FoodDataService } from './services/food-data.service';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';

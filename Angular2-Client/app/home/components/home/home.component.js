@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var food_dataservice_1 = require('./../../../shared/services/food.dataservice');
+var food_data_service_1 = require('./../../../shared/services/food-data.service');
 var core_1 = require('@angular/core');
 var HomeComponent = (function () {
     function HomeComponent(_foodDataService) {
@@ -39,7 +39,7 @@ var HomeComponent = (function () {
             selector: 'home-component',
             templateUrl: './home.component.html'
         }), 
-        __metadata('design:paramtypes', [food_dataservice_1.FoodDataService])
+        __metadata('design:paramtypes', [food_data_service_1.FoodDataService])
     ], HomeComponent);
     return HomeComponent;
 }());

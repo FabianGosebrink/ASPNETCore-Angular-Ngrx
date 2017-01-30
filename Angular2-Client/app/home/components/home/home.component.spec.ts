@@ -1,5 +1,5 @@
 import { FoodServiceMock } from './../../../../testing/foodServiceMock';
-import { FoodDataService } from './../../../shared/services/food.dataservice';
+import { FoodDataService } from './../../../shared/services/food-data.service';
 import { HomeComponent } from './home.component';
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
