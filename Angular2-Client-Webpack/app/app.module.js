@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { Configuration } from './shared/configuration/app.configuration';
-import { FoodModule } from './food/food.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -29,8 +28,7 @@ export var AppModule = (function () {
                 HttpModule,
                 FormsModule,
                 SharedModule.forRoot(),
-                HomeModule,
-                FoodModule
+                HomeModule
             ],
             declarations: [
                 AppComponent

@@ -12,7 +12,8 @@ module.exports = {
 
     output: {
         path: './.dist/aot/',
-        filename: 'js/[name]-[hash:8].bundle.js'
+        filename: 'js/[name]-[hash:8].bundle.js',
+        chunkFilename: 'js/[id].-[hash:8].chunk.js',
     },
 
     resolve: {
@@ -23,7 +24,11 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                use: ['angular2-template-loader', 'awesome-typescript-loader']
+                use: [
+                    'awesome-typescript-loader',
+                    'angular-router-loader?aot=true&genDir=aot/',
+                    'angular2-template-loader',
+                ]
             },
             {
                 test: /\.html$/,

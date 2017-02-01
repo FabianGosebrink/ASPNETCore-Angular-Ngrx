@@ -19,8 +19,7 @@ import { FormsModule } from '@angular/forms';
         HttpModule,
         FormsModule,
         SharedModule.forRoot(),
-        HomeModule,
-        FoodModule
+        HomeModule
     ],
 
     declarations: [

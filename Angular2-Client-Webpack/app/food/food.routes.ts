@@ -4,6 +4,10 @@ import { MainFoodComponent } from './components/mainFood/mainFood.component';
 import { Routes } from '@angular/router';
 
 export const FoodRoutes: Routes = [
-    { path: 'food', component: MainFoodComponent },
-    { path: 'food/:foodId', component: FoodDetailsComponent }
+    {
+        path: '', component: MainFoodComponent
+    },
+    {
+        path: ':foodId', component: FoodDetailsComponent
+    }
 ];
