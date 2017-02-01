@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CompressionPlugin = require("compression-webpack-plugin");
+let FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -40,6 +41,10 @@ module.exports = {
         exprContextCritical: false
     },
     plugins: [
+        new FaviconsWebpackPlugin({
+            logo: './foodChooserLogo.jpg',
+            prefix: 'assets/'
+        }),
         new CleanWebpackPlugin(
             [
                 './.dist/aot/'

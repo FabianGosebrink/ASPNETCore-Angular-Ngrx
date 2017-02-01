@@ -3,6 +3,7 @@ let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
 let path = require('path');
+let FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -39,11 +40,11 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
-                loader: 'file-loader?name=assets/[name]-[hash:6].[ext]',
+                loader: 'file-loader?name=assets/[name].[ext]',
             },
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loader: ExtractTextPlugin.extract('css-loader')
             }
         ]
     },
@@ -55,6 +56,10 @@ module.exports = {
         port: 9000
     },
     plugins: [
+        new FaviconsWebpackPlugin({
+            logo: './foodChooserLogo.jpg',
+            prefix: 'assets/'
+        }),
         new CleanWebpackPlugin(
             [
                 './.dist/jit/'
