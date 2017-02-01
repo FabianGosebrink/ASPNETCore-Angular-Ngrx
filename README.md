@@ -1,4 +1,4 @@
-# ASP.NET/ASP.NET Core AngularJS/Angular Demo
+# ASP.NET / ASP.NET Core WebAPI AngularJS / Angular Demo with Webpack Ahead-of-Time (Aot) Compilation and Treeshaking
 
 This repository offers you a demo application with ASP.NET/ASP.NET Core & AngularJS/Angular.
 
