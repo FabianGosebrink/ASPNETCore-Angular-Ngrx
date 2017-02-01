@@ -1,3 +1,5 @@
 {
-  "server": { "baseDir": "./.dist/prod/" }
+  "server": {
+    "baseDir": "./.dist/jit/"
+  }
 }

@@ -1,0 +1,29 @@
+<form>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+            <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Calories</th>
+        <th class="text-right">Actions</th>
+    </tr>
+    <tr *ngFor="let food of foods | filter : 'name' : searchString; let i = index">
+        <td class="text-left">
+            {{food.name}}
+        </td>
+        <td class="text-left">
+            {{food.calories}}
+        </td>
+        <td class="text-right">
+            <button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+            <button (click)="setFoodItemForEdit(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            <a [routerLink]="['/food', food.id]" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Details</a>
+        </td>
+    </tr>
+</table>

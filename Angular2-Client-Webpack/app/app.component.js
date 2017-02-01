@@ -7,9 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { Configuration } from './shared/configuration/app.configuration';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
-import { Configuration } from './shared/app.configuration';
 export var AppComponent = (function () {
     function AppComponent(_configuration, _location) {
         this._configuration = _configuration;
@@ -25,3 +25,4 @@ export var AppComponent = (function () {
     ], AppComponent);
     return AppComponent;
 }());
+//# sourceMappingURL=app.component.js.map

@@ -15,7 +15,7 @@ module.exports = {
     },
 
     output: {
-        path: './.dist/dev/',
+        path: './.dist/jit/',
         filename: 'js/[name].bundle.js'
     },
 
@@ -57,13 +57,19 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(
             [
-                './.dist/dev/'
+                './.dist/jit/'
             ]
         ),
+        new ExtractTextPlugin("styles.css"),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
             template: 'index.html'
+        }),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
         })
     ]
 };

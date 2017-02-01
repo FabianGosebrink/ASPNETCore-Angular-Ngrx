@@ -1,8 +1,8 @@
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let webpack = require('webpack');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let CleanWebpackPlugin = require('clean-webpack-plugin');
-let path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+var CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -10,7 +10,7 @@ module.exports = {
     },
 
     output: {
-        path: './.dist/prod/',
+        path: './.dist/aot/',
         filename: 'js/[name]-[hash:8].bundle.js'
     },
 
@@ -22,7 +22,7 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                use: ['awesome-typescript-loader']
+                use: ['angular2-template-loader', 'awesome-typescript-loader']
             },
             {
                 test: /\.html$/,
@@ -36,19 +36,19 @@ module.exports = {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract('css-loader')
             }
-        ]
+        ],
+        exprContextCritical: false
     },
     plugins: [
         new CleanWebpackPlugin(
             [
-                './.dist/prod/'
+                './.dist/aot/'
             ]
         ),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
         }),
-        new ExtractTextPlugin("styles.css"),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
@@ -58,10 +58,23 @@ module.exports = {
             },
             sourceMap: false
         }),
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.html$/,
+            threshold: 10240,
+            minRatio: 0.8
+        }),
+        new ExtractTextPlugin("styles.css"),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
             template: 'index.html'
         }),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
+        })
     ]
 };

@@ -1,22 +1,16 @@
+import { HomeModule } from './home/home.module';
+import { SharedModule } from './shared/shared.module';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { HomeComponent } from './home/components/home/home.component';
+import { Configuration } from './shared/configuration/app.configuration';
+import { FoodModule } from './food/food.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent }  from './app.component';
+import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { Configuration } from './shared/app.configuration';
 import { AppRoutes } from './app.routes';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from './modules/shared.module';
-
-import { HomeComponent } from  './components/home/home.component';
-import { MainFoodComponent } from  './components/mainFood/mainFood.component';
-import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
-import { FoodListComponent } from './components/foodList/foodList.component';
-import { FoodFormComponent } from './components/foodForm/foodForm.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-
-import { FoodDataService } from './shared/food.dataservice';
-
 
 @NgModule({
     imports: [
@@ -24,22 +18,17 @@ import { FoodDataService } from './shared/food.dataservice';
         RouterModule.forRoot(AppRoutes),
         HttpModule,
         FormsModule,
-        SharedModule
+        SharedModule.forRoot(),
+        HomeModule,
+        FoodModule
     ],
 
     declarations: [
-        AppComponent,
-        HomeComponent,
-        MainFoodComponent,
-        FoodDetailsComponent,
-        FoodListComponent,
-        FoodFormComponent,
-        NavigationComponent
+        AppComponent
     ],
 
     providers: [
-        Configuration,
-        FoodDataService
+        Configuration
     ],
 
     bootstrap: [AppComponent]

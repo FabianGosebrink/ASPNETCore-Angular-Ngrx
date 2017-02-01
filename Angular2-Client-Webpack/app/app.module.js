@@ -7,22 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { HomeModule } from './home/home.module';
+import { SharedModule } from './shared/shared.module';
+import { Configuration } from './shared/configuration/app.configuration';
+import { FoodModule } from './food/food.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { Configuration } from './shared/app.configuration';
 import { AppRoutes } from './app.routes';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from './modules/shared.module';
-import { HomeComponent } from './components/home/home.component';
-import { MainFoodComponent } from './components/mainFood/mainFood.component';
-import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
-import { FoodListComponent } from './components/foodList/foodList.component';
-import { FoodFormComponent } from './components/foodForm/foodForm.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { FoodDataService } from './shared/food.dataservice';
 export var AppModule = (function () {
     function AppModule() {
     }
@@ -33,20 +28,15 @@ export var AppModule = (function () {
                 RouterModule.forRoot(AppRoutes),
                 HttpModule,
                 FormsModule,
-                SharedModule
+                SharedModule.forRoot(),
+                HomeModule,
+                FoodModule
             ],
             declarations: [
-                AppComponent,
-                HomeComponent,
-                MainFoodComponent,
-                FoodDetailsComponent,
-                FoodListComponent,
-                FoodFormComponent,
-                NavigationComponent
+                AppComponent
             ],
             providers: [
-                Configuration,
-                FoodDataService
+                Configuration
             ],
             bootstrap: [AppComponent]
         }), 
@@ -54,3 +44,4 @@ export var AppModule = (function () {
     ], AppModule);
     return AppModule;
 }());
+//# sourceMappingURL=app.module.js.map

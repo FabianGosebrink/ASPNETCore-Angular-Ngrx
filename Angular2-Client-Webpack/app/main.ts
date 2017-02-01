@@ -1,6 +1,5 @@
-// Entry point for JiT compilation.
-export * from './polyfills';
-export * from './vendor';
+import './polyfills';
+import './vendor';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
