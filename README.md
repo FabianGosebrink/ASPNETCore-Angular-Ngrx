@@ -80,13 +80,13 @@ the application is build with treeshaking and AoT in a dist/aot folder.
 
 If you want to start te application afterwards modify the path in the 
 
-```bs-config.json```
+`bs-config.json`
 
 to specify where the files are served from.
 
-## Demo
+# Demo
 
-You can see an AngularJS Demo with all the techniques combined here (running on Azure)
+You can see an Angular Demo with all the techniques combined here (running on Azure)
 
 [Demo](http://foodapi4demo.azurewebsites.net/)
 
