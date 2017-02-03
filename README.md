@@ -1,4 +1,4 @@
-# ASP.NET / ASP.NET Core WebAPI AngularJS / Angular Demo with Webpack Ahead-of-Time (Aot) Compilation, Lazy Loading and Treeshaking
+# ASP.NET / ASP.NET Core WebAPI AngularJS / Angular Demo with Component based design, Webpack, Ahead-of-Time (Aot) Compilation, Lazy Loading and Treeshaking
 
 This repository offers you one demo application implemented three times (AngularJS, Angular with SystemJS and Angular with Webpack) with two compatible endpoints implemented in ASP.NET & ASP.NET Core.
 
