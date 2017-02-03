@@ -1,9 +1,6 @@
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
-import { NavigationComponent } from './shared/components/navigation/navigation.component';
-import { HomeComponent } from './home/components/home/home.component';
 import { Configuration } from './shared/configuration/app.configuration';
-import { FoodModule } from './food/food.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';

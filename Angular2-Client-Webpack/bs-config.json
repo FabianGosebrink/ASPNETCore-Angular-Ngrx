@@ -1,5 +1,5 @@
 {
   "server": {
-    "baseDir": "./.dist/jit/"
+    "baseDir": "./.dist/aot/"
   }
 }
