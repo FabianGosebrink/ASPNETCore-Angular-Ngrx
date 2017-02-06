@@ -35,11 +35,11 @@ module.exports = {
     targets: {
         distWeb: '.dist/web/',
         distElectron: './.dist/desktop/',
-        distCordova: './.dist/cordova/',
+        distCordova: './.dist/mobile/',
         tempMain: './.tmp/',
         tempWeb: './.tmp/web/',
         tempElectron: './.tmp/electron/',
-        tempCordova: './.tmp/cordova/',
+        tempCordova: './.tmp/mobile/',
     },
     fileNames: {
         minVendor: 'vendor.min.js',
