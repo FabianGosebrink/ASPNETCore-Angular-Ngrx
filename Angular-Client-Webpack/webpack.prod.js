@@ -11,7 +11,7 @@ module.exports = {
     },
 
     output: {
-        path: './.dist/aot/',
+        path: './.dist/web/aot/',
         filename: 'js/[name]-[hash:8].bundle.js',
         chunkFilename: 'js/[id].-[hash:8].chunk.js',
     },
@@ -52,7 +52,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin(
             [
-                './.dist/aot/'
+                './.dist/web/aot/'
             ]
         ),
         new webpack.LoaderOptionsPlugin({

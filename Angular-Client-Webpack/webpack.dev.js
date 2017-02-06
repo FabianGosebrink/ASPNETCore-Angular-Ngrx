@@ -15,7 +15,7 @@ module.exports = {
     },
 
     output: {
-        path: './.dist/jit/',
+        path: __dirname + '/.dist/web/jit/',
         filename: 'js/[name].bundle.js'
     },
 
@@ -50,15 +50,18 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: path.join(__dirname, "/"),
-        compress: true,
-        port: 9000
+        historyApiFallback: true,
+        contentBase: path.join(__dirname, '/app/'),
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000
+        }
     },
 
     plugins: [
         new CleanWebpackPlugin(
             [
-                './.dist/dev/'
+                './.dist/web/jit/'
             ]
         ),
         new HtmlWebpackPlugin({

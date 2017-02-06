@@ -6,7 +6,7 @@
     "startProd": "gulp build:web && npm run liteProd",
     "buildProd": "gulp build:web",
     "lite": "lite-server",
-    "liteProd": "lite-server --config=lite-prod-config.json"
+    "liteProd": "lite-server --config= config/lite-prod-config.json"
   },
   "license": "ISC",
   "dependencies": {
@@ -26,6 +26,7 @@
     "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",
     "gulp-inject": "^4.1.0",
+    "gulp-minify-css": "^1.2.4",
     "gulp-task-listing": "^1.0.1",
     "gulp-uglify": "^2.0.0",
     "lite-server": "^2.1.0",

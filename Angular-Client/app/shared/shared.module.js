@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var sort_service_1 = require('./services/sort.service');
 var food_data_service_1 = require('./services/food-data.service');
 var router_1 = require('@angular/router');
 var navigation_component_1 = require('./components/navigation/navigation.component');
@@ -19,7 +20,7 @@ var SharedModule = (function () {
     SharedModule.forRoot = function () {
         return {
             ngModule: SharedModule,
-            providers: [food_data_service_1.FoodDataService]
+            providers: [food_data_service_1.FoodDataService, sort_service_1.Sorter]
         };
     };
     SharedModule = __decorate([

@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { FoodDataService } from './services/food-data.service';
+import { Sorter } from './services/sort.service';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,7 @@ export var SharedModule = (function () {
     SharedModule.forRoot = function () {
         return {
             ngModule: SharedModule,
-            providers: [FoodDataService]
+            providers: [FoodDataService, Sorter]
         };
     };
     SharedModule = __decorate([

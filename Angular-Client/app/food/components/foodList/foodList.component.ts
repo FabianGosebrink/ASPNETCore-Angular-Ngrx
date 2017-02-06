@@ -1,3 +1,4 @@
+import { Sorter } from './../../../shared/services/sort.service';
 import { FoodItem } from './../../../shared/models/foodItem';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
@@ -15,11 +16,17 @@ export class FoodListComponent {
     @Output() foodSelected = new EventEmitter<FoodItem>();
     @Output() foodDeleted = new EventEmitter<FoodItem>();
 
+    constructor(private sorter: Sorter) { }
+
     public setFoodItemForEdit = (foodItem: FoodItem): void => {
         this.foodSelected.emit(foodItem);
     }
 
     public deleteFood = (foodItem: FoodItem): void => {
         this.foodDeleted.emit(foodItem);
-    };
+    }
+
+    public sortArray(key: string) {
+        this.sorter.sort(key, this.foods);
+    }
 }

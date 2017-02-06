@@ -7,10 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { Sorter } from './../../../shared/services/sort.service';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 export var FoodListComponent = (function () {
-    function FoodListComponent() {
+    function FoodListComponent(sorter) {
         var _this = this;
+        this.sorter = sorter;
         this.foodSelected = new EventEmitter();
         this.foodDeleted = new EventEmitter();
         this.setFoodItemForEdit = function (foodItem) {
@@ -20,6 +22,9 @@ export var FoodListComponent = (function () {
             _this.foodDeleted.emit(foodItem);
         };
     }
+    FoodListComponent.prototype.sortArray = function (key) {
+        this.sorter.sort(key, this.foods);
+    };
     __decorate([
         Input(), 
         __metadata('design:type', Array)
@@ -37,7 +42,7 @@ export var FoodListComponent = (function () {
             selector: 'foodlist',
             templateUrl: './foodList.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [Sorter])
     ], FoodListComponent);
     return FoodListComponent;
 }());

@@ -2,15 +2,16 @@
   "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
+    "start": "tsc && concurrently \"webpack-dev-server --inline --port 8080\" ",
+    "lite": "lite-server --config=config/lite-prod-config.json",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "ngc": "ngc -p tsconfig-aot.json --locale=en-US",
     "webpack-dev": "set NODE_ENV=development && webpack",
-    "webpack-prod": "npm run ngc && set NODE_ENV=production && webpack"
+    "webpack-prod": "npm run ngc && set NODE_ENV=production && webpack",
+    "buildAll": "npm run webpack-dev && npm run webpack-prod && gulp build:all"
   },
   "license": "ISC",
   "dependencies": {
@@ -50,6 +51,11 @@
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "favicons-webpack-plugin": "0.0.7",
     "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-atom-electron": "^1.10.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-symdest": "^1.1.0",
+    "gulp-task-listing": "^1.0.1",
     "html-webpack-plugin": "^2.26.0",
     "http-server": "^0.9.0",
     "jasmine-core": "~2.4.1",

@@ -1,3 +1,4 @@
+import { Sorter } from './services/sort.service';
 import { FoodDataService } from './services/food-data.service';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -29,7 +30,7 @@ export class SharedModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: SharedModule,
-            providers: [FoodDataService]
+            providers: [FoodDataService, Sorter]
         };
     }
 }

@@ -4,12 +4,14 @@
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
-    "liteDist": "lite-server -c config/serveFromDist.json",
+    "liteProd": "lite-server --config=config/lite-prod-config.json",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "lint": "tslint ./app/**/*.ts -t verbose",
-    "dist": "gulp build:web"
+    "buildProd": "gulp build:web",
+    "startProd": "gulp build:web && npm run liteProd",
+    "buildAll": "gulp build:all"
   },
   "license": "ISC",
   "dependencies": {
