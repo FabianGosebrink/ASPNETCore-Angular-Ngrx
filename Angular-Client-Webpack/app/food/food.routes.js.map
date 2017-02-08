@@ -1,1 +1,0 @@
-{"version":3,"file":"food.routes.js","sourceRoot":"","sources":["food.routes.ts"],"names":[],"mappings":"OAAO,EAAE,oBAAoB,EAAE,MAAM,gDAAgD;OAC9E,EAAE,iBAAiB,EAAE,MAAM,0CAA0C;AAI5E,OAAO,IAAM,UAAU,GAAW;IAC9B;QACI,IAAI,EAAE,EAAE,EAAE,SAAS,EAAE,iBAAiB;KACzC;IACD;QACI,IAAI,EAAE,SAAS,EAAE,SAAS,EAAE,oBAAoB;KACnD;CACJ,CAAC"}

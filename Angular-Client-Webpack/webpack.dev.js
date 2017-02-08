@@ -40,7 +40,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
-                loader: 'file-loader?name=assets/[name]-[hash:6].[ext]',
+                loader: 'file-loader?name=assets/[name].[ext]',
             },
             {
                 test: /\.css$/,
@@ -51,19 +51,11 @@ module.exports = {
 
     devServer: {
         historyApiFallback: true,
-        contentBase: path.join(__dirname, '/app/'),
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: 1000
-        }
+        contentBase: path.join(__dirname, '/.dist/web/jit/')
     },
 
     plugins: [
-        new CleanWebpackPlugin(
-            [
-                './.dist/web/jit/'
-            ]
-        ),
+
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
