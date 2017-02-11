@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
     imports: [
         BrowserModule,
-        RouterModule.forRoot(AppRoutes),
+        RouterModule.forRoot(AppRoutes, { useHash: true }),
         HttpModule,
         FormsModule,
         SharedModule.forRoot(),
