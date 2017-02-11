@@ -19,3 +19,5 @@ Angular-Client-Webpack/.dist
 Angular-Client-Webpack/aot/
 Angular-Client-Webpack/node_modules
 Angular-Client-Webpack/.temp
+Angular-Client-Webpack/app/**/*.js
+Angular-Client-Webpack/app/**/*.js.map

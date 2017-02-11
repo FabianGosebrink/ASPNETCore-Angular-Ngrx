@@ -4,7 +4,7 @@ import { Configuration } from './shared/configuration/app.configuration';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 import { AppRoutes } from './app.routes';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
     imports: [
         BrowserModule,
-        RouterModule.forRoot(AppRoutes, { useHash: true }),
+        RouterModule.forRoot(AppRoutes, { useHash: true, preloadingStrategy: PreloadAllModules }),
         HttpModule,
         FormsModule,
         SharedModule.forRoot(),
