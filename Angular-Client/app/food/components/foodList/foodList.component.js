@@ -22,6 +22,9 @@ var FoodListComponent = (function () {
         this.deleteFood = function (foodItem) {
             _this.foodDeleted.emit(foodItem);
         };
+        this.setFoodToDelete = function (foodItem) {
+            _this.foodToDelete = foodItem;
+        };
     }
     FoodListComponent.prototype.sortArray = function (key) {
         this.sorter.sort(key, this.foods);

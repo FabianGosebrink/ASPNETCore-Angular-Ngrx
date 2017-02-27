@@ -10,7 +10,7 @@
       "es2015",
       "dom"
     ],
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true
   }
 }

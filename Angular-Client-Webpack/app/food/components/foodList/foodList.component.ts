@@ -9,6 +9,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 export class FoodListComponent {
     public foodItem: FoodItem;
+    public foodToDelete: FoodItem;
     public searchString: string;
 
     @Input() foods: FoodItem[];
@@ -23,6 +24,10 @@ export class FoodListComponent {
 
     public deleteFood = (foodItem: FoodItem): void => {
         this.foodDeleted.emit(foodItem);
+    }
+
+    public setFoodToDelete = (foodItem: FoodItem): void => {
+        this.foodToDelete = foodItem;
     }
 
     public sortArray(key: string) {

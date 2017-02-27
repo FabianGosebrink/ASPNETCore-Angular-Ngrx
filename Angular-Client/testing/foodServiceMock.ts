@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FoodServiceMock {
 
-    private internalFoodList = [];
+    private internalFoodList: any[] = [];
 
     constructor() {
         let fooditem = new FoodItem();
@@ -18,7 +18,7 @@ export class FoodServiceMock {
     }
 
     public GetAllFood = (): Observable<FoodItem[]> => {
-        return Observable.create(observer => {
+        return Observable.create((observer: any) => {
             // Yield a single value and complete
             observer.next(this.internalFoodList);
             observer.complete();
@@ -26,7 +26,7 @@ export class FoodServiceMock {
     }
 
     public GetSingleFood = (id: number): Observable<FoodItem> => {
-        return Observable.create(observer => {
+        return Observable.create((observer: any) => {
             // Yield a single value and complete
             observer.next(this.internalFoodList.find(x => x.id === id));
             observer.complete();
@@ -34,7 +34,7 @@ export class FoodServiceMock {
     }
 
     public AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
-        return Observable.create(observer => {
+        return Observable.create((observer: any) => {
             // Yield a single value and complete
             this.internalFoodList.push(foodItem);
             observer.next(foodItem);
@@ -43,7 +43,7 @@ export class FoodServiceMock {
     }
 
     public UpdateFood = (id: number, foodToUpdate: FoodItem): Observable<FoodItem> => {
-        return Observable.create(observer => {
+        return Observable.create((observer: any) => {
             // Yield a single value and complete
             this.internalFoodList.forEach((item: FoodItem) => {
                 if (item.id === id) {
@@ -57,7 +57,7 @@ export class FoodServiceMock {
     }
 
     public DeleteFood = (id: number): Observable<Response> => {
-        return Observable.create(observer => {
+        return Observable.create((observer: any) => {
 
             let itemToRemove = this.internalFoodList.find(x => x.id === id);
             let indexToRemove = this.internalFoodList.indexOf(itemToRemove);

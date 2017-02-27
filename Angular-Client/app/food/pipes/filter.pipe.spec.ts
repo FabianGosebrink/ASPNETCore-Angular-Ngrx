@@ -15,7 +15,7 @@ describe('FilterPipe', () => {
 
     it('filterPipe should filter', () => {
 
-        let items = [];
+        let items: any[] = [];
 
         items.push({ id: 1, name: 'Hans' });
         items.push({ id: 2, name: 'Franz' });
@@ -30,7 +30,7 @@ describe('FilterPipe', () => {
 
     it('filterPipe should filter two items', () => {
 
-        let items = [];
+        let items: any[] = [];
 
         items.push({ id: 1, name: 'Hans' });
         items.push({ id: 2, name: 'Hans' });
