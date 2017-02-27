@@ -16,11 +16,22 @@ module.exports = {
 
     output: {
         path: __dirname + '/.dist/web/jit/',
-        filename: 'js/[name].bundle.js'
+        filename: 'js/[name].bundle.js',
+        chunkFilename: 'js/[id].chunk.js',
+        publicPath: '/'
     },
 
     resolve: {
         extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
+    },
+
+    devServer: {
+        historyApiFallback: true,
+        contentBase: __dirname + '/.dist/web/jit/',
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000
+        }
     },
 
     module: {
@@ -49,13 +60,7 @@ module.exports = {
         ]
     },
 
-    devServer: {
-        historyApiFallback: true,
-        contentBase: path.join(__dirname, '/.dist/web/jit/')
-    },
-
     plugins: [
-
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',

@@ -2,7 +2,7 @@
   "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"webpack-dev-server --inline --port 8080\" ",
+    "start": "tsc && concurrently \"webpack-dev-server\"",
     "lite": "lite-server --config=config/lite-prod-config.json",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
@@ -40,7 +40,7 @@
     "@types/node": "7.0.0",
     "@types/selenium-webdriver": "^2.53.33",
     "angular-router-loader": "^0.5.0",
-    "angular2-template-loader": "^0.6.0",
+    "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^2.2.4",
     "canonical-path": "0.0.2",
     "clean-webpack-plugin": "^0.1.15",
@@ -85,6 +85,6 @@
     "url-loader": "^0.5.7",
     "webdriver-manager": "10.2.5",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "2.2.1"
+    "webpack-dev-server": "2.4.1"
   }
 }

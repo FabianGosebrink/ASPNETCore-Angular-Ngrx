@@ -13,7 +13,7 @@ module.exports = {
     output: {
         path: './.dist/web/aot/',
         filename: 'js/[name]-[hash:8].bundle.js',
-        chunkFilename: 'js/[id].-[hash:8].chunk.js',
+        chunkFilename: 'js/[id]-[hash:8].chunk.js',
     },
 
     resolve: {
