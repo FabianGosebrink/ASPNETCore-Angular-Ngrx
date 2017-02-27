@@ -2,7 +2,7 @@
   "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"webpack-dev-server\"",
+    "start": "tsc && concurrently \"webpack-dev-server --hot\"",
     "lite": "lite-server --config=config/lite-prod-config.json",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
