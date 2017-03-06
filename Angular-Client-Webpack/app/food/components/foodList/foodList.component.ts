@@ -1,4 +1,4 @@
-import { FoodItem } from './../../../shared/models/foodItem';
+import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Sorter } from './../../../shared/services/sort.service';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
