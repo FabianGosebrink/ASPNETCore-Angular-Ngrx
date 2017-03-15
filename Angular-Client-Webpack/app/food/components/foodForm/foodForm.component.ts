@@ -1,4 +1,4 @@
-import { FoodItem } from './../../../shared/models/foodItem';
+import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, Input, OnChanges, Output, EventEmitter, SimpleChanges } from '@angular/core';
 
 

@@ -2,7 +2,7 @@ import { Configuration } from './../configuration/app.configuration';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { FoodItem } from '../models/FoodItem';
+import { FoodItem } from '../models/foodItem.model';
 
 @Injectable()
 export class FoodDataService {

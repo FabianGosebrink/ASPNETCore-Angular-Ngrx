@@ -26,8 +26,7 @@ module.exports = {
                 test: /\.ts$/,
                 use: [
                     'awesome-typescript-loader',
-                    'angular-router-loader?aot=true&genDir=aot/',
-                    'angular2-template-loader',
+                    'angular-router-loader?aot=true&genDir=aot/'
                 ]
             },
             {

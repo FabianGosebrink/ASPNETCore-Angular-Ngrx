@@ -19,6 +19,7 @@
   },
   "files": [
     "app/app.module.ts",
+    "app/food/food.module.ts",
     "app/main.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
