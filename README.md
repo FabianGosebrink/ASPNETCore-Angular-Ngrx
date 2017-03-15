@@ -100,14 +100,14 @@ You can see an Angular Demo with all the techniques combined here (running on Az
 
 [Demo](http://foodapi4demo.azurewebsites.net/)
 
-![DemoGif](_gitAssets/foodApiAzure.gif)
+![DemoGif](.github/foodApiAzure.gif)
 
 ## Screens
 
 ### Home
 
-![ASP.NET/ASP.NET Core AngularJS/Angular Demo](_gitAssets/screen1.jpg "Screen1")
+![ASP.NET/ASP.NET Core AngularJS/Angular Demo](.github/screen1.jpg "Screen1")
 
 ### Form
 
-![ASP.NET/ASP.NET Core AngularJS/Angular Demo](_gitAssets/screen2.jpg "Screen2")
+![ASP.NET/ASP.NET Core AngularJS/Angular Demo](.github/screen2.jpg "Screen2")
