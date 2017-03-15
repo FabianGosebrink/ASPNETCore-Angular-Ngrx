@@ -1,7 +1,9 @@
 import { Configuration } from './../configuration/app.configuration';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { FoodItem } from '../models/foodItem.model';
 
 @Injectable()
