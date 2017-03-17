@@ -43,7 +43,8 @@ namespace FoodAPICore
             });
 
             services.AddSingleton<IFoodRepository, FoodRepository>();
-            services.AddMvc();
+            services.AddMvcCore()
+                .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
