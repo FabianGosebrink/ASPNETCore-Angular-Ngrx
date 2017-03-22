@@ -30,7 +30,10 @@ export class FoodListComponent {
         this.foodToDelete = foodItem;
     }
 
-    public sortArray(key: string) {
+    public sortArray(key: string, $event: any) {
+        if ($event) {
+            $event.preventDefault();
+        }
         this.sorter.sort(key, this.foods);
     }
 }

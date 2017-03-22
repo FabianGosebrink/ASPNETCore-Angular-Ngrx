@@ -3,7 +3,8 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CompressionPlugin = require("compression-webpack-plugin");
-let FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+var path = require('path');
 
 module.exports = {
     entry: {
@@ -11,7 +12,7 @@ module.exports = {
     },
 
     output: {
-        path: './.dist/web/aot/',
+        path: path.join(__dirname, '.dist/web/aot/'),
         filename: 'js/[name]-[hash:8].bundle.js',
         chunkFilename: 'js/[id]-[hash:8].chunk.js',
     },

@@ -9,8 +9,8 @@
 
 <table class="table">
     <tr>
-        <th><a (click)="sortArray('name')">Name</a></th>
-        <th><a (click)="sortArray('calories')">Calories</a></th>
+        <th><a href="" (click)="sortArray('name', $event)">Name</a></th>
+        <th><a href="" (click)="sortArray('calories', $event)">Calories</a></th>
         <th class="text-right">Actions</th>
     </tr>
     <tr *ngFor="let food of foods | filter : 'name' : searchString; let i = index">
