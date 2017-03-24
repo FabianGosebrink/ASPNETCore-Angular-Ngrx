@@ -3,9 +3,11 @@ using FoodAPICore.Repositories.Food;
 using FoodAPICore.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace FoodAPICore
 {
@@ -43,7 +45,10 @@ namespace FoodAPICore
             });
 
             services.AddSingleton<IFoodRepository, FoodRepository>();
-            services.AddMvcCore()
+            services.AddMvcCore(setup=> {
+                setup.ReturnHttpNotAcceptable = true;
+                setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            })
                 .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
         }
 
@@ -55,6 +60,17 @@ namespace FoodAPICore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.Body.WriteAsync();
+                    });
+                });
             }
 
             app.UseCors("AllowAllOrigins");
