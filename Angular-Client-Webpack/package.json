@@ -1,5 +1,5 @@
 {
-  "name": "angular2-quickstart",
+  "name": "angular-client-webpack-aot-ts",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && webpack-dev-server --hot --open",
@@ -13,7 +13,12 @@
     "webpack-prod": "npm run ngc && set NODE_ENV=production && webpack",
     "buildAll": "npm run webpack-dev && npm run webpack-prod && gulp build:all && gulp build-desktop",
     "prepare-desktop": "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web/aot .temp/electron/ && rimraf .dist/desktop/",
-    "build-desktop": "npm run prepare-desktop && electron-packager .temp/electron/ --electronVersion=1.4.15 --platform=win32 --out=./.dist/desktop/ && rimraf .temp/electron/"
+    "build-desktop": "npm run prepare-desktop && electron-packager .temp/electron/ --electronVersion=1.4.15 --platform=win32 --out=./.dist/desktop/ && npm run cleanup",
+    "prepare-mobile": "rimraf ./.temp/mobile && mkdirp ./.temp/mobile/www && ncp assets/cordova .temp/mobile/ && ncp .dist/web/aot .temp/mobile/www && rimraf .dist/mobile/",
+    "build-mobile-windows": "mkdirp .dist/mobile/windows && cd .temp/mobile && cordova platform add windows && cordova build windows && cd ../.. && ncp .temp/mobile/platforms/windows .dist/mobile/windows",
+    "build-mobile-android": "mkdirp .dist/mobile/android && cd .temp/mobile && cordova platform add android && cordova build android && cd ../.. && ncp .temp/mobile/platforms/android .dist/mobile/android",
+    "build-mobile": "npm run prepare-mobile && npm run build-mobile-windows && npm run build-mobile-android && npm run cleanup",
+    "cleanup": "rimraf .temp"
   },
   "license": "ISC",
   "dependencies": {
@@ -53,10 +58,6 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "favicons-webpack-plugin": "0.0.7",
     "file-loader": "^0.10.1",
-    "gulp": "^3.9.1",
-    "gulp-inject": "^4.2.0",
-    "gulp-symdest": "^1.1.0",
-    "gulp-task-listing": "^1.0.1",
     "html-webpack-plugin": "^2.28.0",
     "http-server": "^0.9.0",
     "jasmine-core": "~2.5.2",
@@ -68,8 +69,6 @@
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",
-    "lite-server": "^2.3.0",
-    "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "node-sass": "^4.5.1",
@@ -78,7 +77,6 @@
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "sass-loader": "^6.0.3",
-    "shelljs": "^0.7.7",
     "source-map-loader": "^0.2.0",
     "style-loader": "^0.16.0",
     "systemjs-builder": "^0.16.4",
