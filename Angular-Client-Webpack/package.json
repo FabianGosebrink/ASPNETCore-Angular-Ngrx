@@ -12,8 +12,8 @@
     "webpack-dev": "set NODE_ENV=development && webpack",
     "webpack-prod": "npm run ngc && set NODE_ENV=production && webpack",
     "buildAll": "npm run webpack-dev && npm run webpack-prod && gulp build:all && gulp build-desktop",
-    "prepare-electron": "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web/aot .temp/electron/ && rimraf .dist/desktop/",
-    "build-desktop": "npm run prepare-electron && electron-packager .temp/electron/ --electronVersion=1.4.15 --platform=win32 --out=./.dist/desktop/ && rimraf .temp/electron/"
+    "prepare-desktop": "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web/aot .temp/electron/ && rimraf .dist/desktop/",
+    "build-desktop": "npm run prepare-desktop && electron-packager .temp/electron/ --electronVersion=1.4.15 --platform=win32 --out=./.dist/desktop/ && rimraf .temp/electron/"
   },
   "license": "ISC",
   "dependencies": {
@@ -89,6 +89,7 @@
     "url-loader": "^0.5.8",
     "webdriver-manager": "12.0.4",
     "webpack": "^2.3.1",
+    "webpack-bundle-analyzer": "^2.3.1",
     "webpack-dev-server": "2.4.2"
   }
 }

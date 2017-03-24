@@ -16,7 +16,7 @@
   "files": [
     "app/app.module.ts",
     "app/food/food.module.ts",
-    "app/main.ts"
+    "app/main-aot.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "aot",
