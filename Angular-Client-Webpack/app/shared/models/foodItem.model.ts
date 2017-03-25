@@ -1,6 +1,6 @@
 export class FoodItem {
-    public id: number;
-    public calories: number;
-    public name: string;
-    public created: Date;
+    constructor(public id: number,
+        public calories: number,
+        public name: string,
+        public created: Date) { }
 }

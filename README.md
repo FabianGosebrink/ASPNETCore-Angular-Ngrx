@@ -8,6 +8,17 @@ Server and Client are completely seperated that you can exchange the endpoint ea
 
 ### Check the corresponding package.json for the npm commands to start the repository
 
+## Prerequisites 
+
+Please install cordova and the trash-cli globally to handle cross platform for the [Webpack-Demo](https://github.com/FabianGosebrink/ASPNET-ASPNETCore-Angular-Webpack/tree/master/Angular-Client-Webpack)
+
+```npm install cordova -g```
+
+* [trash-cli](https://www.npmjs.com/package/trash-cli/)
+* [XCode](https://developer.apple.com/xcode/download/)
+* [Android SDK](https://developer.android.com/sdk/index.html)
+* [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk)
+
 ## AngularJS Client (Folder: "AngularJS-Client")
 
 This client is implemented with component based design and the one-way dataflow. It is using gulp as a taskrunner to minify and uglify the javascript files. By running 
