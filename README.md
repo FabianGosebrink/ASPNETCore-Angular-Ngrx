@@ -19,63 +19,11 @@ Please install cordova and the trash-cli globally to handle cross platform for t
 * [Android SDK](https://developer.android.com/sdk/index.html)
 * [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk)
 
-## AngularJS Client (Folder: "AngularJS-Client")
-
-This client is implemented with component based design and the one-way dataflow. It is using gulp as a taskrunner to minify and uglify the javascript files. By running 
-
-```npm install```
-
-and 
-
-```npm start```
-
-the application starts and runs in your default browser.
-
-By typing 
-
-```npm run buildProd```
-
-the application build in a ".dist"-folder and you can then type 
-
-```npm run liteProd```
-
-to serve the files from the ".dist"-folder.
-
-## Angular Client with SystemJS (Folder: "Angular-Client")
-
-This client is implemented with Angular and SystemJS. You can start the application by running
-
-```npm install```
-
-and 
-
-```npm start```
-
-the application starts and runs in your default browser.
-
-Here also gulp is used to build an minified application in a ".dist"-folder.
-
-By typing 
-
-```npm run buildProd```
-
-the application build in a ".dist"-folder and you can then type 
-
-```npm run liteProd```
-
-to serve the files from the ".dist"-folder.
-
-You can build Cross Platform by typing
-
-```npm run buildAll```
-
-for building Web, Desktop (Windows and Linux) and Apps for Android and Windows Phone in the .dist folder.
-
 ## Angular Client with Webpack, Treeshaking and Ahead of Time (Aot) Compilation (Folder: "Angular-Client-Webpack")
 
 This client is implemented with Angular and Webpack. You can start the application by running
 
-```npm install```
+```yarn```
 
 and 
 
@@ -101,9 +49,65 @@ After the aot compilation you can start the application by typing
 
 You can build Cross Platform by typing
 
+```npm run build-all```
+
+for building Web, Desktop (Windows and Linux) and Apps for Android and Windows Phone in the .dist folder.
+
+
+## Angular Client with SystemJS (Folder: "Angular-Client")
+
+This client is implemented with Angular and SystemJS. You can start the application by running
+
+```yarn```
+
+and 
+
+```npm start```
+
+the application starts and runs in your default browser.
+
+Here also gulp is used to build an minified application in a ".dist"-folder.
+
+By typing 
+
+```npm run buildProd```
+
+the application build in a ".dist"-folder and you can then type 
+
+```npm run liteProd```
+
+to serve the files from the ".dist"-folder.
+
+You can build Cross Platform by typing
+
 ```npm run buildAll```
 
 for building Web, Desktop (Windows and Linux) and Apps for Android and Windows Phone in the .dist folder.
+
+
+## AngularJS Client (Folder: "AngularJS-Client")
+
+This client is implemented with component based design and the one-way dataflow. It is using gulp as a taskrunner to minify and uglify the javascript files. By running 
+
+```yarn```
+
+and 
+
+```npm start```
+
+the application starts and runs in your default browser.
+
+By typing 
+
+```npm run buildProd```
+
+the application build in a ".dist"-folder and you can then type 
+
+```npm run liteProd```
+
+to serve the files from the ".dist"-folder.
+
+
 
 # Demo
 
