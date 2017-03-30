@@ -1,4 +1,5 @@
-﻿using FoodAPICore.Models;
+﻿using AutoMapper;
+using FoodAPICore.Models;
 using FoodAPICore.Repositories.Food;
 using FoodAPICore.ViewModels;
 using Microsoft.AspNetCore.Builder;
@@ -48,7 +49,6 @@ namespace FoodAPICore
 
             services.AddMvcCore(setup=> {
                 setup.ReturnHttpNotAcceptable = true;
-                setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
             })
                 .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
         }
