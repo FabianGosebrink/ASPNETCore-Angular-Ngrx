@@ -45,6 +45,7 @@ namespace FoodAPICore
             });
 
             services.AddSingleton<IFoodRepository, FoodRepository>();
+
             services.AddMvcCore(setup=> {
                 setup.ReturnHttpNotAcceptable = true;
                 setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
@@ -63,14 +64,14 @@ namespace FoodAPICore
             }
             else
             {
-                app.UseExceptionHandler(appBuilder =>
-                {
-                    appBuilder.Run(async context =>
-                    {
-                        context.Response.StatusCode = 500;
-                        await context.Response.Body.WriteAsync();
-                    });
-                });
+                //app.UseExceptionHandler(appBuilder =>
+                //{
+                //    appBuilder.Run(async context =>
+                //    {
+                //        context.Response.StatusCode = 500;
+                //        await context.Response.Body.WriteAsync();
+                //    });
+                //});
             }
 
             app.UseCors("AllowAllOrigins");
