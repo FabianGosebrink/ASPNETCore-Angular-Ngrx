@@ -14,7 +14,8 @@
       "dom"
     ],
     "types": [
-      "node"
+      "node",
+      "jasmine"
     ]
   },
   "files": [
