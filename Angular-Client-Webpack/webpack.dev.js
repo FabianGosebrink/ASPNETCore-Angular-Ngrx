@@ -5,13 +5,13 @@ let CleanWebpackPlugin = require('clean-webpack-plugin');
 let path = require('path');
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     performance: {
         hints: false
     },
 
     entry: {
-        'app': './app/main.ts' // JiT compilation
+        'app': './src/app/main.ts' // JiT compilation
     },
 
     output: {
@@ -64,7 +64,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
-            template: 'index.html'
+            template: './src/index.html'
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',

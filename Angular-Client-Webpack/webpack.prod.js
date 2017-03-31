@@ -8,7 +8,7 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        'app': './app/main-aot.ts' // AoT compilation
+        'app': './src/app/main-aot.ts' // AoT compilation
     },
 
     output: {
@@ -27,7 +27,7 @@ module.exports = {
                 test: /\.ts$/,
                 use: [
                     'awesome-typescript-loader',
-                    'angular-router-loader?aot=true&genDir=aot/'
+                    'angular-router-loader?aot=true&genDir=src/.aot/'
                 ]
             },
             {
@@ -47,7 +47,7 @@ module.exports = {
     },
     plugins: [
         new FaviconsWebpackPlugin({
-            logo: './foodChooserLogo.jpg',
+            logo: './src/foodChooserLogo.jpg',
             prefix: 'assets/'
         }),
         new CleanWebpackPlugin(
@@ -79,7 +79,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
-            template: 'index.html'
+            template: './src/index.html'
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',
