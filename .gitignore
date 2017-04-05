@@ -21,3 +21,4 @@ Angular-Client-Webpack/node_modules
 Angular-Client-Webpack/.temp
 Angular-Client-Webpack/src/app/**/*.js
 Angular-Client-Webpack/src/app/**/*.js.map
+AngularJS-Client/.vscode/
