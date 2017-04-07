@@ -1,6 +1,7 @@
 import { FoodDataService } from './../../../shared/services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'mainFood-component',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class MainFoodComponent implements OnInit {
     public foodSelectedFromList: FoodItem;
-    public foods: FoodItem[];
+    public foods: Observable<FoodItem[]>;
 
     constructor(private _foodDataService: FoodDataService) {
         this.resetCurrentlySelectedFoodItem();
@@ -55,12 +56,7 @@ export class MainFoodComponent implements OnInit {
     }
 
     private getFood = (): void => {
-        this._foodDataService
-            .GetAllFood()
-            .subscribe((response: FoodItem[]) => {
-                this.foods = response;
-            },
-            error => console.log(error));
+        this.foods = this._foodDataService.GetAllFood();
     }
 
     private resetCurrentlySelectedFoodItem() {
