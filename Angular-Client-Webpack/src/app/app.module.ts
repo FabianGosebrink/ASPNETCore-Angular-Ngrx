@@ -8,7 +8,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { AppRoutes } from './app.routes';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import {ToasterModule} from 'angular2-toaster';
+import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 
 @NgModule({
     imports: [

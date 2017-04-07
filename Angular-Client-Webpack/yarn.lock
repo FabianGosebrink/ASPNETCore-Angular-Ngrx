@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@angular/animations@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.0.1.tgz#154420c8ee5c22fbaf1434b6d156150cf5218da6"
+
 "@angular/common@4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.0.1.tgz#df488eada842b2d841ded750712292b18387b5b0"
@@ -185,6 +189,10 @@ angular2-template-loader@0.6.2:
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
   dependencies:
     loader-utils "^0.2.15"
+
+angular2-toaster@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-3.0.1.tgz#8e7a33cdbfb2111f488cc2238ed2881922a637fe"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -6758,16 +6766,9 @@ ws@1.1.1:
     options ">=0.0.5"
     ultron "1.0.x"
 
-ws@1.1.2:
+ws@1.1.2, ws@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.2.tgz#8a244fa052401e08c9886cf44a85189e1fd4067f"
-  dependencies:
-    options ">=0.0.5"
-    ultron "1.0.x"
-
-ws@^1.0.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"
