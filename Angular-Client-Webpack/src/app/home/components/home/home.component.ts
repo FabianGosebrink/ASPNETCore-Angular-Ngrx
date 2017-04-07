@@ -1,6 +1,7 @@
 import { FoodDataService } from './../../../shared/services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
     selector: 'home-component',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
     public lastUpdatedDate: Date;
     public isWorking = false;
 
-    constructor(private _foodDataService: FoodDataService) {
+    constructor(private _foodDataService: FoodDataService, private toasterService: ToasterService) {
 
     }
 
@@ -31,12 +32,22 @@ export class HomeComponent implements OnInit {
         this._foodDataService
             .GetAllFood()
             .subscribe((response: FoodItem[]) => {
+
+                if (response.length <= 0) {
+                    this.toasterService.pop('warning', 'Food', 'No food found...');
+                    return;
+                }
+
                 let foodItems: FoodItem[] = response;
                 let randomIndex = Math.floor(Math.random() * foodItems.length);
                 this.selectedFood = foodItems[randomIndex];
                 this.lastUpdatedDate = new Date();
+                this.toasterService.pop('success', 'Food', 'Food Loaded!');
             },
-            error => console.log(error),
+            (error: any) => {
+                console.log(error)
+                this.toasterService.pop('error', 'Food', 'There was an error :(');
+            },
             () => this.isWorking = false);
     }
 

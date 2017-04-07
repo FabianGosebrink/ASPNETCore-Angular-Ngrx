@@ -2,6 +2,7 @@ import { FoodDataService } from './../../../shared/services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
 @Component({
     selector: 'mainFood-component',
@@ -12,7 +13,7 @@ export class MainFoodComponent implements OnInit {
     public foodSelectedFromList: FoodItem;
     public foods: Observable<FoodItem[]>;
 
-    constructor(private _foodDataService: FoodDataService) {
+    constructor(private _foodDataService: FoodDataService, private toasterService: ToasterService) {
         this.resetCurrentlySelectedFoodItem();
     }
 
@@ -28,31 +29,41 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .AddFood(foodItem)
             .subscribe((response: FoodItem) => {
-                console.log('added food');
+                this.toasterService.pop('success', 'Food', 'Food Added!');
                 this.resetCurrentlySelectedFoodItem();
                 this.getFood();
             },
-            error => console.log(error));
+            (error: any) => {
+                console.log(error)
+                this.toasterService.pop('error', 'Food', 'There was an error :(');
+            });
     }
 
     public updateFood = (foodItem: FoodItem): void => {
         this._foodDataService
             .UpdateFood(foodItem.id, foodItem)
             .subscribe((response: FoodItem) => {
+                this.toasterService.pop('success', 'Food', 'Food Updated!');
                 this.resetCurrentlySelectedFoodItem();
                 this.getFood();
             },
-            error => console.log(error));
+            (error: any) => {
+                console.log(error)
+                this.toasterService.pop('error', 'Food', 'There was an error :(');
+            });
     }
 
     public deleteFood(foodItem: FoodItem) {
         this._foodDataService
             .DeleteFood(foodItem.id)
             .subscribe(() => {
-                console.log('Food deleted');
+                this.toasterService.pop('success', 'Food', 'Food Deleted!');
                 this.getFood();
             },
-            error => console.log(error));
+            (error: any) => {
+                console.log(error)
+                this.toasterService.pop('error', 'Food', 'There was an error :(');
+            });
     }
 
     private getFood = (): void => {

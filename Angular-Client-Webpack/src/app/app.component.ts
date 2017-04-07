@@ -1,6 +1,5 @@
 import { Configuration } from './shared/configuration/app.configuration';
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
 
 @Component({
     selector: 'foodChooser-app',
@@ -12,7 +11,7 @@ export class AppComponent {
 
     public title: string;
 
-    constructor(private _configuration: Configuration, private _location: Location) {
-        this.title = _configuration.title;
+    constructor(public configuration: Configuration) {
+        this.title = configuration.title;
     }
 }
