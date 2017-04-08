@@ -2,12 +2,12 @@ import { FoodDataService } from './../../../shared/services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
+import { AbstractNotificationService, MessageType } from '../../../shared/services/notification.service';
 
 @Component({
     selector: 'home-component',
     templateUrl: './home.component.html'
 })
-
 
 export class HomeComponent implements OnInit {
 
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     public lastUpdatedDate: Date;
     public isWorking = false;
 
-    constructor(private _foodDataService: FoodDataService, private toasterService: ToasterService) {
+    constructor(private _foodDataService: FoodDataService, private notificationService: AbstractNotificationService) {
 
     }
 
@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit {
             .subscribe((response: FoodItem[]) => {
 
                 if (response.length <= 0) {
-                    this.toasterService.pop('warning', 'Food', 'No food found...');
+                    // showNotification(type: MessageType, title: string, message: string, icon?: string): void;
+                    this.notificationService.showNotification(MessageType.Info, 'Oh Snap...', 'No food found...');
                     return;
                 }
 
@@ -42,11 +43,11 @@ export class HomeComponent implements OnInit {
                 let randomIndex = Math.floor(Math.random() * foodItems.length);
                 this.selectedFood = foodItems[randomIndex];
                 this.lastUpdatedDate = new Date();
-                this.toasterService.pop('success', 'Food', 'Food Loaded!');
+                this.notificationService.showNotification(MessageType.Success, 'Oh hey...', 'Food Loaded');
             },
             (error: any) => {
                 console.log(error)
-                this.toasterService.pop('error', 'Food', 'There was an error :(');
+                this.notificationService.showNotification(MessageType.Error, 'Uh oh...', 'There was an Error');
             },
             () => this.isWorking = false);
     }

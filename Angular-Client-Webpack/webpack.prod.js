@@ -47,7 +47,7 @@ module.exports = {
     },
     plugins: [
         new FaviconsWebpackPlugin({
-            logo: './src/foodChooserLogo.jpg',
+            logo: './src/icon.png',
             prefix: 'assets/'
         }),
         new CleanWebpackPlugin(

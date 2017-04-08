@@ -3,6 +3,7 @@ import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { AbstractNotificationService, MessageType } from '../../../shared/services/notification.service';
 
 @Component({
     selector: 'mainFood-component',
@@ -13,7 +14,7 @@ export class MainFoodComponent implements OnInit {
     public foodSelectedFromList: FoodItem;
     public foods: Observable<FoodItem[]>;
 
-    constructor(private _foodDataService: FoodDataService, private toasterService: ToasterService) {
+    constructor(private _foodDataService: FoodDataService, private notificationService: AbstractNotificationService) {
         this.resetCurrentlySelectedFoodItem();
     }
 
@@ -29,13 +30,13 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .AddFood(foodItem)
             .subscribe((response: FoodItem) => {
-                this.toasterService.pop('success', 'Food', 'Food Added!');
+                this.notificationService.showNotification(MessageType.Success, 'Food', 'Food Added!');
                 this.resetCurrentlySelectedFoodItem();
                 this.getFood();
             },
             (error: any) => {
                 console.log(error)
-                this.toasterService.pop('error', 'Food', 'There was an error :(');
+                this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
             });
     }
 
@@ -43,13 +44,13 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .UpdateFood(foodItem.id, foodItem)
             .subscribe((response: FoodItem) => {
-                this.toasterService.pop('success', 'Food', 'Food Updated!');
+                this.notificationService.showNotification(MessageType.Success, 'Food', 'Food updated!');
                 this.resetCurrentlySelectedFoodItem();
                 this.getFood();
             },
             (error: any) => {
                 console.log(error)
-                this.toasterService.pop('error', 'Food', 'There was an error :(');
+                this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
             });
     }
 
@@ -57,12 +58,12 @@ export class MainFoodComponent implements OnInit {
         this._foodDataService
             .DeleteFood(foodItem.id)
             .subscribe(() => {
-                this.toasterService.pop('success', 'Food', 'Food Deleted!');
+                this.notificationService.showNotification(MessageType.Success, 'Food', 'Food deleted!');
                 this.getFood();
             },
             (error: any) => {
                 console.log(error)
-                this.toasterService.pop('error', 'Food', 'There was an error :(');
+                this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
             });
     }
 
