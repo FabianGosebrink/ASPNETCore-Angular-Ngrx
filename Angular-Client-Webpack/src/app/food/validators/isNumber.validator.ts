@@ -1,5 +1,5 @@
 import { Directive, forwardRef } from '@angular/core';
-import { Validator, FormControl, NG_VALIDATORS } from '@angular/forms';
+import { Validator, FormControl, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
 
 @Directive({
     selector: '[isNumber][formControlName],[isNumber][formControl],[isNumber][ngModel]',
@@ -10,7 +10,7 @@ import { Validator, FormControl, NG_VALIDATORS } from '@angular/forms';
 
 export class IsNumberValidator implements Validator {
 
-    validate(c: FormControl): { [key: string]: any } {
+    validate(c: FormControl): ValidationErrors | null {
 
         if (isNaN(+c.value)) {
             // console.log(c.value + " is not a number");

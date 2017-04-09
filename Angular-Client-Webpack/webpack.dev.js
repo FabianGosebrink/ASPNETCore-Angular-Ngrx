@@ -28,10 +28,10 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         contentBase: __dirname + '/.dist/web/jit/',
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: 1000
-        }
+        // watchOptions: {
+        //     aggregateTimeout: 300,
+        //     poll: 1000
+        // }
     },
 
     module: {

@@ -3,7 +3,9 @@ const { app, BrowserWindow, globalShortcut, Menu, Tray, Notification } = require
 const path = require('path');
 const url = require('url');
 
-var mainWindow = null;
+let mainWindow = null;
+// define tray here to prevent disappearing after approx. one minute
+let tray = null;
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
@@ -16,8 +18,8 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
-    nodeIntegration: false,
-    icon: path.join(__dirname, 'icon-16x16.png')
+    // nodeIntegration: false,
+    // icon: path.join(__dirname, 'icon-16x16.png')
   });
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -30,12 +32,30 @@ app.on('ready', function () {
     mainWindow.webContents.toggleDevTools();
   });
 
-  // buildTrayIcon();
+  buildTrayIcon();
 });
 
 let buildTrayIcon = () => {
-  let trayIconPath = path.join(__dirname, 'icon-16x16.png');
+  let trayIconPath = path.join(__dirname, 'icon.ico');
 
-  trayApp = new Tray(trayIconPath);
-  trayApp.setToolTip('Angular FoodChooser');
+  tray = new Tray(trayIconPath);
+  tray.setToolTip('Angular FoodChooser');
+
+  var contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Open application',
+      click: function () {
+        mainWindow.show();
+      }
+    },
+    {
+      label: 'Quit',
+      click: function () {
+        app.isQuiting = true;
+        app.quit();
+      }
+    }
+  ]);
+
+  tray.setContextMenu(contextMenu);
 };

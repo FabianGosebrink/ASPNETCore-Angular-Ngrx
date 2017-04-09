@@ -1,5 +1,5 @@
 import { Directive, forwardRef, Attribute } from '@angular/core';
-import { Validator, NG_VALIDATORS, FormControl } from '@angular/forms';
+import { Validator, NG_VALIDATORS, FormControl, ValidationErrors } from '@angular/forms';
 
 const INT_MAX = 2147483647;
 
@@ -22,7 +22,7 @@ export class IsInRangeValidator implements Validator {
         this._maxValue = maxValue || INT_MAX;
     }
 
-    validate(c: FormControl): { [key: string]: any } {
+    validate(c: FormControl): ValidationErrors | null {
 
         if (+c.value > this._maxValue || +c.value < this._minValue) {
             return {
