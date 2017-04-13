@@ -11,9 +11,6 @@ export class FoodDataService {
 
     public actionUrl: string;
 
-    // @Output() foodAdded: EventEmitter<any> = new EventEmitter();
-    // @Output() foodDeleted: EventEmitter<any> = new EventEmitter();
-
     constructor(private _http: Http, private _configuration: Configuration) {
         this.actionUrl = _configuration.baseUrl + 'food/';
     }
@@ -42,7 +39,6 @@ export class FoodDataService {
 
         return this._http.post(this.actionUrl, toAdd, options)
             .map((response: Response) => <FoodItem>response.json())
-            // .do(() => this.foodAdded.emit(null))
             .catch(this.handleError);
     }
 
@@ -56,7 +52,6 @@ export class FoodDataService {
 
     public DeleteFood = (id: number): Observable<Response> => {
         return this._http.delete(this.actionUrl + id)
-            // .do(() => this.foodDeleted.emit(null))
             .catch(this.handleError);
     }
 
