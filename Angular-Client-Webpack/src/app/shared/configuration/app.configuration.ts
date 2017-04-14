@@ -3,9 +3,9 @@ import { ToasterConfig } from 'angular2-toaster/angular2-toaster';
 
 @Injectable()
 export class Configuration {
-    baseUrl: string = 'http://foodapi4demo.azurewebsites.net/api/';
-    // baseUrl: string = "http://localhost:5000/api/";
-    title: string = 'Angular FoodChooser';
+    baseUrl = 'http://foodapi4demo.azurewebsites.net/api/';
+    // baseUrl = 'http://localhost:5000/api/';
+    title = 'Angular FoodChooser';
 
     public toasterConfig: ToasterConfig = new ToasterConfig({
         positionClass: 'toast-bottom-right'

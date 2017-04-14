@@ -79,6 +79,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.30",
     "karma-webpack": "^2.0.3",
     "lite-server": "^2.3.0",
     "mkdirp": "^0.5.1",
@@ -101,7 +102,6 @@
     "webdriver-manager": "12.0.4",
     "webpack": "^2.3.3",
     "webpack-bundle-analyzer": "^2.3.1",
-    "webpack-dev-server": "2.4.2",
-    "karma-spec-reporter": "0.0.30"
+    "webpack-dev-server": "2.4.2"
   }
 }

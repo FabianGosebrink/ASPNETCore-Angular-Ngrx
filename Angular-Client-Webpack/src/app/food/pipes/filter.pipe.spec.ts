@@ -24,7 +24,7 @@ describe('FilterPipe', () => {
 
         let filtered = filterPipe.transform(items, 'name', 'Hans');
 
-        expect(filtered).Any;
+        expect(filtered.length).toBeGreaterThan(0);
         expect(filtered.length).toBe(1);
     });
 
@@ -39,7 +39,6 @@ describe('FilterPipe', () => {
 
         let filtered = filterPipe.transform(items, 'name', 'Hans');
 
-        expect(filtered).Any;
         expect(filtered.length).toBe(2);
     });
 });
