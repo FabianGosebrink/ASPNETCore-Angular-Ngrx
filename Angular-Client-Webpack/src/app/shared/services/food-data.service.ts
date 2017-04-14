@@ -11,23 +11,32 @@ export class FoodDataService {
 
     public actionUrl: string;
 
-    constructor(private _http: Http, private _configuration: Configuration) {
-        this.actionUrl = _configuration.baseUrl + 'food/';
+    constructor(private http: Http, private configuration: Configuration) {
+        this.actionUrl = configuration.baseUrl + 'food/';
     }
 
-    public GetAllFood = (): Observable<FoodItem[]> => {
-        return this._http.get(this.actionUrl)
+    GetAllFood = (): Observable<FoodItem[]> => {
+        return this.http.get(this.actionUrl)
             .map((response: Response) => <FoodItem[]>response.json())
             .catch(this.handleError);
     }
 
-    public GetSingleFood = (id: number): Observable<FoodItem> => {
-        return this._http.get(this.actionUrl + id)
+    GetSingleFood = (id: number): Observable<FoodItem> => {
+        return this.http.get(this.actionUrl + id)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
 
-    public AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
+    GetRandomFood = (): Observable<FoodItem> => {
+        return this.GetAllFood()
+            .map((response: FoodItem[]) => {
+                 let randomIndex = Math.floor(Math.random() * response.length);
+                 return response[randomIndex];
+            })
+            .catch(this.handleError);
+    }
+
+    AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
         let toAdd: string = JSON.stringify(
             {
                 name: foodItem.name,
@@ -37,21 +46,21 @@ export class FoodDataService {
 
         let options = this.prepareOptions(null);
 
-        return this._http.post(this.actionUrl, toAdd, options)
+        return this.http.post(this.actionUrl, toAdd, options)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
 
-    public UpdateFood = (id: number, foodToUpdate: FoodItem): Observable<FoodItem> => {
+    UpdateFood = (id: number, foodToUpdate: FoodItem): Observable<FoodItem> => {
         let options = this.prepareOptions(null);
 
-        return this._http.put(this.actionUrl + id, JSON.stringify(foodToUpdate), options)
+        return this.http.put(this.actionUrl + id, JSON.stringify(foodToUpdate), options)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
 
-    public DeleteFood = (id: number): Observable<Response> => {
-        return this._http.delete(this.actionUrl + id)
+    DeleteFood = (id: number): Observable<Response> => {
+        return this.http.delete(this.actionUrl + id)
             .catch(this.handleError);
     }
 

@@ -13,7 +13,6 @@ export class IsNumberValidator implements Validator {
     validate(c: FormControl): ValidationErrors | null {
 
         if (isNaN(+c.value)) {
-            // console.log(c.value + " is not a number");
             return {
                 isNumber:
                 {
@@ -22,7 +21,6 @@ export class IsNumberValidator implements Validator {
             };
         }
 
-        // console.log(c.value + " is a number");
         return null;
     }
 }

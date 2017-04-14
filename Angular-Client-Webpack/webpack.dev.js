@@ -2,6 +2,7 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 let path = require('path');
 
 module.exports = {
@@ -61,6 +62,10 @@ module.exports = {
     },
 
     plugins: [
+        new FaviconsWebpackPlugin({
+        logo: './src/icon.png',
+        prefix: 'assets/'
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',

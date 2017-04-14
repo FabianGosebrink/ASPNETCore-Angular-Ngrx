@@ -7,7 +7,7 @@ export class Configuration {
     // baseUrl = 'http://localhost:5000/api/';
     title = 'Angular FoodChooser';
 
-    public toasterConfig: ToasterConfig = new ToasterConfig({
+    toasterConfig: ToasterConfig = new ToasterConfig({
         positionClass: 'toast-bottom-right'
     });
 }

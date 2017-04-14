@@ -8,9 +8,9 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 })
 
 export class FoodListComponent {
-    public foodItem: FoodItem;
-    public foodToDelete: FoodItem;
-    public searchString: string;
+    foodItem: FoodItem;
+    foodToDelete: FoodItem;
+    searchString: string;
 
     @Input() foods: FoodItem[];
     @Output() foodSelected = new EventEmitter<FoodItem>();
@@ -18,19 +18,19 @@ export class FoodListComponent {
 
     constructor(private sorter: Sorter) { }
 
-    public setFoodItemForEdit = (foodItem: FoodItem): void => {
+    setFoodItemForEdit = (foodItem: FoodItem): void => {
         this.foodSelected.emit(foodItem);
     }
 
-    public deleteFood = (foodItem: FoodItem): void => {
+    deleteFood = (foodItem: FoodItem): void => {
         this.foodDeleted.emit(foodItem);
     }
 
-    public setFoodToDelete = (foodItem: FoodItem): void => {
+    setFoodToDelete = (foodItem: FoodItem): void => {
         this.foodToDelete = foodItem;
     }
 
-    public sortArray(key: string, $event: any) {
+    sortArray(key: string, $event: any) {
         if ($event) {
             $event.preventDefault();
         }

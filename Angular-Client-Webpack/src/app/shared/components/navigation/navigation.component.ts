@@ -8,7 +8,5 @@ import { Component } from '@angular/core';
 
 export class NavigationComponent {
 
-    constructor(public _configuration: Configuration) {
-
-    }
+    constructor(public _configuration: Configuration) { }
 }

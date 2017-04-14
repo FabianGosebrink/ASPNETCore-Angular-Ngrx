@@ -11,37 +11,34 @@ import { AbstractNotificationService, MessageType } from '../../../shared/servic
 
 export class HomeComponent implements OnInit {
 
-    public selectedFood: FoodItem;
-    public lastUpdatedDate: Date;
-    public isWorking = false;
+    selectedFood: FoodItem;
+    lastUpdatedDate: Date;
+    isWorking = false;
 
-    constructor(private _foodDataService: FoodDataService, private notificationService: AbstractNotificationService) {
+    constructor(private foodDataService: FoodDataService, private notificationService: AbstractNotificationService) {
 
     }
 
-    public ngOnInit() {
+    ngOnInit() {
         this.getFood();
     }
 
-    public updateFood = (): void => {
+    updateFood = (): void => {
         this.getFood();
     }
 
     private getFood = (): void => {
         this.isWorking = true;
-        this._foodDataService
-            .GetAllFood()
-            .subscribe((response: FoodItem[]) => {
+        this.foodDataService
+            .GetRandomFood()
+            .subscribe((response: FoodItem) => {
 
-                if (response.length <= 0) {
-                    // showNotification(type: MessageType, title: string, message: string, icon?: string): void;
+                if (!response) {
                     this.notificationService.showNotification(MessageType.Info, 'Oh Snap...', 'No food found...');
                     return;
                 }
 
-                let foodItems: FoodItem[] = response;
-                let randomIndex = Math.floor(Math.random() * foodItems.length);
-                this.selectedFood = foodItems[randomIndex];
+                this.selectedFood = response;
                 this.lastUpdatedDate = new Date();
                 this.notificationService.showNotification(MessageType.Success, 'Oh hey...', 'Food Loaded');
             },

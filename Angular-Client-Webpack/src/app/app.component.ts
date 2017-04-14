@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
 
-    public title: string;
+    title: string;
 
     constructor(public configuration: Configuration) {
         this.title = configuration.title;

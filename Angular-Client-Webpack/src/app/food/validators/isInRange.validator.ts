@@ -15,8 +15,10 @@ export class IsInRangeValidator implements Validator {
     private _minValue: number;
     private _maxValue: number;
 
-    constructor( @Attribute('minValue') minValue: number,
-        @Attribute('maxValue') maxValue: number) {
+    constructor(
+        @Attribute('minValue') minValue: number,
+        @Attribute('maxValue') maxValue: number
+    ) {
 
         this._minValue = minValue || 0;
         this._maxValue = maxValue || INT_MAX;

@@ -8,26 +8,18 @@ import { Component, Input, OnChanges, Output, EventEmitter, SimpleChanges } from
 })
 
 export class FoodFormComponent implements OnChanges {
-    @Input() foodItem: FoodItem;
 
+    @Input() foodItem: FoodItem;
     @Output() foodUpdated = new EventEmitter<FoodItem>();
     @Output() foodAdded = new EventEmitter<FoodItem>();
 
-    public currentFood: FoodItem;
-
-    constructor() {
-
-    }
+    currentFood: FoodItem;
 
     ngOnChanges(changes: SimpleChanges) {
         this.currentFood = Object.assign(new FoodItem(), changes['foodItem'].currentValue);
     }
 
-    public AddOrUpdateFood = (): void => {
-        if (this.foodItem.id) {
-            this.foodUpdated.emit(this.currentFood);
-        } else {
-            this.foodAdded.emit(this.currentFood);
-        }
+    AddOrUpdateFood = (): void => {
+        this.foodItem.id ? this.foodUpdated.emit(this.currentFood) : this.foodAdded.emit(this.currentFood);
     }
 }

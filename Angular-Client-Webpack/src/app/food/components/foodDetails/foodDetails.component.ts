@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 
 export class FoodDetailsComponent implements OnInit {
 
-    public selectedFoodItem: Observable<FoodItem>;
+    selectedFoodItem: Observable<FoodItem>;
 
     constructor(private _route: ActivatedRoute, private _foodDataService: FoodDataService) { }
 

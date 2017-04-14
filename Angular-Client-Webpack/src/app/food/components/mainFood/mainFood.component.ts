@@ -11,8 +11,8 @@ import { AbstractNotificationService, MessageType } from '../../../shared/servic
 })
 
 export class MainFoodComponent implements OnInit {
-    public foodSelectedFromList: FoodItem;
-    public foods: Observable<FoodItem[]>;
+    foodSelectedFromList: FoodItem;
+    foods: Observable<FoodItem[]>;
 
     constructor(private _foodDataService: FoodDataService, private notificationService: AbstractNotificationService) {
         this.resetCurrentlySelectedFoodItem();
@@ -22,11 +22,11 @@ export class MainFoodComponent implements OnInit {
         this.getFood();
     }
 
-    public setCurrentlySelectedFood(foodItem: FoodItem) {
+    setCurrentlySelectedFood(foodItem: FoodItem) {
         this.foodSelectedFromList = foodItem;
     }
 
-    public addFood = (foodItem: FoodItem): void => {
+    addFood = (foodItem: FoodItem): void => {
         this._foodDataService
             .AddFood(foodItem)
             .subscribe((response: FoodItem) => {
@@ -40,7 +40,7 @@ export class MainFoodComponent implements OnInit {
             });
     }
 
-    public updateFood = (foodItem: FoodItem): void => {
+    updateFood = (foodItem: FoodItem): void => {
         this._foodDataService
             .UpdateFood(foodItem.id, foodItem)
             .subscribe((response: FoodItem) => {
@@ -54,7 +54,7 @@ export class MainFoodComponent implements OnInit {
             });
     }
 
-    public deleteFood(foodItem: FoodItem) {
+    deleteFood(foodItem: FoodItem) {
         this._foodDataService
             .DeleteFood(foodItem.id)
             .subscribe(() => {
