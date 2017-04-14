@@ -18,14 +18,6 @@ export class FoodListComponent {
 
     constructor(private sorter: Sorter) { }
 
-    setFoodItemForEdit = (foodItem: FoodItem): void => {
-        this.foodSelected.emit(foodItem);
-    }
-
-    deleteFood = (foodItem: FoodItem): void => {
-        this.foodDeleted.emit(foodItem);
-    }
-
     setFoodToDelete = (foodItem: FoodItem): void => {
         this.foodToDelete = foodItem;
     }

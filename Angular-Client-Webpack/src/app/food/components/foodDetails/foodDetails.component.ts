@@ -14,13 +14,13 @@ export class FoodDetailsComponent implements OnInit {
 
     selectedFoodItem: Observable<FoodItem>;
 
-    constructor(private _route: ActivatedRoute, private _foodDataService: FoodDataService) { }
+    constructor(private route: ActivatedRoute, private foodDataService: FoodDataService) { }
 
     ngOnInit() {
-       this._route.paramMap
+       this.route.paramMap
             .map((paramMap: ParamMap) => +paramMap.get('foodId') || -1)
             .subscribe((foodId: number) => {
-                 this.selectedFoodItem =  this._foodDataService.GetSingleFood(+foodId);
+                 this.selectedFoodItem =  this.foodDataService.GetSingleFood(+foodId);
             });
     }
 }

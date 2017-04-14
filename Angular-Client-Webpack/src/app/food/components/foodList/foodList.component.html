@@ -23,7 +23,7 @@
         <td class="text-right">
             <!--<button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>-->
             <button type="button" class="btn btn-primary btn-xs" (click)="setFoodToDelete(food)" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-            <button (click)="setFoodItemForEdit(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            <button (click)="foodSelected.emit(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
             <a [routerLink]="['/food', food.id]" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Details</a>
         </td>
     </tr>
@@ -46,7 +46,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteFood(foodToDelete)">Delete</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="foodDeleted.emit(foodToDelete)">Delete</button>
             </div>
         </div>
 
