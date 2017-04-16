@@ -1,5 +1,5 @@
 export class FoodItem {
-    public id: number;
+    public id: string; // GUID
     public calories: number;
     public name: string;
     public created: Date;

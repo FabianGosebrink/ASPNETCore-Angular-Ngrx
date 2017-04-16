@@ -12,7 +12,7 @@ export class FoodDataService {
     public actionUrl: string;
 
     constructor(private http: Http, private configuration: Configuration) {
-        this.actionUrl = configuration.baseUrl + 'food/';
+        this.actionUrl = configuration.baseUrl + 'foods/';
     }
 
     GetAllFood = (): Observable<FoodItem[]> => {
@@ -21,7 +21,8 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    GetSingleFood = (id: number): Observable<FoodItem> => {
+    GetSingleFood = (id: string): Observable<FoodItem> => {
+        console.log(this.actionUrl + id);
         return this.http.get(this.actionUrl + id)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
@@ -51,7 +52,7 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    UpdateFood = (id: number, foodToUpdate: FoodItem): Observable<FoodItem> => {
+    UpdateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
         let options = this.prepareOptions(null);
 
         return this.http.put(this.actionUrl + id, JSON.stringify(foodToUpdate), options)
@@ -59,7 +60,7 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    DeleteFood = (id: number): Observable<Response> => {
+    DeleteFood = (id: string): Observable<Response> => {
         return this.http.delete(this.actionUrl + id)
             .catch(this.handleError);
     }

@@ -5,8 +5,8 @@
         <input type="text" name="foodName" class="form-control" id="foodName" placeholder="Foodname" [(ngModel)]="currentFood.name"
             required>
 
-        <p *ngIf="f?.controls['foodName']?.hasError('required') && (f?.controls['foodName']?.dirty && !f.submitted)" id="helpBlock"
-            class="text-danger">*</p>
+        <span *ngIf="f?.controls['foodName']?.hasError('required') && (f?.controls['foodName']?.dirty && !f.submitted)" id="helpBlock"
+            class="text-danger">*</span>
 
     </div>
 
@@ -16,17 +16,17 @@
         <input type="text" class="form-control" id="calories" placeholder="Calories" [(ngModel)]="currentFood.calories" required
             isNumber isInRange minValue="0" maxValue="2147483647" name="calories">
 
-        <p *ngIf="f?.controls['calories']?.hasError('required') && (f?.controls['calories']?.dirty && !f.submitted)" class="text-danger">
+        <span *ngIf="f?.controls['calories']?.hasError('required') && (f?.controls['calories']?.dirty && !f.submitted)" class="text-danger">
             *
-        </p>
+        </span>
 
-        <p *ngIf="f?.controls['calories']?.hasError('isNumber') && (f?.controls['calories']?.dirty  && !f.submitted)" class="text-danger">
+        <span *ngIf="f?.controls['calories']?.hasError('isNumber') && (f?.controls['calories']?.dirty  && !f.submitted)" class="text-danger">
             Please enter a number
-        </p>
+        </span>
 
-        <p *ngIf="f?.controls['calories']?.hasError('isInRange') && (f?.controls['calories']?.dirty  && !f.submitted)" class="text-danger">
+        <span *ngIf="f?.controls['calories']?.hasError('isInRange') && (f?.controls['calories']?.dirty  && !f.submitted)" class="text-danger">
             Please enter a valid number (Integer-Range)
-        </p>
+        </span>
     </div>
     <button type="submit" class="btn btn-success" (click)="AddOrUpdateFood(); f.reset()" [disabled]="!f?.valid">Submit</button>
 </form>

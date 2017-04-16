@@ -18,9 +18,9 @@ export class FoodDetailsComponent implements OnInit {
 
     ngOnInit() {
        this.route.paramMap
-            .map((paramMap: ParamMap) => +paramMap.get('foodId') || -1)
-            .subscribe((foodId: number) => {
-                 this.selectedFoodItem =  this.foodDataService.GetSingleFood(+foodId);
+            .map((paramMap: ParamMap) => paramMap.get('foodId') || '-1')
+            .subscribe((foodId: string) => {
+                 this.selectedFoodItem =  this.foodDataService.GetSingleFood(foodId);
             });
     }
 }
