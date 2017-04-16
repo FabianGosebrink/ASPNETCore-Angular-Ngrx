@@ -113,7 +113,12 @@ to serve the files from the ".dist"-folder.
 
 You can see an Angular Demo with all the techniques combined here (running on Azure)
 
-[Demo](http://foodapi4demo.azurewebsites.net/)
+## Frontend
+
+[http://foodapiui.azurewebsites.net/](http://foodapiui.azurewebsites.net/)
+
+## Backend
+[http://foodapi4demo.azurewebsites.net/](http://foodapi4demo.azurewebsites.net/)
 
 ![DemoGif](.github/foodApiAzure.gif)
 
