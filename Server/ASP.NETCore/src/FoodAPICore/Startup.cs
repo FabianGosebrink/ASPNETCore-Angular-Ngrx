@@ -1,15 +1,17 @@
-﻿using AutoMapper;
-using FoodAPICore.Models;
+﻿using FoodAPICore.Models;
 using FoodAPICore.Repositories.Food;
+using FoodAPICore.Repositories;
 using FoodAPICore.ViewModels;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Http;
+using FoodAPICore.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodAPICore
 {
@@ -46,18 +48,18 @@ namespace FoodAPICore
                     });
             });
 
-            services.AddSingleton<IFoodRepository, FoodRepository>();
 
-            services.AddMvcCore(setup=> {
+            var connectionString = Configuration["connectionStrings:DefaultConnection"];
+            services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddSingleton<IFoodRepository, FoodRepository>();
+            services.AddSingleton<IIngredientRepository, IngredientRepository>();
+            // services.AddScoped<IFoodRepository, EfFoodRepository>();
+            services.AddMvcCore(setup =>
+            {
                 setup.ReturnHttpNotAcceptable = true;
             })
-                .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver())
-                .AddApiExplorer();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-            });
+                .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,30 +73,35 @@ namespace FoodAPICore
             }
             else
             {
-                //app.UseExceptionHandler(appBuilder =>
-                //{
-                //    appBuilder.Run(async context =>
-                //    {
-                //        context.Response.StatusCode = 500;
-                //        await context.Response.Body.WriteAsync();
-                //    });
-                //});
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+                        if (exceptionHandlerFeature != null)
+                        {
+                            var logger = loggerFactory.CreateLogger("Global exception logger");
+                            logger.LogError(500,
+                                exceptionHandlerFeature.Error,
+                                exceptionHandlerFeature.Error.Message);
+                        }
+
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+                    });
+                });
             }
 
             app.UseCors("AllowAllOrigins");
             AutoMapper.Mapper.Initialize(mapper =>
             {
                 mapper.CreateMap<FoodItem, FoodItemViewModel>().ReverseMap();
+                mapper.CreateMap<FoodItem, FoodItemUpdateViewModel>().ReverseMap();
+                mapper.CreateMap<Ingredient, IngredientViewModel>().ReverseMap();
+                mapper.CreateMap<Ingredient, IngredientUpdateViewModel>().ReverseMap();
             });
 
             app.UseMvc();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
         }
     }
 }

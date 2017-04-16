@@ -1,22 +1,22 @@
-﻿using System;
+﻿using FoodAPICore.Models;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using FoodAPICore.Models;
 
-namespace FoodAPICore.Repositories.Food
+namespace FoodAPICore.Repositories
 {
-    public class FoodRepository : IFoodRepository
+    public class IngredientRepository : IIngredientRepository
     {
-        private readonly ConcurrentDictionary<Guid, FoodItem> _storage = new ConcurrentDictionary<Guid, FoodItem>();
+        private readonly ConcurrentDictionary<Guid, Ingredient> _storage = new ConcurrentDictionary<Guid, Ingredient>();
 
-        public FoodItem GetSingle(Guid id)
+        public Ingredient GetSingle(Guid id)
         {
-            FoodItem foodItem;
-            return _storage.TryGetValue(id, out foodItem) ? foodItem : null;
+            Ingredient ingredient;
+            return _storage.TryGetValue(id, out ingredient) ? ingredient : null;
         }
 
-        public void Add(FoodItem item)
+        public void Add(Ingredient item)
         {
             item.Id = Guid.NewGuid();
 
@@ -28,22 +28,22 @@ namespace FoodAPICore.Repositories.Food
 
         public void Delete(Guid id)
         {
-            FoodItem foodItem;
-            if (!_storage.TryRemove(id, out foodItem))
+            Ingredient ingredient;
+            if (!_storage.TryRemove(id, out ingredient))
             {
                 throw new Exception("Item could not be removed");
             }
         }
 
-        public FoodItem Update(Guid id, FoodItem item)
+        public Ingredient Update(Guid id, Ingredient item)
         {
             _storage.TryUpdate(id, item, GetSingle(id));
             return item;
         }
 
-        public ICollection<FoodItem> GetAll()
+        public IQueryable<Ingredient> GetAll()
         {
-            return _storage.Values;
+            return _storage.Values.AsQueryable();
         }
 
         public int Count()
