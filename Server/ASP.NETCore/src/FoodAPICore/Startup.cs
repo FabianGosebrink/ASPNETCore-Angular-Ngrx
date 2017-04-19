@@ -144,8 +144,8 @@ namespace FoodAPICore
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                Authority = "http://localhost:5000/",
-                //Authority = "http://foodapi4demo.azurewebsites.net/",
+                //Authority = "http://localhost:5000/",
+                Authority = "http://foodapi4demo.azurewebsites.net/",
                 AllowedScopes = { "WebAPI" },
 
                 RequireHttpsMetadata = false

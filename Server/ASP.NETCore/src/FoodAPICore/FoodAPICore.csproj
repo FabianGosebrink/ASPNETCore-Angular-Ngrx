@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\FoodAPI4Demo - FTP.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="wwwroot;web.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
