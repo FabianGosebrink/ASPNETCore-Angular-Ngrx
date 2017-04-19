@@ -94,6 +94,7 @@
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.16.1",
     "systemjs-builder": "^0.16.4",
+    "to-string-loader": "^1.1.5",
     "trash-cli": "^1.4.0",
     "ts-helpers": "^1.1.2",
     "tslint": "^5.0.0",

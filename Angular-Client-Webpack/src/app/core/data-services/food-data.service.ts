@@ -1,18 +1,20 @@
-import { Configuration } from './../configuration/app.configuration';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { FoodItem } from '../models/foodItem.model';
+import 'rxjs/add/observable/throw';
+import { Configuration } from '../../shared/configuration/app.configuration';
+import { FoodItem } from '../../shared/models/foodItem.model';
+import { HttpWrapperService } from '../services/httpWrapper.service';
 
 @Injectable()
 export class FoodDataService {
 
     public actionUrl: string;
 
-    constructor(private http: Http, private configuration: Configuration) {
-        this.actionUrl = configuration.baseUrl + 'foods/';
+    constructor(private http: HttpWrapperService, private configuration: Configuration) {
+        this.actionUrl = configuration.server + configuration.apiUrl + 'foods/';
     }
 
     GetAllFood = (): Observable<FoodItem[]> => {

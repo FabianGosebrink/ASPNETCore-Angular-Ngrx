@@ -1,8 +1,8 @@
-import { FoodDataService } from './../../../shared/services/food-data.service';
+import { FoodDataService } from './../../../core/data-services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
-import { AbstractNotificationService, MessageType } from '../../../shared/services/notification.service';
+import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 
 @Component({
     selector: 'home-component',

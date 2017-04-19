@@ -1,25 +1,21 @@
-import { HomeComponent } from './components/home/home.component';
-import { HomeRoutes } from './home.routes';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
-import { HttpModule } from '@angular/http';
+import { LoginComponent } from './components/login.component';
+import { AccountRoutes } from './account.routes';
 
 @NgModule({
     imports: [
         // Modules
         CommonModule,
         FormsModule,
-        HttpModule,
-        SharedModule,
-        RouterModule.forChild(HomeRoutes)
+        RouterModule.forChild(AccountRoutes)
     ],
 
     declarations: [
         // Components & Directives
-        HomeComponent,
+LoginComponent
     ],
 
     providers: [
@@ -27,8 +23,8 @@ import { HttpModule } from '@angular/http';
     ],
 
     exports: [
-        HomeComponent
+
     ]
 })
 
-export class HomeModule { }
+export class AccountModule { }

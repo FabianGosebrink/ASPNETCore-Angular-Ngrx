@@ -40,7 +40,17 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('css-loader')
+                loader:  ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader"}),
+                exclude: [
+                    path.resolve(__dirname, "src/app")
+                ]
+            },
+            {
+                test: /\.css$/,
+                loader:  "to-string-loader!css-loader",
+                include: [
+                    path.resolve(__dirname, "src/app")
+                ]
             }
         ],
         exprContextCritical: false
