@@ -51,7 +51,6 @@ namespace FoodAPICore
             });
 
             // Adds framework services.
-            // Identity & SQLite.
             services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
@@ -96,14 +95,11 @@ namespace FoodAPICore
             //services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(connectionString));
 
             services.AddSingleton<IFoodRepository, FoodRepository>();
+            services.AddScoped<IFoodRepository, EfFoodRepository>();
             services.AddSingleton<IIngredientRepository, IngredientRepository>();
             services.AddSingleton<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
-            // services.AddScoped<IFoodRepository, EfFoodRepository>();
-            services.AddMvcCore(setup =>
-            {
-                setup.ReturnHttpNotAcceptable = true;
-            })
-                .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

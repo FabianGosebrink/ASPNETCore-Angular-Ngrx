@@ -23,7 +23,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpGet]
-        
+        [AllowAnonymous]
         public IActionResult Get()
         {
             ICollection<FoodItem> foodItems = _foodRepository.GetAll();
@@ -100,6 +100,7 @@ namespace FoodAPICore.Controllers
 
         [HttpGet]
         [Route("{id}", Name = "GetSingleFood")]
+        [AllowAnonymous]
         public IActionResult Single(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
