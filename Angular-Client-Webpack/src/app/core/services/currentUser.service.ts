@@ -12,7 +12,11 @@ export class CurrentUserService {
     }
 
     set token(token: string) {
-        this.storageService.setItem('auth', token);
+        if (!token) {
+            this.storageService.removeItem('auth');
+        } else {
+            this.storageService.setItem('auth', token);
+        }
     }
 
     get username() {
@@ -23,8 +27,9 @@ export class CurrentUserService {
     set username(username: string) {
         if (!username) {
             this.storageService.removeItem('username');
+        } else {
+            this.storageService.setItem('username', username);
         }
-        this.storageService.setItem('username', username);
     }
 
     get isAuthenticated(): boolean {

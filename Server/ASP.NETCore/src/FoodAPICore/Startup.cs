@@ -74,7 +74,10 @@ namespace FoodAPICore
             {
                 // Policy for dashboard: only administrator role.
                 options.AddPolicy("Manage Accounts", policy => policy.RequireClaim("role", "administrator"));
+
                 // Policy for resources: user or administrator role. 
+                options.AddPolicy("Modify Resources", policy => policy.RequireClaim("role", "administrator"));
+                
                 options.AddPolicy("Access Resources", policyBuilder => policyBuilder.RequireAssertion(
                         context => context.User.HasClaim(claim => (claim.Type == "role" && claim.Value == "user")
                            || (claim.Type == "role" && claim.Value == "administrator"))

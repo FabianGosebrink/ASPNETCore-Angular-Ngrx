@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using FoodAPICore.Repositories;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Policy = "Access Resources")] // Authorization policy for this API.
     public class FoodsController : Controller
     {
         private readonly IFoodRepository _foodRepository;
@@ -21,6 +23,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpGet]
+        
         public IActionResult Get()
         {
             ICollection<FoodItem> foodItems = _foodRepository.GetAll();
@@ -31,6 +34,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Modify Resources")]
         public IActionResult Add([FromBody] FoodItemViewModel foodItemViewModel)
         {
             if (foodItemViewModel == null)
@@ -59,6 +63,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Policy = "Modify Resources")]
         public IActionResult PartiallyUpdate(Guid id, [FromBody] JsonPatchDocument<FoodItemViewModel> patchDoc)
         {
             if (patchDoc == null)
@@ -109,6 +114,7 @@ namespace FoodAPICore.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Policy = "Modify Resources")]
         public IActionResult Remove(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
@@ -130,6 +136,7 @@ namespace FoodAPICore.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Policy = "Modify Resources")]
         public IActionResult Update(Guid id, [FromBody]FoodItemUpdateViewModel foodItem)
         {
             var existingFoodItem = _foodRepository.GetSingle(id);

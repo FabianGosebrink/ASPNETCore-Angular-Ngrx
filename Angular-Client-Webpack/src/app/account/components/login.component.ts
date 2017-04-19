@@ -21,7 +21,9 @@ export class LoginComponent {
         this.authService
             .loginUser(this.username, this.password)
             .subscribe(
-            (response: Token) => this.router.navigate(['/home']),
+            (response: Token) => {
+                this.router.navigate([this.authService.redirectUrl || '/home'])
+            },
             (error) => {
                 console.log(error);
                 this.errorMessage = JSON.parse(error._body).error_description;

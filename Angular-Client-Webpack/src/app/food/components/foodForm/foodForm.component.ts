@@ -9,6 +9,7 @@ import { Component, Input, OnChanges, Output, EventEmitter, SimpleChanges } from
 
 export class FoodFormComponent implements OnChanges {
 
+    types: string[] = ['Starter', 'Main', 'Desert'];
     @Input() foodItem: FoodItem;
     @Output() foodUpdated = new EventEmitter<FoodItem>();
     @Output() foodAdded = new EventEmitter<FoodItem>();

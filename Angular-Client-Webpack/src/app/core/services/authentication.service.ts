@@ -11,6 +11,8 @@ import { Token } from '../../shared/models/token';
 @Injectable()
 export class AuthenticationService {
 
+    public redirectUrl: string;
+
     constructor(private http: Http,
         private currentUserService: CurrentUserService,
         private router: Router,

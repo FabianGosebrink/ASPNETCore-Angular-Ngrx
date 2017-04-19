@@ -19,4 +19,8 @@ export class NavigationComponent {
         $event.preventDefault();
         this.authenticationService.logoutUser();
     }
+
+    doNothing($event: any) {
+        $event.preventDefault();
+    }
 }

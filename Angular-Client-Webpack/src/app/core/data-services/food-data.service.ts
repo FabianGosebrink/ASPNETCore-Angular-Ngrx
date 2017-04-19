@@ -44,6 +44,7 @@ export class FoodDataService {
             {
                 name: foodItem.name,
                 calories: foodItem.calories,
+                type: foodItem.type,
                 created: new Date()
             });
 
