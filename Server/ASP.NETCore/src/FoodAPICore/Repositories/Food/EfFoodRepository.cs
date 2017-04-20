@@ -9,9 +9,11 @@ namespace FoodAPICore.Repositories.Food
     public class EfFoodRepository : IFoodRepository
     {
         private readonly FoodDbContext _foodDbContext;
+        private Random _random;
 
         public EfFoodRepository(FoodDbContext foodDbContext)
         {
+            _random = new Random();
             _foodDbContext = foodDbContext;
         }
 
@@ -56,6 +58,25 @@ namespace FoodAPICore.Repositories.Food
         public bool Save()
         {
             return (_foodDbContext.SaveChanges() >= 0);
+        }
+
+        public List<FoodItem> GetRandomMeal()
+        {
+            List<FoodItem> toReturn = new List<FoodItem>();
+
+            toReturn.Add(GetRandomItem("Starter"));
+            toReturn.Add(GetRandomItem("Main"));
+            toReturn.Add(GetRandomItem("Dessert"));
+
+            return toReturn;
+        }
+
+        private FoodItem GetRandomItem(string type)
+        {
+            int allItemsOfType = _foodDbContext.FoodItems.Where(x => x.Type == type).Count();
+            int index = _random.Next(allItemsOfType - 1);
+            FoodItem foodItem = _foodDbContext.FoodItems.ElementAtOrDefault(index);
+            return foodItem;
         }
     }
 }

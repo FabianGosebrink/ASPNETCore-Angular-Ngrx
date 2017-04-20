@@ -56,5 +56,10 @@ namespace FoodAPICore.Repositories.Food
             // To keep interface consistent with Controllers, Tests & EF Interfaces
             return true;
         }
+
+        public List<FoodItem> GetRandomMeal()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

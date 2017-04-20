@@ -3,10 +3,10 @@ import { ToasterConfig } from 'angular2-toaster/angular2-toaster';
 
 @Injectable()
 export class Configuration {
-    //server = 'http://localhost:5000/';
+    // server = 'http://localhost:5000/';
     server = 'http://foodapi4demo.azurewebsites.net/';
     apiUrl = 'api/';
-    title = 'Angular FoodChooser';
+    title = 'eMeal';
 
     authConfig = {
         CLIENT_ID: 'AngularFoodClient',

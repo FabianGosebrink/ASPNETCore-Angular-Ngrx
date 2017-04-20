@@ -33,6 +33,17 @@ namespace FoodAPICore.Controllers
             return Ok(viewModels);
         }
 
+        [HttpGet("GetRandomMeal")]
+        [AllowAnonymous]
+        public IActionResult GetRandomMeal()
+        {
+            ICollection<FoodItem> foodItems = _foodRepository.GetRandomMeal();
+            IEnumerable<FoodItemViewModel> viewModels = foodItems
+                .Select(x => Mapper.Map<FoodItemViewModel>(x));
+
+            return Ok(viewModels);
+        }
+
         [HttpPost]
         [Authorize(Policy = "Modify Resources")]
         public IActionResult Add([FromBody] FoodItemViewModel foodItemViewModel)

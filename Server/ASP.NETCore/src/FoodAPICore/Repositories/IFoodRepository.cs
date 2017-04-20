@@ -13,6 +13,8 @@ namespace FoodAPICore.Repositories
         ICollection<FoodItem> GetAll();
         int Count();
 
+        List<FoodItem> GetRandomMeal();
+
         bool Save();
     }
 }
