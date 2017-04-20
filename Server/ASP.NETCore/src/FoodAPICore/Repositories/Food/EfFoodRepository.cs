@@ -73,10 +73,10 @@ namespace FoodAPICore.Repositories.Food
 
         private FoodItem GetRandomItem(string type)
         {
-            int allItemsOfType = _foodDbContext.FoodItems.Where(x => x.Type == type).Count();
-            int index = _random.Next(allItemsOfType - 1);
-            FoodItem foodItem = _foodDbContext.FoodItems.ElementAtOrDefault(index);
-            return foodItem;
+            return _foodDbContext.FoodItems
+                .Where(x => x.Type == type)
+                .OrderBy(o => Guid.NewGuid())
+                .FirstOrDefault();
         }
     }
 }

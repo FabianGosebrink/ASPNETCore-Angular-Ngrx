@@ -30,8 +30,12 @@ export class HomeComponent implements OnInit {
     private getFood = (): void => {
         this.isWorking = true;
         this.foodDataService
-            .GetRandomFood()
-            .subscribe((response: FoodItem) => {
+            .GetRandomMeal()
+            .subscribe((response: FoodItem[]) => {
+
+                // Starter
+                // Main
+                // Dessert
 
                 if (!response) {
                     this.notificationService.showNotification(MessageType.Info, 'Oh Snap...', 'No food found...');

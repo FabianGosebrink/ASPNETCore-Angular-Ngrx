@@ -30,15 +30,6 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    GetRandomFood = (): Observable<FoodItem> => {
-        return this.GetAllFood()
-            .map((response: FoodItem[]) => {
-                 let randomIndex = Math.floor(Math.random() * response.length);
-                 return response[randomIndex];
-            })
-            .catch(this.handleError);
-    }
-
     AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
         let toAdd: string = JSON.stringify(
             {
@@ -65,6 +56,11 @@ export class FoodDataService {
 
     DeleteFood = (id: string): Observable<Response> => {
         return this.http.delete(this.actionUrl + id)
+            .catch(this.handleError);
+    }
+
+    GetRandomMeal = (): Observable<FoodItem[]> => {
+        return this.http.get(this.actionUrl + 'GetRandomMeal/')
             .catch(this.handleError);
     }
 

@@ -141,11 +141,17 @@ namespace FoodAPICore
                 mapper.CreateMap<Ingredient, IngredientUpdateViewModel>().ReverseMap();
             });
 
+            string authority = "http://localhost:5000/";
+            if (!env.IsDevelopment())
+            {
+                authority = "http://foodapi4demo.azurewebsites.net/";
+            }
+
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
                 //Authority = "http://localhost:5000/",
-                Authority = "http://foodapi4demo.azurewebsites.net/",
+                Authority = authority,
                 AllowedScopes = { "WebAPI" },
 
                 RequireHttpsMetadata = false
