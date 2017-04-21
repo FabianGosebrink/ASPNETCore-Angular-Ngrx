@@ -24,7 +24,6 @@ export class FoodDataService {
     }
 
     GetSingleFood = (id: string): Observable<FoodItem> => {
-        console.log(this.actionUrl + id);
         return this.http.get(this.actionUrl + id)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
@@ -61,6 +60,7 @@ export class FoodDataService {
 
     GetRandomMeal = (): Observable<FoodItem[]> => {
         return this.http.get(this.actionUrl + 'GetRandomMeal/')
+            .map((response: Response) => <FoodItem[]>response.json())
             .catch(this.handleError);
     }
 
