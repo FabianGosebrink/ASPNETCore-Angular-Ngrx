@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 import { Observable } from 'rxjs/Observable';
+import './home.component.css';
 
 @Component({
     selector: 'home-component',
