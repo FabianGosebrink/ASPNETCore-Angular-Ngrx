@@ -1,9 +1,9 @@
 import { FoodItem } from './../../../shared/models/foodItem.model';
-import { FoodDataService } from './../../../shared/services/food-data.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { FoodDataService } from '../../../core/data-services/food-data.service';
 
 @Component({
     selector: 'foodDetails-component',

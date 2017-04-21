@@ -10,12 +10,14 @@ import { FoodRoutes } from './food.routes';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
         // Modules
         CommonModule,
         FormsModule,
+        SharedModule,
         RouterModule.forChild(FoodRoutes)
     ],
 

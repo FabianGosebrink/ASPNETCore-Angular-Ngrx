@@ -1,8 +1,10 @@
-import { FoodDataService } from './../../../shared/services/food-data.service';
+import { FoodDataService } from './../../../core/data-services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
-import { AbstractNotificationService, MessageType } from '../../../shared/services/notification.service';
+import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
+import { Observable } from 'rxjs/Observable';
+import './home.component.css';
 
 @Component({
     selector: 'home-component',
@@ -11,35 +13,43 @@ import { AbstractNotificationService, MessageType } from '../../../shared/servic
 
 export class HomeComponent implements OnInit {
 
-    selectedFood: FoodItem;
-    lastUpdatedDate: Date;
+    randomFood: FoodItem[] = [];
+    allFood: Observable<FoodItem[]>;
     isWorking = false;
 
-    constructor(private foodDataService: FoodDataService, private notificationService: AbstractNotificationService) {
-
-    }
+    constructor(
+        private foodDataService: FoodDataService,
+        private notificationService: AbstractNotificationService) { }
 
     ngOnInit() {
         this.getFood();
+        this.getRandomMeal();
     }
 
-    updateFood = (): void => {
-        this.getFood();
+    updateFood() {
+        this.getRandomMeal();
     }
 
-    private getFood = (): void => {
+    private getFood() {
+        this.allFood = this.foodDataService.GetAllFood();
+    }
+
+    private getRandomMeal() {
         this.isWorking = true;
         this.foodDataService
-            .GetRandomFood()
-            .subscribe((response: FoodItem) => {
+            .GetRandomMeal()
+            .subscribe((response: FoodItem[]) => {
+
+                // Starter
+                // Main
+                // Dessert
 
                 if (!response) {
                     this.notificationService.showNotification(MessageType.Info, 'Oh Snap...', 'No food found...');
                     return;
                 }
 
-                this.selectedFood = response;
-                this.lastUpdatedDate = new Date();
+                this.randomFood = response;
                 this.notificationService.showNotification(MessageType.Success, 'Oh hey...', 'Food Loaded');
             },
             (error: any) => {

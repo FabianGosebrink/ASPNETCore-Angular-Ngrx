@@ -21,6 +21,7 @@
   "files": [
     "src/app/app.module.ts",
     "src/app/food/food.module.ts",
+    "src/app/account/account.module.ts",
     "src/app/main.ts"
   ],
   "awesomeTypescriptLoaderOptions": {

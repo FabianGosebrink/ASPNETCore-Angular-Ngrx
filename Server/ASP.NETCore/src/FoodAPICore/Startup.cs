@@ -12,6 +12,8 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using FoodAPICore.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using FoodAPICore.Services;
 
 namespace FoodAPICore
 {
@@ -48,18 +50,56 @@ namespace FoodAPICore
                     });
             });
 
+            // Adds framework services.
+            services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            var connectionString = Configuration["connectionStrings:DefaultConnection"];
-            services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<FoodDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Identity options.
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            });
+
+            // Claims-Based Authorization: role claims.
+            services.AddAuthorization(options =>
+            {
+                // Policy for dashboard: only administrator role.
+                options.AddPolicy("Manage Accounts", policy => policy.RequireClaim("role", "administrator"));
+
+                // Policy for resources: user or administrator role. 
+                options.AddPolicy("Modify Resources", policy => policy.RequireClaim("role", "administrator"));
+                
+                options.AddPolicy("Access Resources", policyBuilder => policyBuilder.RequireAssertion(
+                        context => context.User.HasClaim(claim => (claim.Type == "role" && claim.Value == "user")
+                           || (claim.Type == "role" && claim.Value == "administrator"))
+                    )
+                );
+            });
+
+            services.AddIdentityServer()
+               .AddTemporarySigningCredential()
+               .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
+               .AddInMemoryApiResources(IdentityConfig.GetApiResources())
+               .AddInMemoryClients(IdentityConfig.GetClients())
+               .AddAspNetIdentity<IdentityUser>(); // IdentityServer4.AspNetIdentity.
+
+            //var connectionString = Configuration["connectionStrings:DefaultConnection"];
+            //services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(connectionString));
 
             services.AddSingleton<IFoodRepository, FoodRepository>();
+            services.AddScoped<IFoodRepository, EfFoodRepository>();
             services.AddSingleton<IIngredientRepository, IngredientRepository>();
-            // services.AddScoped<IFoodRepository, EfFoodRepository>();
-            services.AddMvcCore(setup =>
-            {
-                setup.ReturnHttpNotAcceptable = true;
-            })
-                .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services.AddSingleton<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,7 +141,29 @@ namespace FoodAPICore
                 mapper.CreateMap<Ingredient, IngredientUpdateViewModel>().ReverseMap();
             });
 
+            string authority = "http://localhost:5000/";
+            if (!env.IsDevelopment())
+            {
+                authority = "http://foodapi4demo.azurewebsites.net/";
+            }
+
+            // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                //Authority = "http://localhost:5000/",
+                Authority = authority,
+                AllowedScopes = { "WebAPI" },
+
+                RequireHttpsMetadata = false
+            });
+
             app.UseMvc();
+
+            app.UseIdentity();
+
+            app.UseIdentityServer();
+
+            app.EnsureSeedData();
         }
     }
 }

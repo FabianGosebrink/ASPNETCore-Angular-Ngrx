@@ -11,6 +11,7 @@
     <tr>
         <th><a href="" (click)="sortArray('name', $event)">Name</a></th>
         <th><a href="" (click)="sortArray('calories', $event)">Calories</a></th>
+        <th><a href="" (click)="sortArray('type', $event)">Type</a></th>
         <th class="text-right">Actions</th>
     </tr>
     <tr *ngFor="let food of foods | filter : 'name' : searchString; let i = index">
@@ -19,6 +20,9 @@
         </td>
         <td class="text-left">
             {{food.calories}}
+        </td>
+        <td class="text-left">
+            {{food.type}}
         </td>
         <td class="text-right">
             <!--<button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>-->

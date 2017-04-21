@@ -1,15 +1,44 @@
 <div class="container">
-    <div class="jumbotron starter-template">
-        <h1>Random Food</h1>
+	<div class="jumbotron starter-template">
+		<h2>Your meal for today</h2>
 
-        <h2 *ngIf="isWorking">Getting your food suggestions<br />Please wait...</h2>
-        <h2 *ngIf="!selectedFood && !isWorking">No food found<br />:-(<br /><br /></h2>
-        <h2 *ngIf="selectedFood && !isWorking" [innerText]="selectedFood.name"></h2>
-        <h2 *ngIf="selectedFood && !isWorking" [innerText]="selectedFood.calories"></h2>
-        <h3 *ngIf="selectedFood && !isWorking" [innerText]="lastUpdatedDate | date:'medium'"></h3>
+		<h3 *ngIf="isWorking">Getting your food suggestions<br />Please wait...</h3>
+		<h3 *ngIf="!randomFood && !isWorking">No food found :-(<br /><br /></h3>
 
-        <button type="button" class="btn btn-primary" (click)="updateFood()">Get new Food</button>
-    </div>
+		<randomMeal [fooditem]="randomFood[0]"></randomMeal>
+		<randomMeal [fooditem]="randomFood[1]"></randomMeal>
+		<randomMeal [fooditem]="randomFood[2]"></randomMeal>
+		<br/>
+		<button type="button" class="btn btn-primary" (click)="updateFood()">Get new Meal</button>
+	</div>
+
+
+
+	<div class="container">
+		<div class="row">
+			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+				<ul class="event-list">
+					<li *ngFor="let foodItem of (allFood|async)">
+						<time datetime="2014-07-20">
+							<span class="day">{{foodItem?.type?.charAt(0)}}</span>
+							<span class="month">{{foodItem?.name?.substring(0, 3)}}</span>
+							<span class="year">2014</span>
+							<span class="time">ALL DAY</span>
+						</time>
+						<div class="info">
+							<h2 class="title">{{foodItem?.name}}</h2>
+							<br/>
+							<p class="desc">{{foodItem?.calories}} Calories</p>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
 
 </div>
 <!-- /.container -->

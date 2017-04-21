@@ -8,6 +8,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { AppRoutes } from './app.routes';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 
 @NgModule({
@@ -15,10 +16,10 @@ import { ToasterModule } from 'angular2-toaster/angular2-toaster';
         BrowserModule,
         ToasterModule,
         RouterModule.forRoot(AppRoutes, { useHash: true, preloadingStrategy: PreloadAllModules }),
-        HttpModule,
-        FormsModule,
-        SharedModule.forRoot(),
-        HomeModule
+        SharedModule,
+
+        HomeModule,
+        CoreModule.forRoot()
     ],
 
     declarations: [
