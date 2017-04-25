@@ -43,8 +43,8 @@ namespace FoodAPICore.Controllers
         }
 
         // GET api/food/6/ingridients/3
-        [HttpGet(Name = "GetIngredientForFood")]
-        [Route("foods/{foodId}/ingredients/{id}")]
+        [HttpGet]
+        [Route("foods/{foodId}/ingredients/{id}", Name = "GetIngredientForFood")]
         public IActionResult GetSingleIngredient(Guid foodId, Guid id)
         {
             if (_foodRepository.GetSingle(foodId) == null)

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FoodAPICore.Services;
 using FoodAPICore.Dtos;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace FoodAPICore
 {
@@ -99,6 +100,11 @@ namespace FoodAPICore
             services.AddSingleton<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
 
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "FoodAPICore", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -157,13 +163,22 @@ namespace FoodAPICore
                 RequireHttpsMetadata = false
             });
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
 
             app.UseIdentity();
 
             app.UseIdentityServer();
 
             app.EnsureSeedData();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodAPICore V1");
+            });
         }
     }
 }

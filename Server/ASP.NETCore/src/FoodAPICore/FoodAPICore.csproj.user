@@ -6,5 +6,6 @@
   <PropertyGroup>
     <ActiveDebugProfile>FoodAPICore</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>FoodAPI4Demo - Web Deploy</NameOfLastUsedPublishProfile>
+    <WebStackScaffolding_DependencyDialogWidth>600</WebStackScaffolding_DependencyDialogWidth>
   </PropertyGroup>
 </Project>
