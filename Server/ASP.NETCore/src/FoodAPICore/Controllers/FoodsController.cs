@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using FoodAPICore.Models;
-using FoodAPICore.ViewModels;
+using FoodAPICore.Dtos;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using FoodAPICore.Repositories;
@@ -26,9 +26,10 @@ namespace FoodAPICore.Controllers
         [AllowAnonymous]
         public IActionResult Get()
         {
-            ICollection<FoodItem> foodItems = _foodRepository.GetAll();
-            IEnumerable<FoodItemViewModel> viewModels = foodItems
-                .Select(x => Mapper.Map<FoodItemViewModel>(x));
+            ICollection<FoodItem> foodItems = _foodRepository.GetAll().ToList();
+
+            IEnumerable<FoodItemDto> viewModels = foodItems
+                .Select(x => Mapper.Map<FoodItemDto>(x));
 
             return Ok(viewModels);
         }
@@ -38,15 +39,16 @@ namespace FoodAPICore.Controllers
         public IActionResult GetRandomMeal()
         {
             ICollection<FoodItem> foodItems = _foodRepository.GetRandomMeal();
-            IEnumerable<FoodItemViewModel> viewModels = foodItems
-                .Select(x => Mapper.Map<FoodItemViewModel>(x));
+
+            IEnumerable<FoodItemDto> viewModels = foodItems
+                .Select(x => Mapper.Map<FoodItemDto>(x));
 
             return Ok(viewModels);
         }
 
         [HttpPost]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult Add([FromBody] FoodItemViewModel foodItemViewModel)
+        public IActionResult Add([FromBody] FoodItemCreateDto foodItemViewModel)
         {
             if (foodItemViewModel == null)
             {
@@ -70,43 +72,45 @@ namespace FoodAPICore.Controllers
             FoodItem newFoodItem = _foodRepository.GetSingle(toAdd.Id);
 
             return CreatedAtRoute("GetSingleFood", new { id = newFoodItem.Id },
-                Mapper.Map<FoodItemViewModel>(newFoodItem));
+                Mapper.Map<FoodItemDto>(newFoodItem));
         }
 
         [HttpPatch("{id}")]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult PartiallyUpdate(Guid id, [FromBody] JsonPatchDocument<FoodItemViewModel> patchDoc)
+        public IActionResult PartiallyUpdate(Guid id, [FromBody] JsonPatchDocument<FoodItemUpdateDto> patchDoc)
         {
             if (patchDoc == null)
             {
                 return BadRequest();
             }
 
-            FoodItem existingEntity = _foodRepository.GetSingle(id);
+            FoodItem foodItemFromRepo = _foodRepository.GetSingle(id);
 
-            if (existingEntity == null)
+            if (foodItemFromRepo == null)
             {
                 return NotFound();
             }
 
-            FoodItemViewModel foodItemViewModel = Mapper.Map<FoodItemViewModel>(existingEntity);
-            patchDoc.ApplyTo(foodItemViewModel, ModelState);
+            FoodItemUpdateDto foodItemToPatch = Mapper.Map<FoodItemUpdateDto>(foodItemFromRepo);
+            patchDoc.ApplyTo(foodItemToPatch, ModelState);
 
-            TryValidateModel(foodItemViewModel);
+            TryValidateModel(foodItemToPatch);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            FoodItem updated = _foodRepository.Update(id, Mapper.Map<FoodItem>(foodItemViewModel));
+            Mapper.Map(foodItemToPatch, foodItemFromRepo);
+
+            _foodRepository.Update(foodItemFromRepo);
 
             if (!_foodRepository.Save())
             {
                 throw new Exception("Updating a fooditem failed on save.");
             }
 
-            return Ok(Mapper.Map<FoodItemViewModel>(updated));
+            return Ok(Mapper.Map<FoodItemDto>(foodItemFromRepo));
         }
 
         [HttpGet]
@@ -121,7 +125,7 @@ namespace FoodAPICore.Controllers
                 return NotFound();
             }
 
-            return Ok(Mapper.Map<FoodItemViewModel>(foodItem));
+            return Ok(Mapper.Map<FoodItemDto>(foodItem));
         }
 
         [HttpDelete]
@@ -149,7 +153,7 @@ namespace FoodAPICore.Controllers
         [HttpPut]
         [Route("{id}")]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult Update(Guid id, [FromBody]FoodItemUpdateViewModel foodItem)
+        public IActionResult Update(Guid id, [FromBody]FoodItemUpdateDto foodItem)
         {
             var existingFoodItem = _foodRepository.GetSingle(id);
 
@@ -165,14 +169,14 @@ namespace FoodAPICore.Controllers
 
             Mapper.Map(foodItem, existingFoodItem);
 
-            FoodItem update = _foodRepository.Update(id, existingFoodItem);
+            _foodRepository.Update(existingFoodItem);
 
             if (!_foodRepository.Save())
             {
                 throw new Exception("Updating a fooditem failed on save.");
             }
 
-            return Ok(Mapper.Map<FoodItemViewModel>(update));
+            return Ok(Mapper.Map<FoodItemDto>(existingFoodItem));
         }
     }
 }

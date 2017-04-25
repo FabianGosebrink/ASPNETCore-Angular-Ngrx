@@ -1,7 +1,7 @@
-﻿using FoodAPICore.Models;
+﻿using FoodAPICore.Entities;
+using FoodAPICore.Models;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FoodAPICore.Repositories
@@ -35,10 +35,9 @@ namespace FoodAPICore.Repositories
             }
         }
 
-        public Ingredient Update(Guid id, Ingredient item)
+        public void Update(Ingredient item)
         {
-            _storage.TryUpdate(id, item, GetSingle(id));
-            return item;
+            _storage.TryUpdate(item.Id, item, GetSingle(item.Id));
         }
 
         public IQueryable<Ingredient> GetAll()
@@ -55,6 +54,52 @@ namespace FoodAPICore.Repositories
         {
             // To keep interface consistent with Controllers, Tests & EF Interfaces
             return true;
+        }
+    }
+
+    public class EfIngredientRepository : IIngredientRepository
+    {
+        FoodDbContext _foodDbContext;
+
+        public EfIngredientRepository(FoodDbContext foodDbContext)
+        {
+            _foodDbContext = foodDbContext;
+        }
+
+        public void Add(Ingredient item)
+        {
+            _foodDbContext.Ingredients.Add(item);
+        }
+
+        public int Count()
+        {
+            return _foodDbContext.Ingredients.Count();
+        }
+
+        public void Delete(Guid id)
+        {
+            Ingredient toRemove = GetSingle(id);
+            _foodDbContext.Ingredients.Remove(toRemove);
+        }
+
+        public IQueryable<Ingredient> GetAll()
+        {
+            return _foodDbContext.Ingredients;
+        }
+
+        public Ingredient GetSingle(Guid id)
+        {
+            return _foodDbContext.Ingredients.FirstOrDefault(x => x.Id == id);
+        }
+
+        public bool Save()
+        {
+            return (_foodDbContext.SaveChanges() >= 0);
+        }
+
+        public void Update(Ingredient item)
+        {
+            _foodDbContext.Ingredients.Update(item);
         }
     }
 }

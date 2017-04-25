@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace FoodAPICore.ViewModels
+namespace FoodAPICore.Dtos
 {
-    public class FoodItemViewModel
+    public class FoodItemDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

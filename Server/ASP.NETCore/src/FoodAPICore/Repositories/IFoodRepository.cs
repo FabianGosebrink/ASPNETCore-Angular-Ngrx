@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FoodAPICore.Models;
 using System;
+using System.Linq;
 
 namespace FoodAPICore.Repositories
 {
@@ -9,11 +10,11 @@ namespace FoodAPICore.Repositories
         FoodItem GetSingle(Guid id);
         void Add(FoodItem item);
         void Delete(Guid id);
-        FoodItem Update(Guid id, FoodItem item);
-        ICollection<FoodItem> GetAll();
+        void Update(FoodItem item);
+        IQueryable<FoodItem> GetAll();
         int Count();
 
-        List<FoodItem> GetRandomMeal();
+        ICollection<FoodItem> GetRandomMeal();
 
         bool Save();
     }

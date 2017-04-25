@@ -1,6 +1,6 @@
-﻿namespace FoodAPICore.ViewModels
+﻿namespace FoodAPICore.Dtos
 {
-    public class FoodItemUpdateViewModel
+    public class FoodItemUpdateDto
     {
         public string Name { get; set; }
         public string Type { get; set; }

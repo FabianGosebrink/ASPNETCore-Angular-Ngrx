@@ -1,10 +1,6 @@
 ﻿using FoodAPICore.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoodAPICore.Entities
 {
@@ -17,6 +13,6 @@ namespace FoodAPICore.Entities
         }
 
         public DbSet<FoodItem> FoodItems { get; set; }
-
+        public DbSet<Ingredient> Ingredients { get; set; }
     }
 }

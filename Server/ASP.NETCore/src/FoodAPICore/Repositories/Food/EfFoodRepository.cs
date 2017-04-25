@@ -9,11 +9,9 @@ namespace FoodAPICore.Repositories.Food
     public class EfFoodRepository : IFoodRepository
     {
         private readonly FoodDbContext _foodDbContext;
-        private Random _random;
 
         public EfFoodRepository(FoodDbContext foodDbContext)
         {
-            _random = new Random();
             _foodDbContext = foodDbContext;
         }
 
@@ -33,21 +31,14 @@ namespace FoodAPICore.Repositories.Food
             _foodDbContext.FoodItems.Remove(foodItem);
         }
 
-        public FoodItem Update(Guid id, FoodItem item)
+        public void Update(FoodItem item)
         {
-            FoodItem existingFoodItem = GetSingle(id);
-            _foodDbContext.FoodItems.Update(existingFoodItem);
-
-            existingFoodItem.Id = item.Id;
-            existingFoodItem.Calories = item.Calories;
-            existingFoodItem.Name = item.Name;
-
-            return existingFoodItem;
+            _foodDbContext.FoodItems.Update(item);
         }
 
-        public ICollection<FoodItem> GetAll()
+        public IQueryable<FoodItem> GetAll()
         {
-            return _foodDbContext.FoodItems.ToList();
+            return _foodDbContext.FoodItems;
         }
 
         public int Count()
@@ -60,7 +51,7 @@ namespace FoodAPICore.Repositories.Food
             return (_foodDbContext.SaveChanges() >= 0);
         }
 
-        public List<FoodItem> GetRandomMeal()
+        public ICollection<FoodItem> GetRandomMeal()
         {
             List<FoodItem> toReturn = new List<FoodItem>();
 

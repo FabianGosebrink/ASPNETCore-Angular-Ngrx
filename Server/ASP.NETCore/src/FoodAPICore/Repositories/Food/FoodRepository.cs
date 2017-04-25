@@ -35,15 +35,14 @@ namespace FoodAPICore.Repositories.Food
             }
         }
 
-        public FoodItem Update(Guid id, FoodItem item)
+        public void Update(FoodItem item)
         {
-            _storage.TryUpdate(id, item, GetSingle(id));
-            return item;
+            _storage.TryUpdate(item.Id, item, GetSingle(item.Id));
         }
 
-        public ICollection<FoodItem> GetAll()
+        public IQueryable<FoodItem> GetAll()
         {
-            return _storage.Values;
+            return _storage.Values.AsQueryable();
         }
 
         public int Count()
@@ -57,9 +56,23 @@ namespace FoodAPICore.Repositories.Food
             return true;
         }
 
-        public List<FoodItem> GetRandomMeal()
+        public ICollection<FoodItem> GetRandomMeal()
         {
-            throw new NotImplementedException();
+            List<FoodItem> toReturn = new List<FoodItem>();
+
+            toReturn.Add(GetRandomItem("Starter"));
+            toReturn.Add(GetRandomItem("Main"));
+            toReturn.Add(GetRandomItem("Dessert"));
+
+            return toReturn;
+        }
+
+        private FoodItem GetRandomItem(string type)
+        {
+            return _storage.Values
+                .Where(x => x.Type == type)
+                .OrderBy(o => Guid.NewGuid())
+                .FirstOrDefault();
         }
     }
 }

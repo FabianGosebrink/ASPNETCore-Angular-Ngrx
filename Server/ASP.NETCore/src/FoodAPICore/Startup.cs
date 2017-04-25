@@ -1,19 +1,18 @@
 ﻿using FoodAPICore.Models;
 using FoodAPICore.Repositories.Food;
 using FoodAPICore.Repositories;
-using FoodAPICore.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using FoodAPICore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FoodAPICore.Services;
+using FoodAPICore.Dtos;
 
 namespace FoodAPICore
 {
@@ -135,10 +134,11 @@ namespace FoodAPICore
             app.UseCors("AllowAllOrigins");
             AutoMapper.Mapper.Initialize(mapper =>
             {
-                mapper.CreateMap<FoodItem, FoodItemViewModel>().ReverseMap();
-                mapper.CreateMap<FoodItem, FoodItemUpdateViewModel>().ReverseMap();
-                mapper.CreateMap<Ingredient, IngredientViewModel>().ReverseMap();
-                mapper.CreateMap<Ingredient, IngredientUpdateViewModel>().ReverseMap();
+                mapper.CreateMap<FoodItem, FoodItemDto>().ReverseMap();
+                mapper.CreateMap<FoodItem, FoodItemUpdateDto>().ReverseMap();
+                mapper.CreateMap<FoodItem, FoodItemCreateDto>().ReverseMap();
+                mapper.CreateMap<Ingredient, IngredientDto>().ReverseMap();
+                mapper.CreateMap<Ingredient, IngredientUpdateDto>().ReverseMap();
             });
 
             string authority = "http://localhost:5000/";

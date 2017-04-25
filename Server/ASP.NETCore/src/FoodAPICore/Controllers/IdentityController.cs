@@ -1,5 +1,5 @@
 ﻿using FoodAPICore.Entities;
-using FoodAPICore.ViewModels;
+using FoodAPICore.Dtos;
 using IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -70,7 +70,7 @@ namespace FoodAPICore.Controllers
 
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody]UserCreateViewModel model)
+        public async Task<IActionResult> Register([FromBody]UserCreateDto model)
         {
             var user = new IdentityUser
             {
