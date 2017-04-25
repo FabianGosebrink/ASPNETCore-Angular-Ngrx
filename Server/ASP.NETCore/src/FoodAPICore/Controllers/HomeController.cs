@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FoodAPICore.Controllers
 {
@@ -11,7 +7,7 @@ namespace FoodAPICore.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return new RedirectResult("~/swagger/ui");
+            return new RedirectResult("~/swagger/");
         }
     }
 }
