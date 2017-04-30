@@ -15,7 +15,8 @@
     ],
     "types": [
       "node",
-      "jasmine"
+      "jasmine",
+      "electron"
     ]
   },
   "files": [
