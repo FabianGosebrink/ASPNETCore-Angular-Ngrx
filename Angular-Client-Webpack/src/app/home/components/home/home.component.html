@@ -37,8 +37,13 @@
 		</div>
 	</div>
 
-
-
+	<!-- Site footer -->
+	<footer class="footer">
+		<p>
+			<i class="fa fa-copyright" aria-hidden="true"></i> 2017 Offering Solutions
+			<small *ngIf="platformInformationProvider.isElectron"> - CPU (%): {{percentage}}</small>
+		</p>
+	</footer>
 
 </div>
 <!-- /.container -->

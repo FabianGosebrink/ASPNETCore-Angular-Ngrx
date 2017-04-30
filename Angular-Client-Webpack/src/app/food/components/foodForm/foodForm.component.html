@@ -14,6 +14,7 @@
     <div [ngClass]="(f?.controls['foodType']?.errors && f?.controls['foodType']?.touched) ? 'form-group has-error' : 'form-group'">
         <label for="foodType">Type</label>
         <select class="form-control" required [(ngModel)]="currentFood.type" name="foodType">
+            <option [ngValue]="undefined" selected>Please select...</option>
             <option *ngFor="let type of types" [value]="type">{{type}}</option>
         </select>
 

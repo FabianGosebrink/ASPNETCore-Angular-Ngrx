@@ -11,6 +11,7 @@ import { CurrentUserService } from './services/currentUser.service';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpWrapperService } from './services/httpWrapper.service';
 import { StorageService } from './services/storage.service';
+import { CpuValueService } from './services/cpuValue.service';
 
 @NgModule({
     imports: [CommonModule],
@@ -18,7 +19,7 @@ import { StorageService } from './services/storage.service';
     declarations: [],
     providers: [
         // see below
-     ],
+    ],
 })
 
 export class CoreModule {
@@ -33,6 +34,7 @@ export class CoreModule {
                 StorageService,
                 CurrentUserService,
                 PlatformInformationProvider,
+                CpuValueService,
 
                 {
                     provide: AbstractNotificationService,

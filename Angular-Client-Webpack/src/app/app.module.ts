@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
+import { NgxElectronModule } from 'ngx-electron';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { ToasterModule } from 'angular2-toaster/angular2-toaster';
         ToasterModule,
         RouterModule.forRoot(AppRoutes, { useHash: true, preloadingStrategy: PreloadAllModules }),
         SharedModule,
+        NgxElectronModule,
 
         HomeModule,
         CoreModule.forRoot()
