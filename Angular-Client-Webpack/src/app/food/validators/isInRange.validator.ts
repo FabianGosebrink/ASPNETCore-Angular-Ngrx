@@ -1,5 +1,5 @@
-import { Directive, forwardRef, Attribute } from '@angular/core';
-import { Validator, NG_VALIDATORS, FormControl, ValidationErrors } from '@angular/forms';
+import { Attribute, Directive, forwardRef } from '@angular/core';
+import { FormControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 const INT_MAX = 2147483647;
 

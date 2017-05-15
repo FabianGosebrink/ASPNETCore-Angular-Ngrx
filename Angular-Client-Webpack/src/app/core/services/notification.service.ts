@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { PlatformInformationProvider } from './platformInformation.provider';
-import { ToasterService } from 'angular2-toaster';
-import { WebAndMobileNotificationService } from './webAndMobileNotification.service';
 import { DesktopNotificationService } from './desktopNotification.service';
+import { PlatformInformationProvider } from './platformInformation.provider';
+import { WebAndMobileNotificationService } from './webAndMobileNotification.service';
+import { ToasterService } from 'angular2-toaster';
 
 export enum MessageType {
     Error,

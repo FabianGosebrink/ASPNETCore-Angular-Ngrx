@@ -1,9 +1,8 @@
 import { FoodDataService } from '../../../core/data-services/food-data.service';
+import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ToasterService } from 'angular2-toaster/angular2-toaster';
-import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 
 @Component({
     selector: 'mainFood-component',

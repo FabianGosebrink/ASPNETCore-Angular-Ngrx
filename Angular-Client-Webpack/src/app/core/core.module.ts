@@ -1,17 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FoodDataService } from './data-services/food-data.service';
-import { Sorter } from './services/sort.service';
-import { WebAndMobileNotificationService } from './services/webAndMobileNotification.service';
-import { DesktopNotificationService } from './services/desktopNotification.service';
-import { PlatformInformationProvider } from './services/platformInformation.provider';
-import { AbstractNotificationService, notificationFactory } from './services/notification.service';
-import { ToasterService } from 'angular2-toaster';
-import { CurrentUserService } from './services/currentUser.service';
 import { AuthenticationService } from './services/authentication.service';
-import { HttpWrapperService } from './services/httpWrapper.service';
-import { StorageService } from './services/storage.service';
 import { CpuValueService } from './services/cpuValue.service';
+import { CurrentUserService } from './services/currentUser.service';
+import { HttpWrapperService } from './services/httpWrapper.service';
+import { AbstractNotificationService, notificationFactory } from './services/notification.service';
+import { PlatformInformationProvider } from './services/platformInformation.provider';
+import { Sorter } from './services/sort.service';
+import { StorageService } from './services/storage.service';
+import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ToasterService } from 'angular2-toaster';
 
 @NgModule({
     imports: [CommonModule],
