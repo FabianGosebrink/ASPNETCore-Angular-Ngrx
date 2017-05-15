@@ -1,6 +1,6 @@
-import { FoodItem } from './../../../shared/models/foodItem.model';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Sorter } from '../../../core/services/sort.service';
+import { FoodItem } from './../../../shared/models/foodItem.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'foodlist',

@@ -1,5 +1,5 @@
 import { FoodItem } from './../../../shared/models/foodItem.model';
-import { Component, Input, OnChanges, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 
 @Component({

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CurrentUserService {

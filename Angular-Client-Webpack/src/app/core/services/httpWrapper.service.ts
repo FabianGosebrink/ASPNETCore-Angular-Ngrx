@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { CurrentUserService } from '../services/currentUser.service';
+import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptionsArgs, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class HttpWrapperService {

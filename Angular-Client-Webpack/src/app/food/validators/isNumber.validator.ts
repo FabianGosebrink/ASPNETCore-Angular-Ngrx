@@ -1,5 +1,5 @@
 import { Directive, forwardRef } from '@angular/core';
-import { Validator, FormControl, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
+import { FormControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
     selector: '[isNumber][formControlName],[isNumber][formControl],[isNumber][ngModel]',

@@ -1,9 +1,9 @@
+import { AccountRoutes } from './account.routes';
+import { LoginComponent } from './components/login.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login.component';
-import { AccountRoutes } from './account.routes';
 
 @NgModule({
     imports: [
@@ -15,7 +15,7 @@ import { AccountRoutes } from './account.routes';
 
     declarations: [
         // Components & Directives
-LoginComponent
+        LoginComponent
     ],
 
     providers: [

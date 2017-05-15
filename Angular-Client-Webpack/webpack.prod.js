@@ -5,6 +5,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CompressionPlugin = require("compression-webpack-plugin");
 var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 var path = require('path');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: {
@@ -65,6 +66,7 @@ module.exports = {
                 './.dist/web/aot/'
             ]
         ),
+        new BundleAnalyzerPlugin(),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false

@@ -1,9 +1,9 @@
-import { RouterModule } from '@angular/router';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Configuration } from './configuration/app.configuration';
 import { AuthGuard } from './guards/authentication.guard';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
