@@ -16,23 +16,10 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
-				<ul class="event-list">
-					<li *ngFor="let foodItem of (allFood|async)">
-						<time datetime="2014-07-20">
-							<span class="day">{{foodItem?.type?.charAt(0)}}</span>
-							<span class="month">{{foodItem?.name?.substring(0, 3)}}</span>
-							<span class="year">2014</span>
-							<span class="time">ALL DAY</span>
-						</time>
-						<div class="info">
-							<h2 class="title">{{foodItem?.name}}</h2>
-							<br/>
-							<p class="desc">{{foodItem?.calories}} Calories</p>
-						</div>
-					</li>
-
-				</ul>
+			<div class="thumbnails">
+				<div class="col-md-4" *ngFor="let foodItem of (allFood|async)">
+					<sneakpeek [foodItem]="foodItem"></sneakpeek>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -42,6 +29,7 @@
 		<p>
 			<i class="fa fa-copyright" aria-hidden="true"></i> 2017 Offering Solutions
 			<small *ngIf="platformInformationProvider.isElectron"> - CPU (%): {{percentage}}</small>
+			<small *ngIf="platformInformationProvider.isMobileDevice"> - running on {{platformInformationProvider.platformName}}</small>
 		</p>
 	</footer>
 

@@ -167,6 +167,9 @@ namespace FoodAPICore
 
             app.UseIdentity();
 
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
+
             app.UseIdentityServer();
 
             app.EnsureSeedData();

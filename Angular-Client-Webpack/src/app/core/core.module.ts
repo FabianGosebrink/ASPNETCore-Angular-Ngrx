@@ -1,3 +1,4 @@
+import { AbstractCameraService, cameraFactory } from './services/camera.service';
 import { FoodDataService } from './data-services/food-data.service';
 import { AuthenticationService } from './services/authentication.service';
 import { CpuValueService } from './services/cpuValue.service';
@@ -33,11 +34,14 @@ export class CoreModule {
                 CurrentUserService,
                 PlatformInformationProvider,
                 CpuValueService,
-
                 {
                     provide: AbstractNotificationService,
                     useFactory: notificationFactory,
                     deps: [ToasterService]
+                },
+                {
+                    provide: AbstractCameraService,
+                    useFactory: cameraFactory
                 }]
         };
     }

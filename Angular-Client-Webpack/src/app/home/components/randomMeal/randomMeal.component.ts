@@ -1,5 +1,5 @@
+import { Component, OnInit, Input } from '@angular/core';
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'randomMeal',

@@ -1,4 +1,5 @@
 import './home.component.css';
+import { AbstractCameraService } from '../../../core/services/camera.service';
 import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
@@ -50,10 +51,6 @@ export class HomeComponent implements OnInit {
         this.foodDataService
             .GetRandomMeal()
             .subscribe((response: FoodItem[]) => {
-
-                // Starter
-                // Main
-                // Dessert
 
                 if (!response) {
                     this.notificationService.showNotification(MessageType.Info, 'Oh Snap...', 'No food found...');

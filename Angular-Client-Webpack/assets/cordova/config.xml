@@ -1,47 +1,39 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="offering.solutions" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>FoodChooser</name>
+<?xml version="1.0" encoding="utf-8"?>
+    <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="offering.solutions" version="0.0.1">
+    <name>eMeal</name>
     <description>
         A small demo app to give yoou FoodSuggestions
     </description>
     <author email="mail@offering.solutions" href="http://fabian-gosebrink.com">
         Offering.Solutions
     </author>
-    <content src="index.html" />
-	<plugin name="cordova-plugin-whitelist" version="1.2.2"/>
-    <plugin name="cordova-plugin-splashscreen" spec="3.2.2"/>
-    <access origin="*"/>
-	<!--<allow-navigation href="*" />-->
-	 <allow-intent href="http://*/*"/>
-  <allow-intent href="https://*/*"/>
-  <allow-intent href="tel:*"/>
-  <allow-intent href="sms:*"/>
-  <allow-intent href="mailto:*"/>
-  <allow-intent href="geo:*"/>
-  <platform name="android">
-    <allow-intent href="market:*"/>
-  </platform>
-  <platform name="ios">
-    <allow-intent href="itms:*"/>
-    <allow-intent href="itms-apps:*"/>
-</platform>
-    <preference name="Fullscreen" value="true"/>
-    <platform name="windows">
-        <!-- images are determined by width and height. The following are supported -->
-        <!-- <splash src="www/img/wide.png" width="620" height="300"/> -->
-        <!-- <splash src="www/img/high.png" width="1152" height="1920"/> -->
-		
-		<!-- <icon src="www/img/storelogo.png" target="StoreLogo" /> -->
-		<!-- <icon src="www/img/smalllogo.png" target="Square30x30Logo" /> -->
-		<!-- <icon src="www/img/Square44x44Logo.png" target="Square44x44Logo" /> -->
-		<!-- <icon src="www/img/Square70x70Logo.png" target="Square70x70Logo" /> -->
-		<!-- <icon src="www/img/Square71x71Logo.png" target="Square71x71Logo" /> -->
-		<!-- <icon src="www/img/Square150x150Logo.png" target="Square150x150Logo" /> -->
-		<!-- <icon src="www/img/Square310x310Logo.png" target="Square310x310Logo" /> -->
-		<!-- <icon src="www/img/Wide310x150Logo.png" target="Wide310x150Logo" /> -->
-    </platform>
-	<platform name="android">
-</platform>
+    
+    <content src="index.html"/>
 
-<engine name="android" spec="~6.0.0"/>
+    <!--<plugin name="cordova-plugin-device" spec="~1.1.5"/>-->
+    <plugin name="cordova-plugin-whitelist" version="1.2.2"/>
+    <plugin name="cordova-plugin-splashscreen" spec="3.2.2"/>
+    <plugin name="cordova-plugin-statusbar" spec="https://github.com/apache/cordova-plugin-statusbar.git"/>
+    <plugin name="cordova-plugin-camera" spec="~2.4.0"/>
+    <plugin name="cordova-plugin-device" spec="1.1.6"/>
+    <access origin="*"/>
+    <!--<allow-navigation href="*" />-->
+    <allow-intent href="http://*/*"/>
+    <allow-intent href="https://*/*"/>
+    <allow-intent href="tel:*"/>
+    <allow-intent href="sms:*"/>
+    <allow-intent href="mailto:*"/>
+    <allow-intent href="geo:*"/>
+    <platform name="android">
+        <allow-intent href="market:*"/>
+    </platform>
+    
+    <preference name="StatusBarOverlaysWebView" value="false"/>
+    <preference name="Fullscreen" value="false"/>
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashScreenBackgroundColor" value="white"/>
+    <preference name="SplashScreen" value="screen"/>
+
+    <engine name="android" spec="6.0.0"/>
+    <engine name="windows" spec="4.4.3"/>
 </widget>
