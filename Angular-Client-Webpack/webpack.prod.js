@@ -66,7 +66,7 @@ module.exports = {
                 './.dist/web/aot/'
             ]
         ),
-        new BundleAnalyzerPlugin(),
+        //new BundleAnalyzerPlugin(),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
