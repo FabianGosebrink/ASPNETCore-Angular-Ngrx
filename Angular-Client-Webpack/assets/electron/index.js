@@ -34,7 +34,7 @@ app.on('ready', function () {
     mainWindow.webContents.toggleDevTools();
   });
 
-  trayIcon.buildTrayIcon();
+  trayIcon.buildTrayIcon(mainWindow);
   startSendCpuValues();
 });
 

@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {};
 
-let buildTrayIcon = () => {
+let buildTrayIcon = (mainWindow) => {
   let trayIconPath = path.join(__dirname, 'icon.ico');
 
   tray = new Tray(trayIconPath);
