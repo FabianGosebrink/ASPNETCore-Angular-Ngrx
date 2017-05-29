@@ -1,7 +1,7 @@
-import { Response, ResponseOptions } from '@angular/http';
 import { FoodItem } from './../app/shared/models/foodItem.model';
-import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
+import { Response, ResponseOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class FoodServiceMock {
@@ -10,7 +10,7 @@ export class FoodServiceMock {
 
     constructor() {
         let fooditem = new FoodItem();
-        fooditem.id = 1;
+        fooditem.id = '1';
         fooditem.created = new Date();
         fooditem.calories = 999;
         fooditem.name = 'FoodItem1';
@@ -42,7 +42,7 @@ export class FoodServiceMock {
         });
     }
 
-    public UpdateFood = (id: number, foodToUpdate: FoodItem): Observable<FoodItem> => {
+    public UpdateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
         return Observable.create((observer: any) => {
             // Yield a single value and complete
             this.internalFoodList.forEach((item: FoodItem) => {
@@ -66,6 +66,18 @@ export class FoodServiceMock {
             observer.next(new Response(new ResponseOptions({
                 status: 204
             })));
+            observer.complete();
+        });
+    }
+
+    GetRandomMeal = (): Observable<FoodItem[]> => {
+        return Observable.create((observer: any) => {
+
+            observer.next([
+                new FoodItem(),
+                new FoodItem(),
+                new FoodItem()
+            ]);
             observer.complete();
         });
     }

@@ -1,8 +1,12 @@
+import { AuthenticationServiceStub } from '../../../../testing/authenticationserviceMock';
+import { AuthenticationService } from '../../../core/services/authentication.service';
+import { CurrentUserService } from '../../../core/services/currentUser.service';
+import { StorageService } from '../../../core/services/storage.service';
 import { Configuration } from './../../configuration/app.configuration';
 import { NavigationComponent } from './navigation.component';
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 describe('NavigationComponent', () => {
@@ -15,7 +19,10 @@ describe('NavigationComponent', () => {
         TestBed.configureTestingModule({
             declarations: [NavigationComponent],
             providers: [
-                Configuration
+                Configuration,
+                CurrentUserService,
+                {provide: AuthenticationService, useClass: AuthenticationServiceStub},
+                StorageService
             ]
         }).compileComponents(); // compile template and css
     }));
@@ -36,7 +43,7 @@ describe('NavigationComponent', () => {
     });
 
     it('configuration should be defined', inject([Configuration], (service: Configuration) => {
-        expect(comp._configuration).toBeDefined();
+        expect(comp.configuration).toBeDefined();
     }));
 
     it('Title is displayed correctly', inject([Configuration], (service: Configuration) => {
