@@ -30,7 +30,7 @@ export class PlatformInformationProvider {
     public get isElectron(): boolean {
         return this._isElectron;
     }
-	
+
     public get platformName(): any {
         if (!this.getWindow().device) {
             return '';

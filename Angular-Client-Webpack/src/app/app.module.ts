@@ -28,10 +28,6 @@ import { NgxElectronModule } from 'ngx-electron';
         AppComponent
     ],
 
-    providers: [
-        Configuration
-    ],
-
     bootstrap: [AppComponent]
 })
 
