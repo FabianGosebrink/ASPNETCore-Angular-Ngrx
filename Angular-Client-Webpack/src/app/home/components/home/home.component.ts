@@ -1,11 +1,9 @@
 import './home.component.css';
-import { AbstractCameraService } from '../../../core/services/camera.service';
-import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
 import { FoodDataService } from './../../../core/data-services/food-data.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -18,19 +16,10 @@ export class HomeComponent implements OnInit {
     randomFood: FoodItem[] = [];
     allFood: Observable<FoodItem[]>;
     isWorking = false;
-    percentage: any;
 
     constructor(private foodDataService: FoodDataService,
         private notificationService: AbstractNotificationService,
-        private cpuValueService: CpuValueService,
-        private ngZone: NgZone,
         public platformInformationProvider: PlatformInformationProvider) {
-
-        cpuValueService.onNewCpuValue.subscribe((cpuValue: number) => {
-            ngZone.run(() => {
-                this.percentage = cpuValue;
-            });
-        });
     }
 
     ngOnInit() {

@@ -1,6 +1,6 @@
 import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 
 @Component({
     selector: 'eMeal-footer',
@@ -8,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class EMealFooterComponent implements OnInit {
+
+    percentage: number;
+
     constructor(
         private cpuValueService: CpuValueService,
-        platformInformationProvider: PlatformInformationProvider) { }
+        public platformInformationProvider: PlatformInformationProvider,
+        private ngZone: NgZone) {
+
+        cpuValueService.onNewCpuValue.subscribe((cpuValue: number) => {
+            ngZone.run(() => {
+                this.percentage = cpuValue;
+            });
+        });
+    }
 
     ngOnInit() { }
 }
