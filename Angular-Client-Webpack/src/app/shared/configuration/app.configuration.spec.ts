@@ -7,7 +7,7 @@ describe('Configuration', () => {
     beforeEach(() => { service = new Configuration(); });
 
     it('Returns the correct title', () => {
-        expect(service.title).toBe('Angular FoodChooser');
+        expect(service.title).toBe('eMeal');
     });
 
     it('BaseUrl should be azure or localhost', () => {
@@ -17,15 +17,13 @@ describe('Configuration', () => {
             'http://localhost:5000/api/'
         ]
 
-        expect(possibleUrls.indexOf(service.baseUrl)).toBeGreaterThanOrEqual(0);
+        expect(possibleUrls.indexOf(service.server + service.apiUrl)).toBeGreaterThanOrEqual(0);
 
     });
 
     it('BaseUrl ends with a slash', () => {
-
-        let lastChar = service.baseUrl.slice(-1);
+        let lastChar = service.apiUrl.slice(-1);
         expect(lastChar).toBe('/');
-
     });
 
     it('ToasterConfig is of Type "Toasterconfig"', () => {

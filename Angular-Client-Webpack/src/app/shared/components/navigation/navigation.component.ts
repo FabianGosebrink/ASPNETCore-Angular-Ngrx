@@ -11,9 +11,9 @@ import { Component } from '@angular/core';
 export class NavigationComponent {
 
     constructor(
-        public _configuration: Configuration,
+        public configuration: Configuration,
         public currentUserService: CurrentUserService,
-        public authenticationService: AuthenticationService) { }
+        private authenticationService: AuthenticationService) { }
 
     logout($event: any) {
         $event.preventDefault();

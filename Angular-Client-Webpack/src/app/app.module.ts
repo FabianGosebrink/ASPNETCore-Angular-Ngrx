@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
@@ -12,6 +13,7 @@ import { NgxElectronModule } from 'ngx-electron';
 
 @NgModule({
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         ToasterModule,
         RouterModule.forRoot(AppRoutes, { useHash: true, preloadingStrategy: PreloadAllModules }),
@@ -24,10 +26,6 @@ import { NgxElectronModule } from 'ngx-electron';
 
     declarations: [
         AppComponent
-    ],
-
-    providers: [
-        Configuration
     ],
 
     bootstrap: [AppComponent]

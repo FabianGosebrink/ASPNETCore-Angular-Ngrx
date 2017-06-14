@@ -39,16 +39,16 @@ module.exports = {
                 test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
                 loader: 'file-loader?name=assets/[name]-[hash:6].[ext]',
             },
-             {
+            {
                 test: /\.css$/,
-                loader:  ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader"}),
+                loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }),
                 exclude: [
                     path.resolve(__dirname, "src/app")
                 ]
             },
             {
                 test: /\.css$/,
-                loader:  "style-loader!css-loader",
+                loader: "style-loader!css-loader",
                 include: [
                     path.resolve(__dirname, "src/app")
                 ]

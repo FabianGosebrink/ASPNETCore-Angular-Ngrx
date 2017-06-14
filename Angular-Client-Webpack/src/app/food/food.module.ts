@@ -1,16 +1,16 @@
-import { FilterPipe } from './pipes/filter.pipe';
-import { IsNumberValidator } from './validators/isNumber.validator';
-import { IsInRangeValidator } from './validators/isInRange.validator';
-import { MainFoodComponent } from './components/mainFood/mainFood.component';
-import { FoodFormComponent } from './components/foodForm/foodForm.component';
-import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
-import { FoodListComponent } from './components/foodList/foodList.component';
-import { FormsModule } from '@angular/forms';
-import { FoodRoutes } from './food.routes';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
+import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
+import { FoodFormComponent } from './components/foodForm/foodForm.component';
+import { FoodListComponent } from './components/foodList/foodList.component';
+import { MainFoodComponent } from './components/mainFood/mainFood.component';
+import { FoodRoutes } from './food.routes';
+import { FilterPipe } from './pipes/filter.pipe';
+import { IsInRangeValidator } from './validators/isInRange.validator';
+import { IsNumberValidator } from './validators/isNumber.validator';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [

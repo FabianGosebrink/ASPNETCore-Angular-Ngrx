@@ -16,7 +16,7 @@ export class PlatformInformationProvider {
     }
 
     public get isWeb(): boolean {
-        return !this.isMobileDevice;
+        return !this.isMobileDevice && !this.isElectron;
     }
 
     public get isIOS(): boolean {
@@ -30,7 +30,11 @@ export class PlatformInformationProvider {
     public get isElectron(): boolean {
         return this._isElectron;
     }
-	
+
+    public get userAgent(): boolean {
+        return this.getWindow().navigator.userAgent;
+    }
+
     public get platformName(): any {
         if (!this.getWindow().device) {
             return '';

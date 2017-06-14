@@ -1,3 +1,4 @@
+import { EMealFooterComponent } from './components/footer/eMeal-footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
 import { RandomMealComponent } from './components/randomMeal/randomMeal.component';
@@ -23,7 +24,8 @@ import { RouterModule } from '@angular/router';
         // Components & Directives
         HomeComponent,
         RandomMealComponent,
-        SneakPeekComponent
+        SneakPeekComponent,
+        EMealFooterComponent
     ],
 
     providers: [

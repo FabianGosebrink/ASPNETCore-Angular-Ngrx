@@ -1,9 +1,15 @@
+import { CpuValueServiceMock } from '../../../../testing/CpuValueServiceMock';
+import { FoodDataService } from '../../../core/data-services/food-data.service';
+import { CpuValueService } from '../../../core/services/cpuValue.service';
+import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
+import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
+import { RandomMealComponent } from '../randomMeal/randomMeal.component';
+import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
 import { FoodServiceMock } from './../../../../testing/foodServiceMock';
-import { FoodDataService } from './../../../shared/services/food-data.service';
 import { HomeComponent } from './home.component';
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
-import { AbstractNotificationService, MessageType } from '../../../shared/services/notification.service';
+import { NgZone } from '@angular/core';
+import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 
 describe('HomeComponent', () => {
 
@@ -24,10 +30,15 @@ describe('HomeComponent', () => {
         };
 
         TestBed.configureTestingModule({
-            declarations: [HomeComponent],
+            imports: [
+                RouterModule
+            ],
+            declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent],
             providers: [
                 { provide: FoodDataService, useClass: FoodServiceMock },
-                { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub }
+                { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub },
+                { provide: CpuValueService, useClass: CpuValueServiceMock },
+                PlatformInformationProvider
             ]
         }); // .compileComponents(); // compile template and css
     }));
@@ -54,20 +65,14 @@ describe('HomeComponent', () => {
     }));
 
     it('updatefood should call service --> getFood', inject([FoodDataService], (service: FoodDataService) => {
-        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
+        service.GetRandomMeal = jasmine.createSpy('GetRandomMeal').and.returnValue(service.GetRandomMeal());
         comp.updateFood();
-        expect(service.GetAllFood).toHaveBeenCalledTimes(1);
+        expect(service.GetRandomMeal).toHaveBeenCalledTimes(1);
     }));
 
     it('selectedFood should be one foodItem', inject([FoodDataService], (service: FoodDataService) => {
         service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
         comp.updateFood();
-        expect(comp.selectedFood).toBeDefined();
-    }));
-
-    it('lastupdatedTime should be set', inject([FoodDataService], (service: FoodDataService) => {
-        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
-        comp.updateFood();
-        expect(comp.selectedFood).toBeDefined();
+        expect(comp.randomFood).toBeDefined();
     }));
 });
