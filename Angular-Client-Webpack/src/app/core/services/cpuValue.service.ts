@@ -19,7 +19,7 @@ export class CpuValueService {
 
     private registerCpuEvent() {
         if (this.electronService.ipcRenderer) {
-            this.electronService.ipcRenderer.on('newCpuValue', (event, data) => {
+            this.electronService.ipcRenderer.on('newCpuValue', (event: any, data: any) => {
                 // console.log(data);
                 this.onNewCpuValue.emit(data);
             });
