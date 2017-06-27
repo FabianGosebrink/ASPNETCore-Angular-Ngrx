@@ -1,0 +1,57 @@
+<form>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+            <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th><a href="" (click)="sortArray('name', $event)">Name</a></th>
+        <th><a href="" (click)="sortArray('calories', $event)">Calories</a></th>
+        <th><a href="" (click)="sortArray('type', $event)">Type</a></th>
+        <th class="text-right">Actions</th>
+    </tr>
+    <tr *ngFor="let food of foods | filter : 'name' : searchString; let i = index">
+        <td class="text-left">
+            {{food.name}}
+        </td>
+        <td class="text-left">
+            {{food.calories}}
+        </td>
+        <td class="text-left">
+            {{food.type}}
+        </td>
+        <td class="text-right">
+            <!--<button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>-->
+            <button type="button" class="btn btn-primary btn-xs" (click)="setFoodToDelete(food)" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+            <button (click)="foodSelected.emit(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            <a [routerLink]="['/food', food.id]" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Details</a>
+        </td>
+    </tr>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Food?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete:</p>
+                <p>{{foodToDelete?.name}} ({{foodToDelete?.calories}} Calories)</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="foodDeleted.emit(foodToDelete)">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div>

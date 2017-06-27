@@ -1,0 +1,13 @@
+<div class="thumbnail">
+    <img *ngIf="!foodItem?.imageString" src="http://placehold.it/320x200" alt="imagestring" (click)="takePicture($event, foodItem)">
+    <img *ngIf="foodItem?.imageString" [src]="foodItem.imageString" alt="imagestring" (click)="takePicture($event, foodItem)">
+    <div class="caption">
+        <h3>{{foodItem?.name}}</h3>
+        <p>{{foodItem?.calories}} Calories</p>
+        <p align="center">
+            <a [routerLink]="['/food', foodItem.id]" class="btn btn-primary btn-block">
+								<i class="fa fa-cutlery fa-fw"></i> 
+								Details</a>
+        </p>
+    </div>
+</div>
