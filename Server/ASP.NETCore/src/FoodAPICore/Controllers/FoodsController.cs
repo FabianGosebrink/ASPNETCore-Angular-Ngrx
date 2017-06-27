@@ -155,6 +155,11 @@ namespace FoodAPICore.Controllers
         [Authorize(Policy = "Modify Resources")]
         public IActionResult Update(Guid id, [FromBody]FoodItemUpdateDto foodItem)
         {
+            if (foodItem == null)
+            {
+                return BadRequest();
+            }
+
             var existingFoodItem = _foodRepository.GetSingle(id);
 
             if (existingFoodItem == null)

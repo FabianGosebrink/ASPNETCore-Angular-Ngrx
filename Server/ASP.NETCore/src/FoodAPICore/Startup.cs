@@ -118,21 +118,20 @@ namespace FoodAPICore
             }
             else
             {
-                app.UseExceptionHandler(appBuilder =>
+                app.UseExceptionHandler(errorApp =>
                 {
-                    appBuilder.Run(async context =>
+                    errorApp.Run(async context =>
                     {
-                        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-                        if (exceptionHandlerFeature != null)
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "text/plain";
+                        var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
+                        if (errorFeature != null)
                         {
                             var logger = loggerFactory.CreateLogger("Global exception logger");
-                            logger.LogError(500,
-                                exceptionHandlerFeature.Error,
-                                exceptionHandlerFeature.Error.Message);
+                            logger.LogError(500, errorFeature.Error, errorFeature.Error.Message);
                         }
 
-                        context.Response.StatusCode = 500;
-                        await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+                        await context.Response.WriteAsync("There was an error");
                     });
                 });
             }
