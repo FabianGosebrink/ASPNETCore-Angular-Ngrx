@@ -1,4 +1,3 @@
-import './home.component.css';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
 import { FoodDataService } from './../../../core/data-services/food-data.service';
@@ -8,7 +7,8 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'home-component',
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent implements OnInit {

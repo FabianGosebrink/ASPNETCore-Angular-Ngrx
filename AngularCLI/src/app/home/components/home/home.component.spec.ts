@@ -3,6 +3,7 @@ import { FoodDataService } from '../../../core/data-services/food-data.service';
 import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
+import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
 import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
 import { FoodServiceMock } from './../../../../testing/foodServiceMock';
@@ -33,7 +34,7 @@ describe('HomeComponent', () => {
             imports: [
                 RouterModule
             ],
-            declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent],
+            declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent, EMealFooterComponent],
             providers: [
                 { provide: FoodDataService, useClass: FoodServiceMock },
                 { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub },
