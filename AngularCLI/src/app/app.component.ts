@@ -1,10 +1,16 @@
+import { Configuration } from './shared/configuration/app.configuration';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'foodChooser-app',
+    templateUrl: 'app.component.html'
 })
+
 export class AppComponent {
-  title = 'app works!';
+
+    title: string;
+
+    constructor(public configuration: Configuration) {
+        this.title = configuration.title;
+    }
 }
