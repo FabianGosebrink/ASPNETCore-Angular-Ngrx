@@ -56,14 +56,16 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }),
+                use: [
+                    'css-loader'
+                ],
                 exclude: [
                     path.resolve(__dirname, "src/app")
                 ]
             },
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader",
+                loader: "css-loader",
                 include: [
                     path.resolve(__dirname, "src/app")
                 ]
@@ -76,7 +78,6 @@ module.exports = {
             logo: './src/icon.png',
             prefix: 'assets/'
         }),
-        new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
