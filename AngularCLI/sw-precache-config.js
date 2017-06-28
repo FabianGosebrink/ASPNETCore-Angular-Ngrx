@@ -8,5 +8,9 @@ module.exports = {
     ],
     root: '.dist/web/',
     stripPrefix: '.dist/web/',
-    navigateFallback: '/index.html'
+    navigateFallback: '/index.html',
+    runtimeCaching: [{
+        urlPattern: /foodapi4demo\.azurewebsites\.net/,
+        handler: 'networkFirst'
+    }]
 };

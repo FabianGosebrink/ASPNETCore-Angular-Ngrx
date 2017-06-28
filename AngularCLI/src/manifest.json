@@ -9,5 +9,7 @@
     }
   ],
   "display": "standalone",
-  "start_url": "./?utm_source=web_app_manifest"
+  "start_url": "./?utm_source=web_app_manifest",
+  "theme_color": "#b92b27",
+  "background_color": "#ffffff"
 }
