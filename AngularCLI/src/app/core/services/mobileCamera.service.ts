@@ -1,13 +1,10 @@
-import { AbstractCameraService } from './camera.service';
 import { Observable, Observer } from 'rxjs/Rx';
+
+import { AbstractCameraService } from './camera.service';
 
 declare let window: any;
 
 export class MobileCameraService implements AbstractCameraService {
-
-    constructor() {
-        console.log('MobileCameraService');
-    }
 
     public getPhoto = (): Observable<string> => {
         return Observable.create((observer: Observer<string>) => {

@@ -18,7 +18,7 @@ export class StorageService {
     };
 
     getItem = (key: string): any => {
-        let item: any = this._storage.getItem(key);
+        const item: any = this._storage.getItem(key);
 
         if (item && item !== 'undefined') {
             return JSON.parse(this._storage.getItem(key));

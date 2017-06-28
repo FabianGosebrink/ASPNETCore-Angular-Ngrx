@@ -1,6 +1,7 @@
+import { Component, Input, NgZone, OnInit } from '@angular/core';
+
 import { AbstractCameraService } from '../../../core/services/camera.service';
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import { Component, OnInit, Input, NgZone } from '@angular/core';
 
 @Component({
     selector: 'sneakpeek',

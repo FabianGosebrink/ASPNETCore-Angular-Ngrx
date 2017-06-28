@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { FoodItem } from '../../../shared/models/foodItem.model';
 
 @Component({
@@ -7,6 +8,5 @@ import { FoodItem } from '../../../shared/models/foodItem.model';
 })
 
 export class RandomMealComponent {
-
     @Input() fooditem: FoodItem;
 }

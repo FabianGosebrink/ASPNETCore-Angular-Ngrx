@@ -1,5 +1,6 @@
-import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
+
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class CurrentUserService {
@@ -7,7 +8,7 @@ export class CurrentUserService {
     constructor(private storageService: StorageService) { }
 
     get token(): string {
-        let token = this.storageService.getItem('auth');
+        const token = this.storageService.getItem('auth');
         return token;
     }
 
@@ -20,7 +21,7 @@ export class CurrentUserService {
     }
 
     get username() {
-        let username = this.storageService.getItem('username');
+        const username = this.storageService.getItem('username');
         return username;
     }
 

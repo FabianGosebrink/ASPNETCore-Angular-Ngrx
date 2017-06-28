@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class PlatformInformationProvider {
 
@@ -51,10 +53,12 @@ export class PlatformInformationProvider {
         this._isAndroid = this.getWindow().cordova && this.getWindow().cordova.platformId === 'android';
         this._isElectron = this.getWindow().navigator.userAgent.match(/Electron/) !== null;
 
-        console.log('userAgent: ' + this.getWindow().navigator.userAgent);
-        console.log('mobile: ' + this.isMobileDevice);
-        console.log('desktop: ' + this.isElectron);
-        console.log('web: ' + this.isWeb);
+        if (!environment.production) {
+            console.log('userAgent: ' + this.getWindow().navigator.userAgent);
+            console.log('mobile: ' + this.isMobileDevice);
+            console.log('desktop: ' + this.isElectron);
+            console.log('web: ' + this.isWeb);
+        }
     }
 
     private getWindow(): any {

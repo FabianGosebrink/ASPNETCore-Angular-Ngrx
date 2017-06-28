@@ -1,12 +1,14 @@
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { Configuration } from '../../shared/configuration/app.configuration';
-import { FoodItem } from '../../shared/models/foodItem.model';
-import { HttpWrapperService } from '../services/httpWrapper.service';
+
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
+import { Configuration } from '../../shared/configuration/app.configuration';
+import { FoodItem } from '../../shared/models/foodItem.model';
+import { HttpWrapperService } from '../services/httpWrapper.service';
 
 @Injectable()
 export class FoodDataService {
@@ -30,7 +32,7 @@ export class FoodDataService {
     }
 
     AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
-        let toAdd: string = JSON.stringify(
+        const toAdd: string = JSON.stringify(
             {
                 name: foodItem.name,
                 calories: foodItem.calories,
@@ -38,17 +40,13 @@ export class FoodDataService {
                 created: new Date()
             });
 
-        let options = this.prepareOptions(null);
-
-        return this.http.post(this.actionUrl, toAdd, options)
+        return this.http.post(this.actionUrl, toAdd)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
 
     UpdateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
-        let options = this.prepareOptions(null);
-
-        return this.http.put(this.actionUrl + id, JSON.stringify(foodToUpdate), options)
+        return this.http.put(this.actionUrl + id, JSON.stringify(foodToUpdate))
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
@@ -67,18 +65,5 @@ export class FoodDataService {
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
-    }
-
-
-    private prepareOptions = (options: RequestOptionsArgs): RequestOptionsArgs => {
-        options = options || {};
-
-        if (!options.headers) {
-            options.headers = new Headers();
-        }
-
-        options.headers.append('Content-Type', 'application/json');
-
-        return options;
     }
 }

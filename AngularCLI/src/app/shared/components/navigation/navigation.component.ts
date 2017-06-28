@@ -1,7 +1,8 @@
+import { Component } from '@angular/core';
+
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { CurrentUserService } from '../../../core/services/currentUser.service';
 import { Configuration } from './../../configuration/app.configuration';
-import { Component } from '@angular/core';
 
 @Component({
     selector: 'navigation',

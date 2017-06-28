@@ -36,7 +36,7 @@ export class HttpWrapperService {
     }
 
     private prepareOptions(options: RequestOptionsArgs): RequestOptionsArgs {
-        let token: string = this.currentUserService.token;
+        const token: string = this.currentUserService.token;
 
         options = options || {};
 

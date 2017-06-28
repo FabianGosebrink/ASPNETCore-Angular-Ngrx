@@ -1,11 +1,12 @@
-import { Configuration } from '../../shared/configuration/app.configuration';
-import { Token } from '../../shared/models/token';
-import { CurrentUserService } from './currentUser.service';
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Rx';
+
+import { Configuration } from '../../shared/configuration/app.configuration';
+import { Token } from '../../shared/models/token';
+import { CurrentUserService } from './currentUser.service';
 
 @Injectable()
 export class AuthenticationService {

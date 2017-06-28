@@ -1,5 +1,6 @@
-import { AbstractNotificationService, MessageType } from './notification.service';
 import { Injectable } from '@angular/core';
+
+import { AbstractNotificationService, MessageType } from './notification.service';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class DesktopNotificationService implements AbstractNotificationService {
             return;
         }
 
-        let messageBody: NotificationOptions = {};
+        const messageBody: NotificationOptions = {};
 
         messageBody.body = message;
 
@@ -20,10 +21,10 @@ export class DesktopNotificationService implements AbstractNotificationService {
             messageBody.icon = icon;
         }
 
-        let titleToShow = MessageType[type] + ': ' + title;
+        const titleToShow = MessageType[type] + ': ' + title;
 
         Notification.requestPermission().then(() => {
-            let myNotification = new Notification(titleToShow, messageBody);
+            const myNotification = new Notification(titleToShow, messageBody);
         });
     }
 }

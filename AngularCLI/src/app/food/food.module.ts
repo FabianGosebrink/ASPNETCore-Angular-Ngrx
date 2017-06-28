@@ -1,3 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { SharedModule } from '../shared/shared.module';
 import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
 import { FoodFormComponent } from './components/foodForm/foodForm.component';
@@ -7,10 +12,6 @@ import { FoodRoutes } from './food.routes';
 import { FilterPipe } from './pipes/filter.pipe';
 import { IsInRangeValidator } from './validators/isInRange.validator';
 import { IsNumberValidator } from './validators/isNumber.validator';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [

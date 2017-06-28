@@ -1,13 +1,12 @@
-import { AbstractNotificationService, MessageType } from './notification.service';
 import { Injectable } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
+
+import { AbstractNotificationService, MessageType } from './notification.service';
 
 @Injectable()
 export class WebAndMobileNotificationService implements AbstractNotificationService {
 
-    constructor(private toasterService: ToasterService) {
-
-    }
+    constructor(private toasterService: ToasterService) { }
 
     showNotification(type: MessageType, title: string, message: string, icon?: string): void {
 

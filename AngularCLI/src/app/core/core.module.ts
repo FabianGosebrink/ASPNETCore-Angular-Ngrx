@@ -1,3 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ToasterService } from 'angular2-toaster';
+
 import { FoodDataService } from './data-services/food-data.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AbstractCameraService, cameraFactory } from './services/camera.service';
@@ -8,9 +12,6 @@ import { AbstractNotificationService, notificationFactory } from './services/not
 import { PlatformInformationProvider } from './services/platformInformation.provider';
 import { Sorter } from './services/sort.service';
 import { StorageService } from './services/storage.service';
-import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { ToasterService } from 'angular2-toaster';
 
 @NgModule({
     imports: [CommonModule],

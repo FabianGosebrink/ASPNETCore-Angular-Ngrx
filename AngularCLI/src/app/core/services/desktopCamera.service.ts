@@ -1,13 +1,10 @@
-import { AbstractCameraService } from './camera.service';
 import { Observable } from 'rxjs/Rx';
 
-declare let window: any;
+import { AbstractCameraService } from './camera.service';
+
+declare const window: any;
 
 export class DesktopCameraService implements AbstractCameraService {
-
-    constructor() {
-        console.log('DesktopCameraService');
-    }
 
     private getMediaDevices(): any {
         const mediaDevices = ((window.navigator.mozGetUserMedia || window.navigator.webkitGetUserMedia) ? {

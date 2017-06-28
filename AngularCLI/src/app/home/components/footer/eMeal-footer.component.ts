@@ -1,6 +1,7 @@
+import { Component, NgZone, OnInit } from '@angular/core';
+
 import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
-import { Component, NgZone, OnInit } from '@angular/core';
 
 @Component({
     selector: 'eMeal-footer',

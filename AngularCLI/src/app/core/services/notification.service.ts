@@ -1,7 +1,8 @@
+import { ToasterService } from 'angular2-toaster';
+
 import { DesktopNotificationService } from './desktopNotification.service';
 import { PlatformInformationProvider } from './platformInformation.provider';
 import { WebAndMobileNotificationService } from './webAndMobileNotification.service';
-import { ToasterService } from 'angular2-toaster';
 
 export enum MessageType {
     Error,
@@ -12,7 +13,7 @@ export enum MessageType {
 }
 
 export function notificationFactory(toasterService: ToasterService): AbstractNotificationService {
-    let platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
+    const platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
 
     if (platformProvider.isElectron) {
         return new DesktopNotificationService();

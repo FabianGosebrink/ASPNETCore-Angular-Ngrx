@@ -1,10 +1,11 @@
+import { Observable } from 'rxjs/Observable';
+
 import { DesktopCameraService } from './desktopCamera.service';
 import { MobileCameraService } from './mobileCamera.service';
 import { PlatformInformationProvider } from './platformInformation.provider';
-import { Observable } from 'rxjs/Observable';
 
 export function cameraFactory(): AbstractCameraService {
-    let platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
+    const platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
 
     if (platformProvider.isMobileDevice) {
         return new MobileCameraService();

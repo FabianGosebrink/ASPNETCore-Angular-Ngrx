@@ -1,7 +1,8 @@
-import { AuthenticationService } from '../../core/services/authentication.service';
-import { Token } from '../../shared/models/token';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { AuthenticationService } from '../../core/services/authentication.service';
+import { Token } from '../../shared/models/token';
 
 @Component({
     selector: 'login',
