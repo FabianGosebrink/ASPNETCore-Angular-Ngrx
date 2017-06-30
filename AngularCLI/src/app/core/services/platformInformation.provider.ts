@@ -54,10 +54,10 @@ export class PlatformInformationProvider {
         this._isElectron = this.getWindow().navigator.userAgent.match(/Electron/) !== null;
 
         if (!environment.production) {
-            console.log('userAgent: ' + this.getWindow().navigator.userAgent);
-            console.log('mobile: ' + this.isMobileDevice);
-            console.log('desktop: ' + this.isElectron);
-            console.log('web: ' + this.isWeb);
+            // console.log('userAgent: ' + this.getWindow().navigator.userAgent);
+            // console.log('mobile: ' + this.isMobileDevice);
+            // console.log('desktop: ' + this.isElectron);
+            // console.log('web: ' + this.isWeb);
         }
     }
 

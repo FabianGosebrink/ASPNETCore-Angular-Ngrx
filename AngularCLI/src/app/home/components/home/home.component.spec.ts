@@ -24,9 +24,7 @@ describe('HomeComponent', () => {
 
         class AbstractNotificationServiceStub {
 
-            showNotification(type: MessageType, title: string, message: string, icon?: string): void {
-                console.log('showNotification');
-            }
+            showNotification(type: MessageType, title: string, message: string, icon?: string): void { }
 
         };
 

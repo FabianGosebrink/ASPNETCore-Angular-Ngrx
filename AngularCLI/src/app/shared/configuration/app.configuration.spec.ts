@@ -13,7 +13,7 @@ describe('Configuration', () => {
     it('BaseUrl should be azure or localhost', () => {
 
         let possibleUrls = [
-            'http://foodapi4demo.azurewebsites.net/api/',
+            'https://foodapi4demo.azurewebsites.net/api/',
             'http://localhost:5000/api/'
         ]
 
