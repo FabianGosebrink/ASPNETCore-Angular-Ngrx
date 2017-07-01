@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:29775/",
-      "sslPort": 0
+      "sslPort": 44396
     }
   },
   "profiles": {
@@ -17,8 +17,6 @@
     },
     "FoodAPICore": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

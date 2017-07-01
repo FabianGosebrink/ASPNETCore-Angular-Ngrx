@@ -21,7 +21,7 @@ export class NavigationComponent {
         this.authenticationService.logoutUser();
     }
 
-    doNothing($event: any) {
+    doNothing($event: Event) {
         $event.preventDefault();
     }
 }

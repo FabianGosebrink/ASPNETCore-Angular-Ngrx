@@ -155,10 +155,8 @@ namespace FoodAPICore
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                //Authority = "http://localhost:5000/",
                 Authority = authority,
                 AllowedScopes = { "WebAPI" },
-
                 RequireHttpsMetadata = false
             });
 
