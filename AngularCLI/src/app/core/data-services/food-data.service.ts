@@ -3,7 +3,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptionsArgs, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Configuration } from '../../shared/configuration/app.configuration';

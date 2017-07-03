@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AccountRoutes } from './account.routes';
-import { LoginComponent } from './components/login.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
     imports: [

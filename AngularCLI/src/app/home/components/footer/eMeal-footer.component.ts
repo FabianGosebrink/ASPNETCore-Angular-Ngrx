@@ -4,11 +4,11 @@ import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
 
 @Component({
-    selector: 'eMeal-footer',
+    selector: 'emeal-footer',
     templateUrl: 'eMeal-footer.component.html'
 })
 
-export class EMealFooterComponent implements OnInit {
+export class EMealFooterComponent {
 
     percentage: number;
 
@@ -23,6 +23,4 @@ export class EMealFooterComponent implements OnInit {
             });
         });
     }
-
-    ngOnInit() { }
 }

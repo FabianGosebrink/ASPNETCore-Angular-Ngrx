@@ -1,3 +1,7 @@
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { CpuValueServiceMock } from '../../../../testing/CpuValueServiceMock';
 import { FoodDataService } from '../../../core/data-services/food-data.service';
 import { CpuValueService } from '../../../core/services/cpuValue.service';
@@ -8,29 +12,22 @@ import { RandomMealComponent } from '../randomMeal/randomMeal.component';
 import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
 import { FoodServiceMock } from './../../../../testing/foodServiceMock';
 import { HomeComponent } from './home.component';
-import { NgZone } from '@angular/core';
-import { ComponentFixture, inject, TestBed, async } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 
 describe('HomeComponent', () => {
 
     let fixture: ComponentFixture<HomeComponent>;
     let comp: HomeComponent;
 
-    let abstractNotificationServiceStub: any;
-
-    // async beforeEach
+    // async beforeEachs
     beforeEach(async(() => {
 
         class AbstractNotificationServiceStub {
-
             showNotification(type: MessageType, title: string, message: string, icon?: string): void { }
-
         };
 
         TestBed.configureTestingModule({
             imports: [
-                RouterModule
+                RouterTestingModule
             ],
             declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent, EMealFooterComponent],
             providers: [
@@ -39,7 +36,7 @@ describe('HomeComponent', () => {
                 { provide: CpuValueService, useClass: CpuValueServiceMock },
                 PlatformInformationProvider
             ]
-        }); // .compileComponents(); // compile template and css
+        }).compileComponents(); // compile template and css
     }));
 
     // synchronous beforeEach
@@ -74,4 +71,11 @@ describe('HomeComponent', () => {
         comp.updateFood();
         expect(comp.randomFood).toBeDefined();
     }));
+
+    it('h2 should give correct headline', inject([FoodDataService], (service: FoodDataService) => {
+        const de = fixture.debugElement.query(By.css('h2'));
+        const el = de.nativeElement;
+        expect(el.textContent).toEqual('Your meal for today');
+    }));
+
 });

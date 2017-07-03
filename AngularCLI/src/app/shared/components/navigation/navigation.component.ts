@@ -16,7 +16,7 @@ export class NavigationComponent {
         public currentUserService: CurrentUserService,
         private authenticationService: AuthenticationService) { }
 
-    logout($event: any) {
+    logout($event: Event) {
         $event.preventDefault();
         this.authenticationService.logoutUser();
     }
