@@ -1,30 +1,22 @@
-import { async, TestBed } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AbstractCameraServiceStub } from '../../../../testing/abstractCameraServiceMock';
-import { AbstractNotificationServiceStub } from '../../../../testing/abstractNotificationServiceMock';
-import { CpuValueServiceMock } from '../../../../testing/CpuValueServiceMock';
-import { FoodServiceMock } from '../../../../testing/foodServiceMock';
-import { FoodDataService } from '../../../core/data-services/food-data.service';
-import { AbstractCameraService } from '../../../core/services/camera.service';
-import { CpuValueService } from '../../../core/services/cpuValue.service';
-import { AbstractNotificationService } from '../../../core/services/notification.service';
-import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { AbstractCameraServiceStub } from '../../../testing/abstractCameraServiceMock';
+import { AbstractNotificationServiceStub } from '../../../testing/abstractNotificationServiceMock';
+import { CpuValueServiceMock } from '../../../testing/CpuValueServiceMock';
+import { FoodDataService } from '../../core/data-services/food-data.service';
+import { AbstractCameraService } from '../../core/services/camera.service';
+import { CpuValueService } from '../../core/services/cpuValue.service';
+import { AbstractNotificationService } from '../../core/services/notification.service';
+import { PlatformInformationProvider } from '../../core/services/platformInformation.provider';
+import { FoodItem } from '../../shared/models/foodItem.model';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { HomeComponent } from '../home/home.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
+import { FoodServiceMock } from './../../../testing/foodServiceMock';
 import { SneakPeekComponent } from './sneekPeek.component';
 
-// let links = fixture.nativeElement.querySelectorAll('a');
-//           links[8].click();
-//           fixture.detectChanges();
-
-//           setTimeout(() {
-//             expect(location.path()).toBe('/profile');
-//           });
 
 describe('SneakPeek Component', () => {
 

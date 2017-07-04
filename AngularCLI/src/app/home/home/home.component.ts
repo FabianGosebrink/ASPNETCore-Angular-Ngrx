@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
-import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
-import { FoodDataService } from './../../../core/data-services/food-data.service';
-import { FoodItem } from './../../../shared/models/foodItem.model';
+import { AbstractNotificationService, MessageType } from '../../core/services/notification.service';
+import { PlatformInformationProvider } from '../../core/services/platformInformation.provider';
+import { FoodDataService } from './../../core/data-services/food-data.service';
+import { FoodItem } from './../../shared/models/foodItem.model';
 
 @Component({
     selector: 'home-component',

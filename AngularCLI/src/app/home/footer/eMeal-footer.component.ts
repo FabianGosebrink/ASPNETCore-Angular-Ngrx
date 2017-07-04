@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 
-import { CpuValueService } from '../../../core/services/cpuValue.service';
-import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
+import { CpuValueService } from '../../core/services/cpuValue.service';
+import { PlatformInformationProvider } from '../../core/services/platformInformation.provider';
 
 @Component({
     selector: 'emeal-footer',

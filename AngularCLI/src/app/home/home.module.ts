@@ -5,10 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
-import { EMealFooterComponent } from './components/footer/eMeal-footer.component';
-import { HomeComponent } from './components/home/home.component';
-import { RandomMealComponent } from './components/randomMeal/randomMeal.component';
-import { SneakPeekComponent } from './components/sneakPeek/sneekPeek.component';
+import { EMealFooterComponent } from './footer/eMeal-footer.component';
+import { HomeComponent } from './home/home.component';
+import { RandomMealComponent } from './randomMeal/randomMeal.component';
+import { SneakPeekComponent } from './sneakPeek/sneekPeek.component';
 import { HomeRoutes } from './home.routes';
 
 @NgModule({

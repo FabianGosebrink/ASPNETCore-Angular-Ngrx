@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { FoodItem } from '../../shared/models/foodItem.model';
 
 @Component({
     selector: 'randomMeal',
