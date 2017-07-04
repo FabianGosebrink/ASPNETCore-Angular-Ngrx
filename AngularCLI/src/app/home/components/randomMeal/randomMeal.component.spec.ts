@@ -78,7 +78,7 @@ describe('RandomMeal Component', () => {
 
     expect(el.textContent).toEqual('');
     fixture.detectChanges();
-    console.log(el.textContent);
+
     expect(el.textContent).toEqual(fooditem.type);
   });
 
