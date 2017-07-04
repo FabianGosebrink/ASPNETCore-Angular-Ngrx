@@ -27,7 +27,7 @@ export class MainFoodComponent implements OnInit {
 
     addFood = (foodItem: FoodItem): void => {
         this._foodDataService
-            .AddFood(foodItem)
+            .addFood(foodItem)
             .subscribe((response: FoodItem) => {
                 this.notificationService.showNotification(MessageType.Success, 'Food', 'Food Added!');
                 this.resetCurrentlySelectedFoodItem();
@@ -41,7 +41,7 @@ export class MainFoodComponent implements OnInit {
 
     updateFood = (foodItem: FoodItem): void => {
         this._foodDataService
-            .UpdateFood(foodItem.id, foodItem)
+            .updateFood(foodItem.id, foodItem)
             .subscribe((response: FoodItem) => {
                 this.notificationService.showNotification(MessageType.Success, 'Food', 'Food updated!');
                 this.resetCurrentlySelectedFoodItem();
@@ -55,7 +55,7 @@ export class MainFoodComponent implements OnInit {
 
     deleteFood(foodItem: FoodItem) {
         this._foodDataService
-            .DeleteFood(foodItem.id)
+            .deleteFood(foodItem.id)
             .subscribe(() => {
                 this.notificationService.showNotification(MessageType.Success, 'Food', 'Food deleted!');
                 this.getFood();
@@ -67,7 +67,7 @@ export class MainFoodComponent implements OnInit {
     }
 
     private getFood = (): void => {
-        this.foods = this._foodDataService.GetAllFood();
+        this.foods = this._foodDataService.getAllFood();
     }
 
     private resetCurrentlySelectedFoodItem() {

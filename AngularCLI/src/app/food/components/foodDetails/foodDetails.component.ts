@@ -20,7 +20,7 @@ export class FoodDetailsComponent implements OnInit {
        this.route.paramMap
             .map((paramMap: ParamMap) => paramMap.get('foodId') || '-1')
             .subscribe((foodId: string) => {
-                 this.selectedFoodItem =  this.foodDataService.GetSingleFood(foodId);
+                 this.selectedFoodItem =  this.foodDataService.getSingleFood(foodId);
             });
     }
 }

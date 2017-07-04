@@ -19,19 +19,19 @@ export class FoodDataService {
         this.actionUrl = configuration.server + configuration.apiUrl + 'foods/';
     }
 
-    GetAllFood = (): Observable<FoodItem[]> => {
+    getAllFood = (): Observable<FoodItem[]> => {
         return this.http.get(this.actionUrl)
             .map((response: Response) => <FoodItem[]>response.json())
             .catch(this.handleError);
     }
 
-    GetSingleFood = (id: string): Observable<FoodItem> => {
+    getSingleFood = (id: string): Observable<FoodItem> => {
         return this.http.get(this.actionUrl + id)
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
 
-    AddFood = (foodItem: FoodItem): Observable<FoodItem> => {
+    addFood = (foodItem: FoodItem): Observable<FoodItem> => {
         const toAdd: string = JSON.stringify(
             {
                 name: foodItem.name,
@@ -45,18 +45,18 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    UpdateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
+    updateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
         return this.http.put(this.actionUrl + id, JSON.stringify(foodToUpdate))
             .map((response: Response) => <FoodItem>response.json())
             .catch(this.handleError);
     }
 
-    DeleteFood = (id: string): Observable<Response> => {
+    deleteFood = (id: string): Observable<Response> => {
         return this.http.delete(this.actionUrl + id)
             .catch(this.handleError);
     }
 
-    GetRandomMeal = (): Observable<FoodItem[]> => {
+    getRandomMeal = (): Observable<FoodItem[]> => {
         return this.http.get(this.actionUrl + 'GetRandomMeal/')
             .map((response: Response) => <FoodItem[]>response.json())
             .catch(this.handleError);

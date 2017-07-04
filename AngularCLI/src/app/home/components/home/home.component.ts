@@ -33,13 +33,13 @@ export class HomeComponent implements OnInit {
     }
 
     private getFood() {
-        this.allFood = this.foodDataService.GetAllFood();
+        this.allFood = this.foodDataService.getAllFood();
     }
 
     private getRandomMeal() {
         this.isWorking = true;
         this.foodDataService
-            .GetRandomMeal()
+            .getRandomMeal()
             .subscribe((response: FoodItem[]) => {
 
                 if (!response) {

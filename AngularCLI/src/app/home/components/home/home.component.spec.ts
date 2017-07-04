@@ -2,10 +2,13 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { AbstractCameraServiceStub } from '../../../../testing/abstractCameraServiceMock';
+import { AbstractNotificationServiceStub } from '../../../../testing/abstractNotificationServiceMock';
 import { CpuValueServiceMock } from '../../../../testing/CpuValueServiceMock';
 import { FoodDataService } from '../../../core/data-services/food-data.service';
+import { AbstractCameraService } from '../../../core/services/camera.service';
 import { CpuValueService } from '../../../core/services/cpuValue.service';
-import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
+import { AbstractNotificationService } from '../../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
@@ -15,67 +18,70 @@ import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
 
-    let fixture: ComponentFixture<HomeComponent>;
-    let comp: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  let comp: HomeComponent;
 
-    // async beforeEachs
-    beforeEach(async(() => {
+  // async beforeEachs
+  beforeEach(async(() => {
 
-        class AbstractNotificationServiceStub {
-            showNotification(type: MessageType, title: string, message: string, icon?: string): void { }
-        };
 
-        TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule
-            ],
-            declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent, EMealFooterComponent],
-            providers: [
-                { provide: FoodDataService, useClass: FoodServiceMock },
-                { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub },
-                { provide: CpuValueService, useClass: CpuValueServiceMock },
-                PlatformInformationProvider
-            ]
-        }).compileComponents(); // compile template and css
-    }));
 
-    // synchronous beforeEach
-    beforeEach(() => {
-        fixture = TestBed.createComponent(HomeComponent);
-        comp = fixture.componentInstance;
-        // fixture.detectChanges(); // trigger initial data binding not needed with webpack
-    });
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent, EMealFooterComponent],
+      providers: [
+        { provide: FoodDataService, useClass: FoodServiceMock },
+        { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub },
+        { provide: CpuValueService, useClass: CpuValueServiceMock },
+        { provide: AbstractCameraService, useClass: AbstractCameraServiceStub },
+        PlatformInformationProvider
+      ]
+    }).compileComponents(); // compile template and css
+  }));
 
-    afterEach(() => {
-        fixture.destroy();
-    });
+  // synchronous beforeEach
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HomeComponent);
+    comp = fixture.componentInstance;
+    // fixture.detectChanges(); // trigger initial data binding not needed with webpack
+  });
 
-    it('component should be instanciated',
-        inject([FoodDataService, AbstractNotificationService],
-            (service: FoodDataService, notif: AbstractNotificationService) => {
-                expect(comp).toBeDefined();
-            }));
+  afterEach(() => {
+    fixture.destroy();
+  });
 
-    it('updatefood should be defined', inject([FoodDataService], (service: FoodDataService) => {
-        expect(comp.updateFood).toBeDefined();
-    }));
+  it('component should be instanciated', () => {
+    expect(comp).toBeDefined();
+  });
 
-    it('updatefood should call service --> getFood', inject([FoodDataService], (service: FoodDataService) => {
-        service.GetRandomMeal = jasmine.createSpy('GetRandomMeal').and.returnValue(service.GetRandomMeal());
-        comp.updateFood();
-        expect(service.GetRandomMeal).toHaveBeenCalledTimes(1);
-    }));
+  it('updatefood should be defined', () => {
+    expect(comp.updateFood).toBeDefined();
+  });
 
-    it('selectedFood should be one foodItem', inject([FoodDataService], (service: FoodDataService) => {
-        service.GetAllFood = jasmine.createSpy('GetAllFood').and.returnValue(service.GetAllFood());
-        comp.updateFood();
-        expect(comp.randomFood).toBeDefined();
-    }));
+  it('updatefood should call service --> getFood', () => {
+    const service = TestBed.get(FoodDataService);
+    service.getRandomMeal = jasmine.createSpy('getRandomMeal').and.returnValue(service.getRandomMeal());
+    comp.updateFood();
+    expect(service.getRandomMeal).toHaveBeenCalledTimes(1);
+  });
 
-    it('h2 should give correct headline', inject([FoodDataService], (service: FoodDataService) => {
-        const de = fixture.debugElement.query(By.css('h2'));
-        const el = de.nativeElement;
-        expect(el.textContent).toEqual('Your meal for today');
-    }));
+  it('after service was called food is set', () => {
+    const foodDataService = TestBed.get(FoodDataService);
+    fixture.detectChanges();
+  });
 
+  it('selectedFood should be one foodItem', () => {
+    const service = TestBed.get(FoodDataService);
+    service.getAllFood = jasmine.createSpy('getAllFood').and.returnValue(service.getAllFood());
+    comp.updateFood();
+    expect(comp.randomFood).toBeDefined();
+  });
+
+  it('h2 should give correct headline', inject([FoodDataService], (service: FoodDataService) => {
+    const de = fixture.debugElement.query(By.css('h2'));
+    const el = de.nativeElement;
+    expect(el.textContent).toEqual('Your meal for today');
+  }));
 });
