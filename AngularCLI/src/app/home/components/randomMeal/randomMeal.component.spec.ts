@@ -12,15 +12,30 @@ import { AbstractNotificationService } from '../../../core/services/notification
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
+import { HomeComponent } from '../home/home.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
 import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
 import { FoodServiceMock } from './../../../../testing/foodServiceMock';
-import { HomeComponent } from './home.component';
 
-describe('HomeComponent', () => {
+describe('RandomMeal Component', () => {
 
-  let fixture: ComponentFixture<HomeComponent>;
-  let comp: HomeComponent;
+  let fixture: ComponentFixture<RandomMealComponent>;
+  let comp: RandomMealComponent;
+
+  class FoodItemFactory {
+    static getFoodItem() {
+
+      const fooditem = new FoodItem();
+      fooditem.id = '1';
+      fooditem.created = new Date();
+      fooditem.calories = 999;
+      fooditem.type = 'starter';
+      fooditem.name = 'FoodItem1';
+
+      return fooditem;
+    };
+  }
+
 
   // async beforeEachs
   beforeEach(async(() => {
@@ -41,8 +56,9 @@ describe('HomeComponent', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(RandomMealComponent);
     comp = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   afterEach(() => {
@@ -53,46 +69,56 @@ describe('HomeComponent', () => {
     expect(comp).toBeDefined();
   });
 
-  it('updatefood should be defined', () => {
-    expect(comp.updateFood).toBeDefined();
-  });
+  it('foodtype should be reflected in component', () => {
+    const fooditem = FoodItemFactory.getFoodItem();
+    comp.fooditem = fooditem;
 
-  it('updatefood should call service --> getFood', () => {
-    const service = TestBed.get(FoodDataService);
-    service.getRandomMeal = jasmine.createSpy('getRandomMeal').and.returnValue(service.getRandomMeal());
-    comp.updateFood();
-    expect(service.getRandomMeal).toHaveBeenCalledTimes(1);
-  });
-
-  it('after init was called \'allFood\' is set', () => {
-    const foodDataService = TestBed.get(FoodDataService);
-
-    fixture.detectChanges();    // call init here
-
-    comp.allFood.subscribe((data: FoodItem[]) => {
-      expect(data.length).toBeGreaterThanOrEqual(0);
-    });
-    expect(comp.allFood).toBeDefined();
-  });
-
-  it('after init was called \'randomFood\' is set', () => {
-    const foodDataService = TestBed.get(FoodDataService);
-
-    fixture.detectChanges();    // call init here
-    expect(comp.randomFood).toBeDefined();
-    expect(comp.randomFood.length).toEqual(3);
-  });
-
-  it('selectedFood should be one foodItem', () => {
-    const service = TestBed.get(FoodDataService);
-    service.getAllFood = jasmine.createSpy('getAllFood').and.returnValue(service.getAllFood());
-    comp.updateFood();
-    expect(comp.randomFood).toBeDefined();
-  });
-
-  it('h2 should give correct headline', () => {
-    const de = fixture.debugElement.query(By.css('h2'));
+    const de = fixture.debugElement.query(By.css('h3'));
     const el = de.nativeElement;
-    expect(el.textContent).toEqual('Your meal for today');
+
+    expect(el.textContent).toEqual('');
+    fixture.detectChanges();
+    console.log(el.textContent);
+    expect(el.textContent).toEqual(fooditem.type);
   });
+
+  it('name and calories should be reflected in component', () => {
+    const fooditem = FoodItemFactory.getFoodItem();
+    comp.fooditem = fooditem;
+
+    const de = fixture.debugElement.query(By.css('h4'));
+    const el = de.nativeElement;
+
+    expect(el.textContent).toEqual(' ');
+    fixture.detectChanges();
+
+    expect(el.textContent).toEqual(`${fooditem.name} ${fooditem.calories}`);
+  });
+
+  it('nothing showed when input is null', () => {
+    const fooditem = null;
+    comp.fooditem = fooditem;
+
+    const de = fixture.debugElement.query(By.css('h3'));
+    const el = de.nativeElement;
+
+    expect(el.textContent).toEqual('');
+    fixture.detectChanges();
+
+    expect(el.textContent).toEqual('');
+  });
+
+  it('nothing showed when input is null', () => {
+    const fooditem = null;
+    comp.fooditem = fooditem;
+
+    const de = fixture.debugElement.query(By.css('h4'));
+    const el = de.nativeElement;
+
+    expect(el.textContent).toEqual(' ');
+    fixture.detectChanges();
+
+    expect(el.textContent).toEqual(' ');
+  });
+
 });
