@@ -10,6 +10,7 @@ import { AbstractCameraService } from '../../../core/services/camera.service';
 import { CpuValueService } from '../../../core/services/cpuValue.service';
 import { AbstractNotificationService } from '../../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../../core/services/platformInformation.provider';
+import { FoodItem } from '../../../shared/models/foodItem.model';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
 import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
@@ -67,9 +68,15 @@ describe('HomeComponent', () => {
     expect(service.getRandomMeal).toHaveBeenCalledTimes(1);
   });
 
-  it('after service was called food is set', () => {
+  it('after init was called \'allFood\' is set', () => {
     const foodDataService = TestBed.get(FoodDataService);
-    fixture.detectChanges();
+    console.log(comp.allFood);  // <-- undefined
+    fixture.detectChanges();    // call init here
+    console.log(comp.allFood);  // <-- undefined
+    comp.allFood.subscribe((data: FoodItem[]) => {
+      expect(data.length).toBeGreaterThanOrEqual(0);
+    });
+    expect(comp.allFood).toBeDefined();
   });
 
   it('selectedFood should be one foodItem', () => {
@@ -79,9 +86,9 @@ describe('HomeComponent', () => {
     expect(comp.randomFood).toBeDefined();
   });
 
-  it('h2 should give correct headline', inject([FoodDataService], (service: FoodDataService) => {
+  it('h2 should give correct headline', () => {
     const de = fixture.debugElement.query(By.css('h2'));
     const el = de.nativeElement;
     expect(el.textContent).toEqual('Your meal for today');
-  }));
+  });
 });
