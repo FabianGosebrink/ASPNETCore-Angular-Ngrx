@@ -57,11 +57,17 @@ describe('HomeComponent', () => {
     expect(comp.updateFood).toBeDefined();
   });
 
-  it('updatefood should call service --> getFood', () => {
+  it('updatefood should call service --> getRandomMeal', () => {
     const service = TestBed.get(FoodDataService);
     service.getRandomMeal = jasmine.createSpy('getRandomMeal').and.returnValue(service.getRandomMeal());
+
     comp.updateFood();
-    expect(service.getRandomMeal).toHaveBeenCalledTimes(1);
+
+    fixture.whenStable().then(() => {
+      expect(service.getRandomMeal).toHaveBeenCalled();
+      expect(comp.randomFood).toBeDefined();
+      expect(comp.randomFood.length).toEqual(3);
+    })
   });
 
   it('after init was called \'allFood\' is set', () => {
@@ -69,10 +75,10 @@ describe('HomeComponent', () => {
 
     fixture.detectChanges();    // call init here
 
+    expect(comp.allFood).toBeDefined();
     comp.allFood.subscribe((data: FoodItem[]) => {
       expect(data.length).toBeGreaterThanOrEqual(0);
     });
-    expect(comp.allFood).toBeDefined();
   });
 
   it('after init was called \'randomFood\' is set', () => {
