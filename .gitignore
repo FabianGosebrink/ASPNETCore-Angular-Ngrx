@@ -1,7 +1,5 @@
 AngularJS-Client/.dist
 AngularJS-Client/node_modules/
-Angular-Client/node_modules/
-Angular-Client/typings
 Server/ASP.NET/FoodAPI/obj
 Server/ASP.NET/FoodAPI/bin
 Server/ASP.NET/packages
@@ -10,18 +8,6 @@ Server/ASP.NET/.vs
 Server/ASP.NET/FoodAPI/Properties/PublishProfiles
 Server/ASP.NETCore/.vs
 Server/ASP.NETCore/src/FoodAPICore/bin
-Angular-Client/.dist
-Angular-Client/.vscode
-Angular-Client/npm-debug.log.*
-Angular-Client/.tmp
-Angular-Client/bs-config.json
-Angular-Client-Webpack/.dist
-Angular-Client-Webpack/src/.aot/
-Angular-Client-Webpack/node_modules
-Angular-Client-Webpack/.temp
-Angular-Client-Webpack/src/app/**/*.js
-Angular-Client-Webpack/src/app/**/*.js.map
 AngularJS-Client/.vscode/
-Angular-Client-Webpack/.vscode/
 Server/ASP.NETCore/src/FoodAPICore/appsettings.production.json
 Server/ASP.NETCore/src/FoodAPICore/Properties/PublishProfiles/
