@@ -27,7 +27,7 @@ module.exports = {
         allJs: [
             './node_modules/angular/angular.js',
             './node_modules/angular-animate/angular-animate.js',
-            './node_modules/angular-ui-router/release/angular-ui-router.js',
+            './node_modules/@uirouter/angularjs/release/angular-ui-router.js',
             './node_modules/jquery/dist/jquery.js',
             './node_modules/bootstrap/dist/js/bootstrap.min.js',
             './node_modules/angular-loading-bar/build/loading-bar.js',
