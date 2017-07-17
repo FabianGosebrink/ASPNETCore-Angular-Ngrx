@@ -54,9 +54,12 @@ import 'core-js/es7/reflect';
  * Zone JS is required by Angular itself.
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
+import * as jquery from 'jquery';
+getWindow().$ = getWindow().jQuery = require('jquery');
 
-
-
+function getWindow(): any {
+    return window;
+}
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
