@@ -2,8 +2,8 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Configuration } from '../../shared/configuration/app.configuration';
@@ -20,14 +20,12 @@ export class FoodDataService {
     }
 
     getAllFood = (): Observable<FoodItem[]> => {
-        return this.http.get(this.actionUrl)
-            .map((response: Response) => <FoodItem[]>response.json())
+        return this.http.get<FoodItem[]>(this.actionUrl)
             .catch(this.handleError);
     }
 
     getSingleFood = (id: string): Observable<FoodItem> => {
-        return this.http.get(this.actionUrl + id)
-            .map((response: Response) => <FoodItem>response.json())
+        return this.http.get<FoodItem>(this.actionUrl + id)
             .catch(this.handleError);
     }
 
@@ -40,30 +38,27 @@ export class FoodDataService {
                 created: new Date()
             });
 
-        return this.http.post(this.actionUrl, toAdd)
-            .map((response: Response) => <FoodItem>response.json())
+        return this.http.post<FoodItem>(this.actionUrl, toAdd)
             .catch(this.handleError);
     }
 
     updateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
-        return this.http.put(this.actionUrl + id, JSON.stringify(foodToUpdate))
-            .map((response: Response) => <FoodItem>response.json())
+        return this.http.put<FoodItem>(this.actionUrl + id, JSON.stringify(foodToUpdate))
             .catch(this.handleError);
     }
 
-    deleteFood = (id: string): Observable<Response> => {
+    deleteFood = (id: string): Observable<HttpResponse<any>> => {
         return this.http.delete(this.actionUrl + id)
             .catch(this.handleError);
     }
 
     getRandomMeal = (): Observable<FoodItem[]> => {
-        return this.http.get(this.actionUrl + 'GetRandomMeal/')
-            .map((response: Response) => <FoodItem[]>response.json())
+        return this.http.get<FoodItem[]>(this.actionUrl + 'GetRandomMeal/')
             .catch(this.handleError);
     }
 
-    private handleError(error: Response) {
+    private handleError(error: HttpResponse<any>) {
         console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw(error || 'Server error');
     }
 }

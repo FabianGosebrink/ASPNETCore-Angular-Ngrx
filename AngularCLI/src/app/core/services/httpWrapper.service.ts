@@ -1,56 +1,53 @@
-import { CurrentUserService } from '../services/currentUser.service';
+import * as console from 'console';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
+import { CurrentUserService } from '../services/currentUser.service';
 
 @Injectable()
 export class HttpWrapperService {
-    constructor(private http: Http, private currentUserService: CurrentUserService) {
+    constructor(private http: HttpClient, private currentUserService: CurrentUserService) { }
 
+    get<T>(url: string, headers?: HttpHeaders | null): Observable<T> {
+        const expandedHeaders = this.prepareHeader(headers);
+        return this.http.get<T>(url, expandedHeaders);
     }
 
-    get = (url: string, options?: RequestOptionsArgs): Observable<Response> => {
-        options = this.prepareOptions(options);
-
-        return this.http.get(url, options);
-    };
-
-    post = (url: string, body: string, options?: RequestOptionsArgs): Observable<Response> => {
-        options = this.prepareOptions(options);
-        return this.http.post(url, body, options);
-    };
-
-    put = (url: string, body: string, options?: RequestOptionsArgs): Observable<Response> => {
-        options = this.prepareOptions(options);
-        return this.http.put(url, body, options);
+    post<T>(url: string, body: string, headers?: HttpHeaders | null): Observable<T> {
+        const expandedHeaders = this.prepareHeader(headers);
+        return this.http.post<T>(url, body, expandedHeaders);
     }
 
-    delete = (url: string, options?: RequestOptionsArgs): Observable<Response> => {
-        options = this.prepareOptions(options);
-        return this.http.delete(url, options);
+    put<T>(url: string, body: string, headers?: HttpHeaders | null): Observable<T> {
+        const expandedHeaders = this.prepareHeader(headers);
+        return this.http.put<T>(url, body, expandedHeaders);
     }
 
-    patch = (url: string, body: string, options?: RequestOptionsArgs): Observable<Response> => {
-        options = this.prepareOptions(options);
-        return this.http.patch(url, body, options);
+    delete<T>(url: string, headers?: HttpHeaders | null): Observable<T> {
+        const expandedHeaders = this.prepareHeader(headers);
+        return this.http.delete<T>(url, expandedHeaders);
     }
 
-    private prepareOptions(options: RequestOptionsArgs): RequestOptionsArgs {
+    patch<T>(url: string, body: string, headers?: HttpHeaders | null): Observable<T> {
+        const expandedHeaders = this.prepareHeader(headers);
+        return this.http.patch<T>(url, body, expandedHeaders);
+    }
+
+    private prepareHeader(headers: HttpHeaders | null): object {
         const token: string = this.currentUserService.token;
 
-        options = options || {};
-
-        if (!options.headers) {
-            options.headers = new Headers();
-        }
+        headers = headers || new HttpHeaders();
 
         if (token) {
-            options.headers.append('Authorization', 'Bearer ' + token);
+            headers = headers.set('Authorization', 'Bearer ' + token);
         }
 
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
+        headers = headers.set('Accept', 'application/json');
 
-        return options;
+        return {
+            headers
+        }
     }
 }

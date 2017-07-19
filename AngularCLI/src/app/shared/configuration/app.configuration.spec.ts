@@ -12,8 +12,8 @@ describe('Configuration', () => {
 
     it('BaseUrl should be azure or localhost', () => {
 
-        let possibleUrls = [
-            'https://foodapi4demo.azurewebsites.net/api/',
+        const possibleUrls = [
+            'http://foodapi4demo.azurewebsites.net/api/',
             'http://localhost:5000/api/'
         ]
 
@@ -22,7 +22,7 @@ describe('Configuration', () => {
     });
 
     it('BaseUrl ends with a slash', () => {
-        let lastChar = service.apiUrl.slice(-1);
+        const lastChar = service.apiUrl.slice(-1);
         expect(lastChar).toBe('/');
     });
 

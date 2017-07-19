@@ -1,5 +1,5 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { FoodItem } from './../app/shared/models/foodItem.model';
@@ -57,16 +57,16 @@ export class FoodServiceMock {
     });
   }
 
-  deleteFood = (id: number): Observable<Response> => {
+  deleteFood = (id: number): Observable<HttpResponse<any>> => {
     return Observable.create((observer: any) => {
 
       const itemToRemove = this.internalFoodList.find(x => x.id === id);
       const indexToRemove = this.internalFoodList.indexOf(itemToRemove);
       this.internalFoodList.splice(indexToRemove, 1);
 
-      observer.next(new Response(new ResponseOptions({
+      observer.next(new HttpResponse({
         status: 204
-      })));
+      }));
       observer.complete();
     });
   }
