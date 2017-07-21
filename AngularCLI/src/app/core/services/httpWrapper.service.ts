@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,44 +10,46 @@ export class HttpWrapperService {
     constructor(private http: HttpClient, private currentUserService: CurrentUserService) { }
 
     get<T>(url: string, headers?: HttpHeaders | null): Observable<T> {
-        const expandedHeaders = this.prepareHeader(headers);
-        return this.http.get<T>(url, expandedHeaders);
+        return this.http.get<T>(url);
     }
 
     post<T>(url: string, body: string, headers?: HttpHeaders | null): Observable<T> {
-        const expandedHeaders = this.prepareHeader(headers);
-        return this.http.post<T>(url, body, expandedHeaders);
+        return this.http.post<T>(url, body);
     }
 
     put<T>(url: string, body: string, headers?: HttpHeaders | null): Observable<T> {
-        const expandedHeaders = this.prepareHeader(headers);
-        return this.http.put<T>(url, body, expandedHeaders);
+        return this.http.put<T>(url, body);
     }
 
     delete<T>(url: string, headers?: HttpHeaders | null): Observable<T> {
-        const expandedHeaders = this.prepareHeader(headers);
-        return this.http.delete<T>(url, expandedHeaders);
+        return this.http.delete<T>(url);
     }
 
     patch<T>(url: string, body: string, headers?: HttpHeaders | null): Observable<T> {
-        const expandedHeaders = this.prepareHeader(headers);
-        return this.http.patch<T>(url, body, expandedHeaders);
+        return this.http.patch<T>(url, body);
     }
+}
 
-    private prepareHeader(headers: HttpHeaders | null): object {
+
+@Injectable()
+export class MyFirstInterceptor implements HttpInterceptor {
+
+    constructor(private currentUserService: CurrentUserService) { }
+
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log(JSON.stringify(req));
+
         const token: string = this.currentUserService.token;
 
-        headers = headers || new HttpHeaders();
-
         if (token) {
-            headers = headers.set('Authorization', 'Bearer ' + token);
+            req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
         }
 
-        headers = headers.set('Content-Type', 'application/json');
-        headers = headers.set('Accept', 'application/json');
-
-        return {
-            headers
+        if (!req.headers.has('Content-Type')) {
+            req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
         }
+
+        req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+        return next.handle(req);
     }
 }

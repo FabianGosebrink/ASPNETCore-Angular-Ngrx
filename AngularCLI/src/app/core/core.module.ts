@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
 
@@ -7,7 +8,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AbstractCameraService, cameraFactory } from './services/camera.service';
 import { CpuValueService } from './services/cpuValue.service';
 import { CurrentUserService } from './services/currentUser.service';
-import { HttpWrapperService } from './services/httpWrapper.service';
+import { HttpWrapperService, MyFirstInterceptor } from './services/httpWrapper.service';
 import { AbstractNotificationService, notificationFactory } from './services/notification.service';
 import { PlatformInformationProvider } from './services/platformInformation.provider';
 import { Sorter } from './services/sort.service';
@@ -43,6 +44,11 @@ export class CoreModule {
                 {
                     provide: AbstractCameraService,
                     useFactory: cameraFactory
+                },
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: MyFirstInterceptor,
+                    multi: true,
                 }]
         };
     }
