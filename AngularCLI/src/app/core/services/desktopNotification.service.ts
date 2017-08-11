@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { AbstractNotificationService, MessageType } from './notification.service';
 
-
 @Injectable()
 export class DesktopNotificationService implements AbstractNotificationService {
 

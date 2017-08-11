@@ -26,10 +26,6 @@ app.on('ready', function () {
     mainWindow = null;
   });
 
-  mainWindow.on('closed', () => {
-    win = null;
-  });
-
   globalShortcut.register('CmdOrCtrl+Shift+i', () => {
     mainWindow.webContents.toggleDevTools();
   });

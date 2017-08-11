@@ -11,3 +11,4 @@ Server/ASP.NETCore/src/FoodAPICore/bin
 AngularJS-Client/.vscode/
 Server/ASP.NETCore/src/FoodAPICore/appsettings.production.json
 Server/ASP.NETCore/src/FoodAPICore/Properties/PublishProfiles/
+/AngularCLI/.dist
