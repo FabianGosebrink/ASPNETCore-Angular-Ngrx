@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng build --prod --aot=true --output-path=\".dist/web\"",
+    "build": "ng build --prod --aot --output-path=\".dist/web\"",
     "build-web": "npm run build && npm run precache",
     "precache": "sw-precache --verbose --config=sw-precache-config.js",
     "prepare-desktop": "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web .temp/electron/ && rimraf .dist/desktop/",
