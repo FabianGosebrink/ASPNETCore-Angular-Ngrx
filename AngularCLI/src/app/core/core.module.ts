@@ -8,11 +8,23 @@ import { AuthenticationService } from './services/authentication.service';
 import { AbstractCameraService, cameraFactory } from './services/camera.service';
 import { CpuValueService } from './services/cpuValue.service';
 import { CurrentUserService } from './services/currentUser.service';
+import { DesktopNotificationService } from './services/desktopNotification.service';
 import { HttpWrapperService, MyFirstInterceptor } from './services/httpWrapper.service';
-import { AbstractNotificationService, notificationFactory } from './services/notification.service';
+import { AbstractNotificationService } from './services/notification.service';
 import { PlatformInformationProvider } from './services/platformInformation.provider';
 import { Sorter } from './services/sort.service';
 import { StorageService } from './services/storage.service';
+import { WebAndMobileNotificationService } from './services/webAndMobileNotification.service';
+
+function notificationFactory(toasterService: ToasterService): AbstractNotificationService {
+  const platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
+
+  if (platformProvider.isElectron) {
+      return new DesktopNotificationService();
+  }
+
+  return new WebAndMobileNotificationService(toasterService);
+};
 
 @NgModule({
     imports: [CommonModule],
