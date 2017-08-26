@@ -9,7 +9,12 @@ import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
+import { FoodItem } from './shared/models/foodItem.model';
 import { SharedModule } from './shared/shared.module';
+
+interface AppState {
+    foodItems: FoodItem[];
+}
 
 @NgModule({
     imports: [
