@@ -2,9 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { FoodDataService } from '../../../core/data-services/food-data.service';
-import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
-import { ADD_FOOD, createActionOfType, DELETE_FOOD, LOAD_FOOD } from '../../store/actions/food.actions';
+import {
+    ADD_FOOD,
+    createActionOfType,
+    DELETE_FOOD,
+    LOAD_FOOD,
+    SELECT_FOOD,
+    UPDATE_FOOD,
+} from '../../store/actions/food.actions';
 import { FoodState } from '../../store/reducer/food.reducer';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
@@ -14,16 +19,12 @@ import { FoodItem } from './../../../shared/models/foodItem.model';
 })
 
 export class MainFoodComponent implements OnInit {
-    foodSelectedFromList: FoodItem;
+    selectedItem: Observable<FoodState>;
     foodState: Observable<FoodState>;
 
-    constructor(private _foodDataService: FoodDataService,
-        private notificationService: AbstractNotificationService,
-        private store: Store<any>) {
-
-        this.resetCurrentlySelectedFoodItem();
-
+    constructor(private store: Store<any>) {
         this.foodState = this.store.select(state => state.food.foodItems);
+        this.selectedItem = this.store.select(state => state.food.selectedItem);
     }
 
     ngOnInit() {
@@ -31,7 +32,7 @@ export class MainFoodComponent implements OnInit {
     }
 
     setCurrentlySelectedFood(foodItem: FoodItem) {
-        this.foodSelectedFromList = foodItem;
+        this.store.dispatch(createActionOfType(SELECT_FOOD, foodItem));
     }
 
     addFood(foodItem: FoodItem) {
@@ -39,24 +40,10 @@ export class MainFoodComponent implements OnInit {
     }
 
     updateFood(foodItem: FoodItem) {
-        this._foodDataService
-            .updateFood(foodItem.id, foodItem)
-            .subscribe((response: FoodItem) => {
-                this.notificationService.showNotification(MessageType.Success, 'Food', 'Food updated!');
-                this.resetCurrentlySelectedFoodItem();
-                // this.getFood();
-            },
-            (error: any) => {
-                console.log(error)
-                this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
-            });
+        this.store.dispatch(createActionOfType(UPDATE_FOOD, foodItem));
     }
 
     deleteFood(foodItem: FoodItem) {
         this.store.dispatch(createActionOfType(DELETE_FOOD, foodItem));
-    }
-
-    private resetCurrentlySelectedFoodItem() {
-        this.setCurrentlySelectedFood(new FoodItem());
     }
 }

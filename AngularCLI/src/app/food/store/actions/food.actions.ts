@@ -13,6 +13,8 @@ export const UPDATE_FOOD_SUCCESS = 'UPDATE_FOOD_SUCCESS'
 export const LOAD_FOOD = 'LOAD_FOOD'
 export const LOAD_FOOD_SUCCESS = 'LOAD_FOOD_SUCCESS'
 
+export const SELECT_FOOD = 'SELECT_FOOD'
+
 
 export function createActionOfType(type: string, payload?: any) {
     switch (type) {
@@ -36,6 +38,9 @@ export function createActionOfType(type: string, payload?: any) {
 
         case LOAD_FOOD_SUCCESS:
             return { type: LOAD_FOOD_SUCCESS, payload: payload }
+
+        case SELECT_FOOD:
+            return { type: SELECT_FOOD, payload: payload }
 
         default:
             throw new Error('Dont know your ActionType');

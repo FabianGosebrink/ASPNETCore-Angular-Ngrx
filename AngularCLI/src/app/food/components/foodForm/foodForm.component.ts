@@ -7,7 +7,7 @@ import { FoodItem } from './../../../shared/models/foodItem.model';
     templateUrl: './foodForm.component.html'
 })
 
-export class FoodFormComponent {
+export class FoodFormComponent implements OnChanges {
 
     types: string[] = ['Starter', 'Main', 'Dessert'];
     @Input() foodItem: FoodItem;
@@ -17,7 +17,10 @@ export class FoodFormComponent {
     currentFood: FoodItem = new FoodItem();
 
     addOrUpdateFood() {
-        const copy = Object.assign(new FoodItem(), this.currentFood);
-        this.foodItem.id ? this.foodUpdated.emit(copy) : this.foodAdded.emit(copy);
+        this.foodItem.id ? this.foodUpdated.emit(this.currentFood) : this.foodAdded.emit(this.currentFood);
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.currentFood = Object.assign({}, changes.foodItem.currentValue);
     }
 }

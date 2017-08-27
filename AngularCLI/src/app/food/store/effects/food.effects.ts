@@ -16,6 +16,7 @@ import {
     createActionOfType,
     DELETE_FOOD,
     DELETE_FOOD_SUCCESS,
+    FoodAction,
     LOAD_FOOD,
     LOAD_FOOD_SUCCESS,
     UPDATE_FOOD,
@@ -71,10 +72,10 @@ export class FoodEffects {
 
     @Effect() updateFood$: Observable<Action> = this.actions$.ofType(UPDATE_FOOD)
         .mergeMap((action: any) =>
-            this.foodDataService.deleteFood(action.payload)
+            this.foodDataService.updateFood(action.payload.id, action.payload)
                 // If successful, dispatch success action with result
                 .map((data: any) => {
-                    this.notificationService.showNotification(MessageType.Success, 'Food', 'Food deleted!');
+                    this.notificationService.showNotification(MessageType.Success, 'Food', 'Food updated!');
                     return createActionOfType(UPDATE_FOOD_SUCCESS, data);
                 })
                 // If request fails, dispatch failed action
