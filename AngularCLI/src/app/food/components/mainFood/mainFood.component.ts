@@ -40,6 +40,7 @@ export class MainFoodComponent implements OnInit {
     }
 
     updateFood(foodItem: FoodItem) {
+        console.log(foodItem);
         this.store.dispatch(createActionOfType(UPDATE_FOOD, foodItem));
     }
 

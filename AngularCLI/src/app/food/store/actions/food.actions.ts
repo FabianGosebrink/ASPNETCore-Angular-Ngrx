@@ -33,6 +33,9 @@ export function createActionOfType(type: string, payload?: any) {
         case UPDATE_FOOD:
             return { type: UPDATE_FOOD, payload: payload }
 
+        case UPDATE_FOOD_SUCCESS:
+            return { type: UPDATE_FOOD_SUCCESS, payload: payload }
+
         case LOAD_FOOD:
             return { type: LOAD_FOOD }
 

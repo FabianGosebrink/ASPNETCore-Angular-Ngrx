@@ -75,6 +75,7 @@ export class FoodEffects {
             this.foodDataService.updateFood(action.payload.id, action.payload)
                 // If successful, dispatch success action with result
                 .map((data: any) => {
+                    console.log(action.payload);
                     this.notificationService.showNotification(MessageType.Success, 'Food', 'Food updated!');
                     return createActionOfType(UPDATE_FOOD_SUCCESS, data);
                 })
