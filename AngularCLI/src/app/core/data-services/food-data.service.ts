@@ -41,8 +41,8 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    deleteFood = (id: string): Observable<HttpResponse<any>> => {
-        return this.http.delete(this.actionUrl + id)
+    deleteFood = (item: FoodItem): Observable<HttpResponse<any>> => {
+        return this.http.delete(this.actionUrl + item.id)
             .catch(this.handleError);
     }
 

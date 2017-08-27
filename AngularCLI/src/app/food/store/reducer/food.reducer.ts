@@ -1,21 +1,49 @@
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import { ADD_FOOD, DELETE_FOOD, FOOD_LOADED, FoodAction, LOAD_FOOD } from '../actions/food.actions';
+import { ADD_FOOD, DELETE_FOOD, FoodAction, LOAD_FOOD, LOAD_FOOD_SUCCESS, UPDATE_FOOD } from '../actions/food.actions';
 
-export function foodReducer(state: FoodItem[] = [], action: FoodAction<FoodItem>) {
+export interface FoodState {
+    foodItems: FoodItem[],
+    selectedItem: FoodItem
+};
+
+export const initialState: FoodState = {
+    foodItems: [],
+    selectedItem: new FoodItem()
+};
+
+export function foodItemsReducer(state = initialState, action: FoodAction<FoodItem[] | FoodItem>): FoodState {
     switch (action.type) {
 
         case ADD_FOOD:
-            return [action.payload, ...state];
+            return {
+                ...state,
+                foodItems: state.foodItems.concat(action.payload)
+            };
 
         case DELETE_FOOD:
-            return state.filter((item) => item.id !== action.payload.id);
+            const foodItemToDelete = <FoodItem>action.payload;
+            return {
+                ...state,
+                foodItems: state.foodItems.filter(item => item.id !== foodItemToDelete.id)
+            };
 
-        case FOOD_LOADED:
-            return action.payload;
+        case UPDATE_FOOD:
+            const foodItemToUpdate = <FoodItem>action.payload;
+            return {
+                ...state,
+                foodItems: state.foodItems.map((item: FoodItem) => {
+                    return item.id === foodItemToUpdate.id ? Object.assign({}, item, foodItemToUpdate) : item;
+                })
+            };
 
         case LOAD_FOOD:
-            console.log('LOAD_FOOD');
-            return state;
+            return { ...state, foodItems: [] };
+
+        case LOAD_FOOD_SUCCESS:
+            return {
+                ...state,
+                foodItems: state.foodItems.concat(action.payload)
+            };
 
         default:
             return state;

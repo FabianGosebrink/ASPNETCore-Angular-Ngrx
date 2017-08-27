@@ -37,7 +37,7 @@ export class MyFirstInterceptor implements HttpInterceptor {
     constructor(private currentUserService: CurrentUserService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(JSON.stringify(req));
+        // console.log(JSON.stringify(req));
 
         const token: string = this.currentUserService.token;
 

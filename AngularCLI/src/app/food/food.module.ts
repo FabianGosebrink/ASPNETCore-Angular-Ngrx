@@ -13,7 +13,7 @@ import { MainFoodComponent } from './components/mainFood/mainFood.component';
 import { FoodRoutes } from './food.routes';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FoodEffects } from './store/effects/food.effects';
-import { foodReducer } from './store/reducer/food.reducer';
+import { foodItemsReducer } from './store/reducer/food.reducer';
 import { IsInRangeValidator } from './validators/isInRange.validator';
 import { IsNumberValidator } from './validators/isNumber.validator';
 
@@ -24,8 +24,10 @@ import { IsNumberValidator } from './validators/isNumber.validator';
         FormsModule,
         SharedModule,
         RouterModule.forChild(FoodRoutes),
-        StoreModule.forRoot({ foodItems: foodReducer }),
-        EffectsModule.forRoot([FoodEffects])
+        StoreModule.forFeature('food', {
+            foodItems: foodItemsReducer
+        }),
+        EffectsModule.forFeature([FoodEffects])
     ],
 
     declarations: [
