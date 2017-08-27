@@ -34,8 +34,8 @@ export class FoodEffects {
                     return createActionOfType(ADD_FOOD_SUCCESS, data);
                 })
                 // If request fails, dispatch failed action
-                .catch(() => {
-                    this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
+                .catch((error: any) => {
+                    this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
                     return of({ type: 'LOGIN_FAILED' })
                 })
         );
@@ -48,7 +48,10 @@ export class FoodEffects {
                     return createActionOfType(LOAD_FOOD_SUCCESS, data);
                 })
                 // If request fails, dispatch failed action
-                .catch(() => of({ type: 'LOGIN_FAILED' }))
+                .catch((error: any) => {
+                    this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
+                    return of({ type: 'LOGIN_FAILED' })
+                })
         );
 
     @Effect() deleteFood$: Observable<Action> = this.actions$.ofType(DELETE_FOOD)
@@ -75,8 +78,8 @@ export class FoodEffects {
                     return createActionOfType(UPDATE_FOOD_SUCCESS, data);
                 })
                 // If request fails, dispatch failed action
-                .catch(() => {
-                    this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
+                .catch((error: any) => {
+                    this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
                     return of({ type: 'LOGIN_FAILED' })
                 })
         );
