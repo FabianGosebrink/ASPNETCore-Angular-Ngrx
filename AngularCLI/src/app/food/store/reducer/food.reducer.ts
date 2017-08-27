@@ -1,5 +1,11 @@
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import { ADD_FOOD, DELETE_FOOD, FoodAction, LOAD_FOOD, LOAD_FOOD_SUCCESS, UPDATE_FOOD } from '../actions/food.actions';
+import {
+    ADD_FOOD_SUCCESS,
+    DELETE_FOOD_SUCCESS,
+    FoodAction,
+    LOAD_FOOD_SUCCESS,
+    UPDATE_FOOD_SUCCESS,
+} from '../actions/food.actions';
 
 export interface FoodState {
     foodItems: FoodItem[],
@@ -14,20 +20,20 @@ export const initialState: FoodState = {
 export function foodItemsReducer(state = initialState, action: FoodAction<FoodItem[] | FoodItem>): FoodState {
     switch (action.type) {
 
-        case ADD_FOOD:
+        case ADD_FOOD_SUCCESS:
             return {
                 ...state,
                 foodItems: state.foodItems.concat(action.payload)
             };
 
-        case DELETE_FOOD:
+        case DELETE_FOOD_SUCCESS:
             const foodItemToDelete = <FoodItem>action.payload;
             return {
                 ...state,
                 foodItems: state.foodItems.filter(item => item.id !== foodItemToDelete.id)
             };
 
-        case UPDATE_FOOD:
+        case UPDATE_FOOD_SUCCESS:
             const foodItemToUpdate = <FoodItem>action.payload;
             return {
                 ...state,
@@ -36,16 +42,14 @@ export function foodItemsReducer(state = initialState, action: FoodAction<FoodIt
                 })
             };
 
-        case LOAD_FOOD:
-            return { ...state, foodItems: [] };
-
         case LOAD_FOOD_SUCCESS:
             return {
                 ...state,
-                foodItems: state.foodItems.concat(action.payload)
+                foodItems: <FoodItem[]>action.payload
             };
 
         default:
             return state;
+
     }
 }

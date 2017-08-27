@@ -2,7 +2,7 @@
     <div class="jumbotron">
         <app-food-form-component [foodItem]="foodSelectedFromList" (foodUpdated)="updateFood($event)" (foodAdded)="addFood($event)"></app-food-form-component>
         <br/>
-        <foodlist [foods]="(foods | async)" (foodSelected)="setCurrentlySelectedFood($event)" (foodDeleted)="deleteFood($event)"></foodlist>
+        <foodlist [foods]="(foodState | async).foodItems" (foodSelected)="setCurrentlySelectedFood($event)" (foodDeleted)="deleteFood($event)"></foodlist>
     </div>
 </div>
 <!-- /.container -->

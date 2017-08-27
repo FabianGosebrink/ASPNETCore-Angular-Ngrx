@@ -1,10 +1,10 @@
-import { ADD_FOOD, createActionOfType, DELETE_FOOD, LOAD_FOOD } from '../../store/actions/food.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { FoodDataService } from '../../../core/data-services/food-data.service';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
+import { ADD_FOOD, createActionOfType, DELETE_FOOD, LOAD_FOOD } from '../../store/actions/food.actions';
 import { FoodState } from '../../store/reducer/food.reducer';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
@@ -15,7 +15,7 @@ import { FoodItem } from './../../../shared/models/foodItem.model';
 
 export class MainFoodComponent implements OnInit {
     foodSelectedFromList: FoodItem;
-    foods: Observable<FoodItem[]>;
+    foodState: Observable<FoodState>;
 
     constructor(private _foodDataService: FoodDataService,
         private notificationService: AbstractNotificationService,
@@ -23,7 +23,7 @@ export class MainFoodComponent implements OnInit {
 
         this.resetCurrentlySelectedFoodItem();
 
-        this.store.select(state => state.food.foodItems).subscribe((data: FoodState) => { this.foods = Observable.of(data.foodItems) });
+        this.foodState = this.store.select(state => state.food.foodItems);
     }
 
     ngOnInit() {

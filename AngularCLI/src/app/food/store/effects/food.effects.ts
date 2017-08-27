@@ -15,9 +15,11 @@ import {
     ADD_FOOD_SUCCESS,
     createActionOfType,
     DELETE_FOOD,
+    DELETE_FOOD_SUCCESS,
     LOAD_FOOD,
     LOAD_FOOD_SUCCESS,
     UPDATE_FOOD,
+    UPDATE_FOOD_SUCCESS,
 } from '../actions/food.actions';
 
 @Injectable()
@@ -29,7 +31,7 @@ export class FoodEffects {
                 // If successful, dispatch success action with result
                 .map((data: any) => {
                     this.notificationService.showNotification(MessageType.Success, 'Food', 'Food Added!');
-                    return createActionOfType(ADD_FOOD_SUCCESS);
+                    return createActionOfType(ADD_FOOD_SUCCESS, data);
                 })
                 // If request fails, dispatch failed action
                 .catch(() => {
@@ -55,11 +57,11 @@ export class FoodEffects {
                 // If successful, dispatch success action with result
                 .map((data: any) => {
                     this.notificationService.showNotification(MessageType.Success, 'Food', 'Food deleted!');
-                    return createActionOfType(LOAD_FOOD_SUCCESS, data);
+                    return createActionOfType(DELETE_FOOD_SUCCESS, action.payload);
                 })
                 // If request fails, dispatch failed action
-                .catch(() => {
-                    this.notificationService.showNotification(MessageType.Error, 'Food', 'There was an error :(');
+                .catch((error: any) => {
+                    this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
                     return of({ type: 'LOGIN_FAILED' })
                 })
         );
@@ -70,7 +72,7 @@ export class FoodEffects {
                 // If successful, dispatch success action with result
                 .map((data: any) => {
                     this.notificationService.showNotification(MessageType.Success, 'Food', 'Food deleted!');
-                    return createActionOfType(LOAD_FOOD_SUCCESS, data);
+                    return createActionOfType(UPDATE_FOOD_SUCCESS, data);
                 })
                 // If request fails, dispatch failed action
                 .catch(() => {

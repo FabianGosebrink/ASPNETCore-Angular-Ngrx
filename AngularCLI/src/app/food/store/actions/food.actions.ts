@@ -15,6 +15,7 @@ export const ADD_FOOD_SUCCESS = 'ADD_FOOD_SUCCESS'
 export const DELETE_FOOD = 'DELETE_FOOD'
 export const DELETE_FOOD_SUCCESS = 'DELETE_FOOD_SUCCESS'
 export const UPDATE_FOOD = 'UPDATE_FOOD'
+export const UPDATE_FOOD_SUCCESS = 'UPDATE_FOOD_SUCCESS'
 export const LOAD_FOOD = 'LOAD_FOOD'
 export const LOAD_FOOD_SUCCESS = 'LOAD_FOOD_SUCCESS'
 
@@ -34,8 +35,8 @@ function createDeleteFoodAction(foodItem: FoodItem): FoodAction<FoodItem> {
     return { type: DELETE_FOOD, payload: foodItem }
 }
 
-function createDeleteFoodSuccessAction(): FoodAction<FoodItem> {
-    return { type: DELETE_FOOD_SUCCESS }
+function createDeleteFoodSuccessAction(foodItem: FoodItem): FoodAction<FoodItem> {
+    return { type: DELETE_FOOD_SUCCESS, payload: foodItem }
 }
 
 function createLoadFoodAction(): FoodAction<FoodItem[]> {
@@ -62,7 +63,7 @@ export function createActionOfType(type: string, payload?: any) {
             return createDeleteFoodAction(payload);
 
         case DELETE_FOOD_SUCCESS:
-            return createDeleteFoodSuccessAction();
+            return createDeleteFoodSuccessAction(payload);
 
         case UPDATE_FOOD:
             return createUpdateFoodAction(payload);
