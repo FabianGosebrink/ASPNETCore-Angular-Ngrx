@@ -1,8 +1,5 @@
+import { FoodItem } from '../../../shared/models/foodItem.model';
 import { Action } from '@ngrx/store';
-
-export interface FoodAction<T> extends Action {
-    payload?: T;
-}
 
 export const ADD_FOOD = 'ADD_FOOD'
 export const ADD_FOOD_SUCCESS = 'ADD_FOOD_SUCCESS'
@@ -14,38 +11,54 @@ export const LOAD_FOOD = 'LOAD_FOOD'
 export const LOAD_FOOD_SUCCESS = 'LOAD_FOOD_SUCCESS'
 
 export const SELECT_FOOD = 'SELECT_FOOD'
+export const SELECT_FOOD_SUCCESS = 'SELECT_FOOD_SUCCESS'
 
+export class AddFoodAction implements Action {
+    readonly type = ADD_FOOD;
+    constructor(public foodItem: FoodItem) {}
+}
 
-export function createActionOfType(type: string, payload?: any) {
-    switch (type) {
-        case ADD_FOOD:
-            return { type: ADD_FOOD, payload: payload };
+export class AddFoodSuccessAction implements Action {
+    readonly type = ADD_FOOD_SUCCESS;
+    constructor(public foodItem: FoodItem) {}
+}
 
-        case ADD_FOOD_SUCCESS:
-            return { type: ADD_FOOD_SUCCESS, payload: payload }
+export class DeleteFoodAction implements Action {
+    readonly type = DELETE_FOOD;
+    constructor(public foodItem: FoodItem) {}
+}
 
-        case DELETE_FOOD:
-            return { type: DELETE_FOOD, payload: payload }
+export class DeleteFoodSuccessAction implements Action {
+    readonly type = DELETE_FOOD_SUCCESS;
+    constructor(public foodItem: FoodItem) {}
+}
 
-        case DELETE_FOOD_SUCCESS:
-            return { type: DELETE_FOOD_SUCCESS, payload: payload }
+export class UpdateFoodAction implements Action {
+    readonly type = UPDATE_FOOD;
+    constructor(public foodItem: FoodItem) {}
+}
 
-        case UPDATE_FOOD:
-            return { type: UPDATE_FOOD, payload: payload }
+export class UpdateFoodSuccessAction implements Action {
+    readonly type = UPDATE_FOOD_SUCCESS;
+    constructor(public foodItem: FoodItem) {}
+}
 
-        case UPDATE_FOOD_SUCCESS:
-            return { type: UPDATE_FOOD_SUCCESS, payload: payload }
+export class LoadFoodAction implements Action {
+    readonly type = LOAD_FOOD;
+    constructor() {}
+}
 
-        case LOAD_FOOD:
-            return { type: LOAD_FOOD }
+export class LoadFoodSuccessAction implements Action {
+    readonly type = LOAD_FOOD_SUCCESS;
+    constructor(public foodItems: FoodItem[]) {}
+}
 
-        case LOAD_FOOD_SUCCESS:
-            return { type: LOAD_FOOD_SUCCESS, payload: payload }
+export class SelectFoodAction implements Action {
+    readonly type = SELECT_FOOD;
+    constructor(public foodItem: FoodItem) {}
+}
 
-        case SELECT_FOOD:
-            return { type: SELECT_FOOD, payload: payload }
-
-        default:
-            throw new Error('Dont know your ActionType');
-    }
+export class SelectFoodSuccessAction implements Action {
+    readonly type = SELECT_FOOD_SUCCESS;
+    constructor(public foodItem: FoodItem) {}
 }

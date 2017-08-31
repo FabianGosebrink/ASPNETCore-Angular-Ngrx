@@ -1,12 +1,5 @@
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import {
-    ADD_FOOD_SUCCESS,
-    DELETE_FOOD_SUCCESS,
-    FoodAction,
-    LOAD_FOOD_SUCCESS,
-    SELECT_FOOD,
-    UPDATE_FOOD_SUCCESS,
-} from '../actions/food.actions';
+import * as FoodActions from '../actions/food.actions';
 
 export interface FoodState {
     foodItems: FoodItem[],
@@ -18,37 +11,38 @@ export const initialState: FoodState = {
     selectedItem: new FoodItem()
 };
 
-export function foodItemsReducer(state = initialState, action: FoodAction<FoodItem[] | FoodItem>): FoodState {
+export function foodItemsReducer(state = initialState, action: any): FoodState {
     switch (action.type) {
 
-        case ADD_FOOD_SUCCESS:
+        case FoodActions.ADD_FOOD_SUCCESS:
+            const addFoodAction = <FoodActions.AddFoodSuccessAction>action;
             return {
                 ...state,
-                foodItems: state.foodItems.concat(action.payload)
+                foodItems: state.foodItems.concat(addFoodAction.foodItem)
             };
 
-        case DELETE_FOOD_SUCCESS:
-            const foodItemToDelete = <FoodItem>action.payload;
+        case FoodActions.DELETE_FOOD_SUCCESS:
+            const deleteFoodAction = <FoodActions.DeleteFoodSuccessAction>action;
             return {
                 ...state,
-                foodItems: state.foodItems.filter(item => item.id !== foodItemToDelete.id)
+                foodItems: state.foodItems.filter(item => item.id !== deleteFoodAction.foodItem.id)
             };
 
-        case UPDATE_FOOD_SUCCESS:
-            const foodItemToUpdate = <FoodItem>action.payload;
-
+        case FoodActions.UPDATE_FOOD_SUCCESS:
+            const updateFoodAction = <FoodActions.UpdateFoodSuccessAction>action;
             return {
                 ...state,
                 foodItems: state.foodItems.map((item: FoodItem) => {
-                    return item.id === foodItemToUpdate.id ? Object.assign({}, item, foodItemToUpdate) : item;
+                    return item.id === updateFoodAction.foodItem.id ? Object.assign({}, item, updateFoodAction.foodItem) : item;
                 }),
                 selectedItem: new FoodItem()
             };
 
-        case LOAD_FOOD_SUCCESS:
+        case FoodActions.LOAD_FOOD_SUCCESS:
+            const loadFoodAction = <FoodActions.LoadFoodSuccessAction>action;
             return {
                 ...state,
-                foodItems: <FoodItem[]>action.payload,
+                foodItems: loadFoodAction.foodItems,
                 selectedItem: new FoodItem()
             };
 
@@ -58,14 +52,15 @@ export function foodItemsReducer(state = initialState, action: FoodAction<FoodIt
     }
 }
 
-export function selectedItemReducer(state = initialState, action: FoodAction<FoodItem>): FoodState {
+export function selectedItemReducer(state = initialState, action: any): FoodState {
     switch (action.type) {
 
-        case SELECT_FOOD:
+        case FoodActions.SELECT_FOOD_SUCCESS:
+            const selectFoodAction = <FoodActions.SelectFoodSuccessAction>action;
             return {
                 ...state,
                 foodItems: state.foodItems,
-                selectedItem: action.payload
+                selectedItem: selectFoodAction.foodItem
             };
 
         default:

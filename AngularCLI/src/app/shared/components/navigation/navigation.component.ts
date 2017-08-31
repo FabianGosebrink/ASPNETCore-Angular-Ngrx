@@ -5,7 +5,7 @@ import { CurrentUserService } from '../../../core/services/currentUser.service';
 import { Configuration } from './../../configuration/app.configuration';
 
 @Component({
-    selector: 'navigation',
+    selector: 'app-navigation',
     templateUrl: 'navigation.component.html'
 })
 
