@@ -29,7 +29,10 @@ export function notificationFactory(toasterService: ToasterService,
 @NgModule({
     imports: [CommonModule],
     exports: [],
-    declarations: []
+    declarations: [],
+    providers: [
+        // see below
+    ],
 })
 
 export class CoreModule {
