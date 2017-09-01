@@ -16,14 +16,14 @@ import { Sorter } from './services/sort.service';
 import { StorageService } from './services/storage.service';
 import { WebAndMobileNotificationService } from './services/webAndMobileNotification.service';
 
-function notificationFactory(toasterService: ToasterService): AbstractNotificationService {
-  const platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
+export function notificationFactory(toasterService: ToasterService,
+    platformProvider: PlatformInformationProvider): AbstractNotificationService {
 
-  if (platformProvider.isElectron) {
-      return new DesktopNotificationService();
-  }
+    if (platformProvider.isElectron) {
+        return new DesktopNotificationService();
+    }
 
-  return new WebAndMobileNotificationService(toasterService);
+    return new WebAndMobileNotificationService(toasterService);
 };
 
 @NgModule({
@@ -51,7 +51,7 @@ export class CoreModule {
                 {
                     provide: AbstractNotificationService,
                     useFactory: notificationFactory,
-                    deps: [ToasterService]
+                    deps: [ToasterService, PlatformInformationProvider]
                 },
                 {
                     provide: AbstractCameraService,

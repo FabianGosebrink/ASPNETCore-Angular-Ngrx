@@ -2,12 +2,9 @@
   <div class="jumbotron starter-template">
     <h2>Your meal for today</h2>
 
-    <h3 *ngIf="isWorking">Getting your food suggestions<br />Please wait...</h3>
-    <h3 *ngIf="!randomFood && !isWorking">No food found :-(<br /><br /></h3>
-
-    <randomMeal [fooditem]="randomFood[0]"></randomMeal>
-    <randomMeal [fooditem]="randomFood[1]"></randomMeal>
-    <randomMeal [fooditem]="randomFood[2]"></randomMeal>
+    <randomMeal [fooditem]="(homeState$|async).randomMeal[0]"></randomMeal>
+    <randomMeal [fooditem]="(homeState$|async).randomMeal[1]"></randomMeal>
+    <randomMeal [fooditem]="(homeState$|async).randomMeal[2]"></randomMeal>
     <br/>
     <button type="button" class="btn btn-primary" (click)="updateFood()">Get new Meal</button>
   </div>
@@ -17,7 +14,7 @@
   <div class="container">
     <div class="row">
       <div class="thumbnails">
-        <div class="col-md-4" *ngFor="let foodItem of (allFood|async)">
+        <div class="col-md-4" *ngFor="let foodItem of (homeState$|async).foodItems">
           <sneakpeek [foodItem]="foodItem"></sneakpeek>
         </div>
       </div>

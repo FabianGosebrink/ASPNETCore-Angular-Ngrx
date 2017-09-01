@@ -30,15 +30,9 @@ export class FoodDataService {
     }
 
     addFood = (foodItem: FoodItem): Observable<FoodItem> => {
-        const toAdd: string = JSON.stringify(
-            {
-                name: foodItem.name,
-                calories: foodItem.calories,
-                type: foodItem.type,
-                created: new Date()
-            });
+        foodItem.created = new Date();
 
-        return this.http.post<FoodItem>(this.actionUrl, toAdd)
+        return this.http.post<FoodItem>(this.actionUrl, foodItem)
             .catch(this.handleError);
     }
 
@@ -47,8 +41,8 @@ export class FoodDataService {
             .catch(this.handleError);
     }
 
-    deleteFood = (id: string): Observable<HttpResponse<any>> => {
-        return this.http.delete(this.actionUrl + id)
+    deleteFood = (item: FoodItem): Observable<HttpResponse<any>> => {
+        return this.http.delete(this.actionUrl + item.id)
             .catch(this.handleError);
     }
 

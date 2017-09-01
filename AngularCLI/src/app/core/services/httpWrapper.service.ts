@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +13,7 @@ export class HttpWrapperService {
         return this.http.get<T>(url);
     }
 
-    post<T>(url: string, body: string): Observable<T> {
+    post<T>(url: string, body: any): Observable<T> {
         return this.http.post<T>(url, body);
     }
 
@@ -37,7 +37,7 @@ export class MyFirstInterceptor implements HttpInterceptor {
     constructor(private currentUserService: CurrentUserService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(JSON.stringify(req));
+        // console.log(JSON.stringify(req));
 
         const token: string = this.currentUserService.token;
 
