@@ -4,9 +4,9 @@ import { Token } from '../../../shared/models/token';
 
 export const LOGIN = 'LOGIN'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILED = 'LOGIN_FAILED'
 
 export const LOGOUT = 'LOGOUT'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
 export class LoginAction implements Action {
     readonly type = LOGIN;
@@ -18,13 +18,12 @@ export class LoginSuccessAction implements Action {
     constructor(public token: Token) { }
 }
 
+export class LoginFailedAction implements Action {
+    readonly type = LOGIN_FAILED;
+    constructor(public errorMessage: any) { }
+}
 
 export class LogoutAction implements Action {
     readonly type = LOGOUT;
-    constructor(public username: string, public password: string) { }
-}
-
-export class LogoutSuccessAction implements Action {
-    readonly type = LOGOUT_SUCCESS;
     constructor() { }
 }

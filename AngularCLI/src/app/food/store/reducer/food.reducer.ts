@@ -1,3 +1,5 @@
+import { Action } from '@ngrx/store';
+
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as FoodActions from '../actions/food.actions';
 
@@ -11,7 +13,7 @@ export const initialState: FoodState = {
     selectedItem: new FoodItem()
 };
 
-export function foodItemsReducer(state = initialState, action: any): FoodState {
+export function foodItemsReducer(state = initialState, action: Action): FoodState {
     switch (action.type) {
 
         case FoodActions.ADD_FOOD_SUCCESS:

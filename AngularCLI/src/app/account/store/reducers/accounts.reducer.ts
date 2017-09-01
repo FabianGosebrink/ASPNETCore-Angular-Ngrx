@@ -1,4 +1,5 @@
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { Action } from '@ngrx/store';
+
 import * as AccountActions from '../actions/account.actions';
 
 export interface AccountState {
@@ -11,7 +12,7 @@ export const initialState: AccountState = {
     errorMessage: ''
 };
 
-export function accountReducer(state = initialState, action: any): AccountState {
+export function accountReducer(state = initialState, action: Action): AccountState {
     switch (action.type) {
 
         case AccountActions.LOGIN_SUCCESS:
@@ -19,6 +20,13 @@ export function accountReducer(state = initialState, action: any): AccountState 
             return Object.assign({}, state, {
                 authenticated: true,
                 errorMessage: ''
+            });
+
+        case AccountActions.LOGIN_FAILED:
+            const loginFailedAction = <AccountActions.LoginFailedAction>action;
+            return Object.assign({}, state, {
+                authenticated: false,
+                errorMessage: loginFailedAction.errorMessage
             });
 
         default:

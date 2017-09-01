@@ -21,8 +21,13 @@ export class AccountEffects {
                     return new AccountActions.LoginSuccessAction(data);
                 })
                 .catch((error: any) => {
-                    return of({ type: 'LOGIN_FAILED' })
+                    return of(new AccountActions.LoginFailedAction(error));
                 })
+        );
+
+    @Effect() logout$: Observable<Action> = this.actions$.ofType(AccountActions.LOGOUT)
+        .do((action: AccountActions.LoginAction) =>
+            this.authService.logoutUser()
         );
 
     constructor(

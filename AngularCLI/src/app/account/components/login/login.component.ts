@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -15,12 +16,14 @@ export class LoginComponent implements OnInit {
 
     username: string;
     password: string;
-    errorMessage: string;
+
+    state$: Observable<AccountState>;
 
     constructor(private store: Store<any>,
         private router: Router) { }
 
     ngOnInit() {
+        this.state$ = this.store.select<AccountState>(state => state.account.accountStore);
         this.store.select<AccountState>(state => state.account.accountStore)
             .filter((state: AccountState) => state.authenticated)
             .subscribe(value => {
@@ -30,16 +33,5 @@ export class LoginComponent implements OnInit {
 
     public doLoginUser() {
         this.store.dispatch(new AccountActions.LoginAction(this.username, this.password))
-        // this.authService
-        //     .loginUser(this.username, this.password)
-        //     .subscribe(
-        //     (response: Token) => {
-
-        //     },
-        //     (error) => {
-        //         console.log(error);
-        //         this.errorMessage = JSON.parse(error._body).error_description;
-        //         this.password = '';
-        //     });
     }
 }

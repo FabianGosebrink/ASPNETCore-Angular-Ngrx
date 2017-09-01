@@ -1,3 +1,5 @@
+import { Action } from '@ngrx/store';
+
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as HomeActions from '../actions/home.actions';
 
@@ -11,22 +13,22 @@ export const initialState: HomeState = {
     randomMeal: []
 };
 
-export function foodItemsHomeReducer(state = initialState, action: any): HomeState {
+export function foodItemsHomeReducer(state = initialState, action: Action): HomeState {
     switch (action.type) {
 
         case HomeActions.LOAD_FOOD_SUCCESS:
             const loadFoodAction = <HomeActions.LoadFoodSuccessAction>action;
-            return {
+            return Object.assign({}, state, {
                 randomMeal: state.randomMeal,
                 foodItems: loadFoodAction.foodItems
-            };
+            });
 
         case HomeActions.LOAD_RANDOM_MEAL_SUCCESS:
             const loadRandomMealAction = <HomeActions.LoadRandomMealSuccessAction>action;
-            return {
+            return Object.assign({}, state, {
                 randomMeal: loadRandomMealAction.foodItems,
                 foodItems: state.foodItems
-            };
+            });
 
         default:
             return state;
