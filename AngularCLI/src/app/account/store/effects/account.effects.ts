@@ -34,12 +34,6 @@ export class AccountEffects {
       this.router.navigate(['/home'])
     );
 
-  @Effect({ dispatch: false }) logout$: Observable<Action> = this.actions$
-    .ofType(AccountActions.LOGOUT)
-    .do((action: AccountActions.LogoutAction) =>
-      this.authService.logoutUser()
-    );
-
   constructor(
     private authService: AuthenticationService,
     private actions$: Actions,
