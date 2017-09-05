@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
 @Component({
-    selector: 'app-food-form-component',
+    selector: 'app-food-form',
     templateUrl: './foodForm.component.html'
 })
 

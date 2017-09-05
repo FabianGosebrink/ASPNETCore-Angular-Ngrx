@@ -1,8 +1,12 @@
 <div class="container">
     <div class="jumbotron">
-        <app-food-form-component [foodItem]="(selectedItemState$ | async).selectedItem" (foodUpdated)="updateFood($event)" (foodAdded)="addFood($event)"></app-food-form-component>
+        <app-food-form [foodItem]="(selectedItemState$ | async).selectedItem" 
+            (foodUpdated)="updateFood($event)" 
+            (foodAdded)="addFood($event)"></app-food-form>
         <br/>
-        <foodlist [foods]="(foodState$ | async).foodItems" (foodSelected)="setCurrentlySelectedFood($event)" (foodDeleted)="deleteFood($event)"></foodlist>
+        <app-foodlist [foods]="(foodState$ | async).foodItems" 
+            (foodSelected)="setCurrentlySelectedFood($event)" 
+            (foodDeleted)="deleteFood($event)"></app-foodlist>
     </div>
 </div>
 <!-- /.container -->

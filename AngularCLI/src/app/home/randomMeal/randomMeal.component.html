@@ -1,2 +1,3 @@
 <h3>{{fooditem?.type}}</h3>
-<h4>{{fooditem?.name}} {{fooditem?.calories}}</h4>
+<h4 *ngIf="!loading">{{fooditem?.name}} {{fooditem?.calories}}</h4>
+<h4 *ngIf="loading">Loading...</h4>
