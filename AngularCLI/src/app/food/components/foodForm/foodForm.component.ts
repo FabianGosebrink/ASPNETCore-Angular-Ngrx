@@ -22,6 +22,5 @@ export class FoodFormComponent implements OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.currentFood = Object.assign({}, changes.foodItem.currentValue);
-    alert(JSON.stringify(this.currentFood));
   }
 }
