@@ -9,6 +9,8 @@ export const UPDATE_FOOD = 'UPDATE_FOOD'
 export const UPDATE_FOOD_SUCCESS = 'UPDATE_FOOD_SUCCESS'
 export const LOAD_FOOD = 'LOAD_FOOD'
 export const LOAD_FOOD_SUCCESS = 'LOAD_FOOD_SUCCESS'
+export const LOAD_SINGLE_FOOD = 'LOAD_SINGLE_FOOD'
+export const LOAD_SINGLE_FOOD_SUCCESS = 'LOAD_SINGLE_FOOD_SUCCESS'
 
 export const SELECT_FOOD = 'SELECT_FOOD'
 export const SELECT_FOOD_SUCCESS = 'SELECT_FOOD_SUCCESS'
@@ -61,4 +63,14 @@ export class SelectFoodAction implements Action {
 export class SelectFoodSuccessAction implements Action {
     readonly type = SELECT_FOOD_SUCCESS;
     constructor(public foodItem: FoodItem) {}
+}
+
+export class LoadSingleFoodAction implements Action {
+  readonly type = LOAD_SINGLE_FOOD;
+  constructor(public id: string) {}
+}
+
+export class LoadSingleFoodSuccessAction implements Action {
+  readonly type = LOAD_SINGLE_FOOD_SUCCESS;
+  constructor(public foodItem: FoodItem) {}
 }

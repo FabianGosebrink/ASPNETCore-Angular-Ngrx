@@ -3,7 +3,7 @@ import { FoodItem } from './../../../shared/models/foodItem.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'foodlist',
+    selector: 'app-foodlist',
     templateUrl: './foodList.component.html'
 })
 

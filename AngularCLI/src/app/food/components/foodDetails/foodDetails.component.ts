@@ -2,30 +2,29 @@ import 'rxjs/add/operator/map';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { FoodDataService } from '../../../core/data-services/food-data.service';
-import { FoodItem } from './../../../shared/models/foodItem.model';
+import * as FoodActions from '../../store/actions/food.actions';
+import { FoodState } from '../../store/reducer/food.reducer';
 
 @Component({
-    selector: 'app-food-details',
-    templateUrl: './foodDetails.component.html'
+  selector: 'app-food-details',
+  templateUrl: './foodDetails.component.html'
 })
 
 export class FoodDetailsComponent implements OnInit {
+  selectedItemState$: Observable<FoodState>;
 
-    selectedFoodItem: FoodItem;
+  constructor(private route: ActivatedRoute, private store: Store<any>) {
+    this.selectedItemState$ = this.store.select<FoodState>(state => state.food.selectedItem);
+  }
 
-    constructor(private route: ActivatedRoute, private foodDataService: FoodDataService) { }
-
-    ngOnInit() {
-        this.route.paramMap
-            .map((paramMap: ParamMap) => paramMap.get('foodId') || '-1')
-            .subscribe((foodId: string) => {
-                this.foodDataService.getSingleFood(foodId)
-                    .subscribe((foodItem: FoodItem) => {
-                        this.selectedFoodItem = foodItem;
-                    });
-            });
-    }
+  ngOnInit() {
+    this.route.paramMap
+      .map((paramMap: ParamMap) => paramMap.get('foodId') || '-1')
+      .subscribe((foodId: string) => {
+        this.store.dispatch(new FoodActions.LoadSingleFoodAction(foodId));
+      });
+  }
 }
