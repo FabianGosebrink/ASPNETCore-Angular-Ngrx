@@ -18,8 +18,8 @@ export class HomeEffects {
     @Effect() loadFood$: Observable<Action> = this.actions$.ofType(HomeActions.LOAD_FOOD)
         .switchMap((action: HomeActions.LoadFoodAction) =>
                 this.foodDataService.getAllFood()
-                .map((data: FoodItem[]) => {
-                    return new HomeActions.LoadFoodSuccessAction(data);
+                .map((data: any) => {
+                    return new HomeActions.LoadFoodSuccessAction(data.value);
                 })
                 .catch((error: any) => {
                     this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);

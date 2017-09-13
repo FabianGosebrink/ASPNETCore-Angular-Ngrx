@@ -31,8 +31,8 @@ export class FoodEffects {
   @Effect() loadFood$: Observable<Action> = this.actions$.ofType(FoodActions.LOAD_FOOD)
     .switchMap(() =>
       this.foodDataService.getAllFood()
-        .map((data: FoodItem[]) => {
-          return new FoodActions.LoadFoodSuccessAction(data);
+        .map((data: any) => {
+          return new FoodActions.LoadFoodSuccessAction(data.value);
         })
         .catch((error: any) => {
           this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
