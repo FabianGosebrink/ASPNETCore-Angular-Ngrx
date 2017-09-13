@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FoodAPICore.Services;
 using FoodAPICore.Dtos;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Newtonsoft.Json.Serialization;
 
 namespace FoodAPICore
 {
@@ -57,6 +61,15 @@ namespace FoodAPICore
                 .AddEntityFrameworkStores<FoodDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper>(implementationFactory =>
+            {
+                var actionContext = implementationFactory.GetService<IActionContextAccessor>()
+                .ActionContext;
+                return new UrlHelper(actionContext);
+            });
+
             // Identity options.
             services.Configure<IdentityOptions>(options =>
             {
@@ -94,12 +107,15 @@ namespace FoodAPICore
             //var connectionString = Configuration["connectionStrings:DefaultConnection"];
             //services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddSingleton<IFoodRepository, FoodRepository>();
+            // services.AddSingleton<IFoodRepository, FoodRepository>();
             services.AddScoped<IFoodRepository, EfFoodRepository>();
             services.AddSingleton<IIngredientRepository, IngredientRepository>();
             services.AddSingleton<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddSwaggerGen(c =>
             {

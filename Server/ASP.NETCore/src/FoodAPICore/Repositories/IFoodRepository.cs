@@ -11,10 +11,10 @@ namespace FoodAPICore.Repositories
         void Add(FoodItem item);
         void Delete(Guid id);
         void Update(FoodItem item);
-        IQueryable<FoodItem> GetAll();
-        int Count();
+        IQueryable<FoodItem> GetAll(QueryParameters queryParameters);
 
         ICollection<FoodItem> GetRandomMeal();
+        int Count();
 
         bool Save();
     }

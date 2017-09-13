@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using FoodAPICore.Repositories;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using FoodAPICore.Helpers;
 
 namespace FoodAPICore.Controllers
 {
@@ -16,22 +17,42 @@ namespace FoodAPICore.Controllers
     public class FoodsController : Controller
     {
         private readonly IFoodRepository _foodRepository;
+        private readonly IUrlHelper _urlHelper;
 
-        public FoodsController(IFoodRepository foodRepository)
+        public FoodsController(IUrlHelper urlHelper, IFoodRepository foodRepository)
         {
             _foodRepository = foodRepository;
+            _urlHelper = urlHelper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = nameof(GetAllFoods))]
         [AllowAnonymous]
-        public IActionResult Get()
+        public IActionResult GetAllFoods([FromQuery] QueryParameters queryParameters)
         {
-            ICollection<FoodItem> foodItems = _foodRepository.GetAll().ToList();
+            List<FoodItem> foodItems = _foodRepository.GetAll(queryParameters).ToList();
 
-            IEnumerable<FoodItemDto> viewModels = foodItems
-                .Select(x => Mapper.Map<FoodItemDto>(x));
+            var allItemCount = _foodRepository.Count();
 
-            return Ok(viewModels);
+            var paginationMetadata = new
+            {
+                totalCount = allItemCount,
+                pageSize = queryParameters.PageCount,
+                currentPage = queryParameters.Page,
+                totalPages = queryParameters.GetTotalPages(allItemCount)
+            };
+
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            var links = CreateLinksForCollection(queryParameters, allItemCount);
+
+            var toReturn = foodItems.Select(x => ExpandSingleFoodItem(x));
+
+            return Ok(new
+            {
+                value = toReturn,
+                links = links
+            });
         }
 
         [HttpGet("GetRandomMeal")]
@@ -46,9 +67,9 @@ namespace FoodAPICore.Controllers
             return Ok(viewModels);
         }
 
-        [HttpPost]
+        [HttpPost(Name = nameof(AddFood))]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult Add([FromBody] FoodItemCreateDto foodItemViewModel)
+        public IActionResult AddFood([FromBody] FoodItemCreateDto foodItemViewModel)
         {
             if (foodItemViewModel == null)
             {
@@ -75,9 +96,9 @@ namespace FoodAPICore.Controllers
                 Mapper.Map<FoodItemDto>(newFoodItem));
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{id}", Name = nameof(PartiallyUpdateFood))]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult PartiallyUpdate(Guid id, [FromBody] JsonPatchDocument<FoodItemUpdateDto> patchDoc)
+        public IActionResult PartiallyUpdateFood(Guid id, [FromBody] JsonPatchDocument<FoodItemUpdateDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -114,9 +135,9 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpGet]
-        [Route("{id}", Name = "GetSingleFood")]
+        [Route("{id}", Name = nameof(GetSingleFood))]
         [AllowAnonymous]
-        public IActionResult Single(Guid id)
+        public IActionResult GetSingleFood(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
 
@@ -125,13 +146,13 @@ namespace FoodAPICore.Controllers
                 return NotFound();
             }
 
-            return Ok(Mapper.Map<FoodItemDto>(foodItem));
+            return Ok(ExpandSingleFoodItem(foodItem));
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id}", Name = nameof(RemoveFood))]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult Remove(Guid id)
+        public IActionResult RemoveFood(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
 
@@ -151,9 +172,9 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id}", Name = nameof(UpdateFood))]
         [Authorize(Policy = "Modify Resources")]
-        public IActionResult Update(Guid id, [FromBody]FoodItemUpdateDto foodItem)
+        public IActionResult UpdateFood(Guid id, [FromBody]FoodItemUpdateDto foodItem)
         {
             if (foodItem == null)
             {
@@ -182,6 +203,94 @@ namespace FoodAPICore.Controllers
             }
 
             return Ok(Mapper.Map<FoodItemDto>(existingFoodItem));
+        }
+
+        private List<LinkDto> CreateLinksForCollection(QueryParameters queryParameters, int totalCount)
+        {
+            var links = new List<LinkDto>();
+
+            // self 
+            links.Add(
+             new LinkDto(_urlHelper.Link(nameof(GetAllFoods), new
+             {
+                 pagecount = queryParameters.PageCount,
+                 page = queryParameters.Page,
+                 orderby = queryParameters.OrderBy
+             }), "self", "GET"));
+
+            links.Add(new LinkDto(_urlHelper.Link(nameof(GetAllFoods), new
+            {
+                pagecount = queryParameters.PageCount,
+                page = 1,
+                orderby = queryParameters.OrderBy
+            }), "first", "GET"));
+
+            links.Add(new LinkDto(_urlHelper.Link(nameof(GetAllFoods), new
+            {
+                pagecount = queryParameters.PageCount,
+                page = queryParameters.GetTotalPages(totalCount),
+                orderby = queryParameters.OrderBy
+            }), "last", "GET"));
+
+            if (queryParameters.HasNext(totalCount))
+            {
+                links.Add(new LinkDto(_urlHelper.Link(nameof(GetAllFoods), new
+                {
+                    pagecount = queryParameters.PageCount,
+                    page = queryParameters.Page + 1,
+                    orderby = queryParameters.OrderBy
+                }), "next", "GET"));
+            }
+
+            if (queryParameters.HasPrevious())
+            {
+                links.Add(new LinkDto(_urlHelper.Link(nameof(GetAllFoods), new
+                {
+                    pagecount = queryParameters.PageCount,
+                    page = queryParameters.Page - 1,
+                    orderby = queryParameters.OrderBy
+                }), "previous", "GET"));
+            }
+
+            return links;
+        }
+
+        private dynamic ExpandSingleFoodItem(FoodItem foodItem)
+        {
+            var links = GetLinks(foodItem.Id);
+            FoodItemDto item = Mapper.Map<FoodItemDto>(foodItem);
+
+            var resourceToReturn = item.ToDynamic() as IDictionary<string, object>;
+            resourceToReturn.Add("links", links);
+
+            return resourceToReturn;
+        }
+
+        private IEnumerable<LinkDto> GetLinks(Guid id)
+        {
+            var links = new List<LinkDto>();
+
+            links.Add(
+              new LinkDto(_urlHelper.Link(nameof(GetSingleFood), new { id = id }),
+              "self",
+              "GET"));
+
+            links.Add(
+              new LinkDto(_urlHelper.Link(nameof(RemoveFood), new { id = id }),
+              "delete_food",
+              "DELETE"));
+
+            links.Add(
+              new LinkDto(_urlHelper.Link(nameof(AddFood), null),
+              "create_food",
+              "POST"));
+
+            links.Add(
+               new LinkDto(_urlHelper.Link(nameof(UpdateFood), new { id = id }),
+               "update_food",
+               "PUT"));
+
+            return links;
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FoodAPICore.Models;
+using FoodAPICore.Helpers;
+using System.Linq.Dynamic.Core;
 
 namespace FoodAPICore.Repositories.Food
 {
@@ -40,9 +42,21 @@ namespace FoodAPICore.Repositories.Food
             _storage.TryUpdate(item.Id, item, GetSingle(item.Id));
         }
 
-        public IQueryable<FoodItem> GetAll()
+        public IQueryable<FoodItem> GetAll(QueryParameters queryParameters)
         {
-            return _storage.Values.AsQueryable();
+            IQueryable<FoodItem> _allItems = _storage.Values.AsQueryable().OrderBy(queryParameters.OrderBy,
+               queryParameters.IsDescending());
+
+            if (queryParameters.HasQuery())
+            {
+                _allItems = _allItems
+                    .Where(x => x.Calories.ToString().Contains(queryParameters.Query.ToLowerInvariant())
+                    || x.Name.ToLowerInvariant().Contains(queryParameters.Query.ToLowerInvariant()));
+            }
+
+            return _allItems
+                .Skip(queryParameters.PageCount * (queryParameters.Page - 1))
+                .Take(queryParameters.PageCount);
         }
 
         public int Count()

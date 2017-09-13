@@ -1,8 +1,10 @@
 ﻿using FoodAPICore.Entities;
+using FoodAPICore.Helpers;
 using FoodAPICore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 
 namespace FoodAPICore.Repositories.Food
 {
@@ -36,9 +38,21 @@ namespace FoodAPICore.Repositories.Food
             _foodDbContext.FoodItems.Update(item);
         }
 
-        public IQueryable<FoodItem> GetAll()
+        public IQueryable<FoodItem> GetAll(QueryParameters queryParameters)
         {
-            return _foodDbContext.FoodItems;
+            IQueryable<FoodItem> _allItems = _foodDbContext.FoodItems.OrderBy(queryParameters.OrderBy,
+               queryParameters.IsDescending());
+
+            if (queryParameters.HasQuery())
+            {
+                _allItems = _allItems
+                    .Where(x => x.Calories.ToString().Contains(queryParameters.Query.ToLowerInvariant())
+                    || x.Name.ToLowerInvariant().Contains(queryParameters.Query.ToLowerInvariant()));
+            }
+
+            return _allItems
+                .Skip(queryParameters.PageCount * (queryParameters.Page - 1))
+                .Take(queryParameters.PageCount);
         }
 
         public int Count()
