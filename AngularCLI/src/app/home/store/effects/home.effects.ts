@@ -30,8 +30,8 @@ export class HomeEffects {
     @Effect() loadRandomMeal$: Observable<Action> = this.actions$.ofType(HomeActions.LOAD_RANDOM_MEAL)
         .switchMap((action: HomeActions.LoadRandomMealAction) =>
             this.foodDataService.getRandomMeal()
-                .map((data: FoodItem[]) => {
-                    return new HomeActions.LoadRandomMealSuccessAction(data);
+                .map((data: any) => {
+                    return new HomeActions.LoadRandomMealSuccessAction(data.value);
                 })
                 .catch((error: any) => {
                     this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);

@@ -55,16 +55,25 @@ namespace FoodAPICore.Controllers
             });
         }
 
-        [HttpGet("GetRandomMeal")]
+        [HttpGet("GetRandomMeal", Name = nameof(GetRandomMeal))]
         [AllowAnonymous]
         public IActionResult GetRandomMeal()
         {
             ICollection<FoodItem> foodItems = _foodRepository.GetRandomMeal();
 
-            IEnumerable<FoodItemDto> viewModels = foodItems
+            IEnumerable<FoodItemDto> dtos = foodItems
                 .Select(x => Mapper.Map<FoodItemDto>(x));
 
-            return Ok(viewModels);
+            var links = new List<LinkDto>();
+
+            // self 
+            links.Add(new LinkDto(_urlHelper.Link(nameof(GetRandomMeal), null), "self", "GET"));
+
+            return Ok(new
+            {
+                value = dtos,
+                links = links
+            });
         }
 
         [HttpPost(Name = nameof(AddFood))]
