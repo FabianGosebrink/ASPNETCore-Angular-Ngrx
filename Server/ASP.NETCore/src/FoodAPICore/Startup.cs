@@ -18,22 +18,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+using IdentityServer4.AccessTokenValidation;
 
 namespace FoodAPICore
 {
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -54,6 +50,7 @@ namespace FoodAPICore
                     });
             });
 
+            var asdf = Configuration.GetConnectionString("DefaultConnection");
             // Adds framework services.
             services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -65,8 +62,7 @@ namespace FoodAPICore
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IUrlHelper>(implementationFactory =>
             {
-                var actionContext = implementationFactory.GetService<IActionContextAccessor>()
-                .ActionContext;
+                var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
             });
 
@@ -84,33 +80,31 @@ namespace FoodAPICore
             // Claims-Based Authorization: role claims.
             services.AddAuthorization(options =>
             {
-                // Policy for dashboard: only administrator role.
-                options.AddPolicy("Manage Accounts", policy => policy.RequireClaim("role", "administrator"));
-
-                // Policy for resources: user or administrator role. 
-                options.AddPolicy("Modify Resources", policy => policy.RequireClaim("role", "administrator"));
-                
-                options.AddPolicy("Access Resources", policyBuilder => policyBuilder.RequireAssertion(
-                        context => context.User.HasClaim(claim => (claim.Type == "role" && claim.Value == "user")
-                           || (claim.Type == "role" && claim.Value == "administrator"))
-                    )
-                );
+                options.AddPolicy("Manage Accounts", policy => policy.RequireRole("administrator"));
+                options.AddPolicy("Access Resources", policy => policy.RequireRole("administrator", "user"));
+                options.AddPolicy("Modify Resources", policy => policy.RequireRole("administrator"));
             });
 
             services.AddIdentityServer()
-               .AddTemporarySigningCredential()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryPersistedGrants()
                .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
                .AddInMemoryApiResources(IdentityConfig.GetApiResources())
                .AddInMemoryClients(IdentityConfig.GetClients())
                .AddAspNetIdentity<IdentityUser>(); // IdentityServer4.AspNetIdentity.
 
-            //var connectionString = Configuration["connectionStrings:DefaultConnection"];
-            //services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                 .AddIdentityServerAuthentication(options =>
+                 {
+                     options.Authority = "https://localhost:44331/";
+                     // options.Authority = "http://foodapi4demo.azurewebsites.net/";
+                     options.RequireHttpsMetadata = false;
+                     options.ApiName = "WebAPI";
+                 });
 
-            // services.AddSingleton<IFoodRepository, FoodRepository>();
             services.AddScoped<IFoodRepository, EfFoodRepository>();
             services.AddSingleton<IIngredientRepository, IngredientRepository>();
-            services.AddSingleton<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
+            services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -162,28 +156,15 @@ namespace FoodAPICore
                 mapper.CreateMap<Ingredient, IngredientUpdateDto>().ReverseMap();
             });
 
-            string authority = "http://localhost:5000/";
-            if (!env.IsDevelopment())
-            {
-                authority = "http://foodapi4demo.azurewebsites.net/";
-            }
-
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
-            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
-            {
-                Authority = authority,
-                AllowedScopes = { "WebAPI" },
-                RequireHttpsMetadata = false
-            });
+            app.UseIdentityServer();
+
+            app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
 
-            app.UseIdentity();
-
             app.UseStaticFiles();
             app.UseDefaultFiles();
-
-            app.UseIdentityServer();
 
             app.EnsureSeedData();
 

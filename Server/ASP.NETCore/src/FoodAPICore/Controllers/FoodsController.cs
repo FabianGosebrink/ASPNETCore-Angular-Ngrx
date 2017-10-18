@@ -9,11 +9,12 @@ using FoodAPICore.Repositories;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using FoodAPICore.Helpers;
+using IdentityServer4.AccessTokenValidation;
 
 namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Policy = "Access Resources")] // Authorization policy for this API.
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
     public class FoodsController : Controller
     {
         private readonly IFoodRepository _foodRepository;
@@ -77,7 +78,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPost(Name = nameof(AddFood))]
-        [Authorize(Policy = "Modify Resources")]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult AddFood([FromBody] FoodItemCreateDto foodItemViewModel)
         {
             if (foodItemViewModel == null)
@@ -106,7 +107,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPatch("{id}", Name = nameof(PartiallyUpdateFood))]
-        [Authorize(Policy = "Modify Resources")]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult PartiallyUpdateFood(Guid id, [FromBody] JsonPatchDocument<FoodItemUpdateDto> patchDoc)
         {
             if (patchDoc == null)
@@ -160,7 +161,7 @@ namespace FoodAPICore.Controllers
 
         [HttpDelete]
         [Route("{id}", Name = nameof(RemoveFood))]
-        [Authorize(Policy = "Modify Resources")]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult RemoveFood(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
@@ -182,7 +183,7 @@ namespace FoodAPICore.Controllers
 
         [HttpPut]
         [Route("{id}", Name = nameof(UpdateFood))]
-        [Authorize(Policy = "Modify Resources")]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult UpdateFood(Guid id, [FromBody]FoodItemUpdateDto foodItem)
         {
             if (foodItem == null)
