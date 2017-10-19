@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { FoodDataService } from '../../../core/data-services/food-data.service';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { HomeErrorAction } from '../actions/home.actions';
 import * as HomeActions from '../actions/home.actions';
 
 @Injectable()
@@ -17,13 +17,12 @@ export class HomeEffects {
 
     @Effect() loadFood$: Observable<Action> = this.actions$.ofType(HomeActions.LOAD_FOOD)
         .switchMap((action: HomeActions.LoadFoodAction) =>
-                this.foodDataService.getAllFood()
+            this.foodDataService.getAllFood()
                 .map((data: any) => {
                     return new HomeActions.LoadFoodSuccessAction(data.value);
                 })
                 .catch((error: any) => {
-                    this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-                    return of({ type: 'LOGIN_FAILED' })
+                    return of(new HomeActions.HomeErrorAction(error));
                 })
         );
 
@@ -34,10 +33,16 @@ export class HomeEffects {
                     return new HomeActions.LoadRandomMealSuccessAction(data.value);
                 })
                 .catch((error: any) => {
-                    this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-                    return of({ type: 'LOGIN_FAILED' })
+                    return of(new HomeActions.HomeErrorAction(error));
                 })
         );
+
+    @Effect({ dispatch: false }) homeError: Observable<Action> = this.actions$
+        .ofType(HomeActions.HOME_ERROR)
+        .do((action: HomeErrorAction) => {
+            console.log(action.error);
+            this.notificationService.showNotification(MessageType.Error, 'Home', action.error.message)
+        });
 
     constructor(
         private foodDataService: FoodDataService,

@@ -20,7 +20,6 @@ export class AccountEffects {
     .switchMap((action: AccountActions.LoginAction) =>
       this.authService.loginUser(action.username, action.password)
         .map((data: Token) => {
-          console.log('AccountEffects.login$');
           return new AccountActions.LoginSuccessAction(data);
         })
         .catch((error: any) => {

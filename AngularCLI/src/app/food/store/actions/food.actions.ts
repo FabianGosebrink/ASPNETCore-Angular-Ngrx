@@ -15,62 +15,69 @@ export const LOAD_SINGLE_FOOD_SUCCESS = 'LOAD_SINGLE_FOOD_SUCCESS'
 export const SELECT_FOOD = 'SELECT_FOOD'
 export const SELECT_FOOD_SUCCESS = 'SELECT_FOOD_SUCCESS'
 
+export const FOOD_ERROR = 'FOOD_ERROR'
+
 export class AddFoodAction implements Action {
     readonly type = ADD_FOOD;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class AddFoodSuccessAction implements Action {
     readonly type = ADD_FOOD_SUCCESS;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class DeleteFoodAction implements Action {
     readonly type = DELETE_FOOD;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class DeleteFoodSuccessAction implements Action {
     readonly type = DELETE_FOOD_SUCCESS;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class UpdateFoodAction implements Action {
     readonly type = UPDATE_FOOD;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class UpdateFoodSuccessAction implements Action {
     readonly type = UPDATE_FOOD_SUCCESS;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class LoadFoodAction implements Action {
     readonly type = LOAD_FOOD;
-    constructor() {}
+    constructor() { }
 }
 
 export class LoadFoodSuccessAction implements Action {
     readonly type = LOAD_FOOD_SUCCESS;
-    constructor(public foodItems: FoodItem[]) {}
+    constructor(public foodItems: FoodItem[]) { }
 }
 
 export class SelectFoodAction implements Action {
     readonly type = SELECT_FOOD;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
+}
+
+export class FoodErrorAction implements Action {
+    readonly type = FOOD_ERROR;
+    constructor(public error: any) { }
 }
 
 export class SelectFoodSuccessAction implements Action {
     readonly type = SELECT_FOOD_SUCCESS;
-    constructor(public foodItem: FoodItem) {}
+    constructor(public foodItem: FoodItem) { }
 }
 
 export class LoadSingleFoodAction implements Action {
-  readonly type = LOAD_SINGLE_FOOD;
-  constructor(public id: string) {}
+    readonly type = LOAD_SINGLE_FOOD;
+    constructor(public id: string) { }
 }
 
 export class LoadSingleFoodSuccessAction implements Action {
-  readonly type = LOAD_SINGLE_FOOD_SUCCESS;
-  constructor(public foodItem: FoodItem) {}
+    readonly type = LOAD_SINGLE_FOOD_SUCCESS;
+    constructor(public foodItem: FoodItem) { }
 }

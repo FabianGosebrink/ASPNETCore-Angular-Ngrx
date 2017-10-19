@@ -1,3 +1,4 @@
+import { FoodErrorAction } from '../actions/food.actions';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
@@ -23,8 +24,7 @@ export class FoodEffects {
           return new FoodActions.AddFoodSuccessAction(data);
         })
         .catch((error: any) => {
-          this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-          return of({ type: 'LOGIN_FAILED' })
+          return of(new FoodActions.FoodErrorAction(error));
         })
     );
 
@@ -35,8 +35,7 @@ export class FoodEffects {
           return new FoodActions.LoadFoodSuccessAction(data.value);
         })
         .catch((error: any) => {
-          this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-          return of({ type: 'LOGIN_FAILED' })
+          return of(new FoodActions.FoodErrorAction(error));
         })
     );
 
@@ -48,8 +47,7 @@ export class FoodEffects {
           return new FoodActions.DeleteFoodSuccessAction(action.foodItem);
         })
         .catch((error: any) => {
-          this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-          return of({ type: 'LOGIN_FAILED' })
+          return of(new FoodActions.FoodErrorAction(error));
         })
     );
 
@@ -61,8 +59,7 @@ export class FoodEffects {
           return new FoodActions.UpdateFoodSuccessAction(data);
         })
         .catch((error: any) => {
-          this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-          return of({ type: 'LOGIN_FAILED' })
+          return of(new FoodActions.FoodErrorAction(error));
         })
     );
 
@@ -73,8 +70,7 @@ export class FoodEffects {
           return new FoodActions.SelectFoodSuccessAction(data);
         })
         .catch((error: any) => {
-          this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-          return of({ type: 'LOGIN_FAILED' })
+          return of(new FoodActions.FoodErrorAction(error));
         })
     );
 
@@ -85,9 +81,14 @@ export class FoodEffects {
           return new FoodActions.LoadSingleFoodSuccessAction(data);
         })
         .catch((error: any) => {
-          this.notificationService.showNotification(MessageType.Error, 'Food', error.statusText);
-          return of({ type: 'LOGIN_FAILED' })
+          return of(new FoodActions.FoodErrorAction(error));
         })
+    );
+
+  @Effect({ dispatch: false }) foodError: Observable<Action> = this.actions$
+    .ofType(FoodActions.FOOD_ERROR)
+    .do((action: FoodErrorAction) =>
+      this.notificationService.showNotification(MessageType.Error, 'Food', action.error.statusText)
     );
 
   constructor(
