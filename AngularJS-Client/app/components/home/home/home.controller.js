@@ -18,7 +18,7 @@
             foodService
                 .getAllFood()
                 .then(function (result) {
-                    var allFood = result.data;
+                    var allFood = result.data.value;
                     var randomIndex = Math.floor(Math.random() * allFood.length);
                     ctrl.selectedFood = allFood[randomIndex];
                     ctrl.lastUpdatedDate = new Date();

@@ -60,8 +60,8 @@
         var getFood = function () {
             foodService.getAllFood().then(
                 function (response) {
-                    console.log(response.data);
-                    ctrl.foods = response.data;
+                    console.log(response.data.value);
+                    ctrl.foods = response.data.value;
                     toastr.success('Food loaded!', 'Success!');
                 },
                 function (response) {
