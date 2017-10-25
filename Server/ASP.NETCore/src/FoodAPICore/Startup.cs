@@ -96,8 +96,8 @@ namespace FoodAPICore
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                  .AddIdentityServerAuthentication(options =>
                  {
-                     options.Authority = "https://localhost:44331/";
-                     // options.Authority = "http://foodapi4demo.azurewebsites.net/";
+                     // options.Authority = "https://localhost:44331/";
+                     options.Authority = "http://foodapi4demo.azurewebsites.net/";
                      options.RequireHttpsMetadata = false;
                      options.ApiName = "WebAPI";
                  });
@@ -161,8 +161,6 @@ namespace FoodAPICore
 
             app.UseAuthentication();
 
-            app.UseMvcWithDefaultRoute();
-
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
@@ -176,6 +174,8 @@ namespace FoodAPICore
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodAPICore V1");
             });
+
+            app.UseMvc();
         }
     }
 }
