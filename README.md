@@ -1,6 +1,6 @@
-# ASP.NET / ASP.NET Core WebAPI AngularJS / Angular Demo with Ngrx store & Ngrx effects, Component based design & Lazy Loading  runnable on every Platform (Cross Platform)
+# ASP.NET Core WebAPI / Angular Demo with Ngrx store & Ngrx effects, Component based design & Lazy Loading runnable on every Platform (Cross Platform)
 
-This repository offers you one demo application implemented two times (AngularJS, AngularCLI) with two compatible endpoints implemented in ASP.NET & ASP.NET Core served to run on every platform (Cross Platform)
+This repository offers you a demo application implemented with the AngularCLI and an endpoint using ASP.NET Core WebAPI.
 
 The application comes with lazy loading, forms, custom validation, routing , ngrx store, ngrx effects, etc.
 
@@ -18,7 +18,7 @@ Please install cordova and the trash-cli globally to handle cross platform for t
 * [Android SDK](https://developer.android.com/sdk/index.html)
 * [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk)
 
-## Angular Client with Webpack, Treeshaking and Ahead of Time (Aot) Compilation (Folder: "AngularCLI")
+## Angular Client with Webpack, Treeshaking and Ahead of Time (Aot) Compilation
 
 This client is implemented with Angular and Webpack. You can start the application by running
 
@@ -35,30 +35,6 @@ You can build Cross Platform by typing
 ```npm run build-all```
 
 for building Web, Desktop (Windows and Linux) and Apps for Android and Windows Phone in the .dist folder.
-
-## AngularJS Client (Folder: "AngularJS-Client")
-
-This client is implemented with component based design and the one-way dataflow. It is using gulp as a taskrunner to minify and uglify the javascript files. By running 
-
-```yarn```
-
-and 
-
-```npm start```
-
-the application starts and runs in your default browser.
-
-By typing 
-
-```npm run buildProd```
-
-the application build in a ".dist"-folder and you can then type 
-
-```npm run liteProd```
-
-to serve the files from the ".dist"-folder.
-
-
 
 # Demo
 
@@ -77,8 +53,8 @@ You can see an Angular Demo with all the techniques combined here (running on Az
 
 ### Home
 
-![ASP.NET/ASP.NET Core AngularJS/Angular Demo](.github/screen1.jpg "Screen1")
+![ASP.NET Core Angular Demo](.github/screen1.jpg "Screen1")
 
 ### Form
 
-![ASP.NET/ASP.NET Core AngularJS/Angular Demo](.github/screen2.jpg "Screen2")
+![ASP.NET Core Angular Demo](.github/screen2.jpg "Screen2")
