@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Rx';
+import { Observer } from 'rxjs/Observer';
 
 import { Configuration } from '../../shared/configuration/app.configuration';
 import { Token } from '../../shared/models/token';

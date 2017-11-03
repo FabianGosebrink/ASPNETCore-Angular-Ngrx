@@ -1,5 +1,6 @@
-import { FoodItem } from '../../../shared/models/foodItem.model';
 import { Action } from '@ngrx/store';
+
+import { FoodItem } from '../../../shared/models/foodItem.model';
 
 export const ADD_FOOD = 'ADD_FOOD'
 export const ADD_FOOD_SUCCESS = 'ADD_FOOD_SUCCESS'

@@ -17,7 +17,6 @@ export function accountReducer(state = initialState, action: Action): AccountSta
 
     case AccountActions.LOGIN:
       const loginAction = <AccountActions.LoginAction>action;
-      console.log('accountReducer.LOGIN');
       return Object.assign({}, state, {
         errorMessage: '',
         pending: true
@@ -25,7 +24,6 @@ export function accountReducer(state = initialState, action: Action): AccountSta
 
     case AccountActions.LOGIN_SUCCESS:
       const loginSuccessAction = <AccountActions.LoginSuccessAction>action;
-      console.log('accountReducer.LOGIN_SUCCESS');
       return Object.assign({}, state, {
         errorMessage: '',
         pending: false
@@ -33,7 +31,6 @@ export function accountReducer(state = initialState, action: Action): AccountSta
 
     case AccountActions.LOGIN_FAILED:
       const loginFailedAction = <AccountActions.LoginFailedAction>action;
-      console.log(loginFailedAction);
       return Object.assign({}, state, {
         errorMessage: loginFailedAction.errorMessage.error.error_description,
         pending: false

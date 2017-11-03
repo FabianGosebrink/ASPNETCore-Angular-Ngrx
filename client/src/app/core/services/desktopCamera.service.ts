@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { AbstractCameraService } from './camera.service';
 
@@ -24,22 +24,22 @@ export class DesktopCameraService implements AbstractCameraService {
             this.getMediaDevices()
                 .getUserMedia({ video: true, audio: false })
                 .then((stream: any) => {
-                    let vendorURL = window.URL || window.webkitURL;
-                    let doc = document;
-                    let videoElement = doc.createElement('video');
+                    const vendorURL = window.URL || window.webkitURL;
+                    const doc = document;
+                    const videoElement = doc.createElement('video');
                     videoElement.src = vendorURL.createObjectURL(stream);
                     videoElement.play();
 
-                    let takePhotoInternal = () => {
-                        let canvasElement = doc.createElement('canvas');
+                    const takePhotoInternal = () => {
+                        const canvasElement = doc.createElement('canvas');
                         canvasElement.setAttribute('width', videoElement.videoWidth.toString());
                         canvasElement.setAttribute('height', videoElement.videoHeight.toString());
 
                         setTimeout(() => {
-                            let context = canvasElement.getContext('2d');
+                            const context = canvasElement.getContext('2d');
                             context.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
 
-                            let url = canvasElement.toDataURL('image/png');
+                            const url = canvasElement.toDataURL('image/png');
 
                             videoElement.pause();
 

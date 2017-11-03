@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/map';
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';

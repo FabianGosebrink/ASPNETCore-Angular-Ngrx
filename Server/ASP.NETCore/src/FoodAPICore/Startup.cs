@@ -97,7 +97,8 @@ namespace FoodAPICore
                  .AddIdentityServerAuthentication(options =>
                  {
                      // options.Authority = "https://localhost:44331/";
-                     options.Authority = "http://foodapi4demo.azurewebsites.net/";
+                     // options.Authority = "http://foodapi4demo.azurewebsites.net/";
+                     options.Authority = "http://localhost:5000/";
                      options.RequireHttpsMetadata = false;
                      options.ApiName = "WebAPI";
                  });
