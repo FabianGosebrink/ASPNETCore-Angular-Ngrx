@@ -7,19 +7,13 @@ import { StoreModule } from '@ngrx/store';
 
 import { AccountRoutes } from './account.routes';
 import { LoginComponent } from './components/login/login.component';
-import { AccountEffects } from './store/effects/account.effects';
-import { accountReducer } from './store/reducers/accounts.reducer';
 
 @NgModule({
     imports: [
         // Modules
         CommonModule,
         FormsModule,
-        RouterModule.forChild(AccountRoutes),
-        StoreModule.forFeature('account', {
-            accountStore: accountReducer
-        }),
-        EffectsModule.forFeature([AccountEffects])
+        RouterModule.forChild(AccountRoutes)
     ],
 
     declarations: [

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators/tap';
 
 import { FoodDataService } from '../../../core/data-services/food-data.service';
 import { AbstractNotificationService, MessageType } from '../../../core/services/notification.service';
@@ -33,9 +34,9 @@ export class HomeEffects {
 
     @Effect({ dispatch: false }) homeError$ = this.actions$
         .ofType(HomeActions.HOME_ERROR)
-        .do((action: HomeErrorAction) => {
+        .pipe(tap((action: HomeErrorAction) => {
             this.notificationService.showNotification(MessageType.Error, 'Home', action.error.message)
-        });
+        }));
 
     constructor(
         private foodDataService: FoodDataService,

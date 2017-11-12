@@ -1,29 +1,37 @@
 import { Injectable } from '@angular/core';
 
+const APP_PREFIX = 'OS-';
+
 @Injectable()
 export class StorageService {
 
     private _storage: Storage;
 
+    static loadInitialState() {
+
+        const isAuthenticated = localStorage.getItem(`${APP_PREFIX}auth`);
+
+        return {
+            isAuthenticated: !!isAuthenticated,
+            pending: false,
+            errorMessage: ''
+        };
+    }
+
+
     constructor() {
         this._storage = localStorage;
     }
 
-    setItem = (key: string, value: any): void => {
-        this._storage.setItem(key, JSON.stringify(value));
+    setItem(key: string, value: any): void {
+        this._storage.setItem(`${APP_PREFIX}${key}`, JSON.stringify(value));
     };
 
-    removeItem = (key: string): void => {
-        this._storage.removeItem(key);
+    removeItem(key: string): void {
+        this._storage.removeItem(`${APP_PREFIX}${key}`);
     };
 
-    getItem = (key: string): any => {
-        const item: any = this._storage.getItem(key);
-
-        if (item && item !== 'undefined') {
-            return JSON.parse(this._storage.getItem(key));
-        }
-
-        return;
+    getItem(key: string): any {
+        return JSON.parse(localStorage.getItem(`${APP_PREFIX}${key}`));
     };
 }

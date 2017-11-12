@@ -47,6 +47,5 @@ export class AuthenticationService {
     logoutUser() {
         this.currentUserService.token = null;
         this.currentUserService.username = null;
-        this.router.navigate(['/home']);
     }
 }

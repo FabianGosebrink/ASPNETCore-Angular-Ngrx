@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { ToasterService } from 'angular2-toaster';
+import { coreReducer } from 'app/core/store/reducer/core.reducer';
 
 import { FoodDataService } from './data-services/food-data.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -15,6 +18,7 @@ import { PlatformInformationProvider } from './services/platformInformation.prov
 import { Sorter } from './services/sort.service';
 import { StorageService } from './services/storage.service';
 import { WebAndMobileNotificationService } from './services/webAndMobileNotification.service';
+import { CoreEffects } from './store/effects/core.effects';
 
 export function notificationFactory(toasterService: ToasterService,
     platformProvider: PlatformInformationProvider): AbstractNotificationService {
@@ -27,7 +31,13 @@ export function notificationFactory(toasterService: ToasterService,
 };
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [
+        CommonModule,
+        StoreModule.forFeature('core', {
+            coreReducer: coreReducer
+        }),
+        EffectsModule.forFeature([CoreEffects])
+    ],
     exports: [],
     declarations: [],
     providers: [

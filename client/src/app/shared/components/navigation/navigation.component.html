@@ -16,19 +16,19 @@
                 <li routerLinkActive="active">
                     <a routerLink="/home"><i class="fa fa-home fa-fw"></i> Home</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="currentUserService.isAuthenticated">
+                <li routerLinkActive="active" *ngIf="(coreState$ | async).isAuthenticated">
                     <a routerLink="/food"><i class="fa fa-cutlery fa-fw"></i> Food</a>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li routerLinkActive="active" *ngIf="!currentUserService.isAuthenticated">
+                <li routerLinkActive="active" *ngIf="!(coreState$ | async).isAuthenticated">
                     <a routerLink="/account/login"><i class="fa fa-sign-in fa-fw"></i> Login</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="currentUserService.isAuthenticated">
+                <li routerLinkActive="active" *ngIf="(coreState$ | async).isAuthenticated">
                     <a href (click)="doNothing($event)"><i class="fa fa-user fa-fw"></i> Hello {{currentUserService.username}} </a>
                 </li>
-                <li routerLinkActive="active" *ngIf="currentUserService.isAuthenticated">
+                <li routerLinkActive="active" *ngIf="(coreState$ | async).isAuthenticated">
                     <a href (click)="logout($event)"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>

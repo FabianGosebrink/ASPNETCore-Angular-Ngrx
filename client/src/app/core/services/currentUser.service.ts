@@ -32,8 +32,4 @@ export class CurrentUserService {
             this.storageService.setItem('username', username);
         }
     }
-
-    get isAuthenticated(): boolean {
-        return !!this.token;
-    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,10 +19,6 @@ export class FoodDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap
-      .map((paramMap: ParamMap) => paramMap.get('foodId') || '-1')
-      .subscribe((foodId: string) => {
-        this.store.dispatch(new FoodActions.LoadSingleFoodAction(foodId));
-      });
+    this.store.dispatch(new FoodActions.LoadSingleFoodAction(this.route.snapshot.paramMap.get('foodId')));
   }
 }

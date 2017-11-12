@@ -1,3 +1,4 @@
+import { tap } from 'rxjs/operators/tap';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
@@ -83,9 +84,9 @@ export class FoodEffects {
 
   @Effect({ dispatch: false }) foodError = this.actions$
     .ofType(FoodActions.FOOD_ERROR)
-    .do((action: FoodErrorAction) =>
+    .pipe(tap((action: FoodErrorAction) =>
       this.notificationService.showNotification(MessageType.Error, 'Food', action.error.statusText)
-    );
+    ));
 
   constructor(
     private foodDataService: FoodDataService,

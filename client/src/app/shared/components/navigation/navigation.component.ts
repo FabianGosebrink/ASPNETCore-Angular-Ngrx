@@ -1,10 +1,11 @@
-import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { CoreState } from '../../../core/store/reducer/core.reducer';
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { AuthenticationService } from '../../../core/services/authentication.service';
 import { CurrentUserService } from '../../../core/services/currentUser.service';
+import * as CoreActions from '../../../core/store/actions/core.actions';
 import { Configuration } from './../../configuration/app.configuration';
-import * as SharedActions from '../../store/actions/shared.actions';
 
 @Component({
     selector: 'app-navigation',
@@ -12,15 +13,18 @@ import * as SharedActions from '../../store/actions/shared.actions';
 })
 
 export class NavigationComponent {
+    coreState$: Observable<CoreState>;
 
     constructor(
         public configuration: Configuration,
         public currentUserService: CurrentUserService,
-        private store: Store<any>) { }
+        private store: Store<any>) {
+        this.coreState$ = this.store.select<CoreState>(state => state.core.coreReducer);
+    }
 
     logout($event: Event) {
         $event.preventDefault();
-        this.store.dispatch(new SharedActions.LogoutAction());
+        this.store.dispatch(new CoreActions.LogoutAction());
     }
 
     doNothing($event: Event) {
