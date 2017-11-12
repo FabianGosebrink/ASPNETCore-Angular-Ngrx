@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng build --prod --aot --output-path=\".dist/web\"",
+    "build": "ng build --prod --stats-json --output-path=\".dist/web\"",
     "build-web": "npm run build && npm run precache",
     "precache": "sw-precache --verbose --config=sw-precache-config.js",
     "prepare-desktop": "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web .temp/electron/ && rimraf .dist/desktop/",
@@ -20,6 +20,7 @@
     "build-mobile": "npm run prepare-mobile && npm run generate-mobile-assets && npm run build-mobile-android && npm run build-mobile-windows",
     "generate-mobile-assets": "cd .temp/mobile && cordova-icon --icon=\"../../assets/img/icon.png\" && cordova-splash --splash=\"../../assets/img/splash.png\"",
     "build-all": "rimraf .dist && npm run build-web && npm run build-mobile && npm run build-desktop && npm run cleanup",
+    "bundle-report": "webpack-bundle-analyzer .dist/web/stats.json",
     "cleanup": "rimraf .temp"
   },
   "private": true,
@@ -70,6 +71,7 @@
     "sw-precache": "^5.2.0",
     "ts-node": "~3.3.0",
     "tslint": "~5.8.0",
-    "typescript": "2.6.1"
+    "typescript": "2.6.1",
+    "webpack-bundle-analyzer": "^2.9.1"
   }
 }
