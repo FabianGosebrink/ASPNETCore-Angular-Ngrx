@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
@@ -6,9 +13,7 @@ import { FoodItem } from './../../../shared/models/foodItem.model';
   selector: 'app-food-form',
   templateUrl: './foodForm.component.html'
 })
-
 export class FoodFormComponent implements OnChanges {
-
   types: string[] = ['Starter', 'Main', 'Dessert'];
   @Input() foodItem: FoodItem;
   @Output() foodUpdated = new EventEmitter<FoodItem>();
@@ -17,7 +22,9 @@ export class FoodFormComponent implements OnChanges {
   currentFood: FoodItem = new FoodItem();
 
   addOrUpdateFood() {
-    this.foodItem.id ? this.foodUpdated.emit(this.currentFood) : this.foodAdded.emit(this.currentFood);
+    this.foodItem.id
+      ? this.foodUpdated.emit(this.currentFood)
+      : this.foodAdded.emit(this.currentFood);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

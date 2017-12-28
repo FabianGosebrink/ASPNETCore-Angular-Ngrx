@@ -1,7 +1,9 @@
 <form>
     <div class="form-group">
         <div class="input-group">
-            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+            <div class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </div>
             <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
         </div>
     </div>
@@ -9,9 +11,15 @@
 
 <table class="table">
     <tr>
-        <th><a href="" (click)="sortArray('name', $event)">Name</a></th>
-        <th><a href="" (click)="sortArray('calories', $event)">Calories</a></th>
-        <th><a href="" (click)="sortArray('type', $event)">Type</a></th>
+        <th>
+            <a href="" (click)="sortArray('name', $event)">Name</a>
+        </th>
+        <th>
+            <a href="" (click)="sortArray('calories', $event)">Calories</a>
+        </th>
+        <th>
+            <a href="" (click)="sortArray('type', $event)">Type</a>
+        </th>
         <th class="text-right">Actions</th>
     </tr>
     <tr *ngFor="let food of foods | filter : 'name' : searchString; let i = index">
@@ -26,9 +34,12 @@
         </td>
         <td class="text-right">
             <!--<button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>-->
-            <button type="button" class="btn btn-primary btn-xs" (click)="setFoodToDelete(food)" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-            <button (click)="foodSelected.emit(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-            <a [routerLink]="['/food', food.id]" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Details</a>
+            <button type="button" class="btn btn-primary btn-xs" (click)="setFoodToDelete(food)" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-trash"></span> Delete</button>
+            <button (click)="foodSelected.emit(food)" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-edit"></span> Edit</button>
+            <a [routerLink]="['/food', food.id]" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-search"></span> Details</a>
         </td>
     </tr>
 </table>

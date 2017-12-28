@@ -12,44 +12,35 @@ import { FoodListComponent } from './components/foodList/foodList.component';
 import { MainFoodComponent } from './components/mainFood/mainFood.component';
 import { FoodRoutes } from './food.routes';
 import { FilterPipe } from './pipes/filter.pipe';
-import { FoodEffects } from './store/effects/food.effects';
-import { foodItemsReducer, selectedItemReducer } from './store/reducer/food.reducer';
+import { effects, reducers } from './store';
 import { IsInRangeValidator } from './validators/isInRange.validator';
 import { IsNumberValidator } from './validators/isNumber.validator';
 
 @NgModule({
-    imports: [
-        // Modules
-        CommonModule,
-        FormsModule,
-        SharedModule,
-        RouterModule.forChild(FoodRoutes),
-        StoreModule.forFeature('food', {
-            foodItems: foodItemsReducer,
-            selectedItem: selectedItemReducer
-        }),
-        EffectsModule.forFeature([FoodEffects])
-    ],
+  imports: [
+    // Modules
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    RouterModule.forChild(FoodRoutes),
+    StoreModule.forFeature('food', reducers),
+    EffectsModule.forFeature(effects)
+  ],
 
-    declarations: [
-        // Components & Directives
-        FoodListComponent,
-        FoodDetailsComponent,
-        FoodFormComponent,
-        MainFoodComponent,
+  declarations: [
+    // Components & Directives
+    FoodListComponent,
+    FoodDetailsComponent,
+    FoodFormComponent,
+    MainFoodComponent,
 
-        IsInRangeValidator,
-        IsNumberValidator,
-        FilterPipe
-    ],
+    IsInRangeValidator,
+    IsNumberValidator,
+    FilterPipe
+  ],
 
-    providers: [
+  providers: [],
 
-    ],
-
-    exports: [
-
-    ]
+  exports: []
 })
-
-export class FoodModule { }
+export class FoodModule {}

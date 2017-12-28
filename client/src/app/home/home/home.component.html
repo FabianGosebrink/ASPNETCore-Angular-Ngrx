@@ -1,34 +1,9 @@
 <div class="container">
   <div class="jumbotron starter-template">
     <h2>Your meal for today</h2>
-
-    <app-random-meal [loading]="(homeState$|async).loadingRandomMeal" [fooditem]="(homeState$|async).randomMeal[0]"></app-random-meal>
-    <app-random-meal [loading]="(homeState$|async).loadingRandomMeal" [fooditem]="(homeState$|async).randomMeal[1]"></app-random-meal>
-    <app-random-meal [loading]="(homeState$|async).loadingRandomMeal" [fooditem]="(homeState$|async).randomMeal[2]"></app-random-meal>
+    <app-random-meal [foodItems]="(randomMeal$|async)" [loading]="(loading$|async)"></app-random-meal>
     <br/>
     <button type="button" class="btn btn-primary" (click)="updateFood()">Get new Meal</button>
-  </div>
-
-
-
-  <div class="container">
-    <div class="row">
-
-
-      <div *ngIf=(homeState$|async).loadingAllItems>
-        <br/>
-        <div class="alert alert-info">
-          Please wait...
-        </div>
-      </div>
-
-
-      <div class="thumbnails" *ngIf=!(homeState$|async).loadingAllItems>
-        <div class="col-md-4" *ngFor="let foodItem of (homeState$|async).foodItems">
-          <sneakpeek [foodItem]="foodItem"></sneakpeek>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Site footer -->

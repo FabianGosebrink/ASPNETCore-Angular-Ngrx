@@ -12,26 +12,33 @@ import { AppRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
+import { reducers, CustomSerializer } from './store';
+
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer
+} from '@ngrx/router-store';
 
 @NgModule({
-    imports: [
-        BrowserAnimationsModule,
-        BrowserModule,
-        ToasterModule,
-        RouterModule.forRoot(AppRoutes, { useHash: true, preloadingStrategy: PreloadAllModules }),
-        SharedModule,
-        NgxElectronModule,
-        HomeModule,
-        CoreModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([])
-    ],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    ToasterModule,
+    RouterModule.forRoot(AppRoutes, {
+      useHash: true,
+      preloadingStrategy: PreloadAllModules
+    }),
+    SharedModule,
+    NgxElectronModule,
+    HomeModule,
+    CoreModule.forRoot(),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule
+  ],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
+  declarations: [AppComponent],
 
-    declarations: [
-        AppComponent
-    ],
-
-    bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
-
-export class AppModule { }
+export class AppModule {}

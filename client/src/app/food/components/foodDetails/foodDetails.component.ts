@@ -1,24 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import * as FoodActions from '../../store/actions/food.actions';
-import { FoodState } from '../../store/reducer/food.reducer';
+import * as fromStore from '../../store';
+import { FoodItem } from 'app/shared/models/foodItem.model';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-food-details',
   templateUrl: './foodDetails.component.html'
 })
+export class FoodDetailsComponent implements OnInit, OnDestroy {
+  selectedItem: FoodItem;
+  private subscription: Subscription;
 
-export class FoodDetailsComponent implements OnInit {
-  selectedItemState$: Observable<FoodState>;
-
-  constructor(private route: ActivatedRoute, private store: Store<any>) {
-    this.selectedItemState$ = this.store.select<FoodState>(state => state.food.selectedItem);
-  }
+  constructor(private store: Store<fromStore.FoodState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new FoodActions.LoadSingleFoodAction(this.route.snapshot.paramMap.get('foodId')));
+    this.subscription = this.store
+      .select(fromStore.getSelectedFood)
+      .subscribe(item => {
+        this.selectedItem = item;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

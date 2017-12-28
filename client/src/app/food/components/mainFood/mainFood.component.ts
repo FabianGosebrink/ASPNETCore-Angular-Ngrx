@@ -2,41 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import * as FoodActions from '../../store/actions/food.actions';
-import { FoodState } from '../../store/reducer/food.reducer';
+import * as fromStore from '../../store';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
 @Component({
-    selector: 'app-main-food-component',
-    templateUrl: './mainFood.component.html'
+  selector: 'app-main-food-component',
+  templateUrl: './mainFood.component.html'
 })
-
 export class MainFoodComponent implements OnInit {
-    selectedItemState$: Observable<FoodState>;
-    foodState$: Observable<FoodState>;
+  foods$: Observable<FoodItem[]>;
+  selectedItem: FoodItem;
 
-    constructor(private store: Store<any>) {
-        this.foodState$ = this.store.select<FoodState>(state => state.food.foodItems);
-        this.selectedItemState$ = this.store.select<FoodState>(state => state.food.selectedItem);
-    }
+  constructor(private store: Store<fromStore.FoodState>) {}
 
-    ngOnInit() {
-        this.store.dispatch(new FoodActions.LoadFoodAction());
-    }
+  ngOnInit() {
+    this.foods$ = this.store.select(fromStore.getAllFoods);
+    this.store.dispatch(new fromStore.LoadFoodAction());
+  }
 
-    setCurrentlySelectedFood(foodItem: FoodItem) {
-        this.store.dispatch(new FoodActions.SelectFoodAction(foodItem));
-    }
+  setCurrentlySelectedFood(foodItem: FoodItem) {
+    this.selectedItem = foodItem;
+  }
 
-    addFood(foodItem: FoodItem) {
-        this.store.dispatch(new FoodActions.AddFoodAction(foodItem));
-    }
+  addFood(foodItem: FoodItem) {
+    this.store.dispatch(new fromStore.AddFoodAction(foodItem));
+  }
 
-    updateFood(foodItem: FoodItem) {
-        this.store.dispatch(new FoodActions.UpdateFoodAction(foodItem));
-    }
+  updateFood(foodItem: FoodItem) {
+    this.store.dispatch(new fromStore.UpdateFoodAction(foodItem));
+  }
 
-    deleteFood(foodItem: FoodItem) {
-        this.store.dispatch(new FoodActions.DeleteFoodAction(foodItem));
-    }
+  deleteFood(foodItem: FoodItem) {
+    this.store.dispatch(new fromStore.DeleteFoodAction(foodItem));
+  }
 }

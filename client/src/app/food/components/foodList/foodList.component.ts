@@ -4,29 +4,28 @@ import { Sorter } from '../../../core/services/sort.service';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
 @Component({
-    selector: 'app-foodlist',
-    templateUrl: './foodList.component.html'
+  selector: 'app-foodlist',
+  templateUrl: './foodList.component.html'
 })
-
 export class FoodListComponent {
-    foodItem: FoodItem;
-    foodToDelete: FoodItem;
-    searchString: string;
+  foodItem: FoodItem;
+  foodToDelete: FoodItem;
+  searchString: string;
 
-    @Input() foods: FoodItem[];
-    @Output() foodSelected = new EventEmitter<FoodItem>();
-    @Output() foodDeleted = new EventEmitter<FoodItem>();
+  @Input() foods: FoodItem[];
+  @Output() foodSelected = new EventEmitter<FoodItem>();
+  @Output() foodDeleted = new EventEmitter<FoodItem>();
 
-    constructor(private sorter: Sorter) { }
+  constructor(private sorter: Sorter) {}
 
-    setFoodToDelete = (foodItem: FoodItem): void => {
-        this.foodToDelete = foodItem;
+  setFoodToDelete = (foodItem: FoodItem): void => {
+    this.foodToDelete = foodItem;
+  };
+
+  sortArray(key: string, $event: any) {
+    if ($event) {
+      $event.preventDefault();
     }
-
-    sortArray(key: string, $event: any) {
-        if ($event) {
-            $event.preventDefault();
-        }
-        this.sorter.sort(key, this.foods);
-    }
+    this.sorter.sort(key, this.foods);
+  }
 }

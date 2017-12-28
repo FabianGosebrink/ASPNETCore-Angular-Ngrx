@@ -1,64 +1,56 @@
 import { Action } from '@ngrx/store';
 
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import * as HomeActions from '../actions/home.actions';
+import * as homeActions from '../actions/home.actions';
 
 export interface HomeState {
-  foodItems: FoodItem[],
-  randomMeal: FoodItem[],
-  loadingRandomMeal: boolean,
-  loadingAllItems: boolean
-};
+  randomMeal: { [id: string]: FoodItem };
+  loading: boolean;
+  loaded: boolean;
+}
 
 export const initialState: HomeState = {
-  foodItems: [],
-  randomMeal: [],
-  loadingRandomMeal: false,
-  loadingAllItems: false
+  randomMeal: {},
+  loading: false,
+  loaded: false
 };
 
-export function foodItemsHomeReducer(state = initialState, action: Action): HomeState {
+export function homeReducer(
+  state = initialState,
+  action: homeActions.HomeActions
+): HomeState {
   switch (action.type) {
+    case homeActions.LOAD_RANDOM_MEAL: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
 
-    case HomeActions.LOAD_FOOD:
-      const loadFoodAction = <HomeActions.LoadFoodAction>action;
-      return Object.assign({}, state, {
-        randomMeal: state.randomMeal,
-        foodItems: state.foodItems,
-        loadingRandomMeal: false,
-        loadingAllItems: true
+    case homeActions.LOAD_RANDOM_MEAL_SUCCESS: {
+      const payload = action.foodItems;
+      const randomMeal: { [id: string]: FoodItem } = {};
+      payload.forEach((item: FoodItem) => {
+        if (item) {
+          randomMeal[item.id] = item;
+        } else {
+          randomMeal[''] = null;
+        }
       });
 
-    case HomeActions.LOAD_FOOD_SUCCESS:
-      const loadFoodSuccessAction = <HomeActions.LoadFoodSuccessAction>action;
-      return Object.assign({}, state, {
-        randomMeal: state.randomMeal,
-        foodItems: loadFoodSuccessAction.foodItems,
-        loadingRandomMeal: false,
-        loadingAllItems: false
-      });
-
-    case HomeActions.LOAD_RANDOM_MEAL:
-      const loadRandomMealAction = <HomeActions.LoadRandomMealAction>action;
-      return Object.assign({}, state, {
-        randomMeal: state.randomMeal,
-        foodItems: state.foodItems,
-        loadingRandomMeal: true,
-        loadingAllItems: false
-      });
-
-    case HomeActions.LOAD_RANDOM_MEAL_SUCCESS:
-      const loadRandomMealSuccessAction = <HomeActions.LoadRandomMealSuccessAction>action;
-      return Object.assign({}, state, {
-        randomMeal: loadRandomMealSuccessAction.foodItems,
-        foodItems: state.foodItems,
-        loadingRandomMeal: false,
-        loadingAllItems: false
-      });
+      return {
+        ...state,
+        randomMeal,
+        loaded: true,
+        loading: false
+      };
+    }
 
     default:
       return state;
-
   }
 }
 
+export const getRandomMeal = (state: HomeState) => state.randomMeal;
+export const getRandomMealLoaded = (state: HomeState) => state.loaded;
+export const getRandomMealLoading = (state: HomeState) => state.loading;
