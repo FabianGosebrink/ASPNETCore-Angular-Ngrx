@@ -22,7 +22,7 @@ export class FoodFormComponent implements OnChanges {
   currentFood: FoodItem = new FoodItem();
 
   addOrUpdateFood() {
-    this.foodItem.id
+    !!this.foodItem
       ? this.foodUpdated.emit(this.currentFood)
       : this.foodAdded.emit(this.currentFood);
   }

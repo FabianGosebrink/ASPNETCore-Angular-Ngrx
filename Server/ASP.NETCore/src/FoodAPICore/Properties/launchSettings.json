@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://localhost:44331/swagger/",
-      "sslPort": 44331
+      "applicationUrl": "http://localhost:51776/",
+      "sslPort": 0
     }
   },
   "profiles": {
@@ -15,11 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "FoodAPICore": {
+    "WebApplication1": {
       "commandName": "Project",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:51777/"
     }
   }
 }

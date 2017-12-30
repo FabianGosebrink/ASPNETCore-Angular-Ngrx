@@ -1,13 +1,13 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
-
-import { AbstractCameraService } from '../../core/services/camera.service';
-import { FoodItem } from '../../shared/models/foodItem.model';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { FoodItem } from '../../../shared/models/foodItem.model';
+import { AbstractCameraService } from '../../../core/services/camera.service';
 
 @Component({
-  selector: 'app-sneakpeek',
-  templateUrl: 'sneakpeek.component.html'
+  selector: 'app-food-picture',
+  templateUrl: './food-picture.component.html',
+  styleUrls: ['./food-picture.component.css']
 })
-export class SneakPeekComponent implements OnInit {
+export class FoodPictureComponent implements OnInit {
   @Input() foodItem: FoodItem;
 
   constructor(

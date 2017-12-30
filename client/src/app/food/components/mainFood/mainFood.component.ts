@@ -26,10 +26,12 @@ export class MainFoodComponent implements OnInit {
 
   addFood(foodItem: FoodItem) {
     this.store.dispatch(new fromStore.AddFoodAction(foodItem));
+    this.selectedItem = null;
   }
 
   updateFood(foodItem: FoodItem) {
     this.store.dispatch(new fromStore.UpdateFoodAction(foodItem));
+    this.selectedItem = null;
   }
 
   deleteFood(foodItem: FoodItem) {

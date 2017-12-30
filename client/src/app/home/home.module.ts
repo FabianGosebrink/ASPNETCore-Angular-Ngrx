@@ -13,7 +13,6 @@ import { EMealFooterComponent } from './footer/eMeal-footer.component';
 import { HomeRoutes } from './home.routes';
 import { HomeComponent } from './home/home.component';
 import { RandomMealComponent } from './randomMeal/randomMeal.component';
-import { SneakPeekComponent } from './sneakPeek/sneekPeek.component';
 import { SingleMealComponent } from './single-meal/single-meal.component';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { SingleMealComponent } from './single-meal/single-meal.component';
     // Components & Directives
     HomeComponent,
     RandomMealComponent,
-    SneakPeekComponent,
     EMealFooterComponent,
     SingleMealComponent
   ],

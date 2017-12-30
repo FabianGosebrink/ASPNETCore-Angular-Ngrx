@@ -34,21 +34,17 @@ export function foodItemsReducer(
     }
 
     case foodActions.LOAD_FOOD_SUCCESS: {
-      const loadFoodAction = action as foodActions.LoadFoodSuccessAction;
+      const payload = action.foodItems;
 
-      const mappedEntities = loadFoodAction.foodItems.reduce(
-        (entities: { [id: string]: FoodItem }, foodItem: FoodItem) => {
-          return {
-            ...mappedEntities,
-            [foodItem.id]: foodItem
-          };
-        },
-        { ...state.entities }
-      );
+      const entities: { [id: string]: FoodItem } = {};
+
+      payload.forEach((item: FoodItem) => {
+        entities[item.id] = item;
+      });
 
       return {
         ...state,
-        entities: mappedEntities
+        entities
       };
     }
 
