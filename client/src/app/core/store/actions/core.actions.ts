@@ -8,21 +8,27 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGOUT = 'LOGOUT';
 
 export class LoginAction implements Action {
-    readonly type = LOGIN;
-    constructor(public username: string, public password: string) { }
+  readonly type = LOGIN;
+  constructor(public username: string, public password: string) {}
 }
 
 export class LoginSuccessAction implements Action {
-    readonly type = LOGIN_SUCCESS;
-    constructor(public token: Token) { }
+  readonly type = LOGIN_SUCCESS;
+  constructor(public token: Token) {}
 }
 
 export class LoginFailedAction implements Action {
-    readonly type = LOGIN_FAILED;
-    constructor(public errorMessage: any) { }
+  readonly type = LOGIN_FAILED;
+  constructor(public errorMessage: any) {}
 }
 
 export class LogoutAction implements Action {
-    readonly type = LOGOUT;
-    constructor() { }
+  readonly type = LOGOUT;
+  constructor() {}
 }
+
+export type CoreActions =
+  | LoginAction
+  | LoginSuccessAction
+  | LoginFailedAction
+  | LogoutAction;

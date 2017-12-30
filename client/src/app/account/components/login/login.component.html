@@ -22,17 +22,17 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!f?.valid || f?.pending">Sign in</button>
 
-    <div *ngIf=(state$|async).pending>
+    <div *ngIf=(pending$|async)>
       <br/>
       <div class="alert alert-info">
         Please wait...
       </div>
     </div>
 
-    <div *ngIf=(state$|async).errorMessage>
+    <div *ngIf=(errorMessage$|async)>
       <br/>
       <div class="alert alert-danger">
-        <strong>Error!</strong> {{(state$|async).errorMessage}}
+        <strong>Error!</strong> {{(errorMessage$|async)}}
       </div>
     </div>
 

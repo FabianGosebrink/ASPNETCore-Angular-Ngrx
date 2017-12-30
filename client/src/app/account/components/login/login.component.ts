@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-
-import * as CoreActions from '../../../core/store/actions/core.actions';
-import { CoreState } from '../../../core/store/reducer/core.reducer';
+import * as fromStore from '../../../core/store';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent implements OnInit {
-
   username: string;
   password: string;
 
-  state$: Observable<CoreState>;
+  pending$: Observable<boolean>;
+  errorMessage$: Observable<string>;
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<fromStore.CoreState>) {}
 
   ngOnInit() {
-    this.state$ = this.store.select<CoreState>(state => state.core.coreReducer);
+    this.pending$ = this.store.select(fromStore.getPending);
+    this.errorMessage$ = this.store.select(fromStore.getErrorMessage);
   }
 
-  public doLoginUser() {
-    this.store.dispatch(new CoreActions.LoginAction(this.username, this.password))
+  doLoginUser() {
+    this.store.dispatch(
+      new fromStore.LoginAction(this.username, this.password)
+    );
   }
 }
