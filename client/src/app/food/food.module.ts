@@ -16,6 +16,7 @@ import { effects, reducers } from './store';
 import { IsInRangeValidator } from './validators/isInRange.validator';
 import { IsNumberValidator } from './validators/isNumber.validator';
 import { FoodPictureComponent } from './components/food-picture/food-picture.component';
+import * as fromFoodGuards from './guards';
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import { FoodPictureComponent } from './components/food-picture/food-picture.com
     FoodPictureComponent
   ],
 
-  providers: [],
+  providers: [...fromFoodGuards.foodGuards],
 
   exports: []
 })

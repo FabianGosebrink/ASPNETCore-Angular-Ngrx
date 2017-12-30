@@ -5,12 +5,14 @@ import * as foodActions from '../actions/food.actions';
 
 export interface FoodState {
   entities: { [id: string]: FoodItem };
-  selectedItem: FoodItem;
+  loaded: boolean;
+  loading: boolean;
 }
 
 export const initialState: FoodState = {
   entities: {},
-  selectedItem: null
+  loaded: false,
+  loading: false
 };
 
 export function foodItemsReducer(
@@ -44,7 +46,8 @@ export function foodItemsReducer(
 
       return {
         ...state,
-        entities
+        entities,
+        loaded: true
       };
     }
 
@@ -64,4 +67,5 @@ export function foodItemsReducer(
 }
 
 export const getFoodItemEntities = (state: FoodState) => state.entities;
-export const getSelectedItem = (state: FoodState) => state.selectedItem;
+export const getFoodItemsLoaded = (state: FoodState) => state.loaded;
+export const getFoodItemsLoading = (state: FoodState) => state.loading;
