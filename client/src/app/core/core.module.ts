@@ -17,7 +17,7 @@ import { DesktopNotificationService } from './services/desktopNotification.servi
 import {
   HttpWrapperService,
   MyFirstInterceptor
-} from './services/httpWrapper.service';
+} from './data-services/httpWrapper.service';
 import { AbstractNotificationService } from './services/notification.service';
 import { PlatformInformationProvider } from './services/platformInformation.provider';
 import { Sorter } from './services/sort.service';

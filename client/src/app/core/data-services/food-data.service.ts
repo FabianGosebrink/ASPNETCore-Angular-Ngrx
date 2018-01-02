@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators/catchError';
 
 import { Configuration } from '../../shared/configuration/app.configuration';
 import { FoodItem } from '../../shared/models/foodItem.model';
-import { HttpWrapperService } from '../services/httpWrapper.service';
+import { HttpWrapperService } from './httpWrapper.service';
 
 @Injectable()
 export class FoodDataService {
