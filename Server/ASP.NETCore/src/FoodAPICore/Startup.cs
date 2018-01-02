@@ -98,7 +98,7 @@ namespace FoodAPICore
                  {
                      // options.Authority = "https://localhost:44331/";
                      // options.Authority = "http://foodapi4demo.azurewebsites.net/";
-                     options.Authority = "http://localhost:51776/";
+                     options.Authority = "http://localhost:51777/";
                      options.RequireHttpsMetadata = false;
                      options.ApiName = "WebAPI";
                  });
