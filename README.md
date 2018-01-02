@@ -8,31 +8,32 @@ Server and Client are completely seperated that you can exchange the endpoint ea
 
 ### Check the corresponding package.json for the npm commands to start the repository
 
-## Prerequisites 
+## Prerequisites
 
 Please install cordova and the trash-cli globally to handle cross platform for the [AngularCLI-Demo](https://github.com/FabianGosebrink/ASPNET-ASPNETCore-Angular-Ngrx/tree/master/AngularCLI)
 
-```npm install cordova -g```
+`npm install cordova -g`
 
 * [XCode](https://developer.apple.com/xcode/download/)
 * [Android SDK](https://developer.android.com/sdk/index.html)
 * [Windows 10 SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk)
+* Download and install [ImageMagick](http://www.imagemagick.org/script/download.php) (base toolkit for image processing, used here for splash screen and icon generation)
 
 ## Angular Client with Webpack, Treeshaking and Ahead of Time (Aot) Compilation
 
 This client is implemented with Angular and Webpack. You can start the application by running
 
-```npm install```
+`npm install`
 
-and 
+and
 
-```npm start```
+`npm start`
 
 the application starts and runs in your default browser.
 
 You can build Cross Platform by typing
 
-```npm run build-all```
+`npm run build-all`
 
 for building Web, Desktop (Windows and Linux) and Apps for Android and Windows Phone in the .dist folder.
 
@@ -45,6 +46,7 @@ You can see an Angular Demo with all the techniques combined here (running on Az
 [http://foodapiui.azurewebsites.net/](http://foodapiui.azurewebsites.net/)
 
 ## Backend
+
 [http://foodapi4demo.azurewebsites.net/](http://foodapi4demo.azurewebsites.net/)
 
 ![DemoGif](.github/foodApiAzure.gif)
