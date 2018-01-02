@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
 import { catchError } from 'rxjs/operators/catchError';
 
 import { Configuration } from '../../shared/configuration/app.configuration';
@@ -57,6 +58,6 @@ export class FoodDataService {
   }
 
   private handleError(error: any) {
-    return Observable.throw(error || 'Server error');
+    return _throw(error || 'Server error');
   }
 }
