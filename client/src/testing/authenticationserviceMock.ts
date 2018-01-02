@@ -5,21 +5,17 @@ import { Observer } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthenticationServiceStub {
+  redirectUrl: string;
 
-    public redirectUrl: string;
+  constructor() {}
 
-    constructor() {
+  loginUser(username: string, password: string): Observable<Token> {
+    return Observable.create((observer: Observer<Token>) => {
+      observer.next(new Token());
+    });
+  }
 
-    }
-
-    loginUser(username: string, password: string): Observable<Token> {
-
-        return Observable.create((observer: Observer<Token>) => {
-            observer.next(new Token());
-        });
-    }
-
-    logoutUser() {
-        console.log('testing logoutuser');
-    }
+  logoutUser() {
+    console.log('testing logoutuser');
+  }
 }

@@ -9,7 +9,7 @@ import { HttpWrapperService } from '../services/httpWrapper.service';
 
 @Injectable()
 export class FoodDataService {
-  actionUrl: string;
+  private actionUrl: string;
 
   constructor(
     private http: HttpWrapperService,

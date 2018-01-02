@@ -9,25 +9,22 @@ import { AccountRoutes } from './account.routes';
 import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
-    imports: [
-        // Modules
-        CommonModule,
-        FormsModule,
-        RouterModule.forChild(AccountRoutes)
-    ],
+  imports: [
+    // Modules
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(AccountRoutes)
+  ],
 
-    declarations: [
-        // Components & Directives
-        LoginComponent
-    ],
+  declarations: [
+    // Components & Directives
+    LoginComponent
+  ],
 
-    providers: [
-        // Services
-    ],
+  providers: [
+    // Services
+  ],
 
-    exports: [
-
-    ]
+  exports: []
 })
-
-export class AccountModule { }
+export class AccountModule {}

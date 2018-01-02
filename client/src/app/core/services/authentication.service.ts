@@ -10,42 +10,57 @@ import { CurrentUserService } from './currentUser.service';
 
 @Injectable()
 export class AuthenticationService {
+  redirectUrl: string;
 
-    public redirectUrl: string;
+  constructor(
+    private http: HttpClient,
+    private currentUserService: CurrentUserService,
+    private router: Router,
+    private configuration: Configuration
+  ) {}
 
-    constructor(private http: HttpClient,
-        private currentUserService: CurrentUserService,
-        private router: Router,
-        private configuration: Configuration) {
+  loginUser(username: string, password: string): Observable<Token> {
+    const clientId = 'client_id=' + this.configuration.authConfig.CLIENT_ID;
+    const grantType = 'grant_type=' + this.configuration.authConfig.GRANT_TYPE;
+    const usernameForBody = 'username=' + username;
+    const passwordForBody = 'password=' + password;
+    const scope = 'scope=' + this.configuration.authConfig.SCOPE;
 
-    }
+    const body = clientId.concat(
+      '&',
+      grantType,
+      '&',
+      usernameForBody,
+      '&',
+      passwordForBody,
+      '&',
+      scope
+    );
 
-    loginUser(username: string, password: string): Observable<Token> {
-        const clientId = 'client_id=' + this.configuration.authConfig.CLIENT_ID;
-        const grantType = 'grant_type=' + this.configuration.authConfig.GRANT_TYPE;
-        const usernameForBody = 'username=' + username;
-        const passwordForBody = 'password=' + password;
-        const scope = 'scope=' + this.configuration.authConfig.SCOPE;
+    const options = {
+      headers: new HttpHeaders().set(
+        'Content-Type',
+        'application/x-www-form-urlencoded'
+      )
+    };
 
-        const body = clientId.concat('&', grantType, '&', usernameForBody, '&', passwordForBody, '&', scope);
+    return Observable.create((observer: Observer<Token>) => {
+      this.http
+        .post<Token>(this.configuration.server + 'connect/token', body, options)
+        .subscribe(
+          (tokenData: Token) => {
+            this.currentUserService.token = tokenData.access_token;
+            this.currentUserService.username = username;
+            observer.next(tokenData);
+          },
+          error => observer.error(error),
+          () => observer.complete()
+        );
+    });
+  }
 
-        const options = {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        };
-
-        return Observable.create((observer: Observer<Token>) => {
-            this.http.post<Token>(this.configuration.server + 'connect/token', body, options)
-                .subscribe((tokenData: Token) => {
-                    this.currentUserService.token = tokenData.access_token;
-                    this.currentUserService.username = username;
-                    observer.next(tokenData);
-                }, (error) => observer.error(error),
-                () => observer.complete());
-        });
-    }
-
-    logoutUser() {
-        this.currentUserService.token = null;
-        this.currentUserService.username = null;
-    }
+  logoutUser() {
+    this.currentUserService.token = null;
+    this.currentUserService.username = null;
+  }
 }

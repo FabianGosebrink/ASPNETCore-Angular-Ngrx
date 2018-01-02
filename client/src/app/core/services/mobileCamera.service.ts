@@ -7,13 +7,13 @@ declare let window: any;
 
 export class MobileCameraService implements AbstractCameraService {
 
-    public getPhoto = (): Observable<string> => {
+    getPhoto(): Observable<string> {
         return Observable.create((observer: Observer<string>) => {
-            let removeDomListener = () => {
+            const removeDomListener = () => {
                 document.removeEventListener('deviceready', onCordovaDeviceReady);
             };
 
-            let onCordovaDeviceReady = () => {
+            const onCordovaDeviceReady = () => {
                 const camera = window.navigator.camera;
 
                 let options = {
