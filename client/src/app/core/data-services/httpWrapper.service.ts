@@ -12,10 +12,7 @@ import { CurrentUserService } from '../services/currentUser.service';
 
 @Injectable()
 export class HttpWrapperService {
-  constructor(
-    private http: HttpClient,
-    private currentUserService: CurrentUserService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   get<T>(url: string): Observable<T> {
     return this.http.get<T>(url);

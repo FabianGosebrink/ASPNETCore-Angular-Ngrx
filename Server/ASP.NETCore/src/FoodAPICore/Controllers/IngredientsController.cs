@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace FoodAPICore.Controllers
 {
-    [Route("api")]
+    [Route("api/[controller]")]
     public class IngredientsController : Controller
     {
         IIngredientRepository _repository;
@@ -21,7 +21,7 @@ namespace FoodAPICore.Controllers
             _foodRepository = foodRepository;
         }
 
-        // GET api/food/6/ingridients
+        // GET api/food/6/ingredients
         [HttpGet]
         [Route("foods/{foodId}/ingredients")]
         public IActionResult GetIngredientsForFood(Guid foodId)
@@ -42,7 +42,7 @@ namespace FoodAPICore.Controllers
             return Ok(viewModels);
         }
 
-        // GET api/food/6/ingridients/3
+        // GET api/food/6/ingredients/3
         [HttpGet]
         [Route("foods/{foodId}/ingredients/{id}", Name = "GetIngredientForFood")]
         public IActionResult GetSingleIngredient(Guid foodId, Guid id)
@@ -65,7 +65,7 @@ namespace FoodAPICore.Controllers
             return Ok(Mapper.Map<IngredientDto>(singleItem));
         }
 
-        // POST api/food/6
+        // POST api/food/6/ingredients
         [HttpPost]
         [Route("foods/{foodId}/ingredients")]
         public IActionResult AddIngredientToFood(Guid foodId, [FromBody] IngredientDto ingredient)

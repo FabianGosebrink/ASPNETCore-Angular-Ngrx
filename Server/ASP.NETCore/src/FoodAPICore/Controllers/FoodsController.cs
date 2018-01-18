@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using FoodAPICore.Helpers;
 using IdentityServer4.AccessTokenValidation;
+using Newtonsoft.Json;
 
 namespace FoodAPICore.Controllers
 {
@@ -42,17 +43,16 @@ namespace FoodAPICore.Controllers
                 totalPages = queryParameters.GetTotalPages(allItemCount)
             };
 
-            Response.Headers.Add("X-Pagination",
-                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetadata));
 
-            var links = CreateLinksForCollection(queryParameters, allItemCount);
+            List<LinkDto> links = CreateLinksForCollection(queryParameters, allItemCount);
 
             var toReturn = foodItems.Select(x => ExpandSingleFoodItem(x));
 
             return Ok(new
             {
                 value = toReturn,
-                links = links
+                links
             });
         }
 
@@ -73,7 +73,7 @@ namespace FoodAPICore.Controllers
             return Ok(new
             {
                 value = dtos,
-                links = links
+                links
             });
         }
 
@@ -191,7 +191,7 @@ namespace FoodAPICore.Controllers
                 return BadRequest();
             }
 
-            var existingFoodItem = _foodRepository.GetSingle(id);
+            FoodItem existingFoodItem = _foodRepository.GetSingle(id);
 
             if (existingFoodItem == null)
             {

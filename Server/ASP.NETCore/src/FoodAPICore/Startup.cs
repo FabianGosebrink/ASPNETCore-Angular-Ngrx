@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using FoodAPICore.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FoodAPICore.Services;
 using FoodAPICore.Dtos;
 using Swashbuckle.AspNetCore.Swagger;
