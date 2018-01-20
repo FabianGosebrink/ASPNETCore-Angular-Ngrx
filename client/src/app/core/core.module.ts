@@ -14,16 +14,17 @@ import {
 import { CpuValueService } from './services/cpuValue.service';
 import { CurrentUserService } from './services/currentUser.service';
 import { DesktopNotificationService } from './services/desktopNotification.service';
-import {
-  HttpWrapperService,
-  MyFirstInterceptor
-} from './data-services/httpWrapper.service';
+import { HttpWrapperService } from './data-services/httpWrapper.service';
 import { AbstractNotificationService } from './services/notification.service';
 import { PlatformInformationProvider } from './services/platformInformation.provider';
 import { Sorter } from './services/sort.service';
 import { StorageService } from './services/storage.service';
 import { WebAndMobileNotificationService } from './services/webAndMobileNotification.service';
 import { effects, reducers } from './store';
+import {
+  AuthorizationInterceptor,
+  StandardHeaderInterceptor
+} from './interceptors';
 
 export function notificationFactory(
   toasterService: ToasterService,
@@ -72,7 +73,12 @@ export class CoreModule {
         },
         {
           provide: HTTP_INTERCEPTORS,
-          useClass: MyFirstInterceptor,
+          useClass: AuthorizationInterceptor,
+          multi: true
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: StandardHeaderInterceptor,
           multi: true
         }
       ]

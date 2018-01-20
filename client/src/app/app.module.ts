@@ -32,7 +32,7 @@ import {
     NgxElectronModule,
     HomeModule,
     CoreModule.forRoot(),
-    StoreModule.forRoot({ reducers }),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule
   ],
