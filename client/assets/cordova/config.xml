@@ -34,7 +34,5 @@
     <preference name="SplashScreenBackgroundColor" value="white"/>
     <preference name="SplashScreen" value="screen"/>
 
-    <preference name="windows-target-version" value="10.0" />
-
-  <engine name="android" spec="~7.0.0" />
+  <engine name="android" spec="~6.2.0"/>
 </widget>
