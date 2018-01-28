@@ -4,8 +4,8 @@
     <description>
         A small demo app to give yoou FoodSuggestions
     </description>
-    <author email="mail@offering.solutions" href="http://fabian-gosebrink.com">
-        Offering.Solutions
+    <author email="mail@offering.solutions" href="https://fabian-gosebrink.com">
+        offering.Solutions
     </author>
     
     <content src="index.html"/>
@@ -14,7 +14,7 @@
     <plugin name="cordova-plugin-whitelist" version="1.2.2"/>
     <plugin name="cordova-plugin-splashscreen" spec="3.2.2"/>
     <plugin name="cordova-plugin-statusbar" spec="https://github.com/apache/cordova-plugin-statusbar.git"/>
-    <plugin name="cordova-plugin-camera" spec="~2.4.0"/>
+    <plugin name="cordova-plugin-camera" spec="4.0.1"/>
     <plugin name="cordova-plugin-device" spec="1.1.6"/>
     <access origin="*"/>
     <!--<allow-navigation href="*" />-->
@@ -36,6 +36,5 @@
 
     <preference name="windows-target-version" value="10.0" />
 
-  <engine name="android" spec="~6.2.0"/>
-  <engine name="windows" spec="~5.0.0"/>
+  <engine name="android" spec="~7.0.0" />
 </widget>
