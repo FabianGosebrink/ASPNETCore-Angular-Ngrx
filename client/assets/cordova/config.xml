@@ -14,7 +14,7 @@
     <plugin name="cordova-plugin-whitelist" version="1.2.2"/>
     <plugin name="cordova-plugin-splashscreen" spec="3.2.2"/>
     <plugin name="cordova-plugin-statusbar" spec="https://github.com/apache/cordova-plugin-statusbar.git"/>
-    <plugin name="cordova-plugin-camera" spec="4.0.1"/>
+    <plugin name="cordova-plugin-camera" spec="2.4.0"/>
     <plugin name="cordova-plugin-device" spec="1.1.6"/>
     <access origin="*"/>
     <!--<allow-navigation href="*" />-->
