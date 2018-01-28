@@ -11,11 +11,25 @@
     <content src="index.html"/>
 
     <!--<plugin name="cordova-plugin-device" spec="~1.1.5"/>-->
-    <plugin name="cordova-plugin-whitelist" version="1.2.2"/>
+    <!-- <plugin name="cordova-plugin-whitelist" version="1.2.2"/>
     <plugin name="cordova-plugin-splashscreen" spec="3.2.2"/>
     <plugin name="cordova-plugin-statusbar" spec="https://github.com/apache/cordova-plugin-statusbar.git"/>
     <plugin name="cordova-plugin-camera" spec="2.4.0"/>
-    <plugin name="cordova-plugin-device" spec="1.1.6"/>
+    <plugin name="cordova-plugin-device" spec="1.1.6"/> -->
+
+    <plugin name="cordova-plugin-whitelist" spec="1"/>
+    <plugin name="cordova-plugin-wkwebview-engine" spec="https://github.com/driftyco/cordova-plugin-wkwebview-engine.git"/>
+    <plugin name="cordova-plugin-device" spec="~1.1.5"/>
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.2"/>
+    <plugin name="cordova-plugin-splashscreen" spec="~4.0.2"/>
+    <plugin name="cordova-plugin-camera" spec="~2.4.0"/>
+    <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0">
+        <variable name="XWALK_VERSION" value="22+"/>
+        <variable name="XWALK_LITEVERSION" value="xwalk_core_library_canary:17+"/>
+        <variable name="XWALK_COMMANDLINE" value="--disable-pull-to-refresh-effect"/>
+        <variable name="XWALK_MODE" value="embedded"/>
+        <variable name="XWALK_MULTIPLEAPK" value="true"/>
+    </plugin>
     <access origin="*"/>
     <!--<allow-navigation href="*" />-->
     <allow-intent href="http://*/*"/>
@@ -24,10 +38,13 @@
     <allow-intent href="sms:*"/>
     <allow-intent href="mailto:*"/>
     <allow-intent href="geo:*"/>
+    
     <platform name="android">
         <allow-intent href="market:*"/>
     </platform>
     
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine"/>
+
     <preference name="StatusBarOverlaysWebView" value="false"/>
     <preference name="Fullscreen" value="false"/>
     <preference name="SplashMaintainAspectRatio" value="true" />

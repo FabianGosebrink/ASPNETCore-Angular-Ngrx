@@ -21,7 +21,7 @@
     "build-mobile":
       "npm run mobile-prepare && npm run mobile-prepare-android && npm run mobile-generate-assets && npm run mobile-build-android && npm run copy-mobile-to-dist",
     "mobile-prepare":
-      "rimraf ./.temp/mobile && mkdirp ./.temp/mobile/www && ncp assets/cordova .temp/mobile/ && ncp .dist/web .temp/mobile/www && rimraf .dist/mobile/",
+      "mkdirp ./.temp/mobile/www && ncp assets/cordova .temp/mobile/ && ncp .dist/web .temp/mobile/www && rimraf .dist/mobile/",
     "mobile-prepare-android":
       "mkdirp .dist/mobile/android && cd .temp/mobile && cordova prepare android && cd ../..",
     "mobile-build-android": "cd .temp/mobile && cordova build && cd ../..",

@@ -6,8 +6,8 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class Configuration {
   // server = environment.production ? 'http://foodapi4demo.azurewebsites.net/' : 'http://localhost:5000/';
-  // server = 'http://foodapi4demo.azurewebsites.net/';
-  server = 'http://localhost:51777/';
+  server = 'http://foodapi4demo.azurewebsites.net/';
+  // server = 'http://localhost:51777/';
   apiUrl = 'api/';
   title = 'eMeal';
 
