@@ -5,26 +5,30 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
+    "start-prod": "ng serve -o --env=prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng build --prod --stats-json --output-path=\".dist/web\"",
     "build-web": "npm run build && npm run precache",
     "precache": "sw-precache --verbose --config=sw-precache-config.js",
+
     "prepare-desktop":
       "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web .temp/electron/ && rimraf .dist/desktop/",
     "build-desktop":
-      "npm run prepare-desktop && electron-packager .temp/electron/ --electsronVersion=1.6.5 --icon=\"assets/electron/icon\" --platform=win32,linux --out=./.dist/desktop/",
+      "npm run prepare-desktop && electron-packager .temp/electron/ --electronVersion=1.6.5 --icon=\"assets/electron/icon\" --platform=win32,linux --out=./.dist/desktop/",
 
-    "mobile-generate-assets":
-      "cd .temp/mobile && cordova-icon --icon=\"../../assets/img/icon.png\" && cordova-splash --splash=\"../../assets/img/splash.png\"",
     "build-mobile":
-      "npm run mobile-prepare && npm run mobile-prepare-android && npm run mobile-generate-assets && npm run mobile-build-android && npm run copy-mobile-to-dist",
+      "npm run mobile-prepare && npm run mobile-prepare-android && npm run mobile-prepare-windows && npm run mobile-generate-assets && npm run mobile-build && npm run copy-mobile-to-dist",
     "mobile-prepare":
       "mkdirp ./.temp/mobile/www && ncp assets/cordova .temp/mobile/ && ncp .dist/web .temp/mobile/www && rimraf .dist/mobile/",
     "mobile-prepare-android":
       "mkdirp .dist/mobile/android && cd .temp/mobile && cordova prepare android && cd ../..",
-    "mobile-build-android": "cd .temp/mobile && cordova build && cd ../..",
+    "mobile-prepare-windows":
+      "mkdirp .dist/mobile/windows && cd .temp/mobile && cordova prepare windows && cd ../..",
+    "mobile-generate-assets":
+      "cd .temp/mobile && cordova-icon --icon=\"../../assets/img/icon.png\" && cordova-splash --splash=\"../../assets/img/splash.png\"",
+    "mobile-build": "cd .temp/mobile && cordova build && cd ../..",
 
     "copy-mobile-to-dist":
       "ncp .temp/mobile/platforms/android .dist/mobile/android",

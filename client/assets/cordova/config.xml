@@ -50,6 +50,7 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashScreenBackgroundColor" value="white"/>
     <preference name="SplashScreen" value="screen"/>
-
+<preference name="windows-target-version" value="10.0" />
   <engine name="android" spec="~6.2.0"/>
+  <engine name="windows" spec="~5.0.0"/>
 </widget>
