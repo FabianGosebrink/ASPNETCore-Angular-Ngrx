@@ -8,6 +8,8 @@ import { Configuration } from '../../shared/configuration/app.configuration';
 import { FoodItem } from '../../shared/models/foodItem.model';
 import { HttpWrapperService } from './httpWrapper.service';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class FoodDataService {
   private actionUrl: string;
@@ -16,7 +18,7 @@ export class FoodDataService {
     private http: HttpWrapperService,
     private configuration: Configuration
   ) {
-    this.actionUrl = configuration.server + configuration.apiUrl + 'foods/';
+    this.actionUrl = environment.server + environment.apiUrl + 'foods/';
   }
 
   getAllFood(): Observable<FoodItem[]> {

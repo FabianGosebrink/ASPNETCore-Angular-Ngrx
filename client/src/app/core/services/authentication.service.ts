@@ -7,6 +7,7 @@ import { Observer } from 'rxjs/Observer';
 import { Configuration } from '../../shared/configuration/app.configuration';
 import { Token } from '../../shared/models/token';
 import { CurrentUserService } from './currentUser.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
@@ -46,7 +47,7 @@ export class AuthenticationService {
 
     return Observable.create((observer: Observer<Token>) => {
       this.http
-        .post<Token>(this.configuration.server + 'connect/token', body, options)
+        .post<Token>(environment.server + 'connect/token', body, options)
         .subscribe(
           (tokenData: Token) => {
             this.currentUserService.token = tokenData.access_token;
