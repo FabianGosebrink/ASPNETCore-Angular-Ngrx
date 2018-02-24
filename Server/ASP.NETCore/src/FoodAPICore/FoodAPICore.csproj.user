@@ -7,5 +7,6 @@
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>FoodAPI4Demo - Web Deploy</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_DependencyDialogWidth>600</WebStackScaffolding_DependencyDialogWidth>
+    <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
 </Project>

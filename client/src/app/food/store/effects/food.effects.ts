@@ -20,14 +20,12 @@ export class FoodEffects {
     switchMap(foodItem => {
       return this.foodDataService.addFood(foodItem).pipe(
         map((data: FoodItem) => {
-          return new foodActions.AddFoodSuccessAction(data);
-        }),
-        tap(() => {
           this.notificationService.showNotification(
             MessageType.Success,
             'Food',
             'Food added!'
           );
+          return new foodActions.AddFoodSuccessAction(data);
         }),
         catchError((error: any) => of(new foodActions.FoodErrorAction(error)))
       );

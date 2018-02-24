@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using FoodAPICore.Helpers;
 using IdentityServer4.AccessTokenValidation;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.SignalR;
+using FoodAPICore.Hubs;
 
 namespace FoodAPICore.Controllers
 {
@@ -19,11 +21,13 @@ namespace FoodAPICore.Controllers
     public class FoodsController : Controller
     {
         private readonly IFoodRepository _foodRepository;
+        private readonly IHubContext<FoodHub> _hubContext;
         private readonly IUrlHelper _urlHelper;
 
-        public FoodsController(IUrlHelper urlHelper, IFoodRepository foodRepository)
+        public FoodsController(IUrlHelper urlHelper, IFoodRepository foodRepository, IHubContext<FoodHub> hubContext)
         {
             _foodRepository = foodRepository;
+            _hubContext = hubContext;
             _urlHelper = urlHelper;
         }
 
@@ -101,7 +105,7 @@ namespace FoodAPICore.Controllers
             }
 
             FoodItem newFoodItem = _foodRepository.GetSingle(toAdd.Id);
-
+            _hubContext.Clients.All.InvokeAsync("food-added", Mapper.Map<FoodItemDto>(newFoodItem));
             return CreatedAtRoute("GetSingleFood", new { id = newFoodItem.Id },
                 Mapper.Map<FoodItemDto>(newFoodItem));
         }
@@ -140,7 +144,7 @@ namespace FoodAPICore.Controllers
             {
                 throw new Exception("Updating a fooditem failed on save.");
             }
-
+            _hubContext.Clients.All.InvokeAsync("food-updated", Mapper.Map<FoodItemDto>(foodItemFromRepo));
             return Ok(Mapper.Map<FoodItemDto>(foodItemFromRepo));
         }
 
@@ -172,7 +176,7 @@ namespace FoodAPICore.Controllers
             }
 
             _foodRepository.Delete(id);
-
+            _hubContext.Clients.All.InvokeAsync("food-deleted", id);
             if (!_foodRepository.Save())
             {
                 throw new Exception("Deleting a fooditem failed on save.");
@@ -212,6 +216,7 @@ namespace FoodAPICore.Controllers
                 throw new Exception("Updating a fooditem failed on save.");
             }
 
+            _hubContext.Clients.All.InvokeAsync("food-updated", existingFoodItem);
             return Ok(Mapper.Map<FoodItemDto>(existingFoodItem));
         }
 

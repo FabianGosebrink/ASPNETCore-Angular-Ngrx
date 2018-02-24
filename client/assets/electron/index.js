@@ -7,22 +7,23 @@ const trayIcon = require('./trayIcon');
 
 let mainWindow = null;
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on('ready', function () {
+app.setAppUserModelId('eMeal');
 
+app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 1024,
-    height: 768,
+    height: 768
   });
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-  mainWindow.on('closed', function () {
+  mainWindow.on('closed', function() {
     mainWindow = null;
   });
 
@@ -35,16 +36,19 @@ app.on('ready', function () {
 });
 
 app.on('window-all-closed', () => {
-  app.quit()
-})
+  app.quit();
+});
 
 let startSendCpuValues = () => {
   setInterval(() => {
-    cpuValues.getCPUUsage((percentage) => {
-      console.log("sending to ipc channel: " + percentage);
+    cpuValues.getCPUUsage(percentage => {
+      console.log('sending to ipc channel: ' + percentage);
       if (mainWindow) {
-        mainWindow.webContents.send('newCpuValue', (percentage * 100).toFixed(2));
+        mainWindow.webContents.send(
+          'newCpuValue',
+          (percentage * 100).toFixed(2)
+        );
       }
     });
   }, 1000);
-}
+};

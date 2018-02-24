@@ -25,6 +25,7 @@ import {
   AuthorizationInterceptor,
   StandardHeaderInterceptor
 } from './interceptors';
+import { SignalRService } from 'app/core/services/signalR.service';
 
 export function notificationFactory(
   toasterService: ToasterService,
@@ -60,6 +61,7 @@ export class CoreModule {
         HttpWrapperService,
         StorageService,
         CurrentUserService,
+        SignalRService,
         PlatformInformationProvider,
         CpuValueService,
         {
@@ -84,4 +86,6 @@ export class CoreModule {
       ]
     };
   }
+
+  constructor(signalrService: SignalRService) {}
 }
