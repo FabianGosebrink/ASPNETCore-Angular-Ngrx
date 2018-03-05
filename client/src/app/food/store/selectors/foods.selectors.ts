@@ -7,7 +7,8 @@ import { FoodItem } from '../../../shared/models/foodItem.model';
 
 export const getCompleteFoodState = createSelector(
   fromFeature.getFoodState,
-  (state: fromFeature.FoodState) => state.foods
+  (state: fromFeature.FoodState) => state.foods,
+  (state: fromFeature.FoodState) => state.signalR
 );
 
 export const getAllFoodEntities = createSelector(
