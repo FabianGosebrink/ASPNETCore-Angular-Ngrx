@@ -3,6 +3,7 @@ import { HubConnection } from '@aspnet/signalr-client';
 import { Configuration } from 'app/shared/configuration/app.configuration';
 import { Store } from '@ngrx/store';
 import * as fromFoodStore from 'app/food/store';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SignalRService {
@@ -11,8 +12,8 @@ export class SignalRService {
 
   private _hubConnection: HubConnection;
 
-  constructor(private configuration: Configuration, private store: Store<any>) {
-    this._hubConnection = new HubConnection(configuration.server + 'foodhub');
+  constructor(private store: Store<any>) {
+    this._hubConnection = new HubConnection(environment.server + 'foodhub');
 
     this.registerOnServerEvents();
 

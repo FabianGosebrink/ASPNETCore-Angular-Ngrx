@@ -23,7 +23,7 @@ import {
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    ToasterModule,
+    ToasterModule.forRoot(),
     RouterModule.forRoot(AppRoutes, {
       useHash: true,
       preloadingStrategy: PreloadAllModules
