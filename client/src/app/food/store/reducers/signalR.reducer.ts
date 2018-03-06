@@ -1,15 +1,15 @@
 import { Action } from '@ngrx/store';
 
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import * as foodActions from '../actions/food.actions';
+import * as signalrActions from '../actions/signalR.actions';
 import { FoodState, initialState } from './food.reducer';
 
 export function signalRReducer(
   state = initialState,
-  action: foodActions.FoodActions
+  action: signalrActions.FoodActions
 ): FoodState {
   switch (action.type) {
-    case foodActions.RECEIVED_FOOD_ADDED: {
+    case signalrActions.RECEIVED_FOOD_ADDED: {
       if (!!state.entities[action.foodItem.id]) {
         return state;
       }
@@ -26,7 +26,7 @@ export function signalRReducer(
       };
     }
 
-    case foodActions.RECEIVED_FOOD_DELETED: {
+    case signalrActions.RECEIVED_FOOD_DELETED: {
       if (!state.entities[action.foodId]) {
         return state;
       }
@@ -39,7 +39,7 @@ export function signalRReducer(
       };
     }
 
-    case foodActions.RECEIVED_FOOD_UPDATED: {
+    case signalrActions.RECEIVED_FOOD_UPDATED: {
       const foodItem = action.foodItem;
 
       const entities = {

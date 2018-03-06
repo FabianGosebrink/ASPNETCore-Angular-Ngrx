@@ -12,10 +12,6 @@ export const UPDATE_FOOD = '[Foods] UPDATE_FOOD';
 export const UPDATE_FOOD_SUCCESS = '[Foods] UPDATE_FOOD_SUCCESS';
 export const FOOD_ERROR = '[Foods] FOOD_ERROR';
 
-export const RECEIVED_FOOD_ADDED = 'RECEIVED_FOOD_ADDED';
-export const RECEIVED_FOOD_UPDATED = 'RECEIVED_FOOD_UPDATED';
-export const RECEIVED_FOOD_DELETED = 'RECEIVED_FOOD_DELETED';
-
 export class LoadFoodAction implements Action {
   readonly type = LOAD_FOOD;
   constructor() {}
@@ -61,25 +57,7 @@ export class FoodErrorAction implements Action {
   constructor(public error: any) {}
 }
 
-export class ReceivedFoodAddedAction implements Action {
-  readonly type = RECEIVED_FOOD_ADDED;
-  constructor(public foodItem: FoodItem) {}
-}
-
-export class ReceivedFoodUpdatedAction implements Action {
-  readonly type = RECEIVED_FOOD_UPDATED;
-  constructor(public foodItem: any) {}
-}
-
-export class ReceivedFoodDeletedAction implements Action {
-  readonly type = RECEIVED_FOOD_DELETED;
-  constructor(public foodId: number) {}
-}
-
 export type FoodActions =
-  | ReceivedFoodAddedAction
-  | ReceivedFoodUpdatedAction
-  | ReceivedFoodDeletedAction
   | FoodErrorAction
   | UpdateFoodAction
   | UpdateFoodSuccessAction
