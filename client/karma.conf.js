@@ -11,6 +11,7 @@ module.exports = function(config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma'),
+      require('karma-phantomjs-launcher'),
       require('karma-mocha-reporter')
     ],
     client: {
