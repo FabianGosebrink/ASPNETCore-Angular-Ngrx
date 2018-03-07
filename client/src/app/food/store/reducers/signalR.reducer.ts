@@ -6,7 +6,7 @@ import { FoodState, initialState } from './food.reducer';
 
 export function signalRReducer(
   state = initialState,
-  action: signalrActions.FoodActions
+  action: signalrActions.SignalRActions
 ): FoodState {
   switch (action.type) {
     case signalrActions.RECEIVED_FOOD_ADDED: {

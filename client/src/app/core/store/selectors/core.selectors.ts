@@ -17,8 +17,3 @@ export const getPending = createSelector(
   getCompleteCoreState,
   fromCore.getPending
 );
-
-export const getErrorMessage = createSelector(
-  getCompleteCoreState,
-  fromCore.getErrorMessage
-);

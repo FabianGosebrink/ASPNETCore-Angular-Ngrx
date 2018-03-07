@@ -7,6 +7,10 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import * as CoreActions from '../actions/core.actions';
+import {
+  AbstractNotificationService,
+  MessageType
+} from '../../services/notification.service';
 
 @Injectable()
 export class CoreEffects {
@@ -21,6 +25,18 @@ export class CoreEffects {
             of(new CoreActions.LoginFailedAction(error))
           )
         );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  loginFailed$$ = this.actions$.ofType(CoreActions.LOGIN_FAILED).pipe(
+    tap((action: CoreActions.LoginFailedAction) => {
+      const errorMessage = action.errorMessage.message;
+      this.notificationService.showNotification(
+        MessageType.Error,
+        'Login Failed',
+        errorMessage
+      );
     })
   );
 
@@ -41,6 +57,7 @@ export class CoreEffects {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private notificationService: AbstractNotificationService,
     private actions$: Actions,
     private router: Router
   ) {}

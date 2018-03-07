@@ -13,13 +13,11 @@ export class LoginComponent implements OnInit {
   password: string;
 
   pending$: Observable<boolean>;
-  errorMessage$: Observable<string>;
 
   constructor(private store: Store<fromStore.CoreState>) {}
 
   ngOnInit() {
     this.pending$ = this.store.select(fromStore.getPending);
-    this.errorMessage$ = this.store.select(fromStore.getErrorMessage);
   }
 
   doLoginUser() {

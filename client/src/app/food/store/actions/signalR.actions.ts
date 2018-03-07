@@ -21,7 +21,7 @@ export class ReceivedFoodDeletedAction implements Action {
   constructor(public foodId: number) {}
 }
 
-export type FoodActions =
+export type SignalRActions =
   | ReceivedFoodAddedAction
   | ReceivedFoodUpdatedAction
   | ReceivedFoodDeletedAction;
