@@ -90,10 +90,10 @@ namespace FoodAPICore
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryPersistedGrants()
-               .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
-               .AddInMemoryApiResources(IdentityConfig.GetApiResources())
-               .AddInMemoryClients(IdentityConfig.GetClients())
-               .AddAspNetIdentity<IdentityUser>(); // IdentityServer4.AspNetIdentity.
+                .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
+                .AddInMemoryApiResources(IdentityConfig.GetApiResources())
+                .AddInMemoryClients(IdentityConfig.GetClients())
+                .AddAspNetIdentity<IdentityUser>();
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                  .AddIdentityServerAuthentication(options =>
@@ -169,7 +169,7 @@ namespace FoodAPICore
             app.EnsureSeedData();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<FoodHub>("foodhub");
+                routes.MapHub<FoodHub>("/foodhub");
             });
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

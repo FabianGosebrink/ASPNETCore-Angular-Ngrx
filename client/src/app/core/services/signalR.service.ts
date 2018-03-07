@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HubConnection } from '@aspnet/signalr-client';
+import { HubConnection } from '@aspnet/signalr';
 import { Configuration } from 'app/shared/configuration/app.configuration';
 import { Store } from '@ngrx/store';
 import * as fromFoodStore from 'app/food/store';

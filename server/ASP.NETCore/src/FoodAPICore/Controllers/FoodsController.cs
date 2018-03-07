@@ -105,7 +105,7 @@ namespace FoodAPICore.Controllers
             }
 
             FoodItem newFoodItem = _foodRepository.GetSingle(toAdd.Id);
-            _hubContext.Clients.All.InvokeAsync("food-added", Mapper.Map<FoodItemDto>(newFoodItem));
+            _hubContext.Clients.All.SendAsync("food-added", Mapper.Map<FoodItemDto>(newFoodItem));
             return CreatedAtRoute("GetSingleFood", new { id = newFoodItem.Id },
                 Mapper.Map<FoodItemDto>(newFoodItem));
         }
@@ -144,7 +144,7 @@ namespace FoodAPICore.Controllers
             {
                 throw new Exception("Updating a fooditem failed on save.");
             }
-            _hubContext.Clients.All.InvokeAsync("food-updated", Mapper.Map<FoodItemDto>(foodItemFromRepo));
+            _hubContext.Clients.All.SendAsync("food-updated", Mapper.Map<FoodItemDto>(foodItemFromRepo));
             return Ok(Mapper.Map<FoodItemDto>(foodItemFromRepo));
         }
 
@@ -176,7 +176,7 @@ namespace FoodAPICore.Controllers
             }
 
             _foodRepository.Delete(id);
-            _hubContext.Clients.All.InvokeAsync("food-deleted", id);
+            _hubContext.Clients.All.SendAsync("food-deleted", id);
             if (!_foodRepository.Save())
             {
                 throw new Exception("Deleting a fooditem failed on save.");
@@ -216,7 +216,7 @@ namespace FoodAPICore.Controllers
                 throw new Exception("Updating a fooditem failed on save.");
             }
 
-            _hubContext.Clients.All.InvokeAsync("food-updated", existingFoodItem);
+            _hubContext.Clients.All.SendAsync("food-updated", existingFoodItem);
             return Ok(Mapper.Map<FoodItemDto>(existingFoodItem));
         }
 
