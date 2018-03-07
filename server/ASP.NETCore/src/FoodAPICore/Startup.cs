@@ -50,7 +50,6 @@ namespace FoodAPICore
                     });
             });
 
-            var asdf = Configuration.GetConnectionString("DefaultConnection");
             // Adds framework services.
             services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -98,8 +97,7 @@ namespace FoodAPICore
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                  .AddIdentityServerAuthentication(options =>
                  {
-                     //options.Authority = "http://foodapi4demo.azurewebsites.net/";
-                     options.Authority = "http://localhost:51777/";
+                     options.Authority = Configuration["IdentityServerEndpoint"];
                      options.RequireHttpsMetadata = false;
                      options.ApiName = "WebAPI";
                  });
