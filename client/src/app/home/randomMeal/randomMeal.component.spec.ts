@@ -13,18 +13,16 @@ import { PlatformInformationProvider } from '../../core/services/platformInforma
 import { FoodItem } from '../../shared/models/foodItem.model';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
-import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
 import { FoodServiceMock } from './../../../testing/foodServiceMock';
 import { HomeComponent } from '../home/home.component';
+import { SingleMealComponent } from '../single-meal/single-meal.component';
 
 describe('RandomMeal Component', () => {
-
   let fixture: ComponentFixture<RandomMealComponent>;
   let comp: RandomMealComponent;
 
   class FoodItemFactory {
     static getFoodItem() {
-
       const fooditem = new FoodItem();
       fooditem.id = '1';
       fooditem.created = new Date();
@@ -33,32 +31,41 @@ describe('RandomMeal Component', () => {
       fooditem.name = 'FoodItem1';
 
       return fooditem;
-    };
+    }
   }
 
-
   // async beforeEachs
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent, EMealFooterComponent],
-      providers: [
-        { provide: FoodDataService, useClass: FoodServiceMock },
-        { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub },
-        { provide: CpuValueService, useClass: CpuValueServiceMock },
-        { provide: AbstractCameraService, useClass: AbstractCameraServiceStub },
-        PlatformInformationProvider
-      ]
-    }).compileComponents(); // compile template and css
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule],
+        declarations: [
+          HomeComponent,
+          RandomMealComponent,
+          SingleMealComponent,
+          EMealFooterComponent
+        ],
+        providers: [
+          { provide: FoodDataService, useClass: FoodServiceMock },
+          {
+            provide: AbstractNotificationService,
+            useClass: AbstractNotificationServiceStub
+          },
+          { provide: CpuValueService, useClass: CpuValueServiceMock },
+          {
+            provide: AbstractCameraService,
+            useClass: AbstractCameraServiceStub
+          },
+          PlatformInformationProvider
+        ]
+      }).compileComponents(); // compile template and css
+    })
+  );
 
   // synchronous beforeEach
   beforeEach(() => {
     fixture = TestBed.createComponent(RandomMealComponent);
     comp = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   afterEach(() => {
@@ -69,56 +76,10 @@ describe('RandomMeal Component', () => {
     expect(comp).toBeDefined();
   });
 
-  it('foodtype should be reflected in component', () => {
-    const fooditem = FoodItemFactory.getFoodItem();
-    comp.fooditem = fooditem;
-
-    const de = fixture.debugElement.query(By.css('h3'));
-    const el = de.nativeElement;
-
-    expect(el.textContent).toEqual('');
+  it('if loading is true we hide the app-single-meal-component', () => {
+    comp.loading = true;
     fixture.detectChanges();
-
-    expect(el.textContent).toEqual(fooditem.type);
-  });
-
-  it('name and calories should be reflected in component', () => {
-    const fooditem = FoodItemFactory.getFoodItem();
-    comp.fooditem = fooditem;
-
     const de = fixture.debugElement.query(By.css('h4'));
-    const el = de.nativeElement;
-
-    expect(el.textContent).toEqual(' ');
-    fixture.detectChanges();
-
-    expect(el.textContent).toEqual(`${fooditem.name} ${fooditem.calories}`);
+    expect(de.nativeElement.innerHTML).toBe('Loading...');
   });
-
-  it('nothing showed when input is null', () => {
-    const fooditem = null;
-    comp.fooditem = fooditem;
-
-    const de = fixture.debugElement.query(By.css('h3'));
-    const el = de.nativeElement;
-
-    expect(el.textContent).toEqual('');
-    fixture.detectChanges();
-
-    expect(el.textContent).toEqual('');
-  });
-
-  it('nothing showed when input is null', () => {
-    const fooditem = null;
-    comp.fooditem = fooditem;
-
-    const de = fixture.debugElement.query(By.css('h4'));
-    const el = de.nativeElement;
-
-    expect(el.textContent).toEqual(' ');
-    fixture.detectChanges();
-
-    expect(el.textContent).toEqual(' ');
-  });
-
 });

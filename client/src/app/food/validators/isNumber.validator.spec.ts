@@ -4,36 +4,32 @@ import { IsNumberValidator } from './isNumber.validator';
 const INT_MAX = 2147483647;
 
 describe('IsNumber', () => {
+  let isNumberValidator: IsNumberValidator;
 
-    let isNumberValidator: IsNumberValidator;
+  // synchronous beforeEach
+  beforeEach(() => {
+    isNumberValidator = new IsNumberValidator();
+  });
 
-    // synchronous beforeEach
-    beforeEach(() => {
-        isNumberValidator = new IsNumberValidator();
-    });
+  it('validator should be instanciated', () => {
+    expect(isNumberValidator).toBeDefined();
+  });
 
-    it('validator should be instanciated', () => {
-        expect(isNumberValidator).toBeDefined();
-    });
+  it('validator should be valid when number is passed', () => {
+    const formcontrol = new FormControl();
+    formcontrol.setValue(123);
+    const result = isNumberValidator.validate(formcontrol);
 
-    it('validator should be valid when number is passed', () => {
+    expect(result).toBeNull();
+  });
 
-        let formcontrol = new FormControl();
-        formcontrol.setValue(123);
-        let result = isNumberValidator.validate(formcontrol);
+  it('validator should be invalid when character is passed', () => {
+    const formcontrol = new FormControl();
+    formcontrol.setValue('s');
+    const result = isNumberValidator.validate(formcontrol);
 
-        expect(result).toBeNull();
-
-    });
-
-    it('validator should be invalid when character is passed', () => {
-
-        let formcontrol = new FormControl();
-        formcontrol.setValue('s');
-        let result = isNumberValidator.validate(formcontrol);
-
-        expect(result).not.toBeNull();
-        expect(result['isNumber']).not.toBeNull();
-        expect(result['isNumber'].valid).toBeFalsy();
-    });
+    expect(result).not.toBeNull();
+    expect(result['isNumber']).not.toBeNull();
+    expect(result['isNumber'].valid).toBeFalsy();
+  });
 });

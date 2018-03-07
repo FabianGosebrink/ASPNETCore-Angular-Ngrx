@@ -8,6 +8,9 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import * as fromCoreStore from '../../../core/store';
+import * as fromRootStore from '../../../../app/store';
+import { StoreModule, combineReducers } from '@ngrx/store';
 
 describe('NavigationComponent', () => {
   let fixture: ComponentFixture<NavigationComponent>;
@@ -17,6 +20,12 @@ describe('NavigationComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
+        imports: [
+          StoreModule.forRoot({
+            ...fromRootStore.reducers,
+            core: combineReducers(fromCoreStore.reducers)
+          })
+        ],
         declarations: [NavigationComponent],
         providers: [
           Configuration,

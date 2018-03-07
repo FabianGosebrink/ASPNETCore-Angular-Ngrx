@@ -1,5 +1,6 @@
 import { Configuration } from './app.configuration';
 import { ToasterConfig } from 'angular2-toaster/angular2-toaster';
+import { environment } from 'environments/environment';
 
 describe('Configuration', () => {
   let service: Configuration;
@@ -14,16 +15,17 @@ describe('Configuration', () => {
   it('BaseUrl should be azure or localhost', () => {
     const possibleUrls = [
       'http://foodapi4demo.azurewebsites.net/api/',
-      'http://localhost:5000/api/'
+      'http://localhost:51777/api/'
     ];
 
+    console.log(environment);
     expect(
-      possibleUrls.indexOf(service.server + service.apiUrl)
+      possibleUrls.indexOf(environment.server + environment.apiUrl)
     ).toBeGreaterThanOrEqual(0);
   });
 
   it('BaseUrl ends with a slash', () => {
-    const lastChar = service.apiUrl.slice(-1);
+    const lastChar = environment.apiUrl.slice(-1);
     expect(lastChar).toBe('/');
   });
 

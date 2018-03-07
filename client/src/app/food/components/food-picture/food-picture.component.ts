@@ -7,15 +7,13 @@ import { AbstractCameraService } from '../../../core/services/camera.service';
   templateUrl: './food-picture.component.html',
   styleUrls: ['./food-picture.component.css']
 })
-export class FoodPictureComponent implements OnInit {
+export class FoodPictureComponent {
   @Input() foodItem: FoodItem;
 
   constructor(
     private cameraService: AbstractCameraService,
     private ngZone: NgZone
   ) {}
-
-  ngOnInit() {}
 
   takePicture($event: any, foodItem: FoodItem) {
     $event.preventDefault();

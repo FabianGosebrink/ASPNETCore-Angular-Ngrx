@@ -1,25 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FoodPictureComponent } from './food-picture.component';
+import { AbstractCameraService } from '../../../core/services/camera.service';
+import { MobileCameraService } from '../../../core/services/mobileCamera.service';
 
 describe('FoodPictureComponent', () => {
   let component: FoodPictureComponent;
   let fixture: ComponentFixture<FoodPictureComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FoodPictureComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [FoodPictureComponent],
+        providers: [
+          { provide: AbstractCameraService, useClass: MobileCameraService }
+        ]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FoodPictureComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

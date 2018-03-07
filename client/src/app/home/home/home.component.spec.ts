@@ -13,31 +13,53 @@ import { PlatformInformationProvider } from '../../core/services/platformInforma
 import { FoodItem } from '../../shared/models/foodItem.model';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
-import { SneakPeekComponent } from '../sneakPeek/sneekPeek.component';
 import { FoodServiceMock } from './../../../testing/foodServiceMock';
 import { HomeComponent } from './home.component';
+import { SingleMealComponent } from '../single-meal/single-meal.component';
+import { StoreModule, Store, combineReducers } from '@ngrx/store';
+import { UpdateFoodAction, LoadFoodSuccessAction } from '../../food/store';
+import * as fromHomeStore from '../store';
+import * as fromRootStore from '../../store';
+import { getRandomMeal } from '../store/reducers/home.reducer';
+import { LoadRandomMealSuccessAction } from '../store';
 
 describe('HomeComponent', () => {
-
   let fixture: ComponentFixture<HomeComponent>;
   let comp: HomeComponent;
 
   // async beforeEachs
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [HomeComponent, SneakPeekComponent, RandomMealComponent, EMealFooterComponent],
-      providers: [
-        { provide: FoodDataService, useClass: FoodServiceMock },
-        { provide: AbstractNotificationService, useClass: AbstractNotificationServiceStub },
-        { provide: CpuValueService, useClass: CpuValueServiceMock },
-        { provide: AbstractCameraService, useClass: AbstractCameraServiceStub },
-        PlatformInformationProvider
-      ]
-    }).compileComponents(); // compile template and css
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule,
+          StoreModule.forRoot({
+            ...fromRootStore.reducers,
+            home: combineReducers(fromHomeStore.reducers)
+          })
+        ],
+        declarations: [
+          HomeComponent,
+          RandomMealComponent,
+          SingleMealComponent,
+          EMealFooterComponent
+        ],
+        providers: [
+          { provide: FoodDataService, useClass: FoodServiceMock },
+          {
+            provide: AbstractNotificationService,
+            useClass: AbstractNotificationServiceStub
+          },
+          { provide: CpuValueService, useClass: CpuValueServiceMock },
+          {
+            provide: AbstractCameraService,
+            useClass: AbstractCameraServiceStub
+          },
+          PlatformInformationProvider
+        ]
+      }).compileComponents(); // compile template and css
+    })
+  );
 
   // synchronous beforeEach
   beforeEach(() => {
@@ -57,43 +79,43 @@ describe('HomeComponent', () => {
     expect(comp.updateFood).toBeDefined();
   });
 
-  it('updatefood should call service --> getRandomMeal', () => {
-    const service = TestBed.get(FoodDataService);
-    service.getRandomMeal = jasmine.createSpy('getRandomMeal').and.returnValue(service.getRandomMeal());
+  it('updatefood should dispatch the correct action', () => {
+    const store = TestBed.get(Store);
+    const action = new fromHomeStore.LoadRandomMealAction();
+    spyOn(store, 'dispatch').and.callThrough();
 
     comp.updateFood();
 
-    fixture.whenStable().then(() => {
-      expect(service.getRandomMeal).toHaveBeenCalled();
-      expect(comp.randomFood).toBeDefined();
-      expect(comp.randomFood.length).toEqual(3);
-    })
+    expect(store.dispatch).toHaveBeenCalledWith(action);
   });
 
-  it('after init was called \'allFood\' is set', () => {
-    const foodDataService = TestBed.get(FoodDataService);
+  it('after init was called select was called two times', () => {
+    const store = TestBed.get(Store);
+    spyOn(store, 'select');
+    fixture.detectChanges();
 
-    fixture.detectChanges();    // call init here
+    expect(store.select).toHaveBeenCalledTimes(2);
+  });
 
-    expect(comp.allFood).toBeDefined();
-    comp.allFood.subscribe((data: FoodItem[]) => {
-      expect(data.length).toBeGreaterThanOrEqual(0);
+  it('after init was called "randomMeal$" is set', () => {
+    fixture.detectChanges(); // call init here
+
+    const foodItem1 = new FoodItem();
+    foodItem1.id = 'foodItem1';
+
+    const foodItem2 = new FoodItem();
+    foodItem2.id = 'foodItem2';
+
+    const items = [foodItem1, foodItem2];
+
+    const action = new LoadRandomMealSuccessAction(items);
+    const store = TestBed.get(Store);
+
+    store.dispatch(action);
+
+    comp.randomMeal$.subscribe(data => {
+      expect(data.length).toBe(items.length);
     });
-  });
-
-  it('after init was called \'randomFood\' is set', () => {
-    const foodDataService = TestBed.get(FoodDataService);
-
-    fixture.detectChanges();    // call init here
-    expect(comp.randomFood).toBeDefined();
-    expect(comp.randomFood.length).toEqual(3);
-  });
-
-  it('selectedFood should be one foodItem', () => {
-    const service = TestBed.get(FoodDataService);
-    service.getAllFood = jasmine.createSpy('getAllFood').and.returnValue(service.getAllFood());
-    comp.updateFood();
-    expect(comp.randomFood).toBeDefined();
   });
 
   it('h2 should give correct headline', () => {
