@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "6.9"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - cd client
+  - npm run test
+  - ng build --prod
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
