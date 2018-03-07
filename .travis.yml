@@ -6,9 +6,6 @@ branches:
   only:
     - master
 
-before_script:
-  - npm install -g @angular/cli
-
 script:
   - cd client
   - npm install
@@ -17,5 +14,5 @@ script:
 
 notifications:
   email:
-    on_failure: change
-    on_success: change
+    on_failure: always
+    on_success: always
