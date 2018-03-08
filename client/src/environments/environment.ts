@@ -6,6 +6,5 @@
 export const environment = {
   production: false,
   server: 'http://localhost:51777/',
-  // server: 'http://food-api-core.azurewebsites.net/',
   apiUrl: 'api/'
 };
