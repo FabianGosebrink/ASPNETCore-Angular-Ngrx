@@ -113,6 +113,7 @@ namespace FoodAPICore
 
             services.AddSwaggerGen(c =>
             {
+                
                 c.SwaggerDoc("v1", new Info { Title = "FoodAPICore", Version = "v1" });
             });
         }
@@ -178,7 +179,7 @@ namespace FoodAPICore
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodAPICore V1");
             });
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
