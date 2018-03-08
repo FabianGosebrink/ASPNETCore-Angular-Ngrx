@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as foodActions from '../actions/food.actions';
+import * as signalrActions from '../actions/signalR.actions';
 
 export interface FoodState {
   entities: { [id: string]: FoodItem };
@@ -17,7 +18,7 @@ export const initialState: FoodState = {
 
 export function foodItemsReducer(
   state = initialState,
-  action: foodActions.FoodActions
+  action: foodActions.FoodActions | signalrActions.SignalRActions
 ): FoodState {
   switch (action.type) {
     case foodActions.ADD_FOOD_SUCCESS:
@@ -40,10 +41,10 @@ export function foodItemsReducer(
 
       const entities: { [id: string]: FoodItem } = {};
 
-      payload.forEach((item: FoodItem) => {
-        entities[item.id] = item;
-      });
-
+      for (const entity of payload) {
+        entities[entity.id] = entity;
+      }
+      console.log(entities);
       return {
         ...state,
         entities,
@@ -54,6 +55,50 @@ export function foodItemsReducer(
     case foodActions.DELETE_FOOD_SUCCESS: {
       const foodItem = action.foodItem;
       const { [foodItem.id]: removed, ...entities } = state.entities;
+
+      return {
+        ...state,
+        entities
+      };
+    }
+
+    case signalrActions.RECEIVED_FOOD_ADDED: {
+      if (!!state.entities[action.foodItem.id]) {
+        return state;
+      }
+
+      const foodItem = action.foodItem;
+      const entities = {
+        ...state.entities,
+        [foodItem.id]: foodItem
+      };
+
+      return {
+        ...state,
+        entities
+      };
+    }
+
+    case signalrActions.RECEIVED_FOOD_DELETED: {
+      if (!state.entities[action.foodId]) {
+        return state;
+      }
+
+      const { [action.foodId]: removed, ...entities } = state.entities;
+
+      return {
+        ...state,
+        entities
+      };
+    }
+
+    case signalrActions.RECEIVED_FOOD_UPDATED: {
+      const foodItem = action.foodItem;
+
+      const entities = {
+        ...state.entities,
+        [foodItem.id]: foodItem
+      };
 
       return {
         ...state,
