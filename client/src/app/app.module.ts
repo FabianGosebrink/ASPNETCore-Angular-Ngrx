@@ -19,6 +19,9 @@ import {
   RouterStateSerializer
 } from '@ngrx/router-store';
 
+import { environment } from '../environments/environment';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -34,7 +37,10 @@ import {
     CoreModule.forRoot(),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   declarations: [AppComponent],
