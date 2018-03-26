@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-
 import { Configuration } from './shared/configuration/app.configuration';
 
 @Component({
-  selector: 'foodChooser-app',
+  selector: 'app-foodchooser',
   templateUrl: 'app.component.html'
 })
 export class AppComponent {

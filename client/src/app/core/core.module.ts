@@ -26,6 +26,8 @@ import {
   StandardHeaderInterceptor
 } from './interceptors';
 import { SignalRService } from 'app/core/services/signalR.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from './store';
 
 export function notificationFactory(
   toasterService: ToasterService,
@@ -87,5 +89,7 @@ export class CoreModule {
     };
   }
 
-  constructor(signalrService: SignalRService) {}
+  constructor(private store: Store<fromStore.CoreState>) {
+    this.store.dispatch(new fromStore.SignalREstablishConnectionAction());
+  }
 }

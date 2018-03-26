@@ -113,7 +113,6 @@ namespace FoodAPICore
 
             services.AddSwaggerGen(c =>
             {
-                
                 c.SwaggerDoc("v1", new Info { Title = "FoodAPICore", Version = "v1" });
             });
         }

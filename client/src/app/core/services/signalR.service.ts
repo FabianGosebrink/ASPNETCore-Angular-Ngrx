@@ -4,44 +4,45 @@ import { Configuration } from 'app/shared/configuration/app.configuration';
 import { Store } from '@ngrx/store';
 import * as fromFoodStore from 'app/food/store';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
 export class SignalRService {
-  connectionEstablished = new EventEmitter<Boolean>();
-  connectionExists = false;
+  private foodHubConnection: HubConnection;
 
-  private _hubConnection: HubConnection;
+  constructor(private store: Store<any>) {}
 
-  constructor(private store: Store<any>) {
-    this._hubConnection = new HubConnection(environment.server + 'foodhub');
+  initializeConnection(): Observable<boolean> {
+    this.foodHubConnection = new HubConnection(environment.server + 'foodhub');
 
     this.registerOnServerEvents();
 
-    this.startConnection();
-  }
-
-  private startConnection(): void {
-    this._hubConnection
-      .start()
-      .then(() => {
-        console.log('Hub connection started');
-        this.connectionEstablished.emit(true);
-      })
-      .catch(err => {
-        console.log('Error while establishing connection');
-      });
+    return Observable.create((observer: Observer<boolean>) => {
+      this.foodHubConnection
+        .start()
+        .then(() => {
+          console.log('Hub connection started');
+          observer.next(true);
+          observer.complete();
+        })
+        .catch(err => {
+          console.log('Error while establishing connection', err);
+          observer.error(err);
+        });
+    });
   }
 
   private registerOnServerEvents(): void {
-    this._hubConnection.on('food-added', (data: any) => {
+    this.foodHubConnection.on('food-added', (data: any) => {
       this.store.dispatch(new fromFoodStore.ReceivedFoodAddedAction(data));
     });
 
-    this._hubConnection.on('food-deleted', (data: any) => {
+    this.foodHubConnection.on('food-deleted', (data: any) => {
       this.store.dispatch(new fromFoodStore.ReceivedFoodDeletedAction(data));
     });
 
-    this._hubConnection.on('food-updated', (data: any) => {
+    this.foodHubConnection.on('food-updated', (data: any) => {
       this.store.dispatch(new fromFoodStore.ReceivedFoodUpdatedAction(data));
     });
   }

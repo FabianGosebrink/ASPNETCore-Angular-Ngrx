@@ -5,19 +5,19 @@ import { MobileCameraService } from './mobileCamera.service';
 import { PlatformInformationProvider } from './platformInformation.provider';
 
 export function cameraFactory(): AbstractCameraService {
-    const platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
+  const platformProvider: PlatformInformationProvider = new PlatformInformationProvider();
 
-    if (platformProvider.isMobileDevice) {
-        return new MobileCameraService();
-    }
+  if (platformProvider.isMobileDevice) {
+    return new MobileCameraService();
+  }
 
-    return new DesktopCameraService();
-};
+  return new DesktopCameraService();
+}
 
 interface ICameraService {
-    getPhoto(): Observable<string>;
+  getPhoto(): Observable<string>;
 }
 
 export abstract class AbstractCameraService implements ICameraService {
-    abstract getPhoto(): Observable<string>;
+  abstract getPhoto(): Observable<string>;
 }

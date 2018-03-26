@@ -5,6 +5,7 @@ import * as fromCore from '../actions/core.actions';
 
 export interface CoreState {
   isAuthenticated: boolean;
+  signalRConnectionEstablished: boolean;
   pending: boolean;
 }
 
@@ -38,6 +39,14 @@ export function coreReducer(
         isAuthenticated: false,
         pending: false
       };
+    }
+
+    case fromCore.SIGNALR_ESTABLISHED: {
+      return { ...state, signalRConnectionEstablished: true };
+    }
+
+    case fromCore.SIGNALR_FAILED: {
+      return { ...state, signalRConnectionEstablished: false };
     }
 
     default: {

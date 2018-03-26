@@ -106,7 +106,7 @@ namespace FoodAPICore.Controllers
 
             FoodItem newFoodItem = _foodRepository.GetSingle(toAdd.Id);
             _hubContext.Clients.All.SendAsync("food-added", Mapper.Map<FoodItemDto>(newFoodItem));
-            return CreatedAtRoute("GetSingleFood", new { id = newFoodItem.Id },
+            return CreatedAtRoute(nameof(GetSingleFood), new { id = newFoodItem.Id },
                 Mapper.Map<FoodItemDto>(newFoodItem));
         }
 
