@@ -4,30 +4,19 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromStore from '../../store';
 import { FoodItem } from 'app/shared/models/foodItem.model';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-food-details',
   templateUrl: './foodDetails.component.html'
 })
-export class FoodDetailsComponent implements OnInit, OnDestroy {
-  selectedItem: FoodItem;
+export class FoodDetailsComponent implements OnInit {
+  selectedItem$: Observable<FoodItem>;
   private subscription: Subscription;
 
   constructor(private store: Store<fromStore.FoodState>) {}
 
   ngOnInit() {
-    this.subscription = this.store
-      .select(fromStore.getSelectedFood)
-      .subscribe(item => {
-        this.selectedItem = item;
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.selectedItem$ = this.store.select(fromStore.getSelectedFood);
   }
 }

@@ -28,6 +28,7 @@ import {
 import { SignalRService } from 'app/core/services/signalR.service';
 import { Store } from '@ngrx/store';
 import * as fromStore from './store';
+import { IngredientsDataService } from './data-services/ingredient-data.service';
 
 export function notificationFactory(
   toasterService: ToasterService,
@@ -58,6 +59,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         FoodDataService,
+        IngredientsDataService,
         Sorter,
         AuthenticationService,
         HttpWrapperService,

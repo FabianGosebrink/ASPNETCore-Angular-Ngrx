@@ -10,7 +10,6 @@ import {
 } from '../../../core/services/notification.service';
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as foodActions from '../actions/food.actions';
-import { FoodErrorAction } from '../actions/food.actions';
 
 @Injectable()
 export class FoodEffects {
@@ -84,7 +83,7 @@ export class FoodEffects {
   foodError = this.actions$
     .ofType(foodActions.FOOD_ERROR)
     .pipe(
-      tap((action: FoodErrorAction) =>
+      tap((action: foodActions.FoodErrorAction) =>
         this.notificationService.showNotification(
           MessageType.Error,
           'Food',

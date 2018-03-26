@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 import { catchError } from 'rxjs/operators/catchError';
 
-import { Configuration } from '../../shared/configuration/app.configuration';
 import { FoodItem } from '../../shared/models/foodItem.model';
 import { HttpWrapperService } from './httpWrapper.service';
 
@@ -14,10 +13,7 @@ import { environment } from '../../../environments/environment';
 export class FoodDataService {
   private actionUrl: string;
 
-  constructor(
-    private http: HttpWrapperService,
-    private configuration: Configuration
-  ) {
+  constructor(private http: HttpWrapperService) {
     this.actionUrl = environment.server + environment.apiUrl + 'foods/';
   }
 

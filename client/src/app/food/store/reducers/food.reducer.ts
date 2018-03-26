@@ -44,7 +44,6 @@ export function foodItemsReducer(
       for (const entity of payload) {
         entities[entity.id] = entity;
       }
-      console.log(entities);
       return {
         ...state,
         entities,

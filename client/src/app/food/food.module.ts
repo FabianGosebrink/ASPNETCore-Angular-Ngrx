@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -17,6 +17,7 @@ import { IsInRangeValidator } from './validators/isInRange.validator';
 import { IsNumberValidator } from './validators/isNumber.validator';
 import { FoodPictureComponent } from './components/food-picture/food-picture.component';
 import * as fromFoodGuards from './guards';
+import { IngredientsComponent } from './components/ingredients/ingredients.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import * as fromFoodGuards from './guards';
     SharedModule,
     RouterModule.forChild(FoodRoutes),
     StoreModule.forFeature('food', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    ReactiveFormsModule
   ],
 
   declarations: [
@@ -39,7 +41,8 @@ import * as fromFoodGuards from './guards';
     IsInRangeValidator,
     IsNumberValidator,
     FilterPipe,
-    FoodPictureComponent
+    FoodPictureComponent,
+    IngredientsComponent
   ],
 
   providers: [...fromFoodGuards.foodGuards],

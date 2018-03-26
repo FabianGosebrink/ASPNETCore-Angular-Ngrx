@@ -28,6 +28,6 @@ export class FoodFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.currentFood = Object.assign({}, changes.foodItem.currentValue);
+    this.currentFood = { ...changes.foodItem.currentValue };
   }
 }

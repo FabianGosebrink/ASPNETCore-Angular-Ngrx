@@ -18,9 +18,9 @@ export class FoodListComponent {
 
   constructor(private sorter: Sorter) {}
 
-  setFoodToDelete = (foodItem: FoodItem): void => {
+  setFoodToDelete(foodItem: FoodItem): void {
     this.foodToDelete = foodItem;
-  };
+  }
 
   sortArray(key: string, $event: any) {
     if ($event) {
