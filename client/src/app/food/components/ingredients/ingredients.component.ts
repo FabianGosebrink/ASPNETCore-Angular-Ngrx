@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../store';
 import { Observable } from 'rxjs/Observable';
 import { Ingredient } from '../../../shared/models/ingredient.model';
@@ -31,8 +31,8 @@ export class IngredientsComponent implements OnInit {
     this.form = new FormGroup({
       description: new FormControl('', Validators.required)
     });
-    console.log('this.form', this.form);
-    this.ingredients$ = this.store.select(fromStore.getAllIngredients);
+
+    this.ingredients$ = this.store.pipe(select(fromStore.getAllIngredients));
 
     this.route.params.pipe(map(p => p.foodId)).subscribe((foodId: string) => {
       this.store.dispatch(new fromStore.LoadIngredientsAction(foodId));
