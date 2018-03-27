@@ -31,6 +31,7 @@ export class IngredientsComponent implements OnInit {
     this.form = new FormGroup({
       description: new FormControl('', Validators.required)
     });
+    console.log('this.form', this.form);
     this.ingredients$ = this.store.select(fromStore.getAllIngredients);
 
     this.route.params.pipe(map(p => p.foodId)).subscribe((foodId: string) => {
@@ -39,10 +40,20 @@ export class IngredientsComponent implements OnInit {
   }
 
   addIngredient() {
+    if (!this.form.valid) {
+      return;
+    }
     const foodId = this.route.snapshot.params['foodId'];
     this.store.dispatch(
       new fromStore.AddIngredientAction(this.form.value, foodId)
     );
     this.form.reset();
+  }
+
+  delete(ingredient: Ingredient) {
+    const foodId = this.route.snapshot.params['foodId'];
+    this.store.dispatch(
+      new fromStore.DeleteIngredientAction(ingredient, foodId)
+    );
   }
 }

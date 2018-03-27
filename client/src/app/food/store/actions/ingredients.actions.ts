@@ -6,6 +6,8 @@ export const LOAD_INGREDIENTS = '[Foods] LOAD_INGREDIENTS';
 export const LOAD_INGREDIENTS_SUCCESS = '[Foods] LOAD_INGREDIENTS_SUCCESS';
 export const ADD_INGREDIENT = '[Foods] ADD_INGREDIENTS';
 export const ADD_INGREDIENT_SUCCESS = '[Foods] ADD_INGREDIENTS_SUCCESS';
+export const DELETE_INGREDIENT = '[Foods] DELETE_INGREDIENT';
+export const DELETE_INGREDIENT_SUCCESS = '[Foods] DELETE_INGREDIENT_SUCCESS';
 export const INGREDIENTS_ERROR = '[Foods] INGREDIENTS_ERROR';
 
 export class LoadIngredientsAction implements Action {
@@ -16,6 +18,16 @@ export class LoadIngredientsAction implements Action {
 export class LoadIngredientsSuccessAction implements Action {
   readonly type = LOAD_INGREDIENTS_SUCCESS;
   constructor(public payload: Ingredient[]) {}
+}
+
+export class DeleteIngredientAction implements Action {
+  readonly type = DELETE_INGREDIENT;
+  constructor(public payload: Ingredient, public foodId: string) {}
+}
+
+export class DeleteIngredientSuccessAction implements Action {
+  readonly type = DELETE_INGREDIENT_SUCCESS;
+  constructor(public payload: Ingredient) {}
 }
 
 export class AddIngredientAction implements Action {
@@ -37,5 +49,7 @@ export type IngredientsActions =
   | IngredientsErrorAction
   | AddIngredientAction
   | AddIngredientSuccessAction
+  | DeleteIngredientSuccessAction
+  | DeleteIngredientAction
   | LoadIngredientsSuccessAction
   | LoadIngredientsAction;

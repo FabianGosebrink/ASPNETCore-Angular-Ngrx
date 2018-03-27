@@ -166,7 +166,7 @@ namespace FoodAPICore.Controllers
 
             if (foodItem == null)
             {
-                return NotFound("FoodNotFound");
+                return NotFound("Ingredient not found");
             }
 
             var singleItem = _repository.GetAll().Where(x => x.FoodItem.Id == foodId && x.Id == id).FirstOrDefault();

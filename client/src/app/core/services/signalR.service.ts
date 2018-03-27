@@ -6,6 +6,7 @@ import * as fromFoodStore from 'app/food/store';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import { Ingredient } from '../../shared/models/ingredient.model';
 
 @Injectable()
 export class SignalRService {
@@ -45,5 +46,23 @@ export class SignalRService {
     this.foodHubConnection.on('food-updated', (data: any) => {
       this.store.dispatch(new fromFoodStore.ReceivedFoodUpdatedAction(data));
     });
+
+    this.foodHubConnection.on(
+      'ingredient-added',
+      (foodId: string, ingredient: Ingredient) => {
+        this.store.dispatch(
+          new fromFoodStore.ReceivedIngredientAddedAction(ingredient)
+        );
+      }
+    );
+
+    this.foodHubConnection.on(
+      'ingredient-deleted',
+      (foodId: string, ingredientId: string) => {
+        this.store.dispatch(
+          new fromFoodStore.ReceivedIngredientDeletedAction(ingredientId)
+        );
+      }
+    );
   }
 }

@@ -50,6 +50,31 @@ export class IngredientEffects {
     })
   );
 
+  @Effect()
+  deleteIngredient$ = this.actions$
+    .ofType(ingredientActions.DELETE_INGREDIENT)
+    .pipe(
+      switchMap((action: ingredientActions.DeleteIngredientAction) => {
+        return this.ingredientsDataService
+          .delete(action.payload, action.foodId)
+          .pipe(
+            map((data: any) => {
+              this.notificationService.showNotification(
+                MessageType.Success,
+                'Ingredients',
+                'Ingredients deleted!'
+              );
+              return new ingredientActions.DeleteIngredientSuccessAction(
+                action.payload
+              );
+            }),
+            catchError((error: any) =>
+              of(new ingredientActions.IngredientsErrorAction(error))
+            )
+          );
+      })
+    );
+
   @Effect({ dispatch: false })
   ingredientsError = this.actions$
     .ofType(ingredientActions.INGREDIENTS_ERROR)
