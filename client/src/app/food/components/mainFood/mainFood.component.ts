@@ -13,7 +13,7 @@ export class MainFoodComponent implements OnInit {
   foods$: Observable<FoodItem[]>;
   selectedItem: FoodItem;
 
-  constructor(private store: Store<fromStore.FoodState>) {}
+  constructor(private store: Store<fromStore.FoodState>) { }
 
   ngOnInit() {
     this.foods$ = this.store.select(fromStore.getAllFoods);
