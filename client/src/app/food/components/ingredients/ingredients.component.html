@@ -1,11 +1,10 @@
 <div class="row">
 
-  <form (ngSubmit)="addIngredient()" [formGroup]="form">
-    <input type="text" formControlName="description">
-    <button [disabled]="form.invalid">Add</button>
-  </form>
-
   <div class="col-sm-4 col-sm-offset-4">
+    <form (ngSubmit)="addIngredient()" [formGroup]="form">
+      <input class="form-control" type="text" placeholder="add ingredient" formControlName="description">
+    </form>
+    <br/>
     <div class="list-group">
       <a href="#" class="list-group-item" *ngFor="let item of ingredients$ | async">{{item.description}}</a>
     </div>
