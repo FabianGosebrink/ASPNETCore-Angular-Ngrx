@@ -98,7 +98,7 @@ namespace FoodAPICore
                  .AddIdentityServerAuthentication(options =>
                  {
                      options.Authority = Configuration["IdentityServerEndpoint"];
-                     options.RequireHttpsMetadata = false;
+                     options.RequireHttpsMetadata = Configuration["IdentityServerEndpoint"].StartsWith("https");
                      options.ApiName = "WebAPI";
                  });
 
