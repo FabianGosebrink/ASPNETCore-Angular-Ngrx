@@ -10,7 +10,8 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "manifest.json"
+        "manifest.json",
+        "web.config"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -59,7 +60,6 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {
-    }
+    "component": {}
   }
 }
