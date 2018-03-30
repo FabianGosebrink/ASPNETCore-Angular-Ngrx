@@ -44,11 +44,11 @@ You can see an Angular Demo with all the techniques combined here (running on Az
 
 ## Frontend
 
-[http://foodapiui.azurewebsites.net/](http://foodapiui.azurewebsites.net/)
+[https://foodapiui.azurewebsites.net/](https://foodapiui.azurewebsites.net/)
 
 ## Backend
 
-[http://foodapi4demo.azurewebsites.net/](http://foodapi4demo.azurewebsites.net/)
+[https://food-api-core.azurewebsites.net/swagger/](https://food-api-core.azurewebsites.net/swagger/)
 
 ![DemoGif](.github/foodApiAzure.gif)
 
