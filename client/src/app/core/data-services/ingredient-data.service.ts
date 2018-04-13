@@ -33,10 +33,7 @@ export class IngredientsDataService {
       .pipe(catchError(this.handleError));
   }
 
-  delete(
-    ingredient: Ingredient,
-    foodId: string
-  ): Observable<HttpResponse<any>> {
+  delete(ingredient: Ingredient, foodId: string) {
     return this.http
       .delete(`${this.actionUrl}${foodId}/${this.endpoint}/${ingredient.id}`)
       .pipe(catchError(this.handleError));
