@@ -55,7 +55,7 @@ export class FoodDataService {
       .pipe(catchError(this.handleError));
   }
 
-  private handleError(error: any) {
+  private handleError(error: any): Observable<never> {
     return _throw(error || 'Server error');
   }
 }
