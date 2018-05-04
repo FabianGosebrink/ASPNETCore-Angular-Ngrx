@@ -14,7 +14,7 @@
     "prepare-desktop":
       "mkdirp ./.temp/electron && ncp assets/electron .temp/electron/ && ncp .dist/web .temp/electron/ && rimraf .dist/desktop/",
     "build-desktop":
-      "npm run prepare-desktop && electron-packager .temp/electron/ --electronVersion=1.8.2 --icon=\"assets/electron/icon\" --platform=win32,linux --out=./.dist/desktop/",
+      "npm run prepare-desktop && electron-packager .temp/electron/ --electronVersion=2.0.0 --icon=\"assets/electron/icon\" --platform=win32,linux --out=./.dist/desktop/",
     "build-mobile":
       "npm run mobile-prepare && npm run mobile-prepare-windows && npm run mobile-prepare-android && npm run mobile-generate-assets && npm run mobile-build && npm run copy-mobile-to-dist",
     "mobile-prepare":
@@ -27,7 +27,7 @@
       "cd .temp/mobile && cordova-icon --icon=\"../../assets/img/icon.png\" && cordova-splash --splash=\"../../assets/img/splash.png\"",
     "mobile-build": "cd .temp/mobile && cordova build && cd ../..",
     "copy-mobile-to-dist":
-      "ncp .temp/mobile/platforms/android .dist/mobile/android",
+      "ncp .temp/mobile/platforms/android .dist/mobile/android && ncp .temp/mobile/platforms/windows .dist/mobile/windows",
     "build-all":
       "rimraf .dist && npm run build-web && npm run build-mobile && npm run build-desktop",
     "bundle-report": "webpack-bundle-analyzer .dist/web/stats.json",
