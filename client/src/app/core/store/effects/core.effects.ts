@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect } from '@ngrx/effects';
-import { Token } from 'app/shared/models/token';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-
+import { Token } from '../../../shared/models/token';
 import { AuthenticationService } from '../../services/authentication.service';
-import * as CoreActions from '../actions/core.actions';
 import {
   AbstractNotificationService,
   MessageType
 } from '../../services/notification.service';
 import { SignalRService } from '../../services/signalR.service';
+import * as CoreActions from '../actions/core.actions';
 
 @Injectable()
 export class CoreEffects {

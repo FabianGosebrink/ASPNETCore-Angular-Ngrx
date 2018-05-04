@@ -1,13 +1,10 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 import { catchError } from 'rxjs/operators/catchError';
-
-import { HttpWrapperService } from './httpWrapper.service';
-
 import { environment } from '../../../environments/environment';
 import { Ingredient } from '../../shared/models/ingredient.model';
+import { HttpWrapperService } from './httpWrapper.service';
 
 @Injectable()
 export class IngredientsDataService {

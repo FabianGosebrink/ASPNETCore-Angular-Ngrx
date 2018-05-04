@@ -1,13 +1,10 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
-import { catchError } from 'rxjs/operators/catchError';
-
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { FoodItem } from '../../shared/models/foodItem.model';
 import { HttpWrapperService } from './httpWrapper.service';
-
-import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FoodDataService {

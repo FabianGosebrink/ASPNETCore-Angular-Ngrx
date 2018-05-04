@@ -6,7 +6,6 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
 @Component({

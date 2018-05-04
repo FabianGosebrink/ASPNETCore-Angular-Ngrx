@@ -4,20 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
 import { SharedModule } from '../shared/shared.module';
+import { FoodPictureComponent } from './components/food-picture/food-picture.component';
 import { FoodDetailsComponent } from './components/foodDetails/foodDetails.component';
 import { FoodFormComponent } from './components/foodForm/foodForm.component';
 import { FoodListComponent } from './components/foodList/foodList.component';
+import { IngredientsComponent } from './components/ingredients/ingredients.component';
 import { MainFoodComponent } from './components/mainFood/mainFood.component';
 import { FoodRoutes } from './food.routes';
+import * as fromFoodGuards from './guards';
 import { FilterPipe } from './pipes/filter.pipe';
 import { effects, reducers } from './store';
 import { IsInRangeValidator } from './validators/isInRange.validator';
 import { IsNumberValidator } from './validators/isNumber.validator';
-import { FoodPictureComponent } from './components/food-picture/food-picture.component';
-import * as fromFoodGuards from './guards';
-import { IngredientsComponent } from './components/ingredients/ingredients.component';
 
 @NgModule({
   imports: [

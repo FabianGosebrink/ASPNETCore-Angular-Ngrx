@@ -1,12 +1,10 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-
+import { Observable } from 'rxjs';
 import { FoodItem } from './../app/shared/models/foodItem.model';
 
 @Injectable()
 export class FoodServiceMock {
-
   private internalFoodList: any[] = [];
 
   constructor() {
@@ -18,7 +16,7 @@ export class FoodServiceMock {
     this.internalFoodList.push(fooditem);
   }
 
-  getAllFood = (): Observable<FoodItem[]> => {
+  getAllFood(): Observable<FoodItem[]> {
     return Observable.create((observer: any) => {
       // Yield a single value and complete
       observer.next(this.internalFoodList);
@@ -26,7 +24,7 @@ export class FoodServiceMock {
     });
   }
 
-  getSingleFood = (id: number): Observable<FoodItem> => {
+  getSingleFood(id: number): Observable<FoodItem> {
     return Observable.create((observer: any) => {
       // Yield a single value and complete
       observer.next(this.internalFoodList.find(x => x.id === id));
@@ -34,7 +32,7 @@ export class FoodServiceMock {
     });
   }
 
-  addFood = (foodItem: FoodItem): Observable<FoodItem> => {
+  addFood(foodItem: FoodItem): Observable<FoodItem> {
     return Observable.create((observer: any) => {
       // Yield a single value and complete
       this.internalFoodList.push(foodItem);
@@ -43,7 +41,7 @@ export class FoodServiceMock {
     });
   }
 
-  updateFood = (id: string, foodToUpdate: FoodItem): Observable<FoodItem> => {
+  updateFood(id: string, foodToUpdate: FoodItem): Observable<FoodItem> {
     return Observable.create((observer: any) => {
       // Yield a single value and complete
       this.internalFoodList.forEach((item: FoodItem) => {
@@ -57,33 +55,29 @@ export class FoodServiceMock {
     });
   }
 
-  deleteFood = (id: number): Observable<HttpResponse<any>> => {
+  deleteFood(id: number): Observable<HttpResponse<any>> {
     return Observable.create((observer: any) => {
-
       const itemToRemove = this.internalFoodList.find(x => x.id === id);
       const indexToRemove = this.internalFoodList.indexOf(itemToRemove);
       this.internalFoodList.splice(indexToRemove, 1);
 
-      observer.next(new HttpResponse({
-        status: 204
-      }));
+      observer.next(
+        new HttpResponse({
+          status: 204
+        })
+      );
       observer.complete();
     });
   }
 
-  getRandomMeal = (): Observable<FoodItem[]> => {
+  getRandomMeal(): Observable<FoodItem[]> {
     return Observable.create((observer: any) => {
-
-      observer.next([
-        new FoodItem(),
-        new FoodItem(),
-        new FoodItem()
-      ]);
+      observer.next([new FoodItem(), new FoodItem(), new FoodItem()]);
       observer.complete();
     });
   }
 
   private getRandomNumber(min: number, max: number): number {
-    return (Math.floor(Math.random() * max) + min);
+    return Math.floor(Math.random() * max) + min;
   }
 }

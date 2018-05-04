@@ -1,7 +1,6 @@
-import { Token } from '../app/shared/models/token';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs';
+import { Token } from '../app/shared/models/token';
 
 @Injectable()
 export class AuthenticationServiceStub {

@@ -1,6 +1,6 @@
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import * as fromFood from './food.reducer';
 import * as fromIngredients from './ingredient.reducer';
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 export interface FoodState {
   foods: fromFood.FoodState;

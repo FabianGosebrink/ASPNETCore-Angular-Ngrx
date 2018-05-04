@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-
+import { Observable } from 'rxjs';
 import { DesktopCameraService } from './desktopCamera.service';
 import { MobileCameraService } from './mobileCamera.service';
 import { PlatformInformationProvider } from './platformInformation.provider';

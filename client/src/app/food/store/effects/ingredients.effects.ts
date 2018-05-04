@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-
-import { FoodDataService } from '../../../core/data-services/food-data.service';
+import { IngredientsDataService } from '../../../core/data-services/ingredient-data.service';
 import {
   AbstractNotificationService,
   MessageType
 } from '../../../core/services/notification.service';
 import { Ingredient } from '../../../shared/models/ingredient.model';
 import * as ingredientActions from '../actions/ingredients.actions';
-import { IngredientsDataService } from '../../../core/data-services/ingredient-data.service';
 
 @Injectable()
 export class IngredientEffects {

@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators/tap';
-
 import { FoodDataService } from '../../../core/data-services/food-data.service';
 import {
   AbstractNotificationService,
   MessageType
 } from '../../../core/services/notification.service';
-import { HomeErrorAction } from '../actions/home.actions';
 import * as HomeActions from '../actions/home.actions';
+import { HomeErrorAction } from '../actions/home.actions';
 
 @Injectable()
 export class HomeEffects {
-
   @Effect()
   loadRandomMeal$ = this.actions$.ofType(HomeActions.LOAD_RANDOM_MEAL).pipe(
     switchMap((action: HomeActions.LoadRandomMealAction) => {

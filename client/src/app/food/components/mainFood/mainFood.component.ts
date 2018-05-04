@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-
+import { Observable } from 'rxjs';
 import * as fromStore from '../../store';
 import { FoodItem } from './../../../shared/models/foodItem.model';
 
@@ -13,7 +12,7 @@ export class MainFoodComponent implements OnInit {
   foods$: Observable<FoodItem[]>;
   selectedItem: FoodItem;
 
-  constructor(private store: Store<fromStore.FoodState>) { }
+  constructor(private store: Store<fromStore.FoodState>) {}
 
   ngOnInit() {
     this.foods$ = this.store.select(fromStore.getAllFoods);

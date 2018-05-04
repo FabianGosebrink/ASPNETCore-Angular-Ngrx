@@ -1,7 +1,6 @@
-import { Observable } from 'rxjs/Observable';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-
+import { Observable } from 'rxjs';
 import { CurrentUserService } from '../../../core/services/currentUser.service';
 import * as fromCore from '../../../core/store';
 import { Configuration } from './../../configuration/app.configuration';

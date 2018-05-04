@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { Component, Input, NgZone } from '@angular/core';
 import { AbstractCameraService } from '../../../core/services/camera.service';
+import { FoodItem } from '../../../shared/models/foodItem.model';
 
 @Component({
   selector: 'app-food-picture',

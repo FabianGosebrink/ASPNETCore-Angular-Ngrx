@@ -2,26 +2,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
+import {
+  RouterStateSerializer,
+  StoreRouterConnectingModule
+} from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { ToasterModule } from 'angular2-toaster/angular2-toaster';
 import { NgxElectronModule } from 'ngx-electron';
-
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
-import { reducers, CustomSerializer } from './store';
+import { CustomSerializer, reducers } from './store';
 
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer
-} from '@ngrx/router-store';
-
-import { environment } from '../environments/environment';
-
-import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   imports: [
     BrowserAnimationsModule,

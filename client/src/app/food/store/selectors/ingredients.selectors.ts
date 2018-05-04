@@ -1,9 +1,6 @@
 import { createSelector } from '@ngrx/store';
-
-import * as fromAppRoot from '../../../store';
 import * as fromFeature from '../reducers';
 import * as fromIngredient from '../reducers/ingredient.reducer';
-import { Ingredient } from '../../../shared/models/ingredient.model';
 
 export const getCompleteIngredientState = createSelector(
   fromFeature.getFoodState,

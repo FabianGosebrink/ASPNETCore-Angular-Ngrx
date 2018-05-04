@@ -1,11 +1,10 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HubConnection } from '@aspnet/signalr';
-import { Configuration } from 'app/shared/configuration/app.configuration';
 import { Store } from '@ngrx/store';
-import * as fromFoodStore from 'app/food/store';
-import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Observer } from 'rxjs/Observer';
+import { environment } from '../../../environments/environment';
+import * as fromFoodStore from '../../food/store';
 import { Ingredient } from '../../shared/models/ingredient.model';
 
 @Injectable()

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
-
 import {
   AbstractNotificationService,
   MessageType

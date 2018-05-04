@@ -1,11 +1,10 @@
-import * as fromRouter from '@ngrx/router-store';
 import {
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Params
+  Params,
+  RouterStateSnapshot
 } from '@angular/router';
-
-import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import * as fromRouter from '@ngrx/router-store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 export interface RouterStateUrl {
   url: string;

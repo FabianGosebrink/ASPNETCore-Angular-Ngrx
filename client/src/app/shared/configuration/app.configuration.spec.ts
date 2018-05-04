@@ -1,6 +1,6 @@
-import { Configuration } from './app.configuration';
 import { ToasterConfig } from 'angular2-toaster/angular2-toaster';
-import { environment } from 'environments/environment';
+import { environment } from '../../../environments/environment';
+import { Configuration } from './app.configuration';
 
 describe('Configuration', () => {
   let service: Configuration;

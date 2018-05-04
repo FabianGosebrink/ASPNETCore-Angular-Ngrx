@@ -1,7 +1,6 @@
-import { Action } from '@ngrx/store';
+import { Ingredient } from '../../../shared/models/ingredient.model';
 import * as ingredientActions from '../actions/ingredients.actions';
 import * as signalrActions from '../actions/signalR.actions';
-import { Ingredient } from '../../../shared/models/ingredient.model';
 
 export interface IngredientState {
   entities: { [id: string]: Ingredient };

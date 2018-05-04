@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import { Ingredient } from '../../../shared/models/ingredient.model';
 

@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable, NgZone } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
-
 import { PlatformInformationProvider } from './platformInformation.provider';
 
 @Injectable()

@@ -1,6 +1,6 @@
+import { AddFoodSuccessAction } from '..';
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import { foodItemsReducer, FoodState } from './food.reducer';
-import { AddFoodAction, AddFoodSuccessAction } from '..';
+import { FoodState, foodItemsReducer } from './food.reducer';
 
 describe('FoodList', () => {
   it('should return an array with the new food added to it', () => {
