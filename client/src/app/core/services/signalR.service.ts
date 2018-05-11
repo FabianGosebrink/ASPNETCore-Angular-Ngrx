@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HubConnection } from '@aspnet/signalr';
+import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { Store } from '@ngrx/store';
 import { Observable, Observer } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -13,7 +13,9 @@ export class SignalRService {
   constructor(private store: Store<any>) {}
 
   initializeConnection(): Observable<boolean> {
-    this.foodHubConnection = new HubConnection(environment.server + 'foodhub');
+    this.foodHubConnection = new HubConnectionBuilder()
+      .withUrl(environment.server + 'foodhub')
+      .build();
 
     this.registerOnServerEvents();
 
