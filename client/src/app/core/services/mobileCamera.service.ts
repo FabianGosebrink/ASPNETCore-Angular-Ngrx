@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs';
-import { Observer } from 'rxjs/Observer';
+import { Observable, Observer } from 'rxjs';
 import { AbstractCameraService } from './camera.service';
 
 declare let window: any;

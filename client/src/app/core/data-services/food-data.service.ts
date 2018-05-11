@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { _throw } from 'rxjs/observable/throw';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { FoodItem } from '../../shared/models/foodItem.model';
@@ -53,6 +52,6 @@ export class FoodDataService {
   }
 
   private handleError(error: any): Observable<never> {
-    return _throw(error || 'Server error');
+    return throwError(error || 'Server error');
   }
 }

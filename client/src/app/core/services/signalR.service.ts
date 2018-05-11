@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HubConnection } from '@aspnet/signalr';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Observer } from 'rxjs/Observer';
+import { Observable, Observer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import * as fromFoodStore from '../../food/store';
 import { Ingredient } from '../../shared/models/ingredient.model';

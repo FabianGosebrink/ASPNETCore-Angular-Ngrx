@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { _throw } from 'rxjs/observable/throw';
-import { catchError } from 'rxjs/operators/catchError';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Ingredient } from '../../shared/models/ingredient.model';
 import { HttpWrapperService } from './httpWrapper.service';
@@ -37,6 +36,6 @@ export class IngredientsDataService {
   }
 
   private handleError(error: any) {
-    return _throw(error || 'Server error');
+    return throwError(error || 'Server error');
   }
 }

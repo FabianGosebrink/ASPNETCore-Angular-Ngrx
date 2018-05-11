@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { tap } from 'rxjs/operators/tap';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { FoodDataService } from '../../../core/data-services/food-data.service';
 import {
   AbstractNotificationService,
