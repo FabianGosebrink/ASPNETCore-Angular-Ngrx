@@ -1,4 +1,4 @@
-import { ToasterConfig } from 'angular2-toaster/angular2-toaster';
+import { ToasterConfig } from 'angular2-toaster';
 import { environment } from '../../../environments/environment';
 import { Configuration } from './app.configuration';
 

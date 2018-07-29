@@ -1,9 +1,6 @@
 import { createSelector } from '@ngrx/store';
-
-import * as fromRoot from '../../../store';
 import * as fromFeature from '../reducers';
 import * as fromHome from '../reducers/home.reducer';
-import { FoodItem } from '../../../shared/models/foodItem.model';
 
 export const getCompleteHomeState = createSelector(
   fromFeature.getHomeState,

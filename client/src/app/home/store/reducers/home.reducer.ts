@@ -1,5 +1,3 @@
-import { Action } from '@ngrx/store';
-
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as homeActions from '../actions/home.actions';
 

@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FoodItem } from './../app/shared/models/foodItem.model';
+import { FoodItem } from '../app/shared/models/foodItem.model';
 
 @Injectable()
 export class FoodServiceMock {

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Ingredient } from '../../../shared/models/ingredient.model';
@@ -23,8 +18,7 @@ export class IngredientsComponent implements OnInit {
 
   constructor(
     private store: Store<fromStore.FoodState>,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {

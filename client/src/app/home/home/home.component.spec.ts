@@ -1,65 +1,60 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { combineReducers, Store, StoreModule } from '@ngrx/store';
 import { AbstractCameraServiceStub } from '../../../testing/abstractCameraServiceMock';
 import { AbstractNotificationServiceStub } from '../../../testing/abstractNotificationServiceMock';
 import { CpuValueServiceMock } from '../../../testing/CpuValueServiceMock';
+import { FoodServiceMock } from '../../../testing/foodServiceMock';
 import { FoodDataService } from '../../core/data-services/food-data.service';
 import { AbstractCameraService } from '../../core/services/camera.service';
 import { CpuValueService } from '../../core/services/cpuValue.service';
 import { AbstractNotificationService } from '../../core/services/notification.service';
 import { PlatformInformationProvider } from '../../core/services/platformInformation.provider';
 import { FoodItem } from '../../shared/models/foodItem.model';
+import * as fromRootStore from '../../store';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
-import { FoodServiceMock } from './../../../testing/foodServiceMock';
-import { HomeComponent } from './home.component';
 import { SingleMealComponent } from '../single-meal/single-meal.component';
-import { StoreModule, Store, combineReducers } from '@ngrx/store';
-import { UpdateFoodAction, LoadFoodSuccessAction } from '../../food/store';
 import * as fromHomeStore from '../store';
-import * as fromRootStore from '../../store';
-import { getRandomMeal } from '../store/reducers/home.reducer';
 import { LoadRandomMealSuccessAction } from '../store';
+import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let comp: HomeComponent;
 
   // async beforeEachs
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          RouterTestingModule,
-          StoreModule.forRoot({
-            ...fromRootStore.reducers,
-            home: combineReducers(fromHomeStore.reducers)
-          })
-        ],
-        declarations: [
-          HomeComponent,
-          RandomMealComponent,
-          SingleMealComponent,
-          EMealFooterComponent
-        ],
-        providers: [
-          { provide: FoodDataService, useClass: FoodServiceMock },
-          {
-            provide: AbstractNotificationService,
-            useClass: AbstractNotificationServiceStub
-          },
-          { provide: CpuValueService, useClass: CpuValueServiceMock },
-          {
-            provide: AbstractCameraService,
-            useClass: AbstractCameraServiceStub
-          },
-          PlatformInformationProvider
-        ]
-      }).compileComponents(); // compile template and css
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot({
+          ...fromRootStore.reducers,
+          home: combineReducers(fromHomeStore.reducers)
+        })
+      ],
+      declarations: [
+        HomeComponent,
+        RandomMealComponent,
+        SingleMealComponent,
+        EMealFooterComponent
+      ],
+      providers: [
+        { provide: FoodDataService, useClass: FoodServiceMock },
+        {
+          provide: AbstractNotificationService,
+          useClass: AbstractNotificationServiceStub
+        },
+        { provide: CpuValueService, useClass: CpuValueServiceMock },
+        {
+          provide: AbstractCameraService,
+          useClass: AbstractCameraServiceStub
+        },
+        PlatformInformationProvider
+      ]
+    }).compileComponents(); // compile template and css
+  }));
 
   // synchronous beforeEach
   beforeEach(() => {

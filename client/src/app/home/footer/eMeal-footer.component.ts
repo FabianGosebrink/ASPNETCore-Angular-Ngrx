@@ -1,5 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-
+import { Component, NgZone } from '@angular/core';
 import { CpuValueService } from '../../core/services/cpuValue.service';
 import { PlatformInformationProvider } from '../../core/services/platformInformation.provider';
 
@@ -15,8 +14,8 @@ export class EMealFooterComponent {
     public platformInformationProvider: PlatformInformationProvider,
     private ngZone: NgZone
   ) {
-    cpuValueService.onNewCpuValue.subscribe((cpuValue: number) => {
-      ngZone.run(() => {
+    this.cpuValueService.onNewCpuValue.subscribe((cpuValue: number) => {
+      this.ngZone.run(() => {
         this.percentage = cpuValue;
       });
     });

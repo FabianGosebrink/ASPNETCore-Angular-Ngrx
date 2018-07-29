@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { FoodItem } from '../../shared/models/foodItem.model';
 import * as fromStore from '../store';
 import * as homeActions from '../store/actions/home.actions';
-import { FoodItem } from '../../shared/models/foodItem.model';
 
 @Component({
   selector: 'app-home-component',

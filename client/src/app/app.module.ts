@@ -9,7 +9,7 @@ import {
   StoreRouterConnectingModule
 } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
-import { ToasterModule } from 'angular2-toaster/angular2-toaster';
+import { ToasterModule } from 'angular2-toaster';
 import { NgxElectronModule } from 'ngx-electron';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
