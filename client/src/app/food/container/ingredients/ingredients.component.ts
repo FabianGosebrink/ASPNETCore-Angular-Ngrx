@@ -33,6 +33,7 @@ export class IngredientsComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+
     const foodId = this.route.snapshot.params['foodId'];
 
     this.facade.addIngredient(this.form.value, foodId);

@@ -7,17 +7,8 @@
     </form>
     <br/>
 
-    <div class="list-group">
-      <a class="list-group-item clearfix" *ngFor="let item of ingredients$ | async">
-        {{item.description}}
-        <span class="pull-right">
-          <span class="btn btn-xs btn-default" (click)="delete(item)">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          </span>
-        </span>
-      </a>
+    <app-ingredient-list [ingredients]="ingredients$ | async" (ingredientDeleted)="delete($event)"></app-ingredient-list>
 
-    </div>
   </div>
 
 </div>
