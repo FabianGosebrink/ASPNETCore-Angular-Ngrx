@@ -44,11 +44,6 @@ export function notificationFactory(
     CommonModule,
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature(effects)
-  ],
-  exports: [],
-  declarations: [],
-  providers: [
-    // see below
   ]
 })
 export class CoreModule {

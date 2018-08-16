@@ -24,7 +24,7 @@
     <div [ngClass]="(f?.controls['calories']?.errors && f?.controls['calories']?.touched) ? 'form-group has-error' : 'form-group'">
         <label for="calories">Calories</label>
         <input type="text" class="form-control" id="calories" placeholder="Calories" [(ngModel)]="currentFood.calories" required
-            isNumber isInRange minValue="0" maxValue="2147483647" name="calories">
+            app-isNumber app-isInRange minValue="0" maxValue="2147483647" name="calories">
 
         <span *ngIf="f?.controls['calories']?.hasError('required') && (f?.controls['calories']?.dirty && !f.submitted)" class="text-danger">
             *

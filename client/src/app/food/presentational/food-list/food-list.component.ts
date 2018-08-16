@@ -4,16 +4,19 @@ import { FoodItem } from '../../../shared/models/foodItem.model';
 
 @Component({
   selector: 'app-foodlist',
-  templateUrl: './food-list.component.html'
+  templateUrl: './food-list.component.html',
 })
 export class FoodListComponent {
   foodItem: FoodItem;
   foodToDelete: FoodItem;
   searchString: string;
 
-  @Input() foods: FoodItem[];
-  @Output() foodSelected = new EventEmitter<FoodItem>();
-  @Output() foodDeleted = new EventEmitter<FoodItem>();
+  @Input()
+  foods: FoodItem[];
+  @Output()
+  foodSelected = new EventEmitter<FoodItem>();
+  @Output()
+  foodDeleted = new EventEmitter<FoodItem>();
 
   constructor(private sorter: Sorter) {}
 

@@ -3,21 +3,21 @@ import {
   FormControl,
   NG_VALIDATORS,
   ValidationErrors,
-  Validator
+  Validator,
 } from '@angular/forms';
 
 const INT_MAX = 2147483647;
 
 @Directive({
   selector:
-    '[isInRange][formControlName],[isInRange][formControl],[isInRange][ngModel]',
+    '[app-isInRange][formControlName],[app-isInRange][formControl],[app-isInRange][ngModel]',
   providers: [
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => IsInRangeValidator),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class IsInRangeValidator implements Validator {
   private _minValue: number;
@@ -35,8 +35,8 @@ export class IsInRangeValidator implements Validator {
     if (+c.value > this._maxValue || +c.value < this._minValue) {
       return {
         isInRange: {
-          valid: false
-        }
+          valid: false,
+        },
       };
     }
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FoodItem } from '../../../shared/models/foodItem.model';
-import * as fromStore from '../../store';
+import { FoodStoreFacade } from '../../store/food-store.facade';
 
 @Component({
   selector: 'app-main-food-component',
@@ -12,11 +11,11 @@ export class MainFoodComponent implements OnInit {
   foods$: Observable<FoodItem[]>;
   selectedItem: FoodItem;
 
-  constructor(private store: Store<fromStore.FoodState>) {}
+  constructor(private facade: FoodStoreFacade) {}
 
   ngOnInit() {
-    this.foods$ = this.store.select(fromStore.getAllFoods);
-    this.store.dispatch(new fromStore.LoadFoodAction());
+    this.foods$ = this.facade.allFoods$;
+    this.facade.loadAllFoods();
   }
 
   setCurrentlySelectedFood(foodItem: FoodItem) {
@@ -24,16 +23,16 @@ export class MainFoodComponent implements OnInit {
   }
 
   addFood(foodItem: FoodItem) {
-    this.store.dispatch(new fromStore.AddFoodAction(foodItem));
+    this.facade.addFood(foodItem);
     this.selectedItem = null;
   }
 
   updateFood(foodItem: FoodItem) {
-    this.store.dispatch(new fromStore.UpdateFoodAction(foodItem));
+    this.facade.updateFood(foodItem);
     this.selectedItem = null;
   }
 
   deleteFood(foodItem: FoodItem) {
-    this.store.dispatch(new fromStore.DeleteFoodAction(foodItem));
+    this.facade.deleteFood(foodItem);
   }
 }

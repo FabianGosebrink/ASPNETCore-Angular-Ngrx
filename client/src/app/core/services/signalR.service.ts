@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { Store } from '@ngrx/store';
 import { Observable, Observer } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import * as fromFoodStore from '../../food/store';
+import { FoodStoreFacade } from '../../food/store/food-store.facade';
 import { Ingredient } from '../../shared/models/ingredient.model';
 
 @Injectable()
 export class SignalRService {
   private foodHubConnection: HubConnection;
 
-  constructor(private store: Store<any>) {}
+  constructor(private facade: FoodStoreFacade) {}
 
   initializeConnection(): Observable<boolean> {
     this.foodHubConnection = new HubConnectionBuilder()
@@ -36,32 +35,28 @@ export class SignalRService {
 
   private registerOnServerEvents(): void {
     this.foodHubConnection.on('food-added', (data: any) => {
-      this.store.dispatch(new fromFoodStore.ReceivedFoodAddedAction(data));
+      this.facade.receivedFoodData(data);
     });
 
     this.foodHubConnection.on('food-deleted', (data: any) => {
-      this.store.dispatch(new fromFoodStore.ReceivedFoodDeletedAction(data));
+      this.facade.receivedFoodDeleted(data);
     });
 
     this.foodHubConnection.on('food-updated', (data: any) => {
-      this.store.dispatch(new fromFoodStore.ReceivedFoodUpdatedAction(data));
+      this.facade.receivedFoodUpdated(data);
     });
 
     this.foodHubConnection.on(
       'ingredient-added',
       (foodId: string, ingredient: Ingredient) => {
-        this.store.dispatch(
-          new fromFoodStore.ReceivedIngredientAddedAction(ingredient)
-        );
+        this.facade.receivedIngredientAdded(ingredient);
       }
     );
 
     this.foodHubConnection.on(
       'ingredient-deleted',
       (foodId: string, ingredientId: string) => {
-        this.store.dispatch(
-          new fromFoodStore.ReceivedIngredientDeletedAction(ingredientId)
-        );
+        this.facade.receivedIngredientDeleted(ingredientId);
       }
     );
   }

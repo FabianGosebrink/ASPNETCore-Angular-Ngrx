@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
-import * as fromStore from '../store';
+import { FoodStoreFacade } from '../store/food-store.facade';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FoodIsLoadedGuard implements CanActivate {
-  constructor(private store: Store<fromStore.FoodState>) {}
+  constructor(private facade: FoodStoreFacade) {}
 
   canActivate(): Observable<boolean> {
     return this.checkStore().pipe(
@@ -17,10 +16,10 @@ export class FoodIsLoadedGuard implements CanActivate {
   }
 
   checkStore(): Observable<boolean> {
-    return this.store.select(fromStore.getFoodItemsLoaded).pipe(
+    return this.facade.foodItemsLoaded$.pipe(
       tap(loaded => {
         if (!loaded) {
-          this.store.dispatch(new fromStore.LoadFoodAction());
+          this.facade.loadAllFoods();
         }
       }),
       filter(loaded => loaded),
