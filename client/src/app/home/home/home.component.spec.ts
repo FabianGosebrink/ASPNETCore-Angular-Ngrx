@@ -16,8 +16,9 @@ import * as fromRootStore from '../../store';
 import { EMealFooterComponent } from '../footer/eMeal-footer.component';
 import { RandomMealComponent } from '../randomMeal/randomMeal.component';
 import { SingleMealComponent } from '../single-meal/single-meal.component';
-import * as fromHomeStore from '../store';
-import { LoadRandomMealSuccessAction } from '../store';
+import * as fromHomeActions from '../store/actions';
+import { HomeStoreFacade } from '../store/home-store.facade';
+import * as fromHomeStore from '../store/reducers';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -31,28 +32,29 @@ describe('HomeComponent', () => {
         RouterTestingModule,
         StoreModule.forRoot({
           ...fromRootStore.reducers,
-          home: combineReducers(fromHomeStore.reducers)
-        })
+          home: combineReducers(fromHomeStore.reducers),
+        }),
       ],
       declarations: [
         HomeComponent,
         RandomMealComponent,
         SingleMealComponent,
-        EMealFooterComponent
+        EMealFooterComponent,
       ],
       providers: [
+        { provide: HomeStoreFacade, useClass: HomeStoreFacade },
         { provide: FoodDataService, useClass: FoodServiceMock },
         {
           provide: AbstractNotificationService,
-          useClass: AbstractNotificationServiceStub
+          useClass: AbstractNotificationServiceStub,
         },
         { provide: CpuValueService, useClass: CpuValueServiceMock },
         {
           provide: AbstractCameraService,
-          useClass: AbstractCameraServiceStub
+          useClass: AbstractCameraServiceStub,
         },
-        PlatformInformationProvider
-      ]
+        PlatformInformationProvider,
+      ],
     }).compileComponents(); // compile template and css
   }));
 
@@ -76,7 +78,7 @@ describe('HomeComponent', () => {
 
   it('updatefood should dispatch the correct action', () => {
     const store = TestBed.get(Store);
-    const action = new fromHomeStore.LoadRandomMealAction();
+    const action = new fromHomeActions.LoadRandomMealAction();
     spyOn(store, 'dispatch').and.callThrough();
 
     comp.updateFood();
@@ -84,12 +86,12 @@ describe('HomeComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(action);
   });
 
-  it('after init was called select was called two times', () => {
-    const store = TestBed.get(Store);
-    spyOn(store, 'select');
+  it('after init was called `loadRandomMeal` was called one times', () => {
+    const facade = TestBed.get(HomeStoreFacade);
+    spyOn(facade, 'loadRandomMeal');
     fixture.detectChanges();
 
-    expect(store.select).toHaveBeenCalledTimes(2);
+    expect(facade.loadRandomMeal).toHaveBeenCalledTimes(1);
   });
 
   it('after init was called "randomMeal$" is set', () => {
@@ -103,7 +105,7 @@ describe('HomeComponent', () => {
 
     const items = [foodItem1, foodItem2];
 
-    const action = new LoadRandomMealSuccessAction(items);
+    const action = new fromHomeActions.LoadRandomMealSuccessAction(items);
     const store = TestBed.get(Store);
 
     store.dispatch(action);

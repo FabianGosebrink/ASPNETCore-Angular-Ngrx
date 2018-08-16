@@ -3,7 +3,7 @@ import {
   async,
   ComponentFixture,
   inject,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { combineReducers, StoreModule } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { AuthenticationServiceStub } from '../../../../testing/authenticationser
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { CurrentUserService } from '../../../core/services/currentUser.service';
 import { StorageService } from '../../../core/services/storage.service';
-import * as fromCoreStore from '../../../core/store';
+import * as fromCoreStoreReducers from '../../../core/store/reducers';
 import * as fromRootStore from '../../../store';
 import { Configuration } from '../../configuration/app.configuration';
 import { NavigationComponent } from './navigation.component';
@@ -26,8 +26,8 @@ describe('NavigationComponent', () => {
       imports: [
         StoreModule.forRoot({
           ...fromRootStore.reducers,
-          core: combineReducers(fromCoreStore.reducers)
-        })
+          core: combineReducers(fromCoreStoreReducers.reducers),
+        }),
       ],
       declarations: [NavigationComponent],
       providers: [
@@ -35,10 +35,10 @@ describe('NavigationComponent', () => {
         CurrentUserService,
         {
           provide: AuthenticationService,
-          useClass: AuthenticationServiceStub
+          useClass: AuthenticationServiceStub,
         },
-        StorageService
-      ]
+        StorageService,
+      ],
     }).compileComponents(); // compile template and css
   }));
 
