@@ -11,7 +11,8 @@ import { HomeRoutes } from './home.routes';
 import { HomeComponent } from './home/home.component';
 import { RandomMealComponent } from './randomMeal/randomMeal.component';
 import { SingleMealComponent } from './single-meal/single-meal.component';
-import { effects, reducers } from './store';
+import { effects } from './store/effects';
+import { reducers } from './store/reducers';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { effects, reducers } from './store';
     SharedModule,
     RouterModule.forChild(HomeRoutes),
     StoreModule.forFeature('home', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
   ],
 
   declarations: [
@@ -30,13 +31,9 @@ import { effects, reducers } from './store';
     HomeComponent,
     RandomMealComponent,
     EMealFooterComponent,
-    SingleMealComponent
+    SingleMealComponent,
   ],
 
-  providers: [
-    // Services
-  ],
-
-  exports: [HomeComponent]
+  exports: [HomeComponent],
 })
 export class HomeModule {}

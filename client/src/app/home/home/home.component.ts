@@ -1,29 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FoodItem } from '../../shared/models/foodItem.model';
-import * as fromStore from '../store';
-import * as homeActions from '../store/actions/home.actions';
+import { HomeStoreFacade } from '../store/home-store.facade';
 
 @Component({
   selector: 'app-home-component',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   randomMeal$: Observable<FoodItem[]>;
   loading$: Observable<boolean>;
 
-  constructor(private store: Store<fromStore.HomeState>) {}
+  constructor(private facade: HomeStoreFacade) {}
 
   ngOnInit() {
-    this.randomMeal$ = this.store.select(fromStore.getRandomMeal);
-    this.loading$ = this.store.select(fromStore.getLoading);
+    this.randomMeal$ = this.facade.randomMeal$;
+    this.loading$ = this.facade.loading$;
 
-    this.store.dispatch(new homeActions.LoadRandomMealAction());
+    this.facade.loadRandomMeal();
   }
 
   updateFood() {
-    this.store.dispatch(new homeActions.LoadRandomMealAction());
+    this.facade.loadRandomMeal();
   }
 }

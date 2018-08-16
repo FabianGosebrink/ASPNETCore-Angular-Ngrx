@@ -5,19 +5,15 @@ import {
   CanLoad,
   Route,
   Router,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import * as fromCore from '../../core/store';
+import { CoreStoreFacade } from '../../core/store/core-store.facade';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(
-    private router: Router,
-    private store: Store<fromCore.CoreState>
-  ) {}
+  constructor(private router: Router, private facade: CoreStoreFacade) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -31,7 +27,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   private checkUser(): Observable<boolean> {
-    return this.store.select(fromCore.getIsAuthenticated).pipe(
+    return this.facade.isAuthenticated$.pipe(
       map((isAuthenticated: boolean) => {
         if (isAuthenticated) {
           return true;

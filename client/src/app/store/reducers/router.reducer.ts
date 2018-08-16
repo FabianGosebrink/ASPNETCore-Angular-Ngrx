@@ -1,7 +1,7 @@
 import {
   ActivatedRouteSnapshot,
   Params,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
 import * as fromRouter from '@ngrx/router-store';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
@@ -17,7 +17,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  routerReducer: fromRouter.routerReducer
+  routerReducer: fromRouter.routerReducer,
 };
 
 export const getRouterState = createFeatureSelector<

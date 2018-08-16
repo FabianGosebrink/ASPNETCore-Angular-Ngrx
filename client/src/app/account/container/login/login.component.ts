@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromStore from '../../../core/store';
+import { CoreStoreFacade } from '../../../core/store/core-store.facade';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +13,13 @@ export class LoginComponent implements OnInit {
 
   pending$: Observable<boolean>;
 
-  constructor(private store: Store<fromStore.CoreState>) {}
+  constructor(private facade: CoreStoreFacade) {}
 
   ngOnInit() {
-    this.pending$ = this.store.select(fromStore.getPending);
+    this.pending$ = this.facade.loginPending$;
   }
 
   doLoginUser() {
-    this.store.dispatch(
-      new fromStore.LoginAction(this.username, this.password)
-    );
+    this.facade.login(this.username, this.password);
   }
 }

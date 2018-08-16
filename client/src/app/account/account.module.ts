@@ -10,6 +10,6 @@ import { LoginComponent } from './container/login/login.component';
 
   declarations: [LoginComponent],
 
-  exports: []
+  exports: [],
 })
 export class AccountModule {}
