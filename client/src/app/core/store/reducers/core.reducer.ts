@@ -1,6 +1,4 @@
 import { StorageService } from '../../services/storage.service';
-import { Action } from '@ngrx/store';
-
 import * as fromCore from '../actions/core.actions';
 
 export interface CoreState {
@@ -37,7 +35,7 @@ export function coreReducer(
       return {
         ...state,
         isAuthenticated: false,
-        pending: false
+        pending: false,
       };
     }
 

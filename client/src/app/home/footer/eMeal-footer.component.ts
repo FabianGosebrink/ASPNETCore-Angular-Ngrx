@@ -1,10 +1,10 @@
 import { Component, NgZone } from '@angular/core';
-import { CpuValueService } from '../../core/services/cpuValue.service';
-import { PlatformInformationProvider } from '../../core/services/platformInformation.provider';
+import { CpuValueService } from '../../core/services/desktop-cpuValue.service';
+import { PlatformInformationProvider } from '../../core/services/platform-information.provider';
 
 @Component({
   selector: 'app-emeal-footer',
-  templateUrl: 'eMeal-footer.component.html'
+  templateUrl: 'eMeal-footer.component.html',
 })
 export class EMealFooterComponent {
   percentage: number;

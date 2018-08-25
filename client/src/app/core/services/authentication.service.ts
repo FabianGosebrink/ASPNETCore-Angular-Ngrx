@@ -7,7 +7,7 @@ import { Configuration } from '../../shared/configuration/app.configuration';
 import { Token } from '../../shared/models/token';
 import { CurrentUserService } from './currentUser.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   redirectUrl: string;
 
@@ -40,7 +40,7 @@ export class AuthenticationService {
       headers: new HttpHeaders().set(
         'Content-Type',
         'application/x-www-form-urlencoded'
-      )
+      ),
     };
 
     return Observable.create((observer: Observer<Token>) => {

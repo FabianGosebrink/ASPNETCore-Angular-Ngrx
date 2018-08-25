@@ -1,7 +1,7 @@
 ﻿using FoodAPICore.Entities;
+using FoodAPICore.Models;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,44 +13,30 @@ namespace FoodAPICore.Services
 {
     public class EnsureDatabaseDataService : IEnsureDatabaseDataService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ILogger _logger;
-        private readonly FoodDbContext _context;
-
-        public EnsureDatabaseDataService(
-            UserManager<IdentityUser> userManager,
+        public async Task EnsureSeedData(UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             ILoggerFactory loggerFactory,
             FoodDbContext context)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _logger = loggerFactory.CreateLogger<EnsureDatabaseDataService>();
-            _context = context;
-        }
+            context.Database.EnsureCreated();
 
-        public async Task EnsureSeedData()
-        {
-            _context.Database.EnsureCreated();
+            context.Users.RemoveRange(context.Users);
+            context.SaveChanges();
 
-            _context.Users.RemoveRange(_context.Users);
-            _context.SaveChanges();
-
-            if (_context.Users.Any())
+            if (context.Users.Any())
             {
                 return; // Db has been seeded.
             }
 
             // Creates Roles.
-            await _roleManager.CreateAsync(new IdentityRole("administrator"));
-            await _roleManager.CreateAsync(new IdentityRole("user"));
+            await roleManager.CreateAsync(new IdentityRole("administrator"));
+            await roleManager.CreateAsync(new IdentityRole("user"));
 
             // Adds Roles to Role Claims.
-            var adminRole = await _roleManager.FindByNameAsync("administrator");
-            var userRole = await _roleManager.FindByNameAsync("user");
-            await _roleManager.AddClaimAsync(adminRole, new Claim(JwtClaimTypes.Role, "administrator"));
-            await _roleManager.AddClaimAsync(userRole, new Claim(JwtClaimTypes.Role, "user"));
+            var adminRole = await roleManager.FindByNameAsync("administrator");
+            var userRole = await roleManager.FindByNameAsync("user");
+            await roleManager.AddClaimAsync(adminRole, new Claim(JwtClaimTypes.Role, "administrator"));
+            await roleManager.AddClaimAsync(userRole, new Claim(JwtClaimTypes.Role, "user"));
 
             // Seeds an admin user.
             var user = new IdentityUser
@@ -65,20 +51,25 @@ namespace FoodAPICore.Services
                 UserName = "admin"
             };
 
-            var result = await _userManager.CreateAsync(user, "admin");
+            var result = await userManager.CreateAsync(user, "admin");
 
             if (result.Succeeded)
             {
-                var adminUser = await _userManager.FindByNameAsync(user.UserName);
+                var adminUser = await userManager.FindByNameAsync(user.UserName);
                 // Assigns the 'administrator' role.
-                await _userManager.AddToRoleAsync(adminUser, "administrator");
+                await userManager.AddToRoleAsync(adminUser, "administrator");
                 // Assigns claims.
                 var claims = new List<Claim> {
                     new Claim(type: JwtClaimTypes.Name, value: user.UserName),
                     new Claim(type: JwtClaimTypes.Email, value: user.Email),
                 };
-                await _userManager.AddClaimsAsync(adminUser, claims);
+                await userManager.AddClaimsAsync(adminUser, claims);
             }
+
+            context.FoodItems.Add(new FoodItem() { Calories = 1000, Name = "Lasagne", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1100, Name = "Hamburger", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1200, Name = "Spaghetti", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1300, Name = "Pizza", Created = DateTime.Now });
         }
     }
 }

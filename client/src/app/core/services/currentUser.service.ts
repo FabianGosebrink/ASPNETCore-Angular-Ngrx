@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CurrentUserService {
   constructor(private storageService: StorageService) {}
 

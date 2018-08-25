@@ -1,58 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-    <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="offering.solutions" version="0.0.1">
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="offering.solutions" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>eMeal</name>
-    <description>
-        A small demo app to give yoou FoodSuggestions
-    </description>
-    <author email="mail@offering.solutions" href="https://fabian-gosebrink.com">
-        offering.Solutions
-    </author>
-    
-    <content src="index.html"/>
-
-    <!--<plugin name="cordova-plugin-device" spec="~1.1.5"/>-->
-    <!-- <plugin name="cordova-plugin-whitelist" version="1.2.2"/>
-    <plugin name="cordova-plugin-splashscreen" spec="3.2.2"/>
-    <plugin name="cordova-plugin-statusbar" spec="https://github.com/apache/cordova-plugin-statusbar.git"/>
-    <plugin name="cordova-plugin-camera" spec="2.4.0"/>
-    <plugin name="cordova-plugin-device" spec="1.1.6"/> -->
-
-    <plugin name="cordova-plugin-whitelist" spec="1"/>
-    <plugin name="cordova-plugin-wkwebview-engine" spec="https://github.com/driftyco/cordova-plugin-wkwebview-engine.git"/>
-    <plugin name="cordova-plugin-device" spec="~1.1.5"/>
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.2"/>
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.2"/>
-    <plugin name="cordova-plugin-camera" spec="~2.4.0"/>
-    <plugin name="cordova-plugin-crosswalk-webview" spec="~2.3.0">
-        <variable name="XWALK_VERSION" value="22+"/>
-        <variable name="XWALK_LITEVERSION" value="xwalk_core_library_canary:17+"/>
-        <variable name="XWALK_COMMANDLINE" value="--disable-pull-to-refresh-effect"/>
-        <variable name="XWALK_MODE" value="embedded"/>
-        <variable name="XWALK_MULTIPLEAPK" value="true"/>
-    </plugin>
-    <access origin="*"/>
-    <!--<allow-navigation href="*" />-->
-    <allow-intent href="http://*/*"/>
-    <allow-intent href="https://*/*"/>
-    <allow-intent href="tel:*"/>
-    <allow-intent href="sms:*"/>
-    <allow-intent href="mailto:*"/>
-    <allow-intent href="geo:*"/>
-    
+    <description>eMeal</description>
+    <author email="mail@offering.solutions" href="https://offering.solutions">
+    Offering Solutions Software
+  </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
     <platform name="android">
-        <allow-intent href="market:*"/>
+        <allow-intent href="market:*" />
     </platform>
-    
-    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine"/>
-
-    <preference name="StatusBarOverlaysWebView" value="false"/>
-    <preference name="Fullscreen" value="false"/>
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="SplashScreenBackgroundColor" value="white"/>
-    <preference name="SplashScreen" value="screen"/>
-
-<preference name="windows-target-version" value="10.0" />
-
-  <engine name="android" spec="~6.2.0"/>
-  <engine name="windows" spec="~5.0.0"/>
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="~5.1.8" />
+    <plugin name="cordova-plugin-camera" spec="~4.0.2" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.3" />
+    <plugin name="cordova-plugin-splashscreen" spec="~4.0.3" />
+    <plugin name="cordova-plugin-wkwebview-engine" spec="https://github.com/driftyco/cordova-plugin-wkwebview-engine.git" />
+    <preference name="xwalkVersion" value="19+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
+    <preference name="EnableViewportScale" value="false" />
+    <allow-navigation href="http://localhost:8080/*" />
+    <feature name="CDVWKWebViewEngine">
+        <param name="ios-package" value="CDVWKWebViewEngine" />
+    </feature>
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#003A4E" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-targetSdkVersion" value="25" />
+    <preference name="windows-target-version" value="10.0" />
+    <engine name="android" spec="~6.2.0" />
+    <engine name="windows" spec="~5.0.0" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.7.0" />
 </widget>

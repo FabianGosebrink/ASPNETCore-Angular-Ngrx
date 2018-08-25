@@ -4,11 +4,8 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Token } from '../../../shared/models/token';
+import { AbstractNotificationService } from '../../services/abstract-notification.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import {
-  AbstractNotificationService,
-  MessageType
-} from '../../services/notification.service';
 import { SignalRService } from '../../services/signalR.service';
 import * as CoreActions from '../actions/core.actions';
 
@@ -35,19 +32,14 @@ export class CoreEffects {
       switchMap((action: CoreActions.SignalREstablishConnectionAction) => {
         return this.signalRService.initializeConnection().pipe(
           tap(() =>
-            this.notificationService.showNotification(
-              MessageType.Info,
+            this.notificationService.showInfo(
               'SignalR',
               'Connection established'
             )
           ),
           map(() => new CoreActions.SignalREstablishedAction()),
           catchError((error: any) => {
-            this.notificationService.showNotification(
-              MessageType.Error,
-              'SignalR',
-              error
-            );
+            this.notificationService.showError('SignalR', error);
             return of(new CoreActions.SignalRFailedAction(error));
           })
         );
@@ -58,11 +50,7 @@ export class CoreEffects {
   loginFailed$$ = this.actions$.ofType(CoreActions.LOGIN_FAILED).pipe(
     tap((action: CoreActions.LoginFailedAction) => {
       const errorMessage = action.errorMessage.message;
-      this.notificationService.showNotification(
-        MessageType.Error,
-        'Login Failed',
-        errorMessage
-      );
+      this.notificationService.showError('Login Failed', errorMessage);
     })
   );
 

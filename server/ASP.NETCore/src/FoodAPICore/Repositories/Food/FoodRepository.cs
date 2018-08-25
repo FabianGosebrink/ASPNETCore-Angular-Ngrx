@@ -1,50 +1,46 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using FoodAPICore.Entities;
+using FoodAPICore.Helpers;
+using FoodAPICore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using FoodAPICore.Models;
-using FoodAPICore.Helpers;
 using System.Linq.Dynamic.Core;
 
 namespace FoodAPICore.Repositories.Food
 {
     public class FoodRepository : IFoodRepository
     {
-        private readonly ConcurrentDictionary<Guid, FoodItem> _storage = new ConcurrentDictionary<Guid, FoodItem>();
+        private readonly FoodDbContext _foodDbContext;
+
+        public FoodRepository(FoodDbContext foodDbContext)
+        {
+            _foodDbContext = foodDbContext;
+        }
 
         public FoodItem GetSingle(Guid id)
         {
-            FoodItem foodItem;
-            return _storage.TryGetValue(id, out foodItem) ? foodItem : null;
+            return _foodDbContext.FoodItems.FirstOrDefault(x => x.Id == id);
         }
 
         public void Add(FoodItem item)
         {
-            item.Id = Guid.NewGuid();
-
-            if (!_storage.TryAdd(item.Id, item))
-            {
-                throw new Exception("Item could not be added");
-            }
+            _foodDbContext.FoodItems.Add(item);
         }
 
         public void Delete(Guid id)
         {
-            FoodItem foodItem;
-            if (!_storage.TryRemove(id, out foodItem))
-            {
-                throw new Exception("Item could not be removed");
-            }
+            FoodItem foodItem = GetSingle(id);
+            _foodDbContext.FoodItems.Remove(foodItem);
         }
 
         public void Update(FoodItem item)
         {
-            _storage.TryUpdate(item.Id, item, GetSingle(item.Id));
+            _foodDbContext.FoodItems.Update(item);
         }
 
         public IQueryable<FoodItem> GetAll(QueryParameters queryParameters)
         {
-            IQueryable<FoodItem> _allItems = _storage.Values.AsQueryable().OrderBy(queryParameters.OrderBy,
+            IQueryable<FoodItem> _allItems = _foodDbContext.FoodItems.OrderBy(queryParameters.OrderBy,
                queryParameters.IsDescending());
 
             if (queryParameters.HasQuery())
@@ -61,13 +57,12 @@ namespace FoodAPICore.Repositories.Food
 
         public int Count()
         {
-            return _storage.Count;
+            return _foodDbContext.FoodItems.Count();
         }
 
         public bool Save()
         {
-            // To keep interface consistent with Controllers, Tests & EF Interfaces
-            return true;
+            return (_foodDbContext.SaveChanges() >= 0);
         }
 
         public ICollection<FoodItem> GetRandomMeal()
@@ -83,7 +78,7 @@ namespace FoodAPICore.Repositories.Food
 
         private FoodItem GetRandomItem(string type)
         {
-            return _storage.Values
+            return _foodDbContext.FoodItems
                 .Where(x => x.Type == type)
                 .OrderBy(o => Guid.NewGuid())
                 .FirstOrDefault();

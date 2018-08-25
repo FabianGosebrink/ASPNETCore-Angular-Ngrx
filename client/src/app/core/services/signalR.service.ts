@@ -5,7 +5,9 @@ import { environment } from '../../../environments/environment';
 import { FoodStoreFacade } from '../../food/store/food-store.facade';
 import { Ingredient } from '../../shared/models/ingredient.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SignalRService {
   private foodHubConnection: HubConnection;
 

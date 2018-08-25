@@ -51,9 +51,9 @@ namespace FoodAPICore
                     });
             });
 
-            // Adds framework services.
+            // services.AddDbContext<FoodDbContext>(opt => opt.UseInMemoryDatabase("FoodDatabase"));
             services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<FoodDbContext>()
                 .AddDefaultTokenProviders();
@@ -103,14 +103,14 @@ namespace FoodAPICore
                      options.ApiName = "WebAPI";
                  });
 
-            services.AddScoped<IFoodRepository, EfFoodRepository>();
+            services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddSingleton<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerGen(c =>
             {
@@ -165,7 +165,6 @@ namespace FoodAPICore
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
-            app.EnsureSeedData();
             app.UseSignalR(routes =>
             {
                 routes.MapHub<FoodHub>("/foodhub");

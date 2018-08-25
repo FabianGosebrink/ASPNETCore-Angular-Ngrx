@@ -1,5 +1,5 @@
 import { Component, Input, NgZone } from '@angular/core';
-import { AbstractCameraService } from '../../../core/services/camera.service';
+import { AbstractCameraService } from '../../../core/services/abstract-camera.service';
 import { FoodItem } from '../../../shared/models/foodItem.model';
 
 @Component({

@@ -3,10 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { IngredientsDataService } from '../../../core/data-services/ingredient-data.service';
-import {
-  AbstractNotificationService,
-  MessageType
-} from '../../../core/services/notification.service';
+import { AbstractNotificationService } from '../../../core/services/abstract-notification.service';
 import { Ingredient } from '../../../shared/models/ingredient.model';
 import * as ingredientActions from '../actions/ingredients.actions';
 
@@ -34,8 +31,7 @@ export class IngredientEffects {
         .add(action.payload, action.foodId)
         .pipe(
           map((data: Ingredient) => {
-            this.notificationService.showNotification(
-              MessageType.Success,
+            this.notificationService.showSuccess(
               'Ingredients',
               'Ingredients added!'
             );
@@ -57,8 +53,7 @@ export class IngredientEffects {
           .delete(action.payload, action.foodId)
           .pipe(
             map((data: any) => {
-              this.notificationService.showNotification(
-                MessageType.Success,
+              this.notificationService.showSuccess(
                 'Ingredients',
                 'Ingredients deleted!'
               );
@@ -78,8 +73,7 @@ export class IngredientEffects {
     .ofType(ingredientActions.INGREDIENTS_ERROR)
     .pipe(
       tap((action: ingredientActions.IngredientsErrorAction) =>
-        this.notificationService.showNotification(
-          MessageType.Error,
+        this.notificationService.showError(
           'Ingredients',
           action.error.statusText
         )

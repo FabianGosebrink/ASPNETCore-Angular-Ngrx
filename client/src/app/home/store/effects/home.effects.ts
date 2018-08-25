@@ -3,10 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { FoodDataService } from '../../../core/data-services/food-data.service';
-import {
-  AbstractNotificationService,
-  MessageType
-} from '../../../core/services/notification.service';
+import { AbstractNotificationService } from '../../../core/services/abstract-notification.service';
 import * as HomeActions from '../actions/home.actions';
 import { HomeErrorAction } from '../actions/home.actions';
 
@@ -27,11 +24,7 @@ export class HomeEffects {
   @Effect({ dispatch: false })
   homeError$ = this.actions$.ofType(HomeActions.HOME_ERROR).pipe(
     tap((action: HomeErrorAction) => {
-      this.notificationService.showNotification(
-        MessageType.Error,
-        'Home',
-        action.error.message
-      );
+      this.notificationService.showError('Home', action.error.message);
     })
   );
 
