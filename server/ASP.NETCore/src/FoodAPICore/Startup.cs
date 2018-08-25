@@ -104,7 +104,7 @@ namespace FoodAPICore
                  });
 
             services.AddScoped<IFoodRepository, FoodRepository>();
-            services.AddSingleton<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
 
             services.AddMvc().AddJsonOptions(options =>
