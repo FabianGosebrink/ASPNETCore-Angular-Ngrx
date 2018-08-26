@@ -13,12 +13,10 @@ app.on('window-all-closed', function() {
   }
 });
 
-app.setAppUserModelId('eMeal');
-
 app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 1024,
-    height: 768
+    height: 768,
   });
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -36,7 +34,16 @@ app.on('ready', function() {
 });
 
 app.on('window-all-closed', () => {
-  app.quit();
+  globalShortcut.unregisterAll();
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (win === null) {
+    createWindow();
+  }
 });
 
 let startSendCpuValues = () => {
