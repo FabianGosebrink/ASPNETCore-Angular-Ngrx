@@ -98,6 +98,7 @@ namespace FoodAPICore
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                  .AddIdentityServerAuthentication(options =>
                  {
+                     // this line gets overwritten on your server, points to localhost right now
                      options.Authority = Configuration["IdentityServerEndpoint"];
                      options.RequireHttpsMetadata = Configuration["IdentityServerEndpoint"].StartsWith("https");
                      options.ApiName = "WebAPI";

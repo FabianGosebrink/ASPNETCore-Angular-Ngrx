@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
-import { PlatformInformationProvider } from './platform-information.provider';
+import { environment } from '../../../environments/environment';
+import { MobileNotificationService } from './mobile-notification.service';
 import { WebNotificationService } from './web-notification.service';
 
 export function notificationFactory(
-  toasterService: ToasterService,
-  platformProvider: PlatformInformationProvider
+  toasterService: ToasterService
 ): AbstractNotificationService {
-  if (platformProvider.isElectron) {
+  if (environment.desktop) {
     // return new DesktopNotificationService();
     return new WebNotificationService(toasterService);
   }
+
+  if (environment.mobile) {
+    return new MobileNotificationService();
+  }
+
   return new WebNotificationService(toasterService);
 }
 
 @Injectable({
   providedIn: 'root',
   useFactory: notificationFactory,
-  deps: [ToasterService, PlatformInformationProvider],
+  deps: [ToasterService],
 })
 export abstract class AbstractNotificationService
   implements INotificationService {

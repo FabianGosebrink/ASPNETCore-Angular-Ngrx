@@ -1,18 +1,16 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
-import { PlatformInformationProvider } from './platform-information.provider';
+import { Subject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CpuValueService {
-  onNewCpuValue = new EventEmitter<string>();
+  onNewCpuValue = new Subject<string>();
 
-  constructor(
-    private electronService: ElectronService,
-    private platformInformationProvider: PlatformInformationProvider
-  ) {
-    if (this.platformInformationProvider.isElectron) {
+  constructor(private electronService: ElectronService) {
+    if (environment.desktop) {
       this.registerCpuEvent();
     }
   }
@@ -22,7 +20,7 @@ export class CpuValueService {
       this.electronService.ipcRenderer.on(
         'newCpuValue',
         (event: any, data: any) => {
-          this.onNewCpuValue.emit(data);
+          this.onNewCpuValue.next(data);
         }
       );
     }

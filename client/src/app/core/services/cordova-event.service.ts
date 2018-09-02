@@ -8,10 +8,6 @@ export class CordovaEventService {
   constructor(
     private readonly notificationService: AbstractNotificationService
   ) {
-    document.addEventListener('deviceready', this.onCordovaDeviceReady);
-  }
-
-  private onCordovaDeviceReady() {
     this.checkCamera();
     this.checkToast();
   }

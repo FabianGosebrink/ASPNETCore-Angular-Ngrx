@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,18 +6,9 @@ import { environment } from '../../../environments/environment';
 export class PlatformInformationProvider {
   private _iOS: boolean;
   private _isAndroid: boolean;
-  private _isElectron: boolean;
-
-  get isMobileDevice(): boolean {
-    return this._iOS || this._isAndroid;
-  }
 
   get isMobileWeb(): boolean {
     return window.innerWidth <= 768;
-  }
-
-  get isWeb(): boolean {
-    return !this.isMobileDevice && !this.isElectron;
   }
 
   get isIOS(): boolean {
@@ -27,10 +17,6 @@ export class PlatformInformationProvider {
 
   get isAndroid(): boolean {
     return this._isAndroid;
-  }
-
-  get isElectron(): boolean {
-    return this._isElectron;
   }
 
   get userAgent(): boolean {
@@ -56,15 +42,6 @@ export class PlatformInformationProvider {
     this._isAndroid =
       this.getWindow().cordova &&
       this.getWindow().cordova.platformId === 'android';
-    this._isElectron =
-      this.getWindow().navigator.userAgent.match(/Electron/) !== null;
-
-    if (!environment.production) {
-      // console.log('userAgent: ' + this.getWindow().navigator.userAgent);
-      // console.log('mobile: ' + this.isMobileDevice);
-      // console.log('desktop: ' + this.isElectron);
-      // console.log('web: ' + this.isWeb);
-    }
   }
 
   private getWindow(): any {

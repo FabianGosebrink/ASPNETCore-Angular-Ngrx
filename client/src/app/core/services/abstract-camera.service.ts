@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { DesktopCameraService } from './desktop-camera.service';
 import { MobileCameraService } from './mobile-camera.service';
-import { PlatformInformationProvider } from './platform-information.provider';
 
-export function cameraFactory(
-  platformProvider: PlatformInformationProvider
-): AbstractCameraService {
-  if (platformProvider.isMobileDevice) {
-    return new MobileCameraService();
-  }
-
-  return new DesktopCameraService();
+export function cameraFactory(): AbstractCameraService {
+  return environment.mobile
+    ? new MobileCameraService()
+    : new DesktopCameraService();
 }
 
 interface ICameraService {
@@ -21,7 +17,6 @@ interface ICameraService {
 @Injectable({
   providedIn: 'root',
   useFactory: cameraFactory,
-  deps: [PlatformInformationProvider],
 })
 export abstract class AbstractCameraService implements ICameraService {
   abstract getPhoto(): Observable<string>;
