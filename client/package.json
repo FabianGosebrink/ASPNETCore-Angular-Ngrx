@@ -38,7 +38,6 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "@angular/service-worker": "^6.1.0",
     "@aspnet/signalr": "^1.0.2",
     "@ngrx/effects": "6.0.1",
     "@ngrx/router-store": "6.0.1",
