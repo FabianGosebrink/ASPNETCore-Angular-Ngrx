@@ -14,8 +14,16 @@ export class EMealFooterComponent {
     return environment;
   }
 
+  get platformName() {
+    return this.platformInformationProvider.platformName;
+  }
+
+  get userAgent() {
+    return this.platformInformationProvider.userAgent;
+  }
+
   constructor(
-    public platformInformationProvider: PlatformInformationProvider,
+    private platformInformationProvider: PlatformInformationProvider,
     private cpuValueService: CpuValueService,
     private ngZone: NgZone
   ) {

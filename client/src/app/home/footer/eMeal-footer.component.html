@@ -2,7 +2,7 @@
     <p>
         <i class="fa fa-copyright" aria-hidden="true"></i> 2018 Offering Solutions
         <small *ngIf="currentEnvironment.desktop"> - running on desktop CPU (%): {{percentage}}</small>
-        <small *ngIf="currentEnvironment.mobile"> - running on mobile {{platformInformationProvider.platformName}}</small>
-        <small *ngIf="!currentEnvironment.desktop && !currentEnvironment.mobile"> - running on web {{platformInformationProvider.userAgent}}</small>
+        <small *ngIf="currentEnvironment.mobile"> - running on mobile: {{platformName}}</small>
+        <small *ngIf="!currentEnvironment.desktop && !currentEnvironment.mobile"> - running on web {{userAgent}}</small>
     </p>
 </footer>
