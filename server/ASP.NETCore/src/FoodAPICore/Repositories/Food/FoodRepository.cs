@@ -1,6 +1,7 @@
 ﻿using FoodAPICore.Entities;
 using FoodAPICore.Helpers;
 using FoodAPICore.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,9 @@ namespace FoodAPICore.Repositories.Food
 
         public void Delete(Guid id)
         {
-            FoodItem foodItem = GetSingle(id);
+            FoodItem foodItem = _foodDbContext
+                .FoodItems
+                .Include(x => x.Ingredients).FirstOrDefault(x => x.Id == id);
             _foodDbContext.FoodItems.Remove(foodItem);
         }
 
