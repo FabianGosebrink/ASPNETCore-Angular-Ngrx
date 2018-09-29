@@ -33,6 +33,12 @@ namespace FoodAPICore.Repositories.Food
             FoodItem foodItem = _foodDbContext
                 .FoodItems
                 .Include(x => x.Ingredients).FirstOrDefault(x => x.Id == id);
+
+            foreach (Ingredient ingredient in foodItem.Ingredients)
+            {
+                _foodDbContext.Ingredients.Remove(ingredient);
+            }
+
             _foodDbContext.FoodItems.Remove(foodItem);
         }
 
