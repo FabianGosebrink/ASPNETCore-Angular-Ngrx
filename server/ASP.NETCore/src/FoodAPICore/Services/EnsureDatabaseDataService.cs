@@ -70,6 +70,10 @@ namespace FoodAPICore.Services
             context.FoodItems.Add(new FoodItem() { Calories = 1100, Name = "Hamburger", Created = DateTime.Now });
             context.FoodItems.Add(new FoodItem() { Calories = 1200, Name = "Spaghetti", Created = DateTime.Now });
             context.FoodItems.Add(new FoodItem() { Calories = 1300, Name = "Pizza", Created = DateTime.Now });
+
+            context.Ingredients.Add(new Ingredient() { Quantity = 1, Weight = 2, Description = "mashroom", FoodItem = context.FoodItems.FirstOrDefault() });
+            context.Ingredients.Add(new Ingredient() { Quantity = 2, Weight = 1, Description = "wild mashroom", FoodItem = context.FoodItems.FirstOrDefault() });
+           context.SaveChanges();
         }
     }
 }
