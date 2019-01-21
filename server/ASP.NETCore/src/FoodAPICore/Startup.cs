@@ -20,6 +20,7 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using IdentityServer4.AccessTokenValidation;
 using FoodAPICore.Hubs;
+using FoodAPICore.Repositoriess;
 
 namespace FoodAPICore
 {
@@ -53,7 +54,7 @@ namespace FoodAPICore
 
             // services.AddDbContext<FoodDbContext>(opt => opt.UseInMemoryDatabase("FoodDatabase"));
             services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<FoodDbContext>()
                 .AddDefaultTokenProviders();
@@ -69,6 +70,7 @@ namespace FoodAPICore
             // Identity options.
             services.Configure<IdentityOptions>(options =>
             {
+                //options.User.RequireUniqueEmail = true;
                 // Password settings.
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 5;
@@ -107,6 +109,8 @@ namespace FoodAPICore
             services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
+            services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<IStatesRepository, StatesRepository>();
 
             services.AddMvc().AddJsonOptions(options =>
             {

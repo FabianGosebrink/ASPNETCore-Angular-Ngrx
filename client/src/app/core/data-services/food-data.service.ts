@@ -10,7 +10,7 @@ export class FoodDataService {
   private actionUrl: string;
 
   constructor(private http: HttpWrapperService) {
-    this.actionUrl = environment.server + environment.apiUrl + 'foods/';
+    this.actionUrl = environment.apiUrl + '/foods/';
   }
 
   getAllFood(): Observable<FoodItem[]> {

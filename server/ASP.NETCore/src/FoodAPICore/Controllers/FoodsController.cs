@@ -13,6 +13,7 @@ using IdentityServer4.AccessTokenValidation;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.SignalR;
 using FoodAPICore.Hubs;
+using Microsoft.AspNetCore.Http;
 
 namespace FoodAPICore.Controllers
 {
@@ -23,12 +24,15 @@ namespace FoodAPICore.Controllers
         private readonly IFoodRepository _foodRepository;
         private readonly IHubContext<FoodHub> _hubContext;
         private readonly IUrlHelper _urlHelper;
+        private IHttpContextAccessor _accessor;
 
-        public FoodsController(IUrlHelper urlHelper, IFoodRepository foodRepository, IHubContext<FoodHub> hubContext)
+        public FoodsController(IUrlHelper urlHelper, IFoodRepository foodRepository,
+            IHubContext<FoodHub> hubContext, IHttpContextAccessor accessor)
         {
             _foodRepository = foodRepository;
             _hubContext = hubContext;
             _urlHelper = urlHelper;
+            _accessor = accessor;
         }
 
         [HttpGet(Name = nameof(GetAllFoods))]

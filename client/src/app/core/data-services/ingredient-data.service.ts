@@ -11,7 +11,7 @@ export class IngredientsDataService {
   private endpoint = 'ingredients';
 
   constructor(private http: HttpWrapperService) {
-    this.actionUrl = environment.server + environment.apiUrl + 'foods/';
+    this.actionUrl = environment.apiUrl + '/foods/';
   }
 
   getIngredientsForFood(foodId: string): Observable<Ingredient[]> {

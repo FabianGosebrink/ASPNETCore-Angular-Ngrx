@@ -8,5 +8,5 @@ export const environment = {
   mobile: false,
   desktop: false,
   server: 'http://localhost:51777/',
-  apiUrl: 'api/',
+  apiUrl: 'http://localhost:51777/api',
 };

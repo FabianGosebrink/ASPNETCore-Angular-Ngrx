@@ -21,12 +21,24 @@
                     <a routerLink="/food">
                         <i class="fa fa-cutlery fa-fw"></i> Food</a>
                 </li>
+                <li routerLinkActive="active" *ngIf="(isAuthenticated$ | async)">
+                    <a routerLink="/ingredients">
+                        <i class="fa fa-cutlery fa-fw"></i> Ingredients</a>
+                </li>
+                <li routerLinkActive="active" *ngIf="(isAuthenticated$ | async)">
+                    <a routerLink="/customers">
+                        <i class="fa fa-cutlery fa-fw"></i> Customers</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li routerLinkActive="active" *ngIf="!(isAuthenticated$ | async)">
                     <a routerLink="/account/login">
                         <i class="fa fa-sign-in fa-fw"></i> Login</a>
+                </li>
+                <li routerLinkActive="active" *ngIf="!(isAuthenticated$ | async)">
+                    <a routerLink="/register">
+                        <i class="fa fa-sign-in fa-fw"></i> Register</a>
                 </li>
                 <li routerLinkActive="active" *ngIf="(isAuthenticated$ | async)">
                     <a href (click)="doNothing($event)">
