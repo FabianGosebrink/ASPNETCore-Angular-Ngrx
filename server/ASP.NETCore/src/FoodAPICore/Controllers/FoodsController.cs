@@ -190,7 +190,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPut]
-        [Route("{id}", Name = nameof(UpdateFood))]
+        [Route("{id}")]//e = nameof(UpdateFood))]
         [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult UpdateFood(Guid id, [FromBody]FoodItemUpdateDto foodItem)
         {

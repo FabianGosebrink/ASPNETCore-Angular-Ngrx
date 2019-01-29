@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FoodAPICore.Entities;
 using FoodAPICore.Repositories;
+using IdentityServer4.AccessTokenValidation;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodAPICore.Controllers
 {
@@ -109,7 +112,9 @@ namespace FoodAPICore.Controllers
 
         // PUT api/customers/5
         [HttpPut("{id}")]
-    //    [ValidateAntiForgeryToken]
+        //    [ValidateAntiForgeryToken]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
+
         ////[ProducesResponseType(typeof(ApiResponse), 200)]
         ////[ProducesResponseType(typeof(ApiResponse), 400)]
         public async Task<ActionResult> UpdateCustomer(int id, [FromBody]Customer customer)
@@ -137,7 +142,9 @@ namespace FoodAPICore.Controllers
 
         // DELETE api/customers/5
         [HttpDelete("{id}")]
-        [ValidateAntiForgeryToken]
+        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme,
+            Policy = "Modify Resources")]
+        //     [ValidateAntiForgeryToken] //  bug?
         [ProducesResponseType(typeof(ApiResponse), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
         public async Task<ActionResult> Delete(int id)
