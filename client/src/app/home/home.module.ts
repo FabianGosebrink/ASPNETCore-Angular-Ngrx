@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
-import { EMealFooterComponent } from './footer/eMeal-footer.component';
 import { HomeRoutes } from './home.routes';
 import { HomeComponent } from './home/home.component';
 import { RandomMealComponent } from './randomMeal/randomMeal.component';
@@ -30,7 +29,6 @@ import { reducers } from './store/reducers';
     // Components & Directives
     HomeComponent,
     RandomMealComponent,
-    EMealFooterComponent,
     SingleMealComponent,
   ],
 

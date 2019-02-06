@@ -1,3 +1,14 @@
-<img class="img-responsive center-block" *ngIf="!foodItem?.imageString" src="https://placehold.it/320x200" alt="imagestring"
-    (click)="takePicture($event, foodItem)">
-<img class="img-responsive center-block" *ngIf="foodItem?.imageString" [src]="foodItem.imageString" alt="imagestring" (click)="takePicture($event, foodItem)">
+<img
+  class="img-responsive center-block"
+  *ngIf="!foodItem?.imageString"
+  src="https://placehold.it/320x200"
+  alt="imagestring"
+  (click)="takePicture($event, foodItem)"
+/>
+<img
+  class="img-responsive center-block"
+  *ngIf="foodItem?.imageString"
+  [src]="foodItem.imageString"
+  alt="imagestring"
+  (click)="takePicture($event, foodItem)"
+/>

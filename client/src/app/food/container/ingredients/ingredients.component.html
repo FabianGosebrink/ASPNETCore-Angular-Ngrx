@@ -1,14 +1,19 @@
-<div class="row">
+<h3>Ingredients</h3>
+<form
+  (ngSubmit)="addIngredient()"
+  [formGroup]="form"
+  [ngClass]="!form.pristine && !form.valid ? 'has-error' : ''"
+>
+  <input
+    class="form-control"
+    type="text"
+    placeholder="add ingredient"
+    formControlName="description"
+  />
+</form>
+<br />
 
-  <div class="col-sm-4 col-sm-offset-4">
-    <h3>Ingredients</h3>
-    <form (ngSubmit)="addIngredient()" [formGroup]="form" [ngClass]="(!form.pristine && !form.valid) ? 'has-error' : ''">
-      <input class="form-control" type="text" placeholder="add ingredient" formControlName="description">
-    </form>
-    <br/>
-
-    <app-ingredient-list [ingredients]="ingredients$ | async" (ingredientDeleted)="delete($event)"></app-ingredient-list>
-
-  </div>
-
-</div>
+<app-ingredient-list
+  [ingredients]="ingredients$ | async"
+  (ingredientDeleted)="delete($event)"
+></app-ingredient-list>

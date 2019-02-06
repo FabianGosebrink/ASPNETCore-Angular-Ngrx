@@ -1,22 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Sorter } from '../../../core/services/sort.service';
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { Sorter } from '@app/core/services/sort.service';
+import { FoodItem } from '@app/shared/models/foodItem.model';
 
 @Component({
   selector: 'app-foodlist',
   templateUrl: './food-list.component.html',
+  styleUrls: ['./food-list.component.css'],
 })
 export class FoodListComponent {
   foodItem: FoodItem;
   foodToDelete: FoodItem;
   searchString: string;
 
-  @Input()
-  foods: FoodItem[];
-  @Output()
-  foodSelected = new EventEmitter<FoodItem>();
-  @Output()
-  foodDeleted = new EventEmitter<FoodItem>();
+  @Input() foods: FoodItem[];
+  @Output() foodSelected = new EventEmitter<FoodItem>();
+  @Output() foodDeleted = new EventEmitter<FoodItem>();
 
   constructor(private sorter: Sorter) {}
 

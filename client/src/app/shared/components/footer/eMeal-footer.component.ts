@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { CpuValueService } from '../../core/services/desktop-cpuValue.service';
-import { PlatformInformationProvider } from '../../core/services/platform-information.provider';
+import { CpuValueService } from '@app/core/services/desktop-cpuValue.service';
+import { PlatformInformationProvider } from '@app/core/services/platform-information.provider';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-emeal-footer',

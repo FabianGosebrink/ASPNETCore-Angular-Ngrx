@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { CurrentUserService } from '@app/core/services/currentUser.service';
+import { CoreStoreFacade } from '@app/core/store/core-store.facade';
+import { Configuration } from '@app/shared/configuration/app.configuration';
 import { Observable } from 'rxjs';
-import { CurrentUserService } from '../../../core/services/currentUser.service';
-import { CoreStoreFacade } from '../../../core/store/core-store.facade';
-import { Configuration } from '../../configuration/app.configuration';
 
 @Component({
   selector: 'app-navigation',

@@ -1,9 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  padding-top: 70px;
+  padding-top: 5rem;
   padding-bottom: 30px;
 }
-    
+
 .starter-template {
-    text-align: center;
+  text-align: center;
+}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
 }
