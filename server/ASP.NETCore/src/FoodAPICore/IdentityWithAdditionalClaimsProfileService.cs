@@ -15,10 +15,12 @@ namespace FoodAPICore
     {
         private readonly IUserClaimsPrincipalFactory<IdentityUser> _claimsFactory;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public IdentityWithAdditionalClaimsProfileService(UserManager<IdentityUser> userManager, IUserClaimsPrincipalFactory<IdentityUser> claimsFactory)
+        public IdentityWithAdditionalClaimsProfileService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IUserClaimsPrincipalFactory<IdentityUser> claimsFactory)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _claimsFactory = claimsFactory;
         }
 
@@ -33,6 +35,12 @@ namespace FoodAPICore
             claims = claims.Where(claim => context.RequestedClaimTypes.Contains(claim.Type)).ToList();
 
             claims.Add(new Claim(JwtClaimTypes.GivenName, user.UserName));
+
+            var adminRole = await _roleManager.FindByNameAsync("administrator");
+            var userRole = await _roleManager.FindByNameAsync("user");
+
+            //claims.Add(new Claim(JwtClaimTypes.Role, "administrator"));
+            //claims.Add(new Claim(JwtClaimTypes.Role, "user"));
 
             //if (user.IsAdmin)
             //{

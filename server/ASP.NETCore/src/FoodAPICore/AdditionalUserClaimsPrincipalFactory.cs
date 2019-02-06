@@ -9,12 +9,15 @@ namespace FoodAPICore
 {
     public class AdditionalUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<IdentityUser, IdentityRole>
     {
+        private RoleManager<IdentityRole> _roleManager;
+
         public AdditionalUserClaimsPrincipalFactory( 
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager, 
             IOptions<IdentityOptions> optionsAccessor) 
             : base(userManager, roleManager, optionsAccessor)
         {
+            _roleManager = roleManager;
         }
 
         public async override Task<ClaimsPrincipal> CreateAsync(IdentityUser user)
@@ -24,10 +27,9 @@ namespace FoodAPICore
 
             var claims = new List<Claim>();
 
-            //if (user.IsAdmin)
-            //{
-            //    claims.Add(new Claim(JwtClaimTypes.Role, "admin"));
-            //}
+            var adminRole = await _roleManager.FindByNameAsync("administrator");
+            var userRole = await _roleManager.FindByNameAsync("user");
+
 
             identity.AddClaims(claims);
             return principal;

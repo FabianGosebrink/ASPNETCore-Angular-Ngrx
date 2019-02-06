@@ -33,10 +33,10 @@ namespace FoodAPICore.Services
             await roleManager.CreateAsync(new IdentityRole("user"));
 
             // Adds Roles to Role Claims.
-            var adminRole = await roleManager.FindByNameAsync("administrator");
-            var userRole = await roleManager.FindByNameAsync("user");
-            await roleManager.AddClaimAsync(adminRole, new Claim(JwtClaimTypes.Role, "administrator"));
-            await roleManager.AddClaimAsync(userRole, new Claim(JwtClaimTypes.Role, "user"));
+            //var adminRole = await roleManager.FindByNameAsync("administrator");
+            //var userRole = await roleManager.FindByNameAsync("user");
+            //await roleManager.AddClaimAsync(adminRole, new Claim(JwtClaimTypes.Role, "administrator"));
+            //await roleManager.AddClaimAsync(userRole, new Claim(JwtClaimTypes.Role, "user"));
 
             // Seeds an admin user.
             var user = new IdentityUser
