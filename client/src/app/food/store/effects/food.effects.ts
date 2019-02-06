@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { FoodDataService } from '../../../core/data-services/food-data.service';
@@ -10,7 +10,8 @@ import * as foodActions from '../actions/food.actions';
 @Injectable()
 export class FoodEffects {
   @Effect()
-  addFood$ = this.actions$.ofType(foodActions.ADD_FOOD).pipe(
+  addFood$ = this.actions$.pipe(
+    ofType(foodActions.ADD_FOOD),
     map((action: foodActions.AddFoodAction) => action.foodItem),
     switchMap(foodItem => {
       return this.foodDataService.addFood(foodItem).pipe(
@@ -24,7 +25,8 @@ export class FoodEffects {
   );
 
   @Effect()
-  loadFood$ = this.actions$.ofType(foodActions.LOAD_FOOD).pipe(
+  loadFood$ = this.actions$.pipe(
+    ofType(foodActions.LOAD_FOOD),
     switchMap(() => {
       return this.foodDataService.getAllFood().pipe(
         map((data: any) => {
@@ -36,7 +38,8 @@ export class FoodEffects {
   );
 
   @Effect()
-  deleteFood$ = this.actions$.ofType(foodActions.DELETE_FOOD).pipe(
+  deleteFood$ = this.actions$.pipe(
+    ofType(foodActions.DELETE_FOOD),
     switchMap((action: foodActions.DeleteFoodAction) => {
       return this.foodDataService.deleteFood(action.foodItem).pipe(
         map((data: any) => {
@@ -49,7 +52,8 @@ export class FoodEffects {
   );
 
   @Effect()
-  updateFood$ = this.actions$.ofType(foodActions.UPDATE_FOOD).pipe(
+  updateFood$ = this.actions$.pipe(
+    ofType(foodActions.UPDATE_FOOD),
     switchMap((action: foodActions.UpdateFoodAction) => {
       return this.foodDataService
         .updateFood(action.foodItem.id, action.foodItem)
@@ -64,13 +68,12 @@ export class FoodEffects {
   );
 
   @Effect({ dispatch: false })
-  foodError = this.actions$
-    .ofType(foodActions.FOOD_ERROR)
-    .pipe(
-      tap((action: foodActions.FoodErrorAction) =>
-        this.notificationService.showError('Food', action.error.statusText)
-      )
-    );
+  foodError = this.actions$.pipe(
+    ofType(foodActions.FOOD_ERROR),
+    tap((action: foodActions.FoodErrorAction) =>
+      this.notificationService.showError('Food', action.error.statusText)
+    )
+  );
 
   constructor(
     private foodDataService: FoodDataService,

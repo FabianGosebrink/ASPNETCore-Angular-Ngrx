@@ -28,10 +28,9 @@ export class DesktopCameraService implements AbstractCameraService {
         .getUserMedia({ video: true, audio: false })
         .then(
           (stream: any) => {
-            const vendorURL = window.URL || window.webkitURL;
             const doc = document;
             const videoElement = doc.createElement('video');
-            videoElement.src = vendorURL.createObjectURL(stream);
+            videoElement.srcObject = stream;
             videoElement.play();
 
             const takePhotoInternal = () => {
