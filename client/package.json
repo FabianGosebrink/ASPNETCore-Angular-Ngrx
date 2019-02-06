@@ -76,7 +76,7 @@
     "typescript": "~3.2.2",
     "cordova-icon": "1.0.0",
     "cordova-splash": "1.0.0",
-    "electron-packager": "^11.1.0",
+    "electron-packager": "^13.0.1",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
     "mkdirp": "^0.5.1",
