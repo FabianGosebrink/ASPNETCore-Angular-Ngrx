@@ -25,6 +25,24 @@ export class CustomerDataService {
       .pipe(catchError(this.handleError));
   }
 
+  insertCustomer(customer: Customer) : Observable<Customer> {
+    return this.http
+    .post<Customer>(this.actionUrl, customer)
+    .pipe(catchError(this.handleError));
+  }
+
+  updateCustomer(id: string, customer: Customer): Observable<Customer> {
+      return this.http
+      .put<Customer>(this.actionUrl + id, JSON.stringify(customer))
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteCustomer(id: string) {
+    return this.http
+      .delete(this.actionUrl + id)
+      .pipe(catchError(this.handleError));
+  }
+ 
   getStates(): Observable<State[]> {
     return this.http
     .get<State[]>(environment.apiUrl+'/state')
