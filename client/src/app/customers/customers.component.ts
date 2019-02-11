@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from '../shared/base.service';
 // import { DataFilterService } from '../core/data-filter.service';
-import { DataService } from '../core/data-services/data.service';
+// import { DataService } from '../core/data-services/data.service';
+import { CustomerDataService } from '../core/data-services/customer-data.service';
 import { Customer} from '../shared/interfaces';
 
 @Component({ 
   selector: 'app-customers', 
   templateUrl: './customers.component.html'
 })
-export class CustomersComponent extends BaseService implements OnInit {
+export class CustomerComponent implements OnInit {
 
   title: string;
   customers: Customer[] = [];
@@ -17,9 +18,8 @@ export class CustomersComponent extends BaseService implements OnInit {
   totalRecords: number = 0;
   pageSize: number = 10;
 
-  constructor(private dataService: DataService )
+  constructor(private dataService: CustomerDataService )
   {
-   super();
   }
   ngOnInit() {
     this.title = 'Customers';
@@ -48,23 +48,23 @@ export class CustomersComponent extends BaseService implements OnInit {
         (err: any) => console.log(err),
         () => console.log('getCustomersPage() retrieved customers'));
   }
-  updateCustomer(customer : Customer)
-  {
-    this.dataService.updateCustomer(customer)
-     .subscribe((response: any) => {
+  // updateCustomer(customer : Customer)
+  // {
+  //   this.dataService.updateCustomer(customer)
+  //    .subscribe((response: any) => {
 
-     },
-     (err: any) => console.log(err),
-     () => console.log('update customer'));
-  }
-  deleteCustomer(id : string)
-  {
-    this.dataService.deleteCustomer(id)
-    .subscribe((response: any) => {
-    },
-    (err: any) => console.log(err),
-    () => console.log('delete customer'));
-  }
+  //    },
+  //    (err: any) => console.log(err),
+  //    () => console.log('update customer'));
+  // }
+  // deleteCustomer(id : string)
+  // {
+  //   this.dataService.deleteCustomer(id)
+  //   .subscribe((response: any) => {
+  //   },
+  //   (err: any) => console.log(err),
+  //   () => console.log('delete customer'));
+  // }
   getCustomer(id : string)
   {
     this.dataService.getCustomer(id)

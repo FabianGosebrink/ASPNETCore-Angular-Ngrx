@@ -19,7 +19,7 @@ import { SharedModule } from './shared/shared.module';
 import { CustomSerializer, reducers } from './store';
 import { RegisterComponent } from './register/register.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
-import { CustomersComponent} from './customers/customers.component'
+import { CustomerComponent} from './customers/customers.component'
 //import { CustomersGridComponent} from './customers/crouter.component'
 import { CustomerEditComponent} from './customers/customer-edit.component'
 import { CustomerEditReactiveComponent} from './customers/customer-edit-reactive.component'
@@ -45,7 +45,7 @@ import { DataService } from './core/data-services/data.service';
     StoreRouterConnectingModule,
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer },DataService],
-  declarations: [AppComponent, RegisterComponent,IngredientsComponent, CustomersComponent, CustomerEditComponent],
+  declarations: [AppComponent, RegisterComponent,IngredientsComponent, CustomerComponent, CustomerEditComponent],
 
   bootstrap: [AppComponent],
 })

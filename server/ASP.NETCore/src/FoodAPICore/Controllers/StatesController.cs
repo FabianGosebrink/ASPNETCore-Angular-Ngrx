@@ -8,7 +8,7 @@ using FoodAPICore.Repositories;
 
 namespace FoodAPICore.Controllers
 {
-    [Route("api/states")]
+    [Route("api/[controller]")]
     public class StatesApiController : Controller
     {
         IStatesRepository _StatesRepository;

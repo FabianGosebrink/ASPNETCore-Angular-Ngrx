@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './shared/guards/authentication.guard';
 import { RegisterComponent } from './register/register.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
-import { CustomersComponent} from './customers';
+import { CustomerComponent} from './customers';
 import { CustomerEditComponent } from './customers/customer-edit.component';
 
 export const AppRoutes: Routes = [
@@ -15,7 +15,7 @@ export const AppRoutes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountModule' },
   { path: 'register', component: RegisterComponent },
   { path: 'ingredients', component: IngredientsComponent },
-  { path: 'customers', component: CustomersComponent },
+  { path: 'customers', component: CustomerComponent },
   { path: 'customer-edit/:id', component: CustomerEditComponent},
   {
     path: '**',
