@@ -9,14 +9,14 @@ using FoodAPICore.Repositories;
 namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
-    public class StatesApiController : Controller
+    public class StatesController : Controller
     {
         IStatesRepository _StatesRepository;
         ILogger _Logger;
 
-        public StatesApiController(IStatesRepository statesRepo, ILoggerFactory loggerFactory) {
+        public StatesController(IStatesRepository statesRepo, ILoggerFactory loggerFactory) {
             _StatesRepository = statesRepo;
-            _Logger = loggerFactory.CreateLogger(nameof(StatesApiController));
+            _Logger = loggerFactory.CreateLogger(nameof(StatesController));
         }
 
         [HttpGet]

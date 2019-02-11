@@ -43,12 +43,15 @@ export class CustomerDataService {
       .pipe(catchError(this.handleError));
   }
  
-  getStates(): Observable<State[]> {
-    return this.http
-    .get<State[]>(environment.apiUrl+'/state')
-    .pipe(catchError(this.handleError));
-  }
+  // getStates(): Observable<State[]> {
+  //   return this.http
+  //   .get<State[]>(environment.apiUrl+'/states')
+  //   .pipe(catchError(this.handleError));
+  // }
 
+  getStates(): Observable<State[]> {
+    return this.http.get<State[]>(environment.apiUrl+'/states')
+  }
   private handleError(error: any): Observable<never> {
     return throwError(error || 'Server error');
   }

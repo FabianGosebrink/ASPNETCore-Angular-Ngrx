@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
+  //  [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
     public class CustomersController : Controller
     {
         ICustomersRepository _CustomersRepository;
