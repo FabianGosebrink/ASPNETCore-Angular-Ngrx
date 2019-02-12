@@ -71,19 +71,10 @@ namespace FoodAPICore.Repositoriess
 
         public async Task<bool> UpdateCustomerAsync(Customer customer)
         {
-            //var customerFromRepo = await GetCustomerAsync(customer.Id);
-            //var customerToPatch = Mapper.Map<CustomerUpdateDto>(customerFromRepo);
-            //  Mapper.Map(customer, customerFromRepo);
-            //customerFromRepo.StateId = customer.StateId;
-            //customerFromRepo.FirstName = customer.FirstName;
             try
             {
-                int stateid = customer.StateId;
-
-                //update all properties of Customer except state id
-                _Context.Customers.Attach(customer);
-                customer.StateId = stateid; // a patch is needed due to incorrect view model??
-                _Context.Entry(customer).State = EntityState.Modified;
+                var customerFromRepo = await GetCustomerAsync(customer.Id);
+                _Context.Entry(customerFromRepo).CurrentValues.SetValues(customer);
                 return (await _Context.SaveChangesAsync() > 0 ? true : false);
             }
             catch (Exception exp)

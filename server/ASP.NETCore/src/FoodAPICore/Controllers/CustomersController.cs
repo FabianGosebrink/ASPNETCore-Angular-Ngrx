@@ -125,8 +125,7 @@ namespace FoodAPICore.Controllers
             }
 
             try
-            {
-               
+            {      
                 var status = await _CustomersRepository.UpdateCustomerAsync(customer);
                 if (!status)
                 {
