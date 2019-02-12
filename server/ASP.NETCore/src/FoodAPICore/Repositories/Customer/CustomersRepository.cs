@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using FoodAPICore.Repositories;
 using FoodAPICore.Entities;
+using AutoMapper;
+using FoodAPICore.Dtos;
 
 namespace FoodAPICore.Repositoriess
 {
@@ -19,6 +21,11 @@ namespace FoodAPICore.Repositoriess
         public CustomersRepository(FoodDbContext context, ILoggerFactory loggerFactory) {
           _Context = context;
           _Logger = loggerFactory.CreateLogger("CustomersRepository");
+        }
+
+        public Customer GetSingle(int id)
+        {
+            return _Context.Customers.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<List<Customer>> GetCustomersAsync()
@@ -64,12 +71,20 @@ namespace FoodAPICore.Repositoriess
 
         public async Task<bool> UpdateCustomerAsync(Customer customer)
         {
-            //Will update all properties of the Customer
-            _Context.Customers.Attach(customer);
-            _Context.Entry(customer).State = EntityState.Modified;
+            //var customerFromRepo = await GetCustomerAsync(customer.Id);
+            //var customerToPatch = Mapper.Map<CustomerUpdateDto>(customerFromRepo);
+            //  Mapper.Map(customer, customerFromRepo);
+            //customerFromRepo.StateId = customer.StateId;
+            //customerFromRepo.FirstName = customer.FirstName;
             try
             {
-              return (await _Context.SaveChangesAsync() > 0 ? true : false);
+                int stateid = customer.StateId;
+
+                //update all properties of Customer except state id
+                _Context.Customers.Attach(customer);
+                customer.StateId = stateid; // a patch is needed due to incorrect view model??
+                _Context.Entry(customer).State = EntityState.Modified;
+                return (await _Context.SaveChangesAsync() > 0 ? true : false);
             }
             catch (Exception exp)
             {

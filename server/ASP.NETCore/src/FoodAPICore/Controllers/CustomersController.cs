@@ -9,6 +9,8 @@ using FoodAPICore.Repositories;
 using IdentityServer4.AccessTokenValidation;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using FoodAPICore.Dtos;
 
 namespace FoodAPICore.Controllers
 {
@@ -124,6 +126,7 @@ namespace FoodAPICore.Controllers
 
             try
             {
+               
                 var status = await _CustomersRepository.UpdateCustomerAsync(customer);
                 if (!status)
                 {

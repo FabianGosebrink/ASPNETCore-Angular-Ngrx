@@ -7,7 +7,8 @@ using FoodAPICore.Entities;
 namespace FoodAPICore.Repositories
 {
     public interface ICustomersRepository
-    {     
+    {
+     
         Task<List<Customer>> GetCustomersAsync();
         Task<PagingResult<Customer>> GetCustomersPageAsync(int skip, int take);
         Task<Customer> GetCustomerAsync(int id);
