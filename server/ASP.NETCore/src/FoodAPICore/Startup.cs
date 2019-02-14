@@ -1,4 +1,4 @@
-﻿using FoodAPICore.Models;
+﻿using FoodAPICore.Entities;
 using FoodAPICore.Repositories.Food;
 using FoodAPICore.Repositories;
 using Microsoft.AspNetCore.Builder;

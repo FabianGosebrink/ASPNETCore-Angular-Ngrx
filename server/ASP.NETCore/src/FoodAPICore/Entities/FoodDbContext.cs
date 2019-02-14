@@ -1,4 +1,4 @@
-﻿using FoodAPICore.Models;
+﻿using FoodAPICore.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,5 +17,8 @@ namespace FoodAPICore.Entities
         public DbSet<Customer> Customers { get; set; }
         public DbSet<FoodItem> FoodItems { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Note> Notes { get; set; }
     }
 }

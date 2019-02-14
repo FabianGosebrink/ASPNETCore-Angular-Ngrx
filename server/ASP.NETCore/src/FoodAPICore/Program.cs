@@ -26,7 +26,7 @@ namespace FoodAPICore
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
                     var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                   // dbInitializer.EnsureSeedData(userManager, roleManager, loggerFactory, context).GetAwaiter().GetResult();
+                   dbInitializer.EnsureSeedData(userManager, roleManager, loggerFactory, context).GetAwaiter().GetResult();
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogDebug("seeding the database.");
                 }

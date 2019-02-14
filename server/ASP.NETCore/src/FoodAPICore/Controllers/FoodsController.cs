@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using FoodAPICore.Models;
+using FoodAPICore.Entities;
 using FoodAPICore.Dtos;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;

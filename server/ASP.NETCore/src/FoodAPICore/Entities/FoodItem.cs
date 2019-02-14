@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace FoodAPICore.Models
+namespace FoodAPICore.Entities
 {
     public class FoodItem
     {

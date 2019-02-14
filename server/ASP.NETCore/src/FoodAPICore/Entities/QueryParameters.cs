@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FoodAPICore.Models
+namespace FoodAPICore.Entities
 {
     public class QueryParameters
     {

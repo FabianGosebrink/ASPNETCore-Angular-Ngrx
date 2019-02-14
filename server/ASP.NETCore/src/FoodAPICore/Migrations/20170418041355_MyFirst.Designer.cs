@@ -17,7 +17,7 @@ namespace FoodAPICore.Migrations
                 .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FoodAPICore.Models.FoodItem", b =>
+            modelBuilder.Entity("FoodAPICore.Entities.FoodItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -33,7 +33,7 @@ namespace FoodAPICore.Migrations
                     b.ToTable("FoodItems");
                 });
 
-            modelBuilder.Entity("FoodAPICore.Models.Ingredient", b =>
+            modelBuilder.Entity("FoodAPICore.Entities.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -210,9 +210,9 @@ namespace FoodAPICore.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FoodAPICore.Models.Ingredient", b =>
+            modelBuilder.Entity("FoodAPICore.Entities.Ingredient", b =>
                 {
-                    b.HasOne("FoodAPICore.Models.FoodItem", "FoodItem")
+                    b.HasOne("FoodAPICore.Entities.FoodItem", "FoodItem")
                         .WithMany("Ingredients")
                         .HasForeignKey("FoodItemId");
                 });

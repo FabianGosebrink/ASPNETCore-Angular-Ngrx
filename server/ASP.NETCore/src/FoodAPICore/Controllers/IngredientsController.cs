@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FoodAPICore.Models;
+using FoodAPICore.Entities;
 using FoodAPICore.Repositories;
 using FoodAPICore.Dtos;
 using Microsoft.AspNetCore.Mvc;

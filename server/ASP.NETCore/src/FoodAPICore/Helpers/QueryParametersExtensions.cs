@@ -1,4 +1,4 @@
-﻿using FoodAPICore.Models;
+﻿using FoodAPICore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

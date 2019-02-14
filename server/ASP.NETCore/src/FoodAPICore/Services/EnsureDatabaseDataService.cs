@@ -1,32 +1,41 @@
-﻿using FoodAPICore.Entities;
-using FoodAPICore.Models;
+﻿using FoodAPICore.Dtos;
+using FoodAPICore.Entities;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace FoodAPICore.Services
 {
     public class EnsureDatabaseDataService : IEnsureDatabaseDataService
     {
+        FoodDbContext _context;
         public async Task EnsureSeedData(UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             ILoggerFactory loggerFactory,
             FoodDbContext context)
         {
-            context.Database.EnsureCreated();
+            _context = context;
 
-            context.Users.RemoveRange(context.Users);
-            context.SaveChanges();
+            context.Database.EnsureCreated();
 
             if (context.Users.Any())
             {
                 return; // Db has been seeded.
             }
+            await AddUserNotes();
+
+            //context.Users.RemoveRange(context.Users);
+            //context.SaveChanges();
+
+         
 
             // Creates Roles.
             await roleManager.CreateAsync(new IdentityRole("administrator"));
@@ -131,7 +140,32 @@ namespace FoodAPICore.Services
             }
 
         }
+        private async Task AddUserNotes()
+        {
+            var jsonText = File.ReadAllText("./Services/userNotes.json");
+            var users = JsonConvert.DeserializeObject<List<UserNotesDto>>(jsonText);
+            foreach (var usernote in users)
+            {
+                var ns = new List<Note>();
 
+                foreach (var n in usernote.Notes)
+                {
+                    ns.Add(new Note {title=n.title, date=n.date });
+                }
+                var u = new User
+                {
+                 //   id = usernote.id,
+                    bio = usernote.bio,
+                    name = usernote.name,
+                    birthDate = usernote.birthDate,
+                    avatar = usernote.avatar,
+                    Notes = ns
+                };
+
+                _context.Users.Add(u);
+                _context.SaveChanges();
+            }
+        }
         static List<Customer> GetCustomers(List<State> states)
         {
             //Customers

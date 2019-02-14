@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using FoodAPICore.Models;
+using FoodAPICore.Entities;
 using System;
 using System.Linq;
 
