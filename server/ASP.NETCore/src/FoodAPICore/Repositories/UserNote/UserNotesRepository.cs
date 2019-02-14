@@ -53,20 +53,20 @@ namespace FoodAPICore.Repositoriess
         //                         .SingleOrDefaultAsync(c => c.Id == id);
         //}
 
-        //public async Task<Customer> InsertCustomerAsync(Customer customer)
-        //{
-        //    _Context.Add(customer);
-        //    try
-        //    {
-        //      await _Context.SaveChangesAsync();
-        //    }
-        //    catch (System.Exception exp)
-        //    {
-        //       _Logger.LogError($"Error in {nameof(InsertCustomerAsync)}: " + exp.Message);
-        //    }
+        public async Task<User> InsertUserAsync(User user)
+        {
+            _Context.Add(user);
+            try
+            {
+                await _Context.SaveChangesAsync();
+            }
+            catch (System.Exception exp)
+            {
+                _Logger.LogError($"Error in {nameof(InsertUserAsync)}: " + exp.Message);
+            }
 
-        //    return customer;
-        //}
+            return user;
+        }
 
         //public async Task<bool> UpdateCustomerAsync(Customer customer)
         //{

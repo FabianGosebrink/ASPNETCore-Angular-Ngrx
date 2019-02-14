@@ -9,10 +9,10 @@ namespace FoodAPICore.Repositories
     public interface IUserNotesRepository
     {     
         Task<List<User>> GetUserNotesAsync();
- //       Task<PagingResult<Customer>> GetCustomersPageAsync(int skip, int take);
+        //       Task<PagingResult<Customer>> GetCustomersPageAsync(int skip, int take);
         //Task<Customer> GetCustomerAsync(int id);
-        
-        //Task<Customer> InsertCustomerAsync(Customer customer);
+
+        Task<User> InsertUserAsync(User user);
         //Task<bool> UpdateCustomerAsync(Customer customer);
         //Task<bool> DeleteCustomerAsync(int id);
     }
