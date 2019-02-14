@@ -31,12 +31,9 @@ namespace FoodAPICore.Services
                 return; // Db has been seeded.
             }
             await AddUserNotes();
-
             //context.Users.RemoveRange(context.Users);
             //context.SaveChanges();
-
-         
-
+      
             // Creates Roles.
             await roleManager.CreateAsync(new IdentityRole("administrator"));
             await roleManager.CreateAsync(new IdentityRole("user"));

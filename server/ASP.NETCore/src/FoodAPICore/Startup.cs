@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
-using FoodAPICore.Entities;
 using Microsoft.EntityFrameworkCore;
 using FoodAPICore.Services;
 using FoodAPICore.Dtos;
@@ -109,6 +108,7 @@ namespace FoodAPICore
             services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
+            services.AddScoped<IUserNotesRepository, UserNotesRepository>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStatesRepository, StatesRepository>();
 
