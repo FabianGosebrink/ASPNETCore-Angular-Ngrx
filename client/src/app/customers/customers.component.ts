@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from '../shared/base.service';
-// import { DataFilterService } from '../core/data-filter.service';
-// import { DataService } from '../core/data-services/data.service';
+import { DataFilterService } from '../core/data-filter.service';
+import { DataService } from '../core/data-services/data.service';
 import { CustomerDataService } from '../core/data-services/customer-data.service';
 import { Customer} from '../shared/interfaces';
+import { Router } from '@angular/router';
 
 @Component({ 
   selector: 'app-customers', 
@@ -18,7 +19,7 @@ export class CustomerComponent implements OnInit {
   totalRecords: number = 0;
   pageSize: number = 10;
 
-  constructor(private dataService: CustomerDataService )
+  constructor(private router: Router, private dataService: CustomerDataService, private dataFilter: DataFilterService )
   {
   }
   ngOnInit() {
@@ -26,15 +27,15 @@ export class CustomerComponent implements OnInit {
     this.getCustomers();
   }
 
-  // filterChanged(filterText: string) {
-  //   if (filterText && this.customers) {
-  //       let props = ['firstName', 'lastName', 'address', 'city', 'state.name', 'orderTotal'];
-  //       this.filteredCustomers = this.dataFilter.filter(this.customers, props, filterText);
-  //   }
-  //   else {
-  //     this.filteredCustomers = this.customers;
-  //   }
-  // }
+  filterChanged(filterText: string) {
+    if (filterText && this.customers) {
+        let props = ['firstName', 'lastName', 'address', 'city', 'state.name', 'orderTotal'];
+        this.filteredCustomers = this.dataFilter.filter(this.customers, props, filterText);
+    }
+    else {
+      this.filteredCustomers = this.customers;
+    }
+  }
 
   pageChanged(page: number) {
    // this.getCustomersPage(page);

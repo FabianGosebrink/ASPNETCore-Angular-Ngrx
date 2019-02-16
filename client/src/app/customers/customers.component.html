@@ -1,14 +1,23 @@
 <div class="customers view indent">
-    <div class="container">
-        <a class="btn btn-primary" [routerLink]="['/customer-edit',0]">
-          Add Customer
-        </a>
+    <div class="container">     
         <header>
             <h3>
                 <span class="glyphicon glyphicon-user"></span>
                 {{ title }} ({{customers.length}})
             </h3>
         </header>
+        <br />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="navbar">
+                 <filter-textbox (changed)="filterChanged($event)"></filter-textbox>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-primary" [routerLink]="['/customer-edit',0]">Add New Customer</a>
+            </div>
+        </div>
+    
         <div class="row" style="margin: 0px;"> 
             <table class='table' *ngIf='customers && customers.length'>
                     <thead>

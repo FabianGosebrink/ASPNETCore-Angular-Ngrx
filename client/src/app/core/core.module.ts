@@ -10,6 +10,8 @@ import {
 import { CoreStoreFacade } from './store/core-store.facade';
 import { effects } from './store/effects';
 import { reducers } from './store/reducers';
+import { DataFilterService } from './data-filter.service';
+import { Sorter } from './sorter';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ export class CoreModule {
           useClass: StandardHeaderInterceptor,
           multi: true,
         },
+         DataFilterService, Sorter
       ],
     };
   }
