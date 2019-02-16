@@ -4,7 +4,9 @@ import { FoodItem } from '../../../shared/models/foodItem.model';
 
 @Component({
   selector: 'app-foodlist',
+ 
   templateUrl: './food-list.component.html',
+  styles: ['button { margin: 2px; }']
 })
 export class FoodListComponent {
   foodItem: FoodItem;
