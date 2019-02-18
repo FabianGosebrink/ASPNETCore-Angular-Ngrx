@@ -106,12 +106,12 @@ namespace FoodAPICore
                  });
 
             services.AddScoped<IFoodRepository, FoodRepository>();
-            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
             services.AddScoped<IUserNotesRepository, UserNotesRepository>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStatesRepository, StatesRepository>();
-
+            
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

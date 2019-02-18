@@ -17,11 +17,11 @@ namespace FoodAPICore.Controllers
     [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
     public class IngredientsController : Controller
     {
-        private readonly IIngredientRepository _repository;
+        private readonly IProductRepository _repository;
         private readonly IFoodRepository _foodRepository;
         private readonly IHubContext<FoodHub> _hubContext;
 
-        public IngredientsController(IIngredientRepository repository, IFoodRepository foodRepository, 
+        public IngredientsController(IProductRepository repository, IFoodRepository foodRepository, 
             IHubContext<FoodHub> hubContext)
         {
             _repository = repository;
@@ -33,20 +33,20 @@ namespace FoodAPICore.Controllers
         [HttpGet]
         public IActionResult GetIngredientsForFood(Guid foodId)
         {
-            if (_foodRepository.GetSingle(foodId) == null)
-            {
-                return NotFound();
-            }
+            //if (_foodRepository.GetSingle(foodId) == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var allItems = _repository
-                .GetAll()
-                .Where(x => x.FoodItem.Id == foodId)
-                .ToList();
+            //var allItems = _repository
+            //    //.GetAll()
+            //    //.Where(x => x.== foodId)
+            //  //  .ToList();
 
-            IEnumerable<IngredientDto> viewModels = allItems
-               .Select(x => Mapper.Map<IngredientDto>(x));
+            //IEnumerable<IngredientDto> viewModels = allItems
+            //   .Select(x => Mapper.Map<IngredientDto>(x));
 
-            return Ok(viewModels);
+            return Ok(null);
         }
         
         // GET api/food/6/ingredients/3
@@ -54,22 +54,22 @@ namespace FoodAPICore.Controllers
         [Route("{id}", Name = nameof(GetSingleIngredient))]
         public IActionResult GetSingleIngredient(Guid foodId, Guid id)
         {
-            if (_foodRepository.GetSingle(foodId) == null)
-            {
-                return NotFound();
-            }
+            //if (_foodRepository.GetSingle(foodId) == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var singleItem = _repository
-                .GetAll()
-                .Where(x => x.FoodItem.Id == foodId && x.Id == id)
-                .FirstOrDefault();
+            //var singleItem = _repository.
+            //    .GetAll()
+            //    //.Where(x => x.FoodItem.Id == foodId && x.Id == id)
+            //    .FirstOrDefault();
 
-            if (singleItem == null)
-            {
-                return NotFound();
-            }
+            //if (singleItem == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(Mapper.Map<IngredientDto>(singleItem));
+            return Ok(null);
         }
 
         // POST api/food/6/ingredients
@@ -98,7 +98,7 @@ namespace FoodAPICore.Controllers
 
             ingredientModel.FoodItem = foodItem;
 
-            _repository.Add(ingredientModel);
+          //  _repository.Add(ingredientModel);
 
             if (!_repository.Save())
             {
@@ -135,26 +135,26 @@ namespace FoodAPICore.Controllers
                 return NotFound("FoodNotFound");
             }
 
-            var singleItem = _repository.GetAll().Where(x => x.FoodItem.Id == foodId && x.Id == id).FirstOrDefault();
-            if (singleItem == null)
-            {
-                return NotFound();
-            }
+            //var singleItem = _repository.GetAll().Where(x => x.FoodItem.Id == foodId && x.Id == id).FirstOrDefault();
+            //if (singleItem == null)
+            //{
+            //    return NotFound();
+            //}
 
-            Mapper.Map(ingredient, singleItem);
+            //Mapper.Map(ingredient, singleItem);
 
-            _repository.Update(singleItem);
+            //_repository.Update(singleItem);
 
-            if (!_repository.Save())
-            {
-                throw new Exception("Updating an ingredient failed on save.");
-            }
+            //if (!_repository.Save())
+            //{
+            //    throw new Exception("Updating an ingredient failed on save.");
+            //}
 
-            var updatedIngredientDto = Mapper.Map<IngredientDto>(singleItem);
+            //var updatedIngredientDto = Mapper.Map<IngredientDto>(singleItem);
 
-            _hubContext.Clients.All.SendAsync("ingredient-updated", foodId, updatedIngredientDto);
+            //_hubContext.Clients.All.SendAsync("ingredient-updated", foodId, updatedIngredientDto);
 
-            return Ok(updatedIngredientDto);
+            return Ok();
         }
 
         [HttpDelete]
@@ -169,18 +169,18 @@ namespace FoodAPICore.Controllers
                 return NotFound("Ingredient not found");
             }
 
-            var singleItem = _repository.GetAll().Where(x => x.FoodItem.Id == foodId && x.Id == id).FirstOrDefault();
-            if (singleItem == null)
-            {
-                return NotFound();
-            }
+            //var singleItem = _repository.GetAll().Where(x => x.FoodItem.Id == foodId && x.Id == id).FirstOrDefault();
+            //if (singleItem == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _repository.Delete(id);
+            //_repository.Delete(id);
 
-            if (!_repository.Save())
-            {
-                throw new Exception($"Deleting ingredient {id} for food {foodId} failed on save.");
-            }
+            //if (!_repository.Save())
+            //{
+            //    throw new Exception($"Deleting ingredient {id} for food {foodId} failed on save.");
+            //}
 
             _hubContext.Clients.All.SendAsync("ingredient-deleted", foodId, id);
 
