@@ -1,13 +1,22 @@
 <div class="row">
 
   <div class="col-sm-4 col-sm-offset-4">
-    <h3>Ingredients</h3>
+    <h3>Ingredients vv</h3>
     <form (ngSubmit)="addIngredient()" [formGroup]="form" [ngClass]="(!form.pristine && !form.valid) ? 'has-error' : ''">
       <input class="form-control" type="text" placeholder="add ingredient" formControlName="description">
     </form>
     <br/>
-
-    <app-ingredient-list [ingredients]="ingredients$ | async" (ingredientDeleted)="delete($event)"></app-ingredient-list>
+    <div class="list-group">
+    <a class="list-group-item clearfix" *ngFor="let item of selectedItem">
+      {{item.description}}
+      <span class="pull-right">
+        <span class="btn btn-xs btn-default" (click)="delete(item)">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </span>
+      </span>
+    </a>
+  </div>
+    <!-- <app-ingredient-list [ingredients]="ingredients$ | async" (ingredientDeleted)="delete($event)"></app-ingredient-list> -->
 
   </div>
 

@@ -8,8 +8,8 @@ import { CoreStoreFacade } from '../../../core/store/core-store.facade';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
+  username: string = 'admin';
+  password: string = 'password';
 
   pending$: Observable<boolean>;
 

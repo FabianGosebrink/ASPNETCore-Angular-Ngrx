@@ -14,12 +14,9 @@ import { FoodItem } from '../../../shared/models/foodItem.model';
 })
 export class FoodFormComponent implements OnChanges {
   types: string[] = ['Starter', 'Main', 'Dessert'];
-  @Input()
-  foodItem: FoodItem;
-  @Output()
-  foodUpdated = new EventEmitter<FoodItem>();
-  @Output()
-  foodAdded = new EventEmitter<FoodItem>();
+  @Input() foodItem: FoodItem;
+  @Output() foodUpdated = new EventEmitter<FoodItem>();
+  @Output() foodAdded = new EventEmitter<FoodItem>();
 
   currentFood: FoodItem = new FoodItem();
 

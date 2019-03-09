@@ -3,7 +3,7 @@ import { ToasterConfig } from 'angular2-toaster';
 
 @Injectable()
 export class Configuration {
-  title = 'eMeal';
+  title = 'Jenny 2020';
 
   authConfig = {
     CLIENT_ID: 'AngularFoodClient',

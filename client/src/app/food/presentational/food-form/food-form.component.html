@@ -10,7 +10,6 @@
 
     </div>
 
-
     <div [ngClass]="(f?.controls['foodType']?.errors && f?.controls['foodType']?.touched) ? 'form-group has-error' : 'form-group'">
         <label for="foodType">Type</label>
         <select class="form-control" required [(ngModel)]="currentFood.type" name="foodType">
@@ -19,7 +18,6 @@
         </select>
 
     </div>
-
 
     <div [ngClass]="(f?.controls['calories']?.errors && f?.controls['calories']?.touched) ? 'form-group has-error' : 'form-group'">
         <label for="calories">Calories</label>

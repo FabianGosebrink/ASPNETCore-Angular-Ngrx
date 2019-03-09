@@ -59,7 +59,7 @@ namespace FoodAPICore.Repositories.Food
                     || x.Name.ToLowerInvariant().Contains(queryParameters.Query.ToLowerInvariant()));
             }
 
-            return _allItems
+            return _allItems.Include(p=>p.Ingredients)
                 .Skip(queryParameters.PageCount * (queryParameters.Page - 1))
                 .Take(queryParameters.PageCount);
         }
