@@ -16,14 +16,14 @@ namespace FoodAPICore.Controllers
  //   [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
     public class ProductsController : Controller
     {
-        private readonly IProductRepository _foodRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IUrlHelper _urlHelper;
         private IHttpContextAccessor _accessor;
 
-        public ProductsController(IUrlHelper urlHelper, IProductRepository foodRepository,
+        public ProductsController(IUrlHelper urlHelper, IProductRepository productRepository, 
              IHttpContextAccessor accessor)
         {
-            _foodRepository = foodRepository;
+            _productRepository = productRepository;
             _urlHelper = urlHelper;
             _accessor = accessor;
         }
@@ -37,7 +37,7 @@ namespace FoodAPICore.Controllers
         {
             try
             {
-                List<Product> products = await _foodRepository.GetProductsAsync();
+                List<Product> products = await _productRepository.GetProductsAsync();
            
                 return Ok(products);
             }
@@ -70,14 +70,14 @@ namespace FoodAPICore.Controllers
             };
             //Product toAdd = Mapper.Map<Product>(foodItemViewModel);
 
-            _foodRepository.Add(toAdd);
+            _productRepository.Add(toAdd);
 
-            if (!_foodRepository.Save())
+            if (!_productRepository.Save())
             {
                 throw new Exception("Creating a fooditem failed on save.");
             }
 
-            Product newProductItem = _foodRepository.GetSingle(toAdd.Id);
+            Product newProductItem = _productRepository.GetSingle(toAdd.Id);
             //     _hubContext.Clients.All.SendAsync("food-added", Mapper.Map<ProductDto>(newProductItem));
             return Ok();
         }
@@ -91,7 +91,7 @@ namespace FoodAPICore.Controllers
         // //        return BadRequest();
         // //    }
 
-        // //    Product foodItemFromRepo = _foodRepository.GetSingle(id);
+        // //    Product foodItemFromRepo = _productRepository.GetSingle(id);
 
         // //    if (foodItemFromRepo == null)
         // //    {
@@ -110,9 +110,9 @@ namespace FoodAPICore.Controllers
 
         // //    //Mapper.Map(foodItemToPatch, foodItemFromRepo);
 
-        // //    //_foodRepository.Update(foodItemFromRepo);
+        // //    //_productRepository.Update(foodItemFromRepo);
 
-        // //    //if (!_foodRepository.Save())
+        // //    //if (!_productRepository.Save())
         // //    //{
         // //    //    throw new Exception("Updating a fooditem failed on save.");
         // //    //}
@@ -126,7 +126,7 @@ namespace FoodAPICore.Controllers
         [AllowAnonymous]
         public IActionResult GetSingleProduct(int id)
         {
-            Product foodItem = _foodRepository.GetSingle(id);
+            Product foodItem = _productRepository.GetSingle(id);
 
             if (foodItem == null)
             {
@@ -138,29 +138,29 @@ namespace FoodAPICore.Controllers
 
         [HttpDelete]
         [Route("{id}", Name = nameof(RemoveProduct))]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
-        public IActionResult RemoveProduct(Guid id)
+  //      [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
+        public IActionResult RemoveProduct(int id)
         {
-            //ProductItem foodItem = _foodRepository.GetSingle(id);
 
-            //if (foodItem == null)
-            //{
-            //    return NotFound();
-            //}
+            var item = _productRepository.GetSingle(id);
 
-            //_foodRepository.Delete(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            _productRepository.Delete(id);
             //_hubContext.Clients.All.SendAsync("food-deleted", id);
-            //if (!_foodRepository.Save())
-            //{
-            //    throw new Exception("Deleting a fooditem failed on save.");
-            //}
+            if (!_productRepository.Save())
+            {
+                throw new Exception("Deleting a product failed on save.");
+            }
 
             return NoContent();
         }
 
         [HttpPut]
         [Route("{id}")]//e = nameof(UpdateProduct))]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
+ //       [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult UpdateProduct(int id, [FromBody]ProductDto foodItem)
         {
             if (foodItem == null)
@@ -168,7 +168,7 @@ namespace FoodAPICore.Controllers
                 return BadRequest();
             }
 
-            Product existingProductItem = _foodRepository.GetSingle(id);
+            Product existingProductItem = _productRepository.GetSingle(id);
 
             if (existingProductItem == null)
             {
@@ -179,12 +179,12 @@ namespace FoodAPICore.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            foodItem.update_at = DateTime.Now;
             Mapper.Map(foodItem, existingProductItem);
 
-            _foodRepository.Update(existingProductItem);
+            _productRepository.Update(existingProductItem);
 
-            if (!_foodRepository.Save())
+            if (!_productRepository.Save())
             {
                 throw new Exception("Updating a fooditem failed on save.");
             }

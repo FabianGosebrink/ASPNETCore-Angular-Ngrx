@@ -158,8 +158,8 @@ namespace FoodAPICore
                 mapper.CreateMap<FoodItem, FoodItemDto>().ReverseMap();
                 mapper.CreateMap<FoodItem, FoodItemUpdateDto>().ReverseMap();
                 mapper.CreateMap<FoodItem, FoodItemCreateDto>().ReverseMap();
-                mapper.CreateMap<Ingredient, IngredientDto>().ReverseMap();
-                mapper.CreateMap<Ingredient, IngredientUpdateDto>().ReverseMap();
+                mapper.CreateMap<Product, ProductDto>().ReverseMap();
+            //    mapper.CreateMap<Product, ProductUpdateDto>().ReverseMap();
             });
 
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
