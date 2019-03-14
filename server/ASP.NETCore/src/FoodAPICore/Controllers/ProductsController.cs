@@ -65,16 +65,16 @@ namespace FoodAPICore.Controllers
             {
                 prod_desc = prod.prod_desc,
                 prod_name = prod.prod_name,
-                prod_price = prod.prod_price,
+                prod_price = 123,
                 updated_at = DateTime.Now
             };
-            //Product toAdd = Mapper.Map<Product>(foodItemViewModel);
+            //Product toAdd = Mapper.Map<Product>(productitemViewModel);
 
             _productRepository.Add(toAdd);
 
             if (!_productRepository.Save())
             {
-                throw new Exception("Creating a fooditem failed on save.");
+                throw new Exception("Creating a productitem failed on save.");
             }
 
             Product newProductItem = _productRepository.GetSingle(toAdd.Id);
@@ -91,33 +91,33 @@ namespace FoodAPICore.Controllers
         // //        return BadRequest();
         // //    }
 
-        // //    Product foodItemFromRepo = _productRepository.GetSingle(id);
+        // //    Product productitemFromRepo = _productRepository.GetSingle(id);
 
-        // //    if (foodItemFromRepo == null)
+        // //    if (productitemFromRepo == null)
         // //    {
         // //        return NotFound();
         // //    }
 
-        // //    //ProductDto foodItemToPatch = Mapper.Map<ProductDto>(foodItemFromRepo);
-        // //    //patchDoc.ApplyTo(foodItemToPatch, ModelState);
+        // //    //ProductDto productitemToPatch = Mapper.Map<ProductDto>(productitemFromRepo);
+        // //    //patchDoc.ApplyTo(productitemToPatch, ModelState);
 
-        // //    //TryValidateModel(foodItemToPatch);
+        // //    //TryValidateModel(productitemToPatch);
 
         // //    //if (!ModelState.IsValid)
         // //    //{
         // //    //    return BadRequest(ModelState);
         // //    //}
 
-        // //    //Mapper.Map(foodItemToPatch, foodItemFromRepo);
+        // //    //Mapper.Map(productitemToPatch, productitemFromRepo);
 
-        // //    //_productRepository.Update(foodItemFromRepo);
+        // //    //_productRepository.Update(productitemFromRepo);
 
         // //    //if (!_productRepository.Save())
         // //    //{
-        // //    //    throw new Exception("Updating a fooditem failed on save.");
+        // //    //    throw new Exception("Updating a productitem failed on save.");
         // //    //}
-        // //    //_hubContext.Clients.All.SendAsync("food-updated", Mapper.Map<ProductItemDto>(foodItemFromRepo));
-        // //    //return Ok(Mapper.Map<ProductItemDto>(foodItemFromRepo));
+        // //    //_hubContext.Clients.All.SendAsync("food-updated", Mapper.Map<ProductItemDto>(productitemFromRepo));
+        // //    //return Ok(Mapper.Map<ProductItemDto>(productitemFromRepo));
         // //    return Ok();
         // //}
 
@@ -126,9 +126,9 @@ namespace FoodAPICore.Controllers
         [AllowAnonymous]
         public IActionResult GetSingleProduct(int id)
         {
-            Product foodItem = _productRepository.GetSingle(id);
+            Product productitem = _productRepository.GetSingle(id);
 
-            if (foodItem == null)
+            if (productitem == null)
             {
                 return NotFound();
             }
@@ -161,9 +161,9 @@ namespace FoodAPICore.Controllers
         [HttpPut]
         [Route("{id}")]//e = nameof(UpdateProduct))]
  //       [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
-        public IActionResult UpdateProduct(int id, [FromBody]ProductDto foodItem)
+        public IActionResult UpdateProduct(int id, [FromBody]ProductDto productitem)
         {
-            if (foodItem == null)
+            if (productitem == null)
             {
                 return BadRequest();
             }
@@ -179,14 +179,14 @@ namespace FoodAPICore.Controllers
             {
                 return BadRequest(ModelState);
             }
-            foodItem.update_at = DateTime.Now;
-            Mapper.Map(foodItem, existingProductItem);
+         //   productitem.update_at = DateTime.Now;
+            Mapper.Map(productitem, existingProductItem);
 
             _productRepository.Update(existingProductItem);
 
             if (!_productRepository.Save())
             {
-                throw new Exception("Updating a fooditem failed on save.");
+                throw new Exception("Updating a productitem failed on save.");
             }
 
             //_hubContext.Clients.All.SendAsync("food-updated", existingProductItem);
@@ -244,10 +244,10 @@ namespace FoodAPICore.Controllers
             return links;
         }
 
-        //private dynamic ExpandSingleProductItem(ProductItem foodItem)
+        //private dynamic ExpandSingleProductItem(ProductItem productitem)
         //{
-        //    var links = GetLinks(foodItem.Id);
-        //    ProductItemDto item = Mapper.Map<ProductItemDto>(foodItem);
+        //    var links = GetLinks(productitem.Id);
+        //    ProductItemDto item = Mapper.Map<ProductItemDto>(productitem);
 
         //    var resourceToReturn = item.ToDynamic() as IDictionary<string, object>;
         //    resourceToReturn.Add("links", links);
