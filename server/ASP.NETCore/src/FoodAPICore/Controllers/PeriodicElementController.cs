@@ -16,14 +16,14 @@ namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
   //  [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
-    public class UserNotesController : Controller
+    public class PeriodicElementsController : Controller
     {
-        IUserNotesRepository _UserNotesRepository;
+        IPeriodicElementsRepository _PeriodicElementsRepository;
         ILogger _Logger;
 
-        public UserNotesController(IUserNotesRepository userNotesRepo, ILoggerFactory loggerFactory) {
-            _UserNotesRepository = userNotesRepo;
-            _Logger = loggerFactory.CreateLogger(nameof(UserNotesController));
+        public PeriodicElementsController(IPeriodicElementsRepository PeriodicElementsRepo, ILoggerFactory loggerFactory) {
+            _PeriodicElementsRepository = PeriodicElementsRepo;
+            _Logger = loggerFactory.CreateLogger(nameof(PeriodicElementsController));
         }
 
         // GET api/customers
@@ -31,12 +31,12 @@ namespace FoodAPICore.Controllers
         //[NoCache]
         //[ProducesResponseType(typeof(List<Customer>), 200)]
         //[ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> UserNotes()
+        public async Task<ActionResult> PeriodicElements()
         {
             try
             {
-                var userNotes = await _UserNotesRepository.GetUserNotesAsync();
-                return Ok(userNotes);
+                var PeriodicElements = await _PeriodicElementsRepository.GetPeriodicElementsAsync();
+                return Ok(PeriodicElements);
             }
             catch (Exception exp)
             {
@@ -89,7 +89,7 @@ namespace FoodAPICore.Controllers
         //   [ValidateAntiForgeryToken]
         [ProducesResponseType(typeof(ApiResponse), 201)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> CreateUser([FromBody]User user)
+        public async Task<ActionResult> CreateUser([FromBody]PeriodicElement user)
         {
             if (!ModelState.IsValid)
             {
@@ -98,12 +98,12 @@ namespace FoodAPICore.Controllers
 
             try
             {
-                var newUser = await _UserNotesRepository.InsertUserAsync(user);
+                var newUser = await _PeriodicElementsRepository.InsertPeriodicElementAsync(user);
                 if (newUser == null)
                 {
                     return BadRequest(new ApiResponse { Status = false });
                 }
-                return CreatedAtRoute("GetCustomerRoute", new { id = newUser.id },
+                return CreatedAtRoute("GetPeriodicElementRoute", new { id = newUser.position},
                         new ApiResponse { Status = true });
             }
             catch (Exception exp)

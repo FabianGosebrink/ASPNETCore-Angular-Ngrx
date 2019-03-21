@@ -111,7 +111,8 @@ namespace FoodAPICore
             services.AddScoped<IUserNotesRepository, UserNotesRepository>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStatesRepository, StatesRepository>();
-            
+            services.AddScoped<IPeriodicElementsRepository, PeriodicElementsRepository>();
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -159,7 +160,8 @@ namespace FoodAPICore
                 mapper.CreateMap<FoodItem, FoodItemUpdateDto>().ReverseMap();
                 mapper.CreateMap<FoodItem, FoodItemCreateDto>().ReverseMap();
                 mapper.CreateMap<Product, ProductDto>().ReverseMap();
-            //    mapper.CreateMap<Product, ProductUpdateDto>().ReverseMap();
+                mapper.CreateMap<PeriodicElement, PeriodicElementDto>().ReverseMap();
+                //    mapper.CreateMap<Product, ProductUpdateDto>().ReverseMap();
             });
 
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.

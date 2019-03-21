@@ -19,6 +19,8 @@ namespace FoodAPICore.Entities
         public DbSet<Ingredient> Ingredients { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<PeriodicElement> PeriodicElements { get; set; }      
         public DbSet<Note> Notes { get; set; }
 
         public DbSet<Product> Products { get; set; }

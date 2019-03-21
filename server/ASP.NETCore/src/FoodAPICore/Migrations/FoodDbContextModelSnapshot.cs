@@ -15,11 +15,42 @@ namespace FoodAPICore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FoodAPICore.Models.FoodItem", b =>
+            modelBuilder.Entity("FoodAPICore.Entities.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("OrderCount");
+
+                    b.Property<int>("StateId");
+
+                    b.Property<int>("Zip");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.FoodItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -37,7 +68,7 @@ namespace FoodAPICore.Migrations
                     b.ToTable("FoodItems");
                 });
 
-            modelBuilder.Entity("FoodAPICore.Models.Ingredient", b =>
+            modelBuilder.Entity("FoodAPICore.Entities.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -55,6 +86,122 @@ namespace FoodAPICore.Migrations
                     b.HasIndex("FoodItemId");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.Note", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Userid");
+
+                    b.Property<DateTime>("date");
+
+                    b.Property<string>("title");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Userid");
+
+                    b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CustomerId");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("Product");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.PeriodicElement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<int>("position");
+
+                    b.Property<string>("symbol")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<double>("weight");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PeriodicElements");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("prod_desc");
+
+                    b.Property<string>("prod_name");
+
+                    b.Property<int>("prod_price");
+
+                    b.Property<DateTime>("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Abbreviation");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.User", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("avatar");
+
+                    b.Property<string>("bio");
+
+                    b.Property<DateTime>("birthDate");
+
+                    b.Property<string>("name");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -218,11 +365,33 @@ namespace FoodAPICore.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FoodAPICore.Models.Ingredient", b =>
+            modelBuilder.Entity("FoodAPICore.Entities.Customer", b =>
                 {
-                    b.HasOne("FoodAPICore.Models.FoodItem", "FoodItem")
+                    b.HasOne("FoodAPICore.Entities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.Ingredient", b =>
+                {
+                    b.HasOne("FoodAPICore.Entities.FoodItem", "FoodItem")
                         .WithMany("Ingredients")
                         .HasForeignKey("FoodItemId");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.Note", b =>
+                {
+                    b.HasOne("FoodAPICore.Entities.User")
+                        .WithMany("Notes")
+                        .HasForeignKey("Userid");
+                });
+
+            modelBuilder.Entity("FoodAPICore.Entities.Order", b =>
+                {
+                    b.HasOne("FoodAPICore.Entities.Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -24,7 +24,7 @@ namespace FoodAPICore.Services
         {
             _context = context;
 
-            context.Database.EnsureCreated();
+            context.Database.EnsureCreated();           
 
             if (context.Users.Any())
             {
@@ -33,7 +33,9 @@ namespace FoodAPICore.Services
             await AddUserNotes();
             //context.Users.RemoveRange(context.Users);
             //context.SaveChanges();
-      
+
+            await AddPeriodicElements();
+
             // Creates Roles.
             await roleManager.CreateAsync(new IdentityRole("administrator"));
             await roleManager.CreateAsync(new IdentityRole("user"));
@@ -162,6 +164,24 @@ namespace FoodAPICore.Services
                 _context.Users.Add(u);
                 _context.SaveChanges();
             }
+        }
+        private async Task AddPeriodicElements()
+        {
+            var jsonText = File.ReadAllText("./Services/PeriodicElements.json");
+            var periodicElements = JsonConvert.DeserializeObject<List<PeriodicElementDto>>(jsonText);
+
+            foreach (var item in periodicElements)
+            {         
+                var u = new PeriodicElement
+                {
+                    position = item.position,                
+                    name = item.name,
+                    weight = item.weight,
+                    symbol = item.symbol,
+                };
+                _context.PeriodicElements.Add(u);
+            }
+            _context.SaveChanges();
         }
         static List<Customer> GetCustomers(List<State> states)
         {
