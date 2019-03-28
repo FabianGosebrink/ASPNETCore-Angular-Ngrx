@@ -4,6 +4,7 @@ import { RegisterComponent } from './register/register.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
 import { CustomerComponent} from './customers';
 import { CustomerEditComponent } from './customers/customer-edit.component';
+import { CustomerEditReactiveComponent } from './customers/customer-edit-reactive.component';
 
 export const AppRoutes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
@@ -16,7 +17,8 @@ export const AppRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'ingredients', component: IngredientsComponent },
   { path: 'customers', component: CustomerComponent },
-  { path: 'customer-edit/:id', component: CustomerEditComponent},
+//  { path: 'customers/:id', component: CustomerEditReactiveComponent },
+ { path: 'customer-edit/:id', component: CustomerEditComponent},
   {
     path: '**',
     redirectTo: 'home'

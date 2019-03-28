@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 import { BaseService } from '../../shared/base.service';
-import { Customer,  State } from '../../shared/interfaces';
+import { ICustomer,  IState } from '../../shared/interfaces';
 
 @Injectable()
 export class DataService extends BaseService {
@@ -14,8 +14,8 @@ export class DataService extends BaseService {
         super();
     }
  
-    getCustomers() : Observable<Customer[]> {
-        return this.http.get<Customer[]>(`${this.apiUrl}/customers`);
+    getCustomers() : Observable<ICustomer[]> {
+        return this.http.get<ICustomer[]>(`${this.apiUrl}/customers`);
                
     }
 
@@ -24,16 +24,16 @@ export class DataService extends BaseService {
                     
     // }
     
-    getCustomer(id: string) : Observable<Customer> {
-        return this.http.get<Customer>(`${this.apiUrl}/customers` + '/' + id);
+    getCustomer(id: string) : Observable<ICustomer> {
+        return this.http.get<ICustomer>(`${this.apiUrl}/customers` + '/' + id);
     }
 
-    insertCustomer(customer: Customer) : Observable<Customer> {
-        return this.http.post<Customer>(`${this.apiUrl}/customers`, customer);
+    insertCustomer(customer: ICustomer) : Observable<ICustomer> {
+        return this.http.post<ICustomer>(`${this.apiUrl}/customers`, customer);
     }
    
-    updateCustomer(customer: Customer) : Observable<Customer> {
-        return this.http.put<Customer>(`${this.apiUrl}/customers` + '/' + customer.id, customer);
+    updateCustomer(customer: ICustomer) : Observable<ICustomer> {
+        return this.http.put<ICustomer>(`${this.apiUrl}/customers` + '/' + customer.id, customer);
     }
 
     deleteCustomer(id: string) : Observable<boolean> {
@@ -41,8 +41,8 @@ export class DataService extends BaseService {
                    
     }
 
-    getStates(): Observable<State[]> {
-        return this.http.get<State[]>(`${this.apiUrl}/states`);
+    getStates(): Observable<IState[]> {
+        return this.http.get<IState[]>(`${this.apiUrl}/states`);
     }
 
     // calculateCustomersOrderTotal(customers: ICustomer[]) {

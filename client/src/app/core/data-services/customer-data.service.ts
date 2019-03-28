@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Customer,  State } from '../../shared/interfaces';
+import { ICustomer,  IState } from '../../shared/interfaces';
 import { HttpWrapperService } from './httpWrapper.service';
 
 @Injectable({ providedIn: 'root' })
@@ -13,27 +13,27 @@ export class CustomerDataService {
     this.actionUrl = environment.apiUrl + '/customers/';
   }
 
-  getCustomers() : Observable<Customer[]> {
+  getCustomers() : Observable<ICustomer[]> {
     return this.http
-    .get<Customer[]>(this.actionUrl)
+    .get<ICustomer[]>(this.actionUrl)
     .pipe(catchError(this.handleError));
   }
 
-  getCustomer(id: string): Observable<Customer> {
+  getCustomer(id: string): Observable<ICustomer> {
     return this.http
-      .get<Customer>(this.actionUrl + id)
+      .get<ICustomer>(this.actionUrl + id)
       .pipe(catchError(this.handleError));
   }
 
-  insertCustomer(customer: Customer) : Observable<Customer> {
+  insertCustomer(customer: ICustomer) : Observable<ICustomer> {
     return this.http
-    .post<Customer>(this.actionUrl, customer)
+    .post<ICustomer>(this.actionUrl, customer)
     .pipe(catchError(this.handleError));
   }
 
-  updateCustomer(id: string, customer: Customer): Observable<Customer> {
+  updateCustomer(id: string, customer: ICustomer): Observable<ICustomer> {
       return this.http
-      .put<Customer>(this.actionUrl + id, JSON.stringify(customer))
+      .put<ICustomer>(this.actionUrl + id, JSON.stringify(customer))
       .pipe(catchError(this.handleError));
   }
 
@@ -49,8 +49,8 @@ export class CustomerDataService {
   //   .pipe(catchError(this.handleError));
   // }
 
-  getStates(): Observable<State[]> {
-    return this.http.get<State[]>(environment.apiUrl+'/states')
+  getStates(): Observable<IState[]> {
+    return this.http.get<IState[]>(environment.apiUrl+'/states')
   }
   private handleError(error: any): Observable<never> {
     return throwError(error || 'Server error');

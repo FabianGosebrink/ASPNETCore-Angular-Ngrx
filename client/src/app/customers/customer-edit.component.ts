@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { DataService } from '../core/data-services/data.service';
-import { Customer, State } from '../shared/interfaces';
+import { ICustomer, IState } from '../shared/interfaces';
 
 @Component({
   selector: 'app-customer-edit',
@@ -11,16 +11,16 @@ import { Customer, State } from '../shared/interfaces';
 })
 export class CustomerEditComponent implements OnInit {
 
-  customer: Customer = {
-    firstname: '',
-    lastname: '',
+  customer: ICustomer = {
+    firstName: '',
+    lastName: '',
     gender: '',
     address: '',
     email: '',
     city: '',
     zip: 0
   };
-  states: State[];
+  states: IState[];
   errorMessage: string;
   deleteMessageEnabled: boolean;
   operationText: string = 'Insert';
@@ -41,14 +41,14 @@ export class CustomerEditComponent implements OnInit {
 
   getCustomer(id: string) {
       this.dataService.getCustomer(id)
-        .subscribe((customer: Customer) => {
+        .subscribe((customer: ICustomer) => {
           this.customer = customer;
         },
         (err: any) => console.log(err));
   }
 
   getStates() {
-    this.dataService.getStates().subscribe((states: State[]) => this.states = states);
+    this.dataService.getStates().subscribe((states: IState[]) => this.states = states);
   }
   
   submit() {
@@ -56,7 +56,7 @@ export class CustomerEditComponent implements OnInit {
       if (this.customer.id) {
 
         this.dataService.updateCustomer(this.customer)
-          .subscribe((customer: Customer) => {
+          .subscribe((customer: ICustomer) => {
             if (customer) {
               this.router.navigate(['/customers']);
             } else {
@@ -68,7 +68,7 @@ export class CustomerEditComponent implements OnInit {
       } else {
 
         this.dataService.insertCustomer(this.customer)
-          .subscribe((customer: Customer) => {
+          .subscribe((customer: ICustomer) => {
             if (customer) {
               this.router.navigate(['/customers']);
             }
