@@ -5,25 +5,27 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>&nbsp;</th>
+                            <th>Id</th>
                             <th (click)="sort('firstname')">First Name</th>
                             <th (click)="sort('lastname')">Last Name</th>
                             <th (click)="sort('address')">Address</th>
                             <th (click)="sort('city')">City</th>
                             <th (click)="sort('state.name')">State</th>
-                            <th (click)="sort('orderTotal')">Order Total</th>
+                            <!-- <th (click)="sort('orderTotal')">Order Total</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let customer of customers;trackBy:trackby.customer">
-                            <td><img src="images/{{ customer.gender | lowercase }}.png"
-                                    class="card-image" alt="Customer Image" /></td>
-                            <td><a [routerLink]="['/customers',customer.id]">{{ customer.firstname | capitalize }}</a></td>
+                        <tr *ngFor="let customer of customers">
+                            <td>{{ customer.id}}</td>
+                            <!-- <td><img src="images/{{ customer.gender | lowercase }}.png"
+                                    class="card-image" alt="Customer Image" /></td> -->
+                            <td><a [routerLink]="['/customer-edit', customer.id]">{{ customer.firstName | capitalize }}</a></td>
                             <td>{{ customer.lastName | capitalize }}</td>
                             <td>{{ customer.address }}</td>
                             <td>{{ customer.city | trim }}</td>
                             <td>{{ customer.state.name }}</td>
-                            <td>{{ customer.orderTotal | currency:'USD':'symbol' }}</td>
+                          
+                            <!-- <td>{{ customer.orderTotal | currency:'USD':'symbol' }}</td> -->
                         </tr>
                         <tr *ngIf="!customers.length">
                             <td>&nbsp;</td>

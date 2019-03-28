@@ -3,6 +3,7 @@ import { AuthGuard } from './shared/guards/authentication.guard';
 import { RegisterComponent } from './register/register.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
 import { CustomerComponent} from './customers';
+
 import { CustomerEditComponent } from './customers/customer-edit.component';
 import { CustomerEditReactiveComponent } from './customers/customer-edit-reactive.component';
 

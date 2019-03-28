@@ -48,6 +48,7 @@ export class CustomerComponent implements OnInit {
         (err: any) => console.log(err),
         () => console.log('getCustomersPage() retrieved customers'));
   }
+  
   // updateCustomer(customer : Customer)
   // {
   //   this.dataService.updateCustomer(customer)

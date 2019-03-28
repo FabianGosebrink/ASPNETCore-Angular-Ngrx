@@ -17,38 +17,7 @@
                 <a class="btn btn-primary" [routerLink]="['/customer-edit',0]">Add New Customer</a>
             </div>
         </div>
-    
-        <div class="row" style="margin: 0px;"> 
-            <table class='table' *ngIf='customers && customers.length'>
-                    <thead>
-                      <tr>            
-                        <th>Id</th>
-                        <th>first name</th>
-                        <th>last name</th>
-                        <th>email</th>    
-                        <th>city</th>    
-                        <th>state</th> 
-                        <th>Zip</th>           
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor='let m of customers'>
-                        <td>{{m.id}}</td>
-                        <td>{{m.firstName}}</td>           
-                        <td>{{m.lastName}}</td>
-                        <td>{{m.email}}</td>
-                        <td>{{m.city}}</td> 
-                        <td>{{m.state.name}}</td>
-                        <td>{{m.zip}}</td>  
-                        <td> <a class="btn btn-primary" [routerLink]="['/customer-edit', m.id]">
-                          Edit
-                        </a></td>
-                        <!-- <td><button class="btn btn-sm btn-sm pull-right" (click)="deleteCustomer(m.id)">Delete</button></td> -->
-                        <!-- <td><button class="btn btn-sm btn-sm pull-right" (click)="getManager(m.id)">Detail</button></td>
-                        <td><button class="btn btn-sm btn-sm pull-right" (click)="updateManager(m)">Update</button></td> -->         
-                      </tr>
-                    </tbody>
-                  </table>
-          </div>        
+        <customers-grid [customers]="filteredCustomers"></customers-grid>
+       
     </div>
 </div>
