@@ -65,46 +65,17 @@ namespace FoodAPICore.Controllers
         //       }
         //   }
 
-        //   // GET api/customers/5
-        //   [HttpGet("{id}", Name = "GetCustomerRoute")]
-        //  // [NoCache]
-        //   [ProducesResponseType(typeof(Customer), 200)]
-        //   [ProducesResponseType(typeof(ApiResponse), 400)]
-        //   public async Task<ActionResult> Customers(int id)
-        //   {
-        //       try
-        //       {
-        //           var customer = await _CustomersRepository.GetCustomerAsync(id);
-        //           return Ok(customer);
-        //       }
-        //       catch (Exception exp)
-        //       {
-        //           _Logger.LogError(exp.Message);
-        //           return BadRequest(new ApiResponse { Status = false });
-        //       }
-        //   }
-
-        // POST api/customers
-        [HttpPost]
-        //   [ValidateAntiForgeryToken]
-        [ProducesResponseType(typeof(ApiResponse), 201)]
+        // GET api/GetPeriodicElementRoute/5
+        [HttpGet("{id}", Name = "GetPeriodicElementRoute")]
+        // [NoCache]
+        [ProducesResponseType(typeof(Customer), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> CreateUser([FromBody]PeriodicElement user)
+        public async Task<ActionResult> PeriodicElements(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ApiResponse { Status = false, ModelState = ModelState });
-            }
-
             try
             {
-                var newUser = await _PeriodicElementsRepository.InsertPeriodicElementAsync(user);
-                if (newUser == null)
-                {
-                    return BadRequest(new ApiResponse { Status = false });
-                }
-                return CreatedAtRoute("GetPeriodicElementRoute", new { id = newUser.position},
-                        new ApiResponse { Status = true });
+                var element = await _PeriodicElementsRepository.GetGetPeriodicElementAsync(id);
+                return Ok(element);
             }
             catch (Exception exp)
             {
@@ -113,32 +84,64 @@ namespace FoodAPICore.Controllers
             }
         }
 
-        //   // PUT api/customers/5
-        //   [HttpPut("{id}")]
-        //   ////[ProducesResponseType(typeof(ApiResponse), 200)]
-        //   ////[ProducesResponseType(typeof(ApiResponse), 400)]
-        //   public async Task<ActionResult> UpdateCustomer(int id, [FromBody]Customer customer)
-        //   {
-        //       if (!ModelState.IsValid)
-        //       {
-        //           return BadRequest(new ApiResponse { Status = false, ModelState = ModelState });
-        //       }
+        // POST api/customers
+        [HttpPost]
+        //   [ValidateAntiForgeryToken]
+        [ProducesResponseType(typeof(ApiResponse), 201)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> CreatePeriodicElement([FromBody]PeriodicElement element)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse { Status = false, ModelState = ModelState });
+            }
 
-        //       try
-        //       {      
-        //           var status = await _CustomersRepository.UpdateCustomerAsync(customer);
-        //           if (!status)
-        //           {
-        //               return BadRequest(new ApiResponse { Status = false });
-        //           }
-        //           return Ok(new ApiResponse { Status = true });
-        //       }
-        //       catch (Exception exp)
-        //       {
-        //           _Logger.LogError(exp.Message);
-        //           return BadRequest(new ApiResponse { Status = false });
-        //       }
-        //   }
+            try
+            {
+                // element.id must be 0 to insert
+                var elem = await _PeriodicElementsRepository.InsertPeriodicElementAsync(element);
+                if (elem == null)
+                {
+                    return BadRequest(new ApiResponse { Status = false });
+                }
+                return Ok(elem);
+               // useless
+                //return CreatedAtRoute("GetPeriodicElementRoute", new { id = elem.position },
+                //        new ApiResponse { Status = true });
+            }
+            catch (Exception exp)
+            {
+                _Logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        // PUT api/PeriodicElements/5
+        [HttpPut("{id}")]
+        ////[ProducesResponseType(typeof(ApiResponse), 200)]
+        ////[ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> UpdatePeriodicElement(int id, [FromBody]PeriodicElement element)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse { Status = false, ModelState = ModelState });
+            }
+
+            try
+            {
+                var status = await _PeriodicElementsRepository.UpdatePeriodicElementAsync(element);
+                if (!status)
+                {
+                    return BadRequest(new ApiResponse { Status = false });
+                }
+                return Ok(new ApiResponse { Status = true });
+            }
+            catch (Exception exp)
+            {
+                _Logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
 
         //   // DELETE api/customers/5
         //   [HttpDelete("{id}")]

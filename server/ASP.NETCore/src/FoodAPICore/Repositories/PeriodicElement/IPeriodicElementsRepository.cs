@@ -10,10 +10,10 @@ namespace FoodAPICore.Repositories
     {     
         Task<List<PeriodicElement>> GetPeriodicElementsAsync();
         //       Task<PagingResult<Customer>> GetCustomersPageAsync(int skip, int take);
-        //Task<Customer> GetCustomerAsync(int id);
+        Task<PeriodicElement> GetGetPeriodicElementAsync(int id);
 
-        Task<PeriodicElement> InsertPeriodicElementAsync(PeriodicElement user);
-        //Task<bool> UpdateCustomerAsync(Customer customer);
+        Task<PeriodicElement> InsertPeriodicElementAsync(PeriodicElement element);
+        Task<bool> UpdatePeriodicElementAsync(PeriodicElement element);
         //Task<bool> DeleteCustomerAsync(int id);
     }
 }

@@ -22,15 +22,20 @@ namespace FoodAPICore.Repositoriess
           _Logger = loggerFactory.CreateLogger("PeriodicElementsRepository");
         }
 
-        //public Customer GetSingle(int id)
-        //{
-        //    return _Context.Customers.FirstOrDefault(x => x.Id == id);
-        //}
+        public Task<PeriodicElement> GetGetPeriodicElementAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<List<PeriodicElement>> GetPeriodicElementsAsync()
         {
             return await _Context.PeriodicElements.ToListAsync();
         }
+        public PeriodicElement GetSingle(int id)
+        {
+            return _Context.PeriodicElements.Single(x => x.Id == id);
+        }
+      
 
         //public async Task<PagingResult<Customer>> GetCustomersPageAsync(int skip, int take)
         //{
@@ -44,17 +49,9 @@ namespace FoodAPICore.Repositoriess
         //                         .ToListAsync();
         //    return new PagingResult<Customer>(customers, totalRecords);
         //}
-
-        //public async Task<Customer> GetCustomerAsync(int id)
-        //{
-        //    return await _Context.Customers
-        //                         .Include(c => c.State)
-        //                         .SingleOrDefaultAsync(c => c.Id == id);
-        //}
-
-        public async Task<PeriodicElement> InsertPeriodicElementAsync(PeriodicElement user)
+        public async Task<PeriodicElement> InsertPeriodicElementAsync(PeriodicElement element)
         {
-            _Context.Add(user);
+            _Context.Add(element);
             try
             {
                 await _Context.SaveChangesAsync();
@@ -64,24 +61,24 @@ namespace FoodAPICore.Repositoriess
                 _Logger.LogError($"Error in {nameof(InsertPeriodicElementAsync)}: " + exp.Message);
             }
 
-            return user;
+            return element;
         }
-
-        //public async Task<bool> UpdateCustomerAsync(Customer customer)
-        //{
-        //    try
-        //    {
-        //        var customerFromRepo = await GetCustomerAsync(customer.Id);
-        //        _Context.Entry(customerFromRepo).CurrentValues.SetValues(customer);
-        //        return (await _Context.SaveChangesAsync() > 0 ? true : false);
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //       _Logger.LogError($"Error in {nameof(UpdateCustomerAsync)}: " + exp.Message);
-        //    }
-        //    return false;
-        //}
-
+      
+        public async Task<bool> UpdatePeriodicElementAsync(PeriodicElement element)
+        {
+            try
+            {
+                var periodicElement = _Context.PeriodicElements.FirstOrDefault(p => p.Id == element.Id);
+                _Context.Entry(periodicElement).CurrentValues.SetValues(element);
+                return (await _Context.SaveChangesAsync() > 0 ? true : false);
+            }
+            catch (Exception exp)
+            {
+                _Logger.LogError($"Error in {nameof(UpdatePeriodicElementAsync)}: " + exp.Message);
+            }
+            return false;
+        }
+        
         //public async Task<bool> DeleteCustomerAsync(int id)
         //{
         //    //Extra hop to the database but keeps it nice and simple for this demo
