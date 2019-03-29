@@ -14,26 +14,26 @@ namespace FoodAPICore.Repositoriess
 {
     public class PeriodicElementsRepository : IPeriodicElementsRepository
     {
-        private readonly FoodDbContext _Context;
+        private readonly FoodDbContext _context;
         private readonly ILogger _Logger;
 
         public PeriodicElementsRepository(FoodDbContext context, ILoggerFactory loggerFactory) {
-          _Context = context;
+            _context = context;
           _Logger = loggerFactory.CreateLogger("PeriodicElementsRepository");
         }
 
-        public Task<PeriodicElement> GetGetPeriodicElementAsync(int id)
+        public async Task<PeriodicElement> GetGetPeriodicElementAsync(int id)
         {
-            throw new NotImplementedException();
+            return _context.PeriodicElements.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<List<PeriodicElement>> GetPeriodicElementsAsync()
         {
-            return await _Context.PeriodicElements.ToListAsync();
+            return await _context.PeriodicElements.ToListAsync();
         }
         public PeriodicElement GetSingle(int id)
         {
-            return _Context.PeriodicElements.Single(x => x.Id == id);
+            return _context.PeriodicElements.Single(x => x.Id == id);
         }
       
 
@@ -51,10 +51,10 @@ namespace FoodAPICore.Repositoriess
         //}
         public async Task<PeriodicElement> InsertPeriodicElementAsync(PeriodicElement element)
         {
-            _Context.Add(element);
+            _context.Add(element);
             try
             {
-                await _Context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch (System.Exception exp)
             {
@@ -68,9 +68,9 @@ namespace FoodAPICore.Repositoriess
         {
             try
             {
-                var periodicElement = _Context.PeriodicElements.FirstOrDefault(p => p.Id == element.Id);
-                _Context.Entry(periodicElement).CurrentValues.SetValues(element);
-                return (await _Context.SaveChangesAsync() > 0 ? true : false);
+                var periodicElement = _context.PeriodicElements.FirstOrDefault(p => p.Id == element.Id);
+                _context.Entry(periodicElement).CurrentValues.SetValues(element);
+                return (await _context.SaveChangesAsync() > 0 ? true : false);
             }
             catch (Exception exp)
             {
