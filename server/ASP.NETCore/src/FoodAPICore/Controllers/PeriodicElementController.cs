@@ -143,30 +143,30 @@ namespace FoodAPICore.Controllers
             }
         }
 
-        //   // DELETE api/customers/5
-        //   [HttpDelete("{id}")]
-        //   [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme,
-        //       Policy = "Modify Resources")]
-        //   //     [ValidateAntiForgeryToken] //  bug?
-        //   [ProducesResponseType(typeof(ApiResponse), 200)]
-        //   [ProducesResponseType(typeof(ApiResponse), 400)]
-        //   public async Task<ActionResult> Delete(int id)
-        //   {
-        //       try
-        //       {
-        //           var status = await _CustomersRepository.DeleteCustomerAsync(id);
-        //           if (!status)
-        //           {
-        //               return BadRequest(new ApiResponse { Status = false });
-        //           }
-        //           return Ok(new ApiResponse { Status = true });
-        //       }
-        //       catch (Exception exp)
-        //       {
-        //           _Logger.LogError(exp.Message);
-        //           return BadRequest(new ApiResponse { Status = false });
-        //       }
-        //   }
+        // DELETE api/customers/5
+        [HttpDelete("{id}")]
+        //[Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme,
+        //    Policy = "Modify Resources")]
+        //     [ValidateAntiForgeryToken] //  bug?
+        [ProducesResponseType(typeof(ApiResponse), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var status = await _PeriodicElementsRepository.DeleteAsync(id);
+                if (!status)
+                {
+                    return BadRequest(new ApiResponse { Status = false });
+                }
+                return Ok(new ApiResponse { Status = true });
+            }
+            catch (Exception exp)
+            {
+                _Logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
 
     }
 }
