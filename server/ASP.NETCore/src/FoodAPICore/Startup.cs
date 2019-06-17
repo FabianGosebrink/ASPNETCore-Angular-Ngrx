@@ -54,12 +54,6 @@ namespace FoodAPICore
             // services.AddDbContext<FoodDbContext>(opt => opt.UseInMemoryDatabase("FoodDatabase"));
             services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-              .AddEntityFrameworkStores<FoodDbContext>()
-              .AddDefaultTokenProviders();
-
-            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AdditionalUserClaimsPrincipalFactory>();
-
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IUrlHelper>(implementationFactory =>
@@ -68,44 +62,7 @@ namespace FoodAPICore
                 return new UrlHelper(actionContext);
             });
 
-            // Identity options.
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings.
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 5;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-            });
-
             services.AddSignalR();
-
-            // Claims-Based Authorization: role claims.
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Manage Accounts", policy => policy.RequireRole("administrator"));
-                options.AddPolicy("Access Resources", policy => policy.RequireRole("administrator", "user"));
-                options.AddPolicy("Modify Resources", policy => policy.RequireRole("administrator"));
-            });
-
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
-                .AddInMemoryApiResources(IdentityConfig.GetApiResources())
-                .AddInMemoryClients(IdentityConfig.GetClients())
-                .AddAspNetIdentity<IdentityUser>()
-                .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
-
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                 .AddIdentityServerAuthentication(options =>
-                 {
-                     // this line gets overwritten on your server, points to localhost right now
-                     options.Authority = Configuration["IdentityServerEndpoint"];
-                     options.RequireHttpsMetadata = Configuration["IdentityServerEndpoint"].StartsWith("https");
-                     options.ApiName = "WebAPI";
-                 });
 
             services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
@@ -160,10 +117,7 @@ namespace FoodAPICore
                 mapper.CreateMap<Ingredient, IngredientDto>().ReverseMap();
                 mapper.CreateMap<Ingredient, IngredientUpdateDto>().ReverseMap();
             });
-
-            // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
-            app.UseIdentityServer();
-
+            
             app.UseAuthentication();
 
             app.UseStaticFiles();

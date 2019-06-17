@@ -5,13 +5,7 @@ import { ToasterConfig } from 'angular2-toaster';
 export class Configuration {
   title = 'eMeal';
 
-  authConfig = {
-    CLIENT_ID: 'AngularFoodClient',
-    GRANT_TYPE: 'password',
-    SCOPE: 'WebAPI'
-  };
-
   toasterConfig: ToasterConfig = new ToasterConfig({
-    positionClass: 'toast-bottom-right'
+    positionClass: 'toast-bottom-right',
   });
 }

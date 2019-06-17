@@ -19,46 +19,9 @@
           ><i class="fa fa-home fa-fw"></i> Home</a
         >
       </li>
-      <li
-        class="nav-item"
-        routerLinkActive="active"
-        *ngIf="(isAuthenticated$ | async)"
-      >
+      <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/food"
           ><i class="fa fa-cutlery fa-fw"></i> Food</a
-        >
-      </li>
-    </ul>
-
-    <ul class="navbar-nav my-2 my-lg-0">
-      <li
-        class="nav-item"
-        routerLinkActive="active"
-        *ngIf="!(isAuthenticated$ | async)"
-      >
-        <a class="nav-link" routerLink="/account/login">
-          <i class="fa fa-sign-in fa-fw"></i> Login</a
-        >
-      </li>
-
-      <li
-        class="nav-item"
-        routerLinkActive="active"
-        *ngIf="(isAuthenticated$ | async)"
-      >
-        <a class="nav-link" href (click)="logout($event)">
-          <i class="fa fa-user fa-fw"></i> Hello
-          {{ currentUserService.username }}</a
-        >
-      </li>
-
-      <li
-        class="nav-item"
-        routerLinkActive="active"
-        *ngIf="(isAuthenticated$ | async)"
-      >
-        <a class="nav-link" href (click)="logout($event)">
-          <i class="fa fa-sign-in fa-fw"></i> Logout</a
         >
       </li>
     </ul>

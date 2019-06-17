@@ -7,11 +7,6 @@ export const getCompleteCoreState = createSelector(
   (state: fromFeature.CoreState) => state.core
 );
 
-export const getIsAuthenticated = createSelector(
-  getCompleteCoreState,
-  fromCore.getIsAuthenticated
-);
-
 export const getPending = createSelector(
   getCompleteCoreState,
   fromCore.getPending

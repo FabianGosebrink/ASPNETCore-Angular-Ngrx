@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl true --ssl-key ssl/server.key --ssl-cert ssl/server.crt",
+    "start": "ng serve",
     "test": "ng test",
     "test-ci": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "./node_modules/.bin/tslint -c tslint.json -p tsconfig.json",

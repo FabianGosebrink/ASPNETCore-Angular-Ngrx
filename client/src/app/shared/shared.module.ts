@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { EMealFooterComponent } from './components/footer/eMeal-footer.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { Configuration } from './configuration/app.configuration';
-import { AuthGuard } from './guards/authentication.guard';
 
 @NgModule({
   imports: [
@@ -22,7 +21,6 @@ import { AuthGuard } from './guards/authentication.guard';
   providers: [
     // Services
     Configuration,
-    AuthGuard,
   ],
 
   exports: [NavigationComponent, EMealFooterComponent],

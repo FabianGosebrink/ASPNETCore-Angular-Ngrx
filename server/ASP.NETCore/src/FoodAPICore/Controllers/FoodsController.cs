@@ -17,7 +17,6 @@ using FoodAPICore.Hubs;
 namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
     public class FoodsController : Controller
     {
         private readonly IFoodRepository _foodRepository;
@@ -32,7 +31,6 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpGet(Name = nameof(GetAllFoods))]
-        [AllowAnonymous]
         public IActionResult GetAllFoods([FromQuery] QueryParameters queryParameters)
         {
             List<FoodItem> foodItems = _foodRepository.GetAll(queryParameters).ToList();
@@ -61,7 +59,6 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpGet("GetRandomMeal", Name = nameof(GetRandomMeal))]
-        [AllowAnonymous]
         public IActionResult GetRandomMeal()
         {
             ICollection<FoodItem> foodItems = _foodRepository.GetRandomMeal();
@@ -82,7 +79,6 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPost(Name = nameof(AddFood))]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult AddFood([FromBody] FoodItemCreateDto foodItemViewModel)
         {
             if (foodItemViewModel == null)
@@ -111,7 +107,6 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPatch("{id}", Name = nameof(PartiallyUpdateFood))]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult PartiallyUpdateFood(Guid id, [FromBody] JsonPatchDocument<FoodItemUpdateDto> patchDoc)
         {
             if (patchDoc == null)
@@ -150,7 +145,6 @@ namespace FoodAPICore.Controllers
 
         [HttpGet]
         [Route("{id}", Name = nameof(GetSingleFood))]
-        [AllowAnonymous]
         public IActionResult GetSingleFood(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
@@ -165,7 +159,6 @@ namespace FoodAPICore.Controllers
 
         [HttpDelete]
         [Route("{id}", Name = nameof(RemoveFood))]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult RemoveFood(Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(id);
@@ -187,7 +180,6 @@ namespace FoodAPICore.Controllers
 
         [HttpPut]
         [Route("{id}", Name = nameof(UpdateFood))]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult UpdateFood(Guid id, [FromBody]FoodItemUpdateDto foodItem)
         {
             if (foodItem == null)

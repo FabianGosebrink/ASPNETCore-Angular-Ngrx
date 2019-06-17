@@ -14,7 +14,6 @@ using FoodAPICore.Hubs;
 namespace FoodAPICore.Controllers
 {
     [Route("api/foods/{foodId}/[controller]")]
-    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Access Resources")]
     public class IngredientsController : Controller
     {
         private readonly IIngredientRepository _repository;
@@ -74,7 +73,6 @@ namespace FoodAPICore.Controllers
 
         // POST api/food/6/ingredients
         [HttpPost]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult AddIngredientToFood(Guid foodId, [FromBody] IngredientDto ingredient)
         {
             if (ingredient == null)
@@ -116,7 +114,6 @@ namespace FoodAPICore.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult UpdateIngredientForFood(Guid foodId, Guid id, [FromBody] IngredientUpdateDto ingredient)
         {
             if (ingredient == null)
@@ -159,7 +156,6 @@ namespace FoodAPICore.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Modify Resources")]
         public IActionResult Remove(Guid foodId, Guid id)
         {
             FoodItem foodItem = _foodRepository.GetSingle(foodId);
