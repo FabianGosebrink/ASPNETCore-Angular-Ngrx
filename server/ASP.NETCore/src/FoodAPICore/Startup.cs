@@ -17,8 +17,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Identity;
-using IdentityServer4.AccessTokenValidation;
 using FoodAPICore.Hubs;
 
 namespace FoodAPICore

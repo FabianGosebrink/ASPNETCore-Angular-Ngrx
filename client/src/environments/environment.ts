@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   mobile: false,
   desktop: false,
-  server: 'https://localhost:44343/',
+  server: 'http://localhost:51777/',
   apiUrl: 'api/',
 };
