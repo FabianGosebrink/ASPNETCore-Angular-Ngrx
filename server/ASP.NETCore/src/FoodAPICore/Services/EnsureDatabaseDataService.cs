@@ -11,10 +11,10 @@ namespace FoodAPICore.Services
         {
             context.Database.EnsureCreated();
 
-            context.FoodItems.Add(new FoodItem() { Calories = 1000, Name = "Lasagne", Created = DateTime.Now });
-            context.FoodItems.Add(new FoodItem() { Calories = 1100, Name = "Hamburger", Created = DateTime.Now });
-            context.FoodItems.Add(new FoodItem() { Calories = 1200, Name = "Spaghetti", Created = DateTime.Now });
-            context.FoodItems.Add(new FoodItem() { Calories = 1300, Name = "Pizza", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1000, Name = "Lasagne", Type="Main", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1100, Name = "Hamburger", Type = "Main", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1200, Name = "Spaghetti", Type = "Main", Created = DateTime.Now });
+            context.FoodItems.Add(new FoodItem() { Calories = 1300, Name = "Pizza", Type = "Main", Created = DateTime.Now });
 
             await context.SaveChangesAsync();
         }
