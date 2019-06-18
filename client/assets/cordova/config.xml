@@ -1,44 +1,39 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.offering.solutions" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>eMeal3</name>
-    <description>eMeal3</description>
-    <author email="mail@offering.solutions" href="https://offering.solutions">
-    Offering Solutions Software
+  <name>eMeal3</name>
+   <description>eMeal3</description>
+   <author email="mail@offering.solutions" href="https://offering.solutions">
+   Offering Solutions Software
   </author>
-    <content src="index.html" />
-    <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <platform name="android">
-        <allow-intent href="market:*" />
-    </platform>
-    <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-camera" spec="~4.0.2" />
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.3" />
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.3" />
-    <preference name="xwalkVersion" value="23+" />
-    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
-    <preference name="xwalkMode" value="embedded" />
-    <preference name="xwalkMultipleApk" value="true" />
-    <preference name="EnableViewportScale" value="false" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
+  <content src="index.html" />
+  <plugin name="cordova-plugin-whitelist" spec="1" />
+  <access origin="*" />
+  <allow-intent href="http://*/*" />
+  <allow-intent href="https://*/*" />
+  <allow-intent href="tel:*" />
+  <allow-intent href="sms:*" />
+  <allow-intent href="mailto:*" />
+  <allow-intent href="geo:*" />
+  <platform name="android">
+    <allow-intent href="market:*" />
+  </platform>
+  <engine name="android" spec="~7.0.0" />
+  <plugin name="cordova-plugin-camera" spec="~4.0.2" />
+  <plugin name="cordova-plugin-statusbar" spec="~2.2.3" />
+  <plugin name="cordova-plugin-splashscreen" spec="~4.0.3" />
+  <plugin name="cordova-plugin-wkwebview-engine" spec="https://github.com/driftyco/cordova-plugin-wkwebview-engine.git" />
+  <preference name="xwalkVersion" value="19+" />
+  <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+  <preference name="xwalkMode" value="embedded" />
+  <preference name="xwalkMultipleApk" value="true" />
+  <preference name="EnableViewportScale" value="false"/>
     <preference name="StatusBarBackgroundColor" value="#003A4E" />
     <preference name="StatusBarStyle" value="lightcontent" />
-    <preference name="android-minSdkVersion" value="16" />
-    <preference name="android-targetSdkVersion" value="25" />
-    <preference name="windows-target-version" value="10.0" />
-    <engine name="android" spec="~7.0.0" />
-    <engine name="windows" spec="~5.0.0" />
-    <plugin name="cordova-plugin-x-toast" spec="^2.7.0" />
-    <plugin name="cordova-plugin-device" spec="^2.0.2" />
-    <plugin name="cordova-plugin-crosswalk-webview" spec="^2.4.0">
-       
-    </plugin>
-    <plugin name="cordova-android-support-gradle-release" spec="^1.4.4">
-        <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
-    </plugin>
+
+  <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+
+  <preference name="StatusBarOverlaysWebView" value="false"/>
+
+  <preference name="android-minSdkVersion" value="19" />
+  <preference name="android-targetSdkVersion" value="25" />
 </widget>
