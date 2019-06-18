@@ -107,8 +107,8 @@ namespace FoodAPICore
                 });
             }
 
-            app.UseHttpsRedirection();
             app.UseCors("AllowAllOrigins");
+            app.UseHttpsRedirection();
 
             AutoMapper.Mapper.Initialize(mapper =>
             {
@@ -133,7 +133,7 @@ namespace FoodAPICore
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodAPICore V1");
             });
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
