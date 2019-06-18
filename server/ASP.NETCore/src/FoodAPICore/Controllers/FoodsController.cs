@@ -15,7 +15,7 @@ using FoodAPICore.Hubs;
 namespace FoodAPICore.Controllers
 {
     [Route("api/[controller]")]
-    public class FoodsController : Controller
+    public class FoodsController : ControllerBase
     {
         private readonly IFoodRepository _foodRepository;
         private readonly IHubContext<FoodHub> _hubContext;

@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   mobile: false,
   desktop: false,
-  server: 'http://localhost:51777/',
-  apiUrl: 'api/',
+  server: 'https://aspnetcore20190520055459.azurewebsites.net/',
+  apiUrl: 'api/'
 };

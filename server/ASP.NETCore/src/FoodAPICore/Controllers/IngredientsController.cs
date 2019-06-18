@@ -12,7 +12,7 @@ using FoodAPICore.Hubs;
 namespace FoodAPICore.Controllers
 {
     [Route("api/foods/{foodId}/[controller]")]
-    public class IngredientsController : Controller
+    public class IngredientsController : ControllerBase
     {
         private readonly IIngredientRepository _repository;
         private readonly IFoodRepository _foodRepository;

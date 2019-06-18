@@ -42,7 +42,7 @@ namespace FoodAPICore
                     builder =>
                     {
                         builder
-                            .AllowAnyOrigin()
+                            .WithOrigins("https://conference-xplatform-client.azurewebsites.net")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
