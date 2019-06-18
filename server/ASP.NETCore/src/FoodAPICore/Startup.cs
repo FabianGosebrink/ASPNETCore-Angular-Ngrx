@@ -49,27 +49,29 @@ namespace FoodAPICore
                     });
             });
 
-            // services.AddDbContext<FoodDbContext>(opt => opt.UseInMemoryDatabase("FoodDatabase"));
-            services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddScoped<IUrlHelper>(implementationFactory =>
-            {
-                var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
-                return new UrlHelper(actionContext);
-            });
-
-            services.AddSignalR();
+            services.AddDbContext<FoodDbContext>(opt => opt.UseInMemoryDatabase("FoodDatabase"));
+            // services.AddDbContext<FoodDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IEnsureDatabaseDataService, EnsureDatabaseDataService>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.AddScoped<IUrlHelper>(x =>
+            {
+                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = x.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
+
+            services.AddSignalR();
 
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerGen(c =>
             {
@@ -80,14 +82,13 @@ namespace FoodAPICore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                app.UseHsts();
                 app.UseExceptionHandler(errorApp =>
                 {
                     errorApp.Run(async context =>
@@ -106,7 +107,9 @@ namespace FoodAPICore
                 });
             }
 
+            app.UseHttpsRedirection();
             app.UseCors("AllowAllOrigins");
+
             AutoMapper.Mapper.Initialize(mapper =>
             {
                 mapper.CreateMap<FoodItem, FoodItemDto>().ReverseMap();
@@ -116,8 +119,6 @@ namespace FoodAPICore
                 mapper.CreateMap<Ingredient, IngredientUpdateDto>().ReverseMap();
             });
             
-            app.UseAuthentication();
-
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
@@ -125,16 +126,14 @@ namespace FoodAPICore
             {
                 routes.MapHub<FoodHub>("/foodhub");
             });
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodAPICore V1");
             });
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc();
         }
     }
 }

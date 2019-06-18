@@ -23,10 +23,7 @@ namespace FoodAPICore
                 {
                     var context = services.GetRequiredService<FoodDbContext>();
                     var dbInitializer = services.GetRequiredService<IEnsureDatabaseDataService>();
-                    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-                    dbInitializer.EnsureSeedData(userManager, roleManager, loggerFactory, context).GetAwaiter().GetResult();
+                    dbInitializer.EnsureSeedData(context).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {

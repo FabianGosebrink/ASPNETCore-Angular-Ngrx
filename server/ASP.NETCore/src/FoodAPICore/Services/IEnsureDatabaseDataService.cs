@@ -7,9 +7,6 @@ namespace FoodAPICore.Services
 {
     public interface IEnsureDatabaseDataService
     {
-        Task EnsureSeedData(UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            ILoggerFactory loggerFactory,
-            FoodDbContext context);
+        Task EnsureSeedData(FoodDbContext context);
     }
 }
