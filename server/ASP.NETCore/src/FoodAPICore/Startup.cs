@@ -73,6 +73,11 @@ namespace FoodAPICore
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddHttpsRedirection(options =>
+            {
+                options.HttpsPort = 443;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "FoodAPICore", Version = "v1" });
