@@ -2,11 +2,11 @@
 <main role="main">
   <div class="container">
     <div class="jumbotron ">
-      <a routerLink="/food" class="btn btn-primary btn-xs"> back</a>
+      <a routerLink="/food" class="btn btn-primary btn-xs mb-3"> back</a>
       <div class="text-center">
         <app-food-picture [foodItem]="selectedItem$ | async"></app-food-picture>
       </div>
-      <form *ngIf="(selectedItem$ | async) as selectedItem">
+      <form *ngIf="selectedItem$ | async as selectedItem">
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
           <div class="col-sm-10">

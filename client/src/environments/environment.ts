@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   mobile: false,
   desktop: false,
-  server: 'https://aspnetcore20190520055459.azurewebsites.net/',
+  server: 'https://conference-xplatform-server.azurewebsites.net/',
   apiUrl: 'api/'
 };
