@@ -43,7 +43,6 @@
     "@ngrx/effects": "7.2.0",
     "@ngrx/router-store": "7.2.0",
     "@ngrx/store": "7.2.0",
-    "angular2-toaster": "6.1.0",
     "bootstrap": "^4.2.1",
     "cordova": "^9.0.0",
     "core-js": "^2.5.4",
