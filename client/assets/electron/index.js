@@ -1,25 +1,9 @@
-const { app, BrowserWindow, globalShortcut, protocol } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 
-const path = require('path');
-const url = require('url');
 const cpuValues = require('./cpuValues');
 const trayIcon = require('./trayIcon');
 
 let mainWindow = null;
-const base = app.getAppPath();
-const scheme = 'app';
-
-{
-  /* Protocol */
-  // Registering must be done before app::ready fires
-  // (Optional) Technically not a standard scheme but works as needed
-  protocol.registerSchemesAsPrivileged([
-    { scheme: scheme, privileges: { standard: true, secure: true } }
-  ]);
-
-  // Create protocol
-  require('./create-protocol')(scheme, base);
-}
 
 app.on('window-all-closed', () => {
   globalShortcut.unregisterAll();

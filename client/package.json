@@ -11,7 +11,7 @@
     "e2e": "ng e2e",
     "build": "ng build --prod --output-path=\".dist/web\"",
     "build-web": "npm run build",
-    "build-desktop": "npm run prepare-desktop && npm run pack-desktop",
+    "build-desktop": "npm run prepare-desktop && npm run pack-desktop && npm run build-desktop-installer",
     "prepare-desktop": "rimraf ./.temp/electron && ng build --configuration=desktop --output-path=\".temp/electron\" && rimraf .dist/desktop/ && ncp assets/electron .temp/electron/",
     "pack-desktop": "electron-packager .temp/electron/ --electronVersion=4.0.4 --icon=\"assets/electron/icon\" --platform=win32,linux --out=./.dist/desktop/",
     "build-desktop-installer": "electron-installer-windows --src .dist/desktop/emeal-win32-x64/ --dest .dist/desktop/installer --config assets/electron/installerconfig.json",
