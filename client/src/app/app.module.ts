@@ -5,10 +5,10 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import {
   RouterStateSerializer,
-  StoreRouterConnectingModule,
+  StoreRouterConnectingModule
 } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
-import { ToasterModule } from 'angular2-toaster';
+import { ToastrModule } from 'ngx-toastr';
 import { NgxElectronModule } from 'ngx-electron';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -21,10 +21,10 @@ import { CustomSerializer, reducers } from './store';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    ToasterModule.forRoot(),
+    ToastrModule.forRoot(),
     RouterModule.forRoot(AppRoutes, {
       useHash: true,
-      preloadingStrategy: PreloadAllModules,
+      preloadingStrategy: PreloadAllModules
     }),
     SharedModule,
     NgxElectronModule,
@@ -32,11 +32,11 @@ import { CustomSerializer, reducers } from './store';
     CoreModule.forRoot(),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   declarations: [AppComponent],
 
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
