@@ -1,16 +1,23 @@
 <form>
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-addon">
-        <i class="glyphicon glyphicon-search"></i>
+      <label class="sr-only" for="inlineFormInputGroup"
+        >Type to search...</label
+      >
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          name="searchString"
+          placeholder="Type to search..."
+          [(ngModel)]="searchString"
+        />
       </div>
-      <input
-        type="text"
-        class="form-control"
-        name="searchString"
-        placeholder="Type to search..."
-        [(ngModel)]="searchString"
-      />
     </div>
   </div>
 </form>
@@ -28,7 +35,7 @@
     </th>
     <th class="text-right">Actions</th>
   </tr>
-  <tr *ngFor="let food of (foods | filter: 'name':searchString); let i = index">
+  <tr *ngFor="let food of foods | filter: 'name':searchString; let i = index">
     <td class="text-left">
       {{ food.name }}
     </td>
@@ -39,7 +46,6 @@
       {{ food.type }}
     </td>
     <td class="text-right">
-      <!--<button (click)="deleteFood(food)" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>-->
       <button
         type="button"
         class="btn btn-danger btn-xs margin-right"
@@ -47,16 +53,16 @@
         data-toggle="modal"
         data-target="#myModal"
       >
-        <span class="glyphicon glyphicon-trash"></span> Delete
+        <i class="fa fa-trash" aria-hidden="true"></i> Delete
       </button>
       <button
         (click)="foodSelected.emit(food)"
         class="btn btn-primary btn-xs margin-right"
       >
-        <span class="glyphicon glyphicon-edit"></span> Edit
+        <i class="fa fa-pencil" aria-hidden="true"></i> Edit
       </button>
       <a [routerLink]="['/food', food.id]" class="btn btn-secondary btn-xs">
-        <span class="glyphicon glyphicon-search"></span> Details</a
+        <i class="fa fa-search" aria-hidden="true"></i> Details</a
       >
     </td>
   </tr>

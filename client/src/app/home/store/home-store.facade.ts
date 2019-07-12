@@ -12,10 +12,6 @@ export class HomeStoreFacade {
   constructor(private store: Store<fromReducers.HomeState>) {}
 
   loadRandomMeal() {
-    this.store.dispatch(new fromActions.LoadRandomMealAction());
-  }
-
-  updateFood() {
-    this.store.dispatch(new fromActions.LoadRandomMealAction());
+    this.store.dispatch(fromActions.loadRandomMeal());
   }
 }

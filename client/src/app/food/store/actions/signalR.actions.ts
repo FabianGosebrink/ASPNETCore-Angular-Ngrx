@@ -1,42 +1,28 @@
-import { Action } from '@ngrx/store';
-import { FoodItem } from '../../../shared/models/foodItem.model';
-import { Ingredient } from '../../../shared/models/ingredient.model';
+import { createAction, props } from '@ngrx/store';
+import { FoodItem } from '@app/shared/models/foodItem.model';
+import { Ingredient } from '@app/shared/models/ingredient.model';
 
-export const RECEIVED_FOOD_ADDED = '[SignalR] RECEIVED_FOOD_ADDED';
-export const RECEIVED_INGREDIENT_ADDED = '[SignalR] RECEIVED_INGREDIENT_ADDED';
-export const RECEIVED_FOOD_UPDATED = '[SignalR] RECEIVED_FOOD_UPDATED';
-export const RECEIVED_FOOD_DELETED = '[SignalR] RECEIVED_FOOD_DELETED';
-export const RECEIVED_INGREDIENT_DELETED =
-  '[SignalR] RECEIVED_INGREDIENT_DELETED';
+export const receivedFoodAdded = createAction(
+  '[SignalR] RECEIVED_FOOD_ADDED',
+  props<{ payload: FoodItem }>()
+);
 
-export class ReceivedFoodAddedAction implements Action {
-  readonly type = RECEIVED_FOOD_ADDED;
-  constructor(public foodItem: FoodItem) {}
-}
+export const receivedIngredientAdded = createAction(
+  '[SignalR] RECEIVED_INGREDIENT_ADDED',
+  props<{ payload: Ingredient }>()
+);
 
-export class ReceivedIngredientAddedAction implements Action {
-  readonly type = RECEIVED_INGREDIENT_ADDED;
-  constructor(public payload: Ingredient) {}
-}
+export const receivedIngredientDeleted = createAction(
+  '[SignalR] RECEIVED_INGREDIENT_DELETED',
+  props<{ payload: string }>()
+);
 
-export class ReceivedIngredientDeletedAction implements Action {
-  readonly type = RECEIVED_INGREDIENT_DELETED;
-  constructor(public ingredientId: string) {}
-}
+export const receiveFoodUpdated = createAction(
+  '[SignalR] RECEIVED_FOOD_UPDATED',
+  props<{ payload: FoodItem }>()
+);
 
-export class ReceivedFoodUpdatedAction implements Action {
-  readonly type = RECEIVED_FOOD_UPDATED;
-  constructor(public foodItem: any) {}
-}
-
-export class ReceivedFoodDeletedAction implements Action {
-  readonly type = RECEIVED_FOOD_DELETED;
-  constructor(public foodId: number) {}
-}
-
-export type SignalRActions =
-  | ReceivedFoodAddedAction
-  | ReceivedIngredientAddedAction
-  | ReceivedIngredientDeletedAction
-  | ReceivedFoodUpdatedAction
-  | ReceivedFoodDeletedAction;
+export const receiveFoodDeleted = createAction(
+  '[SignalR] RECEIVED_FOOD_DELETED',
+  props<{ payload: string }>()
+);

@@ -1,9 +1,9 @@
 <div class="list-group">
   <a class="list-group-item clearfix" *ngFor="let item of ingredients">
-    {{item.description}}
+    {{ item.description }}
     <span class="pull-right">
       <span class="btn btn-xs btn-default" (click)="delete(item)">
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        <i class="fa fa-trash" aria-hidden="true"></i>
       </span>
     </span>
   </a>

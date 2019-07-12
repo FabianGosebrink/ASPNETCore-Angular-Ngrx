@@ -1,81 +1,77 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { IngredientsDataService } from '../../../core/data-services/ingredient-data.service';
-import { AbstractNotificationService } from '../../../core/services/abstract-notification.service';
-import { Ingredient } from '../../../shared/models/ingredient.model';
+import { IngredientsDataService } from '@app/core/data-services/ingredient-data.service';
+import { AbstractNotificationService } from '@app/core/services/abstract-notification.service';
 import * as ingredientActions from '../actions/ingredients.actions';
 
 @Injectable()
 export class IngredientEffects {
-  @Effect()
-  loadFood$ = this.actions$.pipe(
-    ofType(ingredientActions.LOAD_INGREDIENTS),
-    map((action: ingredientActions.LoadIngredientsAction) => action.payload),
-    switchMap((payload: string) => {
-      return this.ingredientsDataService.getIngredientsForFood(payload).pipe(
-        map((data: any) => {
-          return new ingredientActions.LoadIngredientsSuccessAction(data);
-        }),
-        catchError((error: any) =>
-          of(new ingredientActions.IngredientsErrorAction(error))
+  addIngredient$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ingredientActions.addIngredient),
+      switchMap(({ payload, foodId }) =>
+        this.ingredientsDataService.add(payload, foodId).pipe(
+          map(data =>
+            ingredientActions.addIngredientSuccess({ payload: data })
+          ),
+          catchError(error =>
+            of(ingredientActions.ingredientError({ payload: error }))
+          )
         )
-      );
-    })
-  );
-
-  @Effect()
-  addIngredient$ = this.actions$.pipe(
-    ofType(ingredientActions.ADD_INGREDIENT),
-    switchMap((action: ingredientActions.AddIngredientAction) => {
-      return this.ingredientsDataService
-        .add(action.payload, action.foodId)
-        .pipe(
-          map((data: Ingredient) => {
-            this.notificationService.showSuccess(
-              'Ingredients',
-              'Ingredients added!'
-            );
-            return new ingredientActions.AddIngredientSuccessAction(data);
-          }),
-          catchError((error: any) =>
-            of(new ingredientActions.IngredientsErrorAction(error))
-          )
-        );
-    })
-  );
-
-  @Effect()
-  deleteIngredient$ = this.actions$.pipe(
-    ofType(ingredientActions.DELETE_INGREDIENT),
-    switchMap((action: ingredientActions.DeleteIngredientAction) => {
-      return this.ingredientsDataService
-        .delete(action.payload, action.foodId)
-        .pipe(
-          map((data: any) => {
-            this.notificationService.showSuccess(
-              'Ingredients',
-              'Ingredients deleted!'
-            );
-            return new ingredientActions.DeleteIngredientSuccessAction(
-              action.payload
-            );
-          }),
-          catchError((error: any) =>
-            of(new ingredientActions.IngredientsErrorAction(error))
-          )
-        );
-    })
-  );
-
-  @Effect({ dispatch: false })
-  ingredientsError = this.actions$.pipe(
-    ofType(ingredientActions.INGREDIENTS_ERROR),
-
-    tap((action: ingredientActions.IngredientsErrorAction) =>
-      this.notificationService.showError('Ingredients', action.error.statusText)
+      )
     )
+  );
+
+  loadIngredients$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ingredientActions.loadIngredients),
+      switchMap(({ payload }) =>
+        this.ingredientsDataService.getIngredientsForFood(payload).pipe(
+          map(data =>
+            ingredientActions.loadIngredientsSuccess({ payload: data })
+          ),
+          catchError(error =>
+            of(ingredientActions.ingredientError({ payload: error }))
+          )
+        )
+      )
+    )
+  );
+
+  deleteIngredient$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ingredientActions.deleteIngredient),
+      switchMap(({ payload, foodId }) =>
+        this.ingredientsDataService.delete(payload, foodId).pipe(
+          map(() => {
+            this.notificationService.showSuccess(
+              'Ingredients',
+              'Ingredient deleted!'
+            );
+            return ingredientActions.deleteIngredientSuccess({ payload });
+          }),
+          catchError(error =>
+            of(ingredientActions.ingredientError({ payload: error }))
+          )
+        )
+      )
+    )
+  );
+
+  ingredientError$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ingredientActions.ingredientError),
+        tap(({ payload }) =>
+          this.notificationService.showError(
+            'Ingredients',
+            payload.error.statusText
+          )
+        )
+      ),
+    { dispatch: false }
   );
 
   constructor(

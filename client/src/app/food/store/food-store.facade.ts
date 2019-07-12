@@ -16,58 +16,54 @@ export class FoodStoreFacade {
   constructor(private store: Store<fromReducers.FoodState>) {}
 
   loadAllFoods() {
-    this.store.dispatch(new fromActions.LoadFoodAction());
+    this.store.dispatch(fromActions.loadFood());
   }
 
-  loadAllIngredients(foodId: string) {
-    this.store.dispatch(new fromActions.LoadIngredientsAction(foodId));
+  loadAllIngredients(payload: string) {
+    this.store.dispatch(fromActions.loadIngredients({ payload }));
   }
 
-  addFood(foodItem: FoodItem) {
-    this.store.dispatch(new fromActions.AddFoodAction(foodItem));
+  addFood(payload: FoodItem) {
+    this.store.dispatch(fromActions.addFood({ payload }));
   }
 
   addIngredient(ingredient: Ingredient, foodId: string) {
     this.store.dispatch(
-      new fromActions.AddIngredientAction(ingredient, foodId)
+      fromActions.addIngredient({ payload: ingredient, foodId })
     );
   }
 
-  updateFood(foodItem: FoodItem) {
-    this.store.dispatch(new fromActions.UpdateFoodAction(foodItem));
+  updateFood(payload: FoodItem) {
+    this.store.dispatch(fromActions.updateFood({ payload }));
   }
 
-  deleteFood(foodItem: FoodItem) {
-    this.store.dispatch(new fromActions.DeleteFoodAction(foodItem));
+  deleteFood(payload: FoodItem) {
+    this.store.dispatch(fromActions.deleteFood({ payload }));
   }
 
   deleteIngredient(ingredient: Ingredient, foodId: string) {
     this.store.dispatch(
-      new fromActions.DeleteIngredientAction(ingredient, foodId)
+      fromActions.deleteIngredient({ payload: ingredient, foodId })
     );
   }
 
   receivedFoodData(data: any) {
-    this.store.dispatch(new fromActions.ReceivedFoodAddedAction(data));
+    this.store.dispatch(fromActions.receivedFoodAdded({ payload: data }));
   }
 
   receivedFoodDeleted(data: any) {
-    this.store.dispatch(new fromActions.ReceivedFoodDeletedAction(data));
+    this.store.dispatch(fromActions.receiveFoodDeleted({ payload: data }));
   }
 
   receivedFoodUpdated(data: any) {
-    this.store.dispatch(new fromActions.ReceivedFoodUpdatedAction(data));
+    this.store.dispatch(fromActions.receiveFoodUpdated({ payload: data }));
   }
 
-  receivedIngredientAdded(ingredient: Ingredient) {
-    this.store.dispatch(
-      new fromActions.ReceivedIngredientAddedAction(ingredient)
-    );
+  receivedIngredientAdded(payload: Ingredient) {
+    this.store.dispatch(fromActions.receivedIngredientAdded({ payload }));
   }
 
-  receivedIngredientDeleted(ingredientId: string) {
-    this.store.dispatch(
-      new fromActions.ReceivedIngredientDeletedAction(ingredientId)
-    );
+  receivedIngredientDeleted(payload: string) {
+    this.store.dispatch(fromActions.receivedIngredientDeleted({ payload }));
   }
 }

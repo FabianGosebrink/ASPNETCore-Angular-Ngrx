@@ -1,54 +1,55 @@
-import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as homeActions from '../actions/home.actions';
+import { on, createReducer, Action } from '@ngrx/store';
+import { FoodItem } from '@app/shared/models/foodItem.model';
 
-export interface HomeState {
+export interface HomeReduerState {
   randomMeal: { [id: string]: FoodItem };
   loading: boolean;
   loaded: boolean;
 }
 
-export const initialState: HomeState = {
+export const initialState: HomeReduerState = {
   randomMeal: {},
   loading: false,
   loaded: false
 };
 
+const homeReducerInternal = createReducer(
+  initialState,
+  on(homeActions.loadRandomMeal, (state, {}) => {
+    return {
+      ...state,
+      loading: true
+    };
+  }),
+
+  on(homeActions.loadRandomMealSuccess, (state, { payload }) => {
+    const values = payload.value;
+    const randomMeal: { [id: string]: FoodItem } = {};
+    values.forEach((item: FoodItem) => {
+      if (item) {
+        randomMeal[item.id] = item;
+      } else {
+        randomMeal[''] = null;
+      }
+    });
+
+    return {
+      ...state,
+      randomMeal,
+      loaded: true,
+      loading: false
+    };
+  })
+);
+
 export function homeReducer(
-  state = initialState,
-  action: homeActions.HomeActions
-): HomeState {
-  switch (action.type) {
-    case homeActions.LOAD_RANDOM_MEAL: {
-      return {
-        ...state,
-        loading: true
-      };
-    }
-
-    case homeActions.LOAD_RANDOM_MEAL_SUCCESS: {
-      const payload = action.foodItems;
-      const randomMeal: { [id: string]: FoodItem } = {};
-      payload.forEach((item: FoodItem) => {
-        if (item) {
-          randomMeal[item.id] = item;
-        } else {
-          randomMeal[''] = null;
-        }
-      });
-
-      return {
-        ...state,
-        randomMeal,
-        loaded: true,
-        loading: false
-      };
-    }
-
-    default:
-      return state;
-  }
+  state: HomeReduerState | undefined,
+  action: Action
+) {
+  return homeReducerInternal(state, action);
 }
 
-export const getRandomMeal = (state: HomeState) => state.randomMeal;
-export const getRandomMealLoaded = (state: HomeState) => state.loaded;
-export const getRandomMealLoading = (state: HomeState) => state.loading;
+export const getRandomMeal = (state: HomeReduerState) => state.randomMeal;
+export const getRandomMealLoaded = (state: HomeReduerState) => state.loaded;
+export const getRandomMealLoading = (state: HomeReduerState) => state.loading;
