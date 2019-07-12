@@ -1,68 +1,45 @@
-import { Action } from '@ngrx/store';
-import { FoodItem } from '../../../shared/models/foodItem.model';
+import { createAction, props } from '@ngrx/store';
+import { FoodItem } from '@app/shared/models/foodItem.model';
+import { ModelDescriptor } from '@app/shared/models/model.descriptor';
 
-export const ADD_FOOD = '[Foods] ADD_FOOD';
-export const ADD_FOOD_SUCCESS = '[Foods] ADD_FOOD_SUCCESS';
-export const LOAD_FOOD = '[Foods] LOAD_FOOD';
-export const LOAD_FOOD_SUCCESS = '[Foods] LOAD_FOOD_SUCCESS';
-export const DELETE_FOOD = '[Foods] DELETE_FOOD';
-export const DELETE_FOOD_SUCCESS = '[Foods] DELETE_FOOD_SUCCESS';
-export const UPDATE_FOOD = '[Foods] UPDATE_FOOD';
-export const UPDATE_FOOD_SUCCESS = '[Foods] UPDATE_FOOD_SUCCESS';
-export const FOOD_ERROR = '[Foods] FOOD_ERROR';
+export const addFood = createAction(
+  '[Foods] ADD_FOOD',
+  props<{ payload: FoodItem }>()
+);
 
-export class LoadFoodAction implements Action {
-  readonly type = LOAD_FOOD;
-  constructor() {}
-}
+export const addFoodSuccess = createAction(
+  '[Foods] ADD_FOOD_SUCCESS',
+  props<{ payload: FoodItem }>()
+);
 
-export class LoadFoodSuccessAction implements Action {
-  readonly type = LOAD_FOOD_SUCCESS;
-  constructor(public foodItems: FoodItem[]) {}
-}
+export const loadFood = createAction('[Foods] LOAD_FOOD');
 
-export class AddFoodAction implements Action {
-  readonly type = ADD_FOOD;
-  constructor(public foodItem: FoodItem) {}
-}
+export const loadFoodSuccess = createAction(
+  '[Foods] LOAD_FOOD_SUCCESS',
+  props<{ payload: ModelDescriptor<FoodItem[]> }>()
+);
 
-export class AddFoodSuccessAction implements Action {
-  readonly type = ADD_FOOD_SUCCESS;
-  constructor(public foodItem: FoodItem) {}
-}
+export const deleteFood = createAction(
+  '[Foods] DELETE_FOOD',
+  props<{ payload: FoodItem }>()
+);
 
-export class DeleteFoodAction implements Action {
-  readonly type = DELETE_FOOD;
-  constructor(public foodItem: FoodItem) {}
-}
+export const deleteFoodSuccess = createAction(
+  '[Foods] DELETE_FOOD_SUCCESS',
+  props<{ payload: any }>()
+);
 
-export class DeleteFoodSuccessAction implements Action {
-  readonly type = DELETE_FOOD_SUCCESS;
-  constructor(public foodItem: FoodItem) {}
-}
+export const updateFood = createAction(
+  '[Foods] UPDATE_FOOD',
+  props<{ payload: FoodItem }>()
+);
 
-export class UpdateFoodAction implements Action {
-  readonly type = UPDATE_FOOD;
-  constructor(public foodItem: FoodItem) {}
-}
+export const updateFoodSuccess = createAction(
+  '[Foods] UPDATE_FOOD_SUCCESS',
+  props<{ payload: FoodItem }>()
+);
 
-export class UpdateFoodSuccessAction implements Action {
-  readonly type = UPDATE_FOOD_SUCCESS;
-  constructor(public foodItem: FoodItem) {}
-}
-
-export class FoodErrorAction implements Action {
-  readonly type = FOOD_ERROR;
-  constructor(public error: any) {}
-}
-
-export type FoodActions =
-  | FoodErrorAction
-  | UpdateFoodAction
-  | UpdateFoodSuccessAction
-  | LoadFoodSuccessAction
-  | LoadFoodAction
-  | AddFoodAction
-  | AddFoodSuccessAction
-  | DeleteFoodAction
-  | DeleteFoodSuccessAction;
+export const foodError = createAction(
+  '[Foods] FOOD_ERROR',
+  props<{ payload: any }>()
+);

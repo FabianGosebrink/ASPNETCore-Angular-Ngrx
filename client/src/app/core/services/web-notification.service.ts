@@ -1,35 +1,22 @@
-import { ToasterService } from 'angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 import { AbstractNotificationService } from './abstract-notification.service';
 
 export class WebNotificationService implements AbstractNotificationService {
-  constructor(private toasterService: ToasterService) {}
+  constructor(private toastr: ToastrService) {}
 
   showError(title: string, message: string, icon?: string) {
-    this.showNotification('error', title, message, icon);
+    this.toastr.error(message, title);
   }
 
   showInfo(title: string, message: string, icon?: string) {
-    this.showNotification('info', title, message, icon);
-  }
-
-  showWait(title: string, message: string, icon?: string) {
-    this.showNotification('wait', title, message, icon);
+    this.toastr.info(message, title);
   }
 
   showSuccess(title: string, message: string, icon?: string) {
-    this.showNotification('success', title, message, icon);
+    this.toastr.success(message, title);
   }
 
   showWarning(title: string, message: string, icon?: string) {
-    this.showNotification('warning', title, message, icon);
-  }
-
-  private showNotification(
-    type: string,
-    title: string,
-    message: string,
-    icon?: string
-  ): void {
-    this.toasterService.pop(type, title, message);
+    this.toastr.warning(message, title);
   }
 }

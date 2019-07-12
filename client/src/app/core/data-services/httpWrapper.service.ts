@@ -14,7 +14,7 @@ export class HttpWrapperService {
     return this.http.post<T>(url, body);
   }
 
-  put<T>(url: string, body: string): Observable<T> {
+  put<T>(url: string, body: any): Observable<T> {
     return this.http.put<T>(url, body);
   }
 

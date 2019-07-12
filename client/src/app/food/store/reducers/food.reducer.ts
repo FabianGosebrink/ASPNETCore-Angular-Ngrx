@@ -1,31 +1,29 @@
 import { FoodItem } from '../../../shared/models/foodItem.model';
 import * as foodActions from '../actions/food.actions';
 import * as signalrActions from '../actions/signalR.actions';
+import { Action, createReducer, on } from '@ngrx/store';
 
-export interface FoodState {
+export interface FoodReducerState {
   entities: { [id: string]: FoodItem };
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState: FoodState = {
+export const initialState: FoodReducerState = {
   entities: {},
   loaded: false,
   loading: false
 };
 
-export function foodItemsReducer(
-  state = initialState,
-  action: foodActions.FoodActions | signalrActions.SignalRActions
-): FoodState {
-  switch (action.type) {
-    case foodActions.ADD_FOOD_SUCCESS:
-    case foodActions.UPDATE_FOOD_SUCCESS: {
-      const foodItem = action.foodItem;
-
+const foodReducerInternal = createReducer(
+  initialState,
+  on(
+    foodActions.addFoodSuccess,
+    foodActions.updateFoodSuccess,
+    (state, { payload }) => {
       const entities = {
         ...state.entities,
-        [foodItem.id]: foodItem
+        [payload.id]: payload
       };
 
       return {
@@ -33,81 +31,83 @@ export function foodItemsReducer(
         entities
       };
     }
+  ),
+  on(foodActions.loadFoodSuccess, (state, { payload }) => {
+    const entities: { [id: string]: FoodItem } = {};
 
-    case foodActions.LOAD_FOOD_SUCCESS: {
-      const payload = action.foodItems;
-
-      const entities: { [id: string]: FoodItem } = {};
-
-      for (const entity of payload) {
-        entities[entity.id] = entity;
-      }
-      return {
-        ...state,
-        entities,
-        loaded: true
-      };
+    for (const entity of payload.value) {
+      entities[entity.id] = entity;
     }
 
-    case foodActions.DELETE_FOOD_SUCCESS: {
-      const foodItem = action.foodItem;
-      const { [foodItem.id]: removed, ...entities } = state.entities;
+    return {
+      ...state,
+      entities,
+      loaded: true
+    };
+  }),
 
-      return {
-        ...state,
-        entities
-      };
-    }
+  on(foodActions.deleteFoodSuccess, (state, { payload }) => {
+    const foodItem = payload;
+    const { [foodItem.id]: removed, ...entities } = state.entities;
 
-    case signalrActions.RECEIVED_FOOD_ADDED: {
-      if (!!state.entities[action.foodItem.id]) {
-        return state;
-      }
+    return {
+      ...state,
+      entities
+    };
+  }),
 
-      const foodItem = action.foodItem;
-      const entities = {
-        ...state.entities,
-        [foodItem.id]: foodItem
-      };
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    case signalrActions.RECEIVED_FOOD_DELETED: {
-      if (!state.entities[action.foodId]) {
-        return state;
-      }
-
-      const { [action.foodId]: removed, ...entities } = state.entities;
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    case signalrActions.RECEIVED_FOOD_UPDATED: {
-      const foodItem = action.foodItem;
-
-      const entities = {
-        ...state.entities,
-        [foodItem.id]: foodItem
-      };
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    default:
+  on(signalrActions.receivedFoodAdded, (state, { payload }) => {
+    if (!!state.entities[payload.id]) {
       return state;
-  }
+    }
+
+    const foodItem = payload;
+    const entities = {
+      ...state.entities,
+      [foodItem.id]: foodItem
+    };
+
+    return {
+      ...state,
+      entities
+    };
+  }),
+
+  on(signalrActions.receiveFoodDeleted, (state, { payload }) => {
+    if (!state.entities[payload]) {
+      return state;
+    }
+
+    const { [payload]: removed, ...entities } = state.entities;
+
+    return {
+      ...state,
+      entities
+    };
+  }),
+
+  on(signalrActions.receiveFoodUpdated, (state, { payload }) => {
+    const foodItem = payload;
+
+    const entities = {
+      ...state.entities,
+      [foodItem.id]: foodItem
+    };
+
+    return {
+      ...state,
+      entities
+    };
+  })
+);
+
+export function foodReducer(
+  state: FoodReducerState | undefined,
+  action: Action
+) {
+  return foodReducerInternal(state, action);
 }
 
-export const getFoodItemEntities = (state: FoodState) => state.entities;
-export const getFoodItemsLoaded = (state: FoodState) => state.loaded;
-export const getFoodItemsLoading = (state: FoodState) => state.loading;
+export const getFoodItemEntities = (state: FoodReducerState) => state.entities;
+export const getFoodItemsLoaded = (state: FoodReducerState) => state.loaded;
+export const getFoodItemsLoading = (state: FoodReducerState) => state.loading;

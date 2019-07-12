@@ -1,99 +1,100 @@
 import { Ingredient } from '../../../shared/models/ingredient.model';
 import * as ingredientActions from '../actions/ingredients.actions';
 import * as signalrActions from '../actions/signalR.actions';
+import { Action, createReducer, on } from '@ngrx/store';
 
-export interface IngredientState {
+export interface IngredientReducerState {
   entities: { [id: string]: Ingredient };
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState: IngredientState = {
+export const initialState: IngredientReducerState = {
   entities: {},
   loaded: false,
   loading: false
 };
 
-export function ingredientsReducer(
-  state = initialState,
-  action: ingredientActions.IngredientsActions | signalrActions.SignalRActions
-): IngredientState {
-  switch (action.type) {
-    case signalrActions.RECEIVED_INGREDIENT_ADDED: {
-      if (!!state.entities[action.payload.id]) {
-        return state;
-      }
-
-      const ingredient = action.payload;
-      const entities = {
-        ...state.entities,
-        [ingredient.id]: ingredient
-      };
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    case signalrActions.RECEIVED_INGREDIENT_DELETED: {
-      if (!state.entities[action.ingredientId]) {
-        return state;
-      }
-
-      const { [action.ingredientId]: removed, ...entities } = state.entities;
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    case ingredientActions.ADD_INGREDIENT_SUCCESS: {
-      const ingredient = action.payload;
-
-      const entities = {
-        ...state.entities,
-        [ingredient.id]: ingredient
-      };
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    case ingredientActions.DELETE_INGREDIENT_SUCCESS: {
-      const ingredient = action.payload;
-      const { [ingredient.id]: removed, ...entities } = state.entities;
-
-      return {
-        ...state,
-        entities
-      };
-    }
-
-    case ingredientActions.LOAD_INGREDIENTS_SUCCESS: {
-      const payload = action.payload;
-
-      const entities: { [id: string]: Ingredient } = {};
-
-      for (const entity of payload) {
-        entities[entity.id] = entity;
-      }
-      return {
-        ...state,
-        entities,
-        loaded: true
-      };
-    }
-
-    default:
+const ingredientsReducerinternal = createReducer(
+  initialState,
+  on(signalrActions.receivedIngredientAdded, (state, { payload }) => {
+    if (!!state.entities[payload.id]) {
       return state;
-  }
-}
+    }
 
-export const getIngredientItemEntities = (state: IngredientState) =>
+    const ingredient = payload;
+    const entities = {
+      ...state.entities,
+      [ingredient.id]: ingredient
+    };
+
+    return {
+      ...state,
+      entities
+    };
+  }),
+
+  on(signalrActions.receivedIngredientDeleted, (state, { payload }) => {
+    if (!state.entities[payload]) {
+      return state;
+    }
+
+    const { [payload]: removed, ...entities } = state.entities;
+
+    return {
+      ...state,
+      entities
+    };
+  }),
+
+  on(ingredientActions.addIngredientSuccess, (state, { payload }) => {
+    const ingredient = payload;
+
+    const entities = {
+      ...state.entities,
+      [ingredient.id]: ingredient
+    };
+
+    return {
+      ...state,
+      entities
+    };
+  }),
+
+  on(ingredientActions.deleteIngredientSuccess, (state, { payload }) => {
+    const ingredient = payload;
+    const { [ingredient.id]: removed, ...entities } = state.entities;
+
+    return {
+      ...state,
+      entities
+    };
+  }),
+
+  on(ingredientActions.loadIngredientsSuccess, (state, { payload }) => {
+    const entities: { [id: string]: Ingredient } = {};
+
+    for (const entity of payload) {
+      entities[entity.id] = entity;
+    }
+    return {
+      ...state,
+      entities,
+      loaded: true
+    };
+  })
+);
+
+export const getIngredientItemEntities = (state: IngredientReducerState) =>
   state.entities;
-export const getIngredientsLoaded = (state: IngredientState) => state.loaded;
-export const getIngredientsLoading = (state: IngredientState) => state.loading;
+export const getIngredientsLoaded = (state: IngredientReducerState) =>
+  state.loaded;
+export const getIngredientsLoading = (state: IngredientReducerState) =>
+  state.loading;
+
+export function ingredientReducer(
+  state: IngredientReducerState | undefined,
+  action: Action
+) {
+  return ingredientsReducerinternal(state, action);
+}

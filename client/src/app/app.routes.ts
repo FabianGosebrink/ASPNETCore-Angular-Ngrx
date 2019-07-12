@@ -4,10 +4,10 @@ export const AppRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'food',
-    loadChildren: './food/food.module#FoodModule',
+    loadChildren: () => import('./food/food.module').then(m => m.FoodModule)
   },
   {
     path: '**',
-    redirectTo: 'home',
-  },
+    redirectTo: 'home'
+  }
 ];
