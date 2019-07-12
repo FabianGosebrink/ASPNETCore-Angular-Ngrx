@@ -3,13 +3,13 @@ import * as fromFood from './food.reducer';
 import * as fromIngredients from './ingredient.reducer';
 
 export interface FoodState {
-  foods: fromFood.FoodState;
-  ingredients: fromIngredients.IngredientState;
+  foods: fromFood.FoodReducerState;
+  ingredients: fromIngredients.IngredientReducerState;
 }
 
 export const reducers: ActionReducerMap<FoodState> = {
-  foods: fromFood.foodItemsReducer,
-  ingredients: fromIngredients.ingredientsReducer
+  foods: fromFood.foodReducer,
+  ingredients: fromIngredients.ingredientReducer
 };
 
 export const getFoodState = createFeatureSelector<FoodState>('food');

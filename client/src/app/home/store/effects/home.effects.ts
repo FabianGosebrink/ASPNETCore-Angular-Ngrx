@@ -1,32 +1,36 @@
 import { Injectable } from '@angular/core';
 import { FoodDataService } from '@app/core/data-services/food-data.service';
 import { AbstractNotificationService } from '@app/core/services/abstract-notification.service';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import * as HomeActions from '../actions/home.actions';
+import * as homeActions from '../actions/home.actions';
 
 @Injectable()
 export class HomeEffects {
-  @Effect()
-  loadRandomMeal$ = this.actions$.pipe(
-    ofType(HomeActions.LOAD_RANDOM_MEAL),
-    switchMap(() => {
-      return this.foodDataService.getRandomMeal().pipe(
-        map((data: any) => {
-          return new HomeActions.LoadRandomMealSuccessAction(data.value);
-        }),
-        catchError((error: any) => of(new HomeActions.HomeErrorAction(error)))
-      );
-    })
+  loadRandomMeal$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(homeActions.loadRandomMeal),
+      switchMap(() =>
+        this.foodDataService.getRandomMeal().pipe(
+          map(data => homeActions.loadRandomMealSuccess({ payload: data })),
+          catchError(error =>
+            of(homeActions.loadRandomMealError({ payload: error }))
+          )
+        )
+      )
+    )
   );
 
-  @Effect({ dispatch: false })
-  homeError$ = this.actions$.pipe(
-    ofType(HomeActions.HOME_ERROR),
-    tap((action: HomeActions.HomeErrorAction) => {
-      this.notificationService.showError('Home', action.error.message);
-    })
+  homeError$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(homeActions.loadRandomMealError),
+        tap(({ payload }) =>
+          this.notificationService.showError('Home', payload.error.statusText)
+        )
+      ),
+    { dispatch: false }
   );
 
   constructor(

@@ -1,48 +1,14 @@
-const { app, BrowserWindow, globalShortcut, Menu } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 
-const path = require('path');
-const url = require('url');
 const cpuValues = require('./cpuValues');
 const trayIcon = require('./trayIcon');
 
 let mainWindow = null;
 
-app.on('window-all-closed', function() {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('ready', function() {
-  mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
-  });
-
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
-
-  mainWindow.on('closed', function() {
-    mainWindow = null;
-  });
-
-  globalShortcut.register('CmdOrCtrl+Shift+i', () => {
-    mainWindow.webContents.toggleDevTools();
-  });
-
-  trayIcon.buildTrayIcon(mainWindow);
-  startSendCpuValues();
-});
-
 app.on('window-all-closed', () => {
   globalShortcut.unregisterAll();
   if (process.platform !== 'darwin') {
     app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (win === null) {
-    createWindow();
   }
 });
 
@@ -59,3 +25,27 @@ let startSendCpuValues = () => {
     });
   }, 1000);
 };
+
+const createWindow = () => {
+  mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 768,
+    webPreferences: { nodeIntegration: true }
+  });
+
+  // mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadFile('index.html');
+
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+
+  globalShortcut.register('CmdOrCtrl+Shift+i', () => {
+    mainWindow.webContents.toggleDevTools();
+  });
+
+  trayIcon.buildTrayIcon(mainWindow);
+  startSendCpuValues();
+};
+
+app.isReady() ? createWindow() : app.on('ready', createWindow);

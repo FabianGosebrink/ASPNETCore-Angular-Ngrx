@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-import { Ingredient } from '../../shared/models/ingredient.model';
+import { Observable } from 'rxjs';
 import { HttpWrapperService } from './httpWrapper.service';
+import { environment } from '@environments/environment';
+import { Ingredient } from '@app/shared/models/ingredient.model';
 
 @Injectable({ providedIn: 'root' })
 export class IngredientsDataService {
@@ -15,27 +14,21 @@ export class IngredientsDataService {
   }
 
   getIngredientsForFood(foodId: string): Observable<Ingredient[]> {
-    return this.http
-      .get<Ingredient[]>(`${this.actionUrl}${foodId}/${this.endpoint}`)
-      .pipe(catchError(this.handleError));
+    return this.http.get<Ingredient[]>(
+      `${this.actionUrl}${foodId}/${this.endpoint}`
+    );
   }
 
   add(ingredient: Ingredient, foodId: string): Observable<Ingredient> {
-    return this.http
-      .post<Ingredient>(
-        `${this.actionUrl}${foodId}/${this.endpoint}`,
-        ingredient
-      )
-      .pipe(catchError(this.handleError));
+    return this.http.post<Ingredient>(
+      `${this.actionUrl}${foodId}/${this.endpoint}`,
+      ingredient
+    );
   }
 
   delete(ingredient: Ingredient, foodId: string) {
-    return this.http
-      .delete(`${this.actionUrl}${foodId}/${this.endpoint}/${ingredient.id}`)
-      .pipe(catchError(this.handleError));
-  }
-
-  private handleError(error: any) {
-    return throwError(error || 'Server error');
+    return this.http.delete(
+      `${this.actionUrl}${foodId}/${this.endpoint}/${ingredient.id}`
+    );
   }
 }
