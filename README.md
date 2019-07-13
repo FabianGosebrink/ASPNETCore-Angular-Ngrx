@@ -15,17 +15,17 @@ Server and Client are completely seperated that you can exchange the endpoint ea
 
 ### Check the corresponding package.json for the npm commands to start the repository
 
-![DemoGif](.github/screen.gif)
-
 # Demo
+
+![DemoGif](.github/screen.gif)
 
 You can see an Angular Demo with all the techniques combined here (running on Azure)
 
-## Frontend
+### Frontend
 
 [https://conference-xplatform-client.azurewebsites.net](https://conference-xplatform-client.azurewebsites.net/)
 
-## Backend
+### Backend
 
 [https://conference-xplatform-server.azurewebsites.net](https://conference-xplatform-server.azurewebsites.net/)
 
