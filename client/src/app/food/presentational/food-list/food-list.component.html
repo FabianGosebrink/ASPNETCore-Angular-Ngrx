@@ -23,68 +23,93 @@
 </form>
 
 <table class="table">
-  <tr>
-    <th>
-      <a href="" (click)="sortArray('name', $event)">Name</a>
-    </th>
-    <th>
-      <a href="" (click)="sortArray('calories', $event)">Calories</a>
-    </th>
-    <th>
-      <a href="" (click)="sortArray('type', $event)">Type</a>
-    </th>
-    <th class="text-right">Actions</th>
-  </tr>
-  <tr *ngFor="let food of foods | filter: 'name':searchString; let i = index">
-    <td class="text-left">
-      {{ food.name }}
-    </td>
-    <td class="text-left">
-      {{ food.calories }}
-    </td>
-    <td class="text-left">
-      {{ food.type }}
-    </td>
-    <td class="text-right">
-      <button
-        type="button"
-        class="btn btn-danger btn-xs margin-right"
-        (click)="setFoodToDelete(food)"
-        data-toggle="modal"
-        data-target="#myModal"
-      >
-        <i class="fa fa-trash" aria-hidden="true"></i> Delete
-      </button>
-      <button
-        (click)="foodSelected.emit(food)"
-        class="btn btn-primary btn-xs margin-right"
-      >
-        <i class="fa fa-pencil" aria-hidden="true"></i> Edit
-      </button>
-      <a [routerLink]="['/food', food.id]" class="btn btn-secondary btn-xs">
-        <i class="fa fa-search" aria-hidden="true"></i> Details</a
-      >
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th scope="col">
+        <a href="" (click)="sortArray('name', $event)">Name</a>
+      </th>
+      <th>
+        <a href="" (click)="sortArray('calories', $event)">Calories</a>
+      </th>
+      <th>
+        <a href="" (click)="sortArray('type', $event)">Type</a>
+      </th>
+      <th class="text-right">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let food of foods | filter: 'name':searchString; let i = index">
+      <td class="text-left">
+        {{ food.name }}
+      </td>
+      <td>{{ food.calories }}</td>
+      <td>{{ food.type }}</td>
+      <td class="text-right">
+        <div class="dropdown">
+          <button
+            class="btn btn-info dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Actions
+          </button>
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <button
+              type="button"
+              class="dropdown-item"
+              (click)="setFoodToDelete(food)"
+              data-toggle="modal"
+              data-target="#myModal"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i> Delete
+            </button>
+            <button (click)="foodSelected.emit(food)" class="dropdown-item">
+              <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+            </button>
+            <a [routerLink]="['/food', food.id]" class="dropdown-item">
+              <i class="fa fa-search" aria-hidden="true"></i> Details</a
+            >
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
+        <h5 class="modal-title" id="exampleModalLabel">Delete Food?</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Delete Food?</h4>
       </div>
       <div class="modal-body">
         <p>Do you really want to delete:</p>
         <p>{{ foodToDelete?.name }} ({{ foodToDelete?.calories }} Calories)</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Close
         </button>
         <button

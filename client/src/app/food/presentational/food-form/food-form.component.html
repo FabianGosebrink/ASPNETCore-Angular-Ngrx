@@ -1,96 +1,108 @@
-<form #f="ngForm" novalidate (ngSubmit)="addOrUpdateFood(); f.reset()">
-  <div
-    [ngClass]="
-      foodName?.errors && foodName?.touched
-        ? 'form-group has-error'
-        : 'form-group'
-    "
-  >
-    <label for="foodName">Name</label>
-    <input
-      type="text"
-      name="foodName"
-      class="form-control"
-      id="foodName"
-      placeholder="Foodname"
-      [(ngModel)]="currentFood.name"
-      #foodName="ngModel"
-      required
-    />
+<div class="jumbotron">
+  <div class="container">
+    <form #f="ngForm" novalidate (ngSubmit)="addOrUpdateFood(); f.reset()">
+      <div
+        [ngClass]="
+          foodName?.errors && foodName?.touched
+            ? 'form-group has-error'
+            : 'form-group'
+        "
+      >
+        <label for="foodName">Name</label>
+        <input
+          type="text"
+          name="foodName"
+          class="form-control"
+          id="foodName"
+          placeholder="Foodname"
+          [(ngModel)]="currentFood.name"
+          #foodName="ngModel"
+          required
+        />
 
-    <span
-      *ngIf="foodName?.errors?.required && (foodName?.dirty && !f.submitted)"
-      id="helpBlock"
-      class="text-danger"
-      >*</span
-    >
+        <span
+          *ngIf="
+            foodName?.errors?.required && (foodName?.dirty && !f.submitted)
+          "
+          id="helpBlock"
+          class="text-danger"
+          >*</span
+        >
+      </div>
+
+      <div
+        [ngClass]="
+          foodType?.errors && foodType?.touched
+            ? 'form-group has-error'
+            : 'form-group'
+        "
+      >
+        <label for="foodType">Type</label>
+        <select
+          class="form-control"
+          required
+          [(ngModel)]="currentFood.type"
+          name="foodType"
+          #foodType="ngModel"
+        >
+          <option [ngValue]="undefined" selected>Please select...</option>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div
+        [ngClass]="
+          calories?.errors && calories?.touched
+            ? 'form-group has-error'
+            : 'form-group'
+        "
+      >
+        <label for="calories">Calories</label>
+        <input
+          type="text"
+          class="form-control"
+          id="calories"
+          placeholder="Calories"
+          [(ngModel)]="currentFood.calories"
+          required
+          app-isNumber
+          app-isInRange
+          minValue="0"
+          maxValue="2147483647"
+          name="calories"
+          #calories="ngModel"
+        />
+
+        <span
+          *ngIf="
+            calories?.errors?.required && (calories?.dirty && !f.submitted)
+          "
+          class="text-danger"
+        >
+          *
+        </span>
+
+        <span
+          *ngIf="
+            calories?.errors?.isNumber && (calories?.dirty && !f.submitted)
+          "
+          class="text-danger"
+        >
+          Please enter a number
+        </span>
+
+        <span
+          *ngIf="
+            calories?.errors?.isInRange && (calories?.dirty && !f.submitted)
+          "
+          class="text-danger"
+        >
+          Please enter a valid number (Integer-Range)
+        </span>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!f?.valid">
+        Submit
+      </button>
+    </form>
   </div>
-
-  <div
-    [ngClass]="
-      foodType?.errors && foodType?.touched
-        ? 'form-group has-error'
-        : 'form-group'
-    "
-  >
-    <label for="foodType">Type</label>
-    <select
-      class="form-control"
-      required
-      [(ngModel)]="currentFood.type"
-      name="foodType"
-      #foodType="ngModel"
-    >
-      <option [ngValue]="undefined" selected>Please select...</option>
-      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-    </select>
-  </div>
-
-  <div
-    [ngClass]="
-      calories?.errors && calories?.touched
-        ? 'form-group has-error'
-        : 'form-group'
-    "
-  >
-    <label for="calories">Calories</label>
-    <input
-      type="text"
-      class="form-control"
-      id="calories"
-      placeholder="Calories"
-      [(ngModel)]="currentFood.calories"
-      required
-      app-isNumber
-      app-isInRange
-      minValue="0"
-      maxValue="2147483647"
-      name="calories"
-      #calories="ngModel"
-    />
-
-    <span
-      *ngIf="calories?.errors?.required && (calories?.dirty && !f.submitted)"
-      class="text-danger"
-    >
-      *
-    </span>
-
-    <span
-      *ngIf="calories?.errors?.isNumber && (calories?.dirty && !f.submitted)"
-      class="text-danger"
-    >
-      Please enter a number
-    </span>
-
-    <span
-      *ngIf="calories?.errors?.isInRange && (calories?.dirty && !f.submitted)"
-      class="text-danger"
-    >
-      Please enter a valid number (Integer-Range)
-    </span>
-  </div>
-  <button type="submit" class="btn btn-success" [disabled]="!f?.valid">
-    Submit
-  </button>
-</form>
+</div>
