@@ -19,7 +19,7 @@
     "mobile-prepare": "rimraf .temp/mobile/ && ng build --configuration=mobile --output-path=\".temp/mobile/www\" && ncp assets/cordova .temp/mobile/ && rimraf .dist/mobile/",
     "mobile-prepare-android": "mkdirp .dist/mobile/android && cd .temp/mobile && cordova prepare android && cd ../..",
     "mobile-prepare-windows": "mkdirp .dist/mobile/windows && cd .temp/mobile && cordova prepare windows",
-    "mobile-generate-assets": "cd .temp/mobile && cordova-icon --icon=\"../../assets/img/icon.png\" && cordova-splash --splash=\"../../assets/img/splash.png\"",
+    "mobile-generate-assets": "ncp assets/img .temp/mobile/resources && cd .temp/mobile && cordova-res",
     "mobile-build": "cd .temp/mobile && cordova build && cd ../..",
     "copy-mobile-to-dist": "ncp .temp/mobile/platforms/android .dist/mobile/android && ncp .temp/mobile/platforms/windows .dist/mobile/windows && cd ../..",
     "build-all": "rimraf .dist && npm run build-web && npm run build-mobile && npm run build-desktop",
@@ -36,9 +36,6 @@
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
-    "rxjs": "~6.4.0",
-    "tslib": "^1.10.0",
-    "zone.js": "~0.9.1",
     "@aspnet/signalr": "^1.1.4",
     "@ngrx/effects": "8.0.1",
     "@ngrx/router-store": "8.0.1",
@@ -52,7 +49,10 @@
     "jquery": "^3.3.1",
     "ngx-electron": "2.1.1",
     "ngx-toastr": "^10.0.4",
-    "rxjs-tslint": "^0.1.3"
+    "rxjs": "~6.4.0",
+    "rxjs-tslint": "^0.1.3",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.4",
@@ -74,12 +74,11 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3",
-    "cordova-icon": "1.0.0",
-    "cordova-splash": "1.0.0",
     "electron-packager": "14.0.6",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
     "mkdirp": "^0.5.1",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "cordova-res": "^0.6.0"
   }
 }
