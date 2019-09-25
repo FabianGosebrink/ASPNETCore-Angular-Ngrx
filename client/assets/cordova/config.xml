@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.offering.solutions" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>eMeal3</name>
-   <description>eMeal3</description>
+  <name>eMeal</name>
+   <description>eMeal - Demo Application</description>
    <author email="mail@offering.solutions" href="https://offering.solutions">
    Offering Solutions Software
   </author>
@@ -31,7 +31,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
 
   <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-
+  <preference name="SplashMaintainAspectRatio" value="true" />
   <preference name="StatusBarOverlaysWebView" value="false"/>
 
   <preference name="android-minSdkVersion" value="19" />
