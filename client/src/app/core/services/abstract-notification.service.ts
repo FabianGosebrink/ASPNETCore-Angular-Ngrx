@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { environment } from '@environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { DesktopNotificationService } from './desktop-notification.service';
 import { MobileNotificationService } from './mobile-notification.service';
 import { WebNotificationService } from './web-notification.service';
 
@@ -8,8 +9,8 @@ export function notificationFactory(
   toastrService: ToastrService
 ): AbstractNotificationService {
   if (environment.desktop) {
-    // return new DesktopNotificationService();
-    return new WebNotificationService(toastrService);
+    return new DesktopNotificationService();
+    //return new WebNotificationService(toastrService);
   }
 
   if (environment.mobile) {
