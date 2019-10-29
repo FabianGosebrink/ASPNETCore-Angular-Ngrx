@@ -14,6 +14,6 @@ namespace FoodAPICore.Repositories
 
         Task<PeriodicElement> InsertPeriodicElementAsync(PeriodicElement element);
         Task<bool> UpdatePeriodicElementAsync(PeriodicElement element);
-        //Task<bool> DeleteCustomerAsync(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

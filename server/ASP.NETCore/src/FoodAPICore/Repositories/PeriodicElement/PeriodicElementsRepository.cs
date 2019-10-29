@@ -78,26 +78,23 @@ namespace FoodAPICore.Repositoriess
             }
             return false;
         }
-        
-        //public async Task<bool> DeleteCustomerAsync(int id)
-        //{
-        //    //Extra hop to the database but keeps it nice and simple for this demo
-        //    //Including orders since there's a foreign-key constraint and we need
-        //    //to remove the orders in addition to the customer
-        //    var customer = await _Context.Customers
-        //                        .Include(c => c.Orders)
-        //                        .SingleOrDefaultAsync(c => c.Id == id);
-        //    _Context.Remove(customer);
-        //    try
-        //    {
-        //      return (await _Context.SaveChangesAsync() > 0 ? true : false);
-        //    }
-        //    catch (System.Exception exp)
-        //    {
-        //       _Logger.LogError($"Error in {nameof(DeleteCustomerAsync)}: " + exp.Message);
-        //    }
-        //    return false;
-        //}
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            //Extra hop to the database but keeps it nice and simple for this demo
+            //Including orders since there's a foreign-key constraint and we need
+            //to remove the orders in addition to the customer
+            var item = await _context.PeriodicElements.SingleOrDefaultAsync(c => c.Id == id);
+            _context.Remove(item);
+            try
+            {
+                return (await _context.SaveChangesAsync() > 0 ? true : false);
+            }
+            catch (System.Exception exp)
+            {
+                _Logger.LogError($"Error in {nameof(DeleteAsync)}: " + exp.Message);
+            }
+            return false;
+        }
     }
 }
