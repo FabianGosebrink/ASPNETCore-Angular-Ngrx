@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace FoodAPICore.Controllers
 {
-    [Route("api/authors")]
+    [Route("api/[controller]")]
     public class AuthorsController : Controller
     {
         private ILibraryRepository _libraryRepository;
@@ -23,7 +23,7 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetAuthors()
+        public async Task<ActionResult> GetAuthors()
         { 
             var authorsFromRepo = _libraryRepository.GetAuthors();
 

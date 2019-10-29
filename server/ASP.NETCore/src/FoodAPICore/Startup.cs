@@ -113,6 +113,8 @@ namespace FoodAPICore
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStatesRepository, StatesRepository>();
             services.AddScoped<IPeriodicElementsRepository, PeriodicElementsRepository>();
+            // register the repository
+            services.AddScoped<ILibraryRepository, LibraryRepository>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
