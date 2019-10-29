@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Identity;
 using IdentityServer4.AccessTokenValidation;
 using FoodAPICore.Hubs;
 using FoodAPICore.Repositoriess;
+using FoodAPICore.Helpers;
 
 namespace FoodAPICore
 {
@@ -125,7 +126,8 @@ namespace FoodAPICore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            FoodDbContext foodDbContext)
         {
           //  loggerFactory.AddConsole();
 
@@ -162,7 +164,23 @@ namespace FoodAPICore
                 mapper.CreateMap<Product, ProductDto>().ReverseMap();
                 mapper.CreateMap<PeriodicElement, PeriodicElementDto>().ReverseMap();
                 //    mapper.CreateMap<Product, ProductUpdateDto>().ReverseMap();
+                mapper.CreateMap<Entities.Author, Models.AuthorDto>()
+                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                 $"{src.FirstName} {src.LastName}"))
+                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
+                 src.DateOfBirth.GetCurrentAge()));
+
+                mapper.CreateMap<Entities.Book, Models.BookDto>();
+
+                mapper.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
+
+                mapper.CreateMap<Models.BookForCreationDto, Entities.Book>();
+
+                mapper.CreateMap<Models.BookForUpdateDto, Entities.Book>();
+
+                mapper.CreateMap<Entities.Book, Models.BookForUpdateDto>();
             });
+            foodDbContext.EnsureSeedDataForContext();
 
             // IdentityServer4.AccessTokenValidation: authentication middleware for the API.
             app.UseIdentityServer();
