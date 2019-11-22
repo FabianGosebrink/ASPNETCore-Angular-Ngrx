@@ -1,6 +1,6 @@
 ﻿namespace FoodAPICore.Dtos
 {
-    public class FoodItemUpdateDto
+    public class FoodUpdateDto
     {
         public string Name { get; set; }
         public string Type { get; set; }

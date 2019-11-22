@@ -17,13 +17,18 @@ namespace FoodAPICore.Controllers
         private readonly IIngredientRepository _repository;
         private readonly IFoodRepository _foodRepository;
         private readonly IHubContext<FoodHub> _hubContext;
+        private readonly IMapper _mapper;
 
-        public IngredientsController(IIngredientRepository repository, IFoodRepository foodRepository, 
-            IHubContext<FoodHub> hubContext)
+        public IngredientsController(
+            IIngredientRepository repository, 
+            IFoodRepository foodRepository, 
+            IHubContext<FoodHub> hubContext,
+            IMapper mapper)
         {
             _repository = repository;
             _foodRepository = foodRepository;
             _hubContext = hubContext;
+            _mapper = mapper;
         }
 
         // GET api/food/{foodId}/ingredients
@@ -41,7 +46,7 @@ namespace FoodAPICore.Controllers
                 .ToList();
 
             IEnumerable<IngredientDto> viewModels = allItems
-               .Select(x => Mapper.Map<IngredientDto>(x));
+               .Select(x => _mapper.Map<IngredientDto>(x));
 
             return Ok(viewModels);
         }
@@ -58,15 +63,14 @@ namespace FoodAPICore.Controllers
 
             var singleItem = _repository
                 .GetAll()
-                .Where(x => x.FoodItem.Id == foodId && x.Id == id)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.FoodItem.Id == foodId && x.Id == id);
 
             if (singleItem == null)
             {
                 return NotFound();
             }
 
-            return Ok(Mapper.Map<IngredientDto>(singleItem));
+            return Ok(_mapper.Map<IngredientDto>(singleItem));
         }
 
         // POST api/food/6/ingredients
@@ -78,11 +82,6 @@ namespace FoodAPICore.Controllers
                 return BadRequest();
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             FoodItem foodItem = _foodRepository.GetSingle(foodId);
 
             if (foodItem == null)
@@ -90,7 +89,7 @@ namespace FoodAPICore.Controllers
                 return NotFound("FoodNotFound");
             }
 
-            var ingredientModel = Mapper.Map<Ingredient>(ingredient);
+            var ingredientModel = _mapper.Map<Ingredient>(ingredient);
 
             ingredientModel.FoodItem = foodItem;
 
@@ -101,7 +100,7 @@ namespace FoodAPICore.Controllers
                 throw new Exception($"Creating a ingredients for food {foodId} failed on save.");
             }
 
-            var ingredientToReturn = Mapper.Map<IngredientDto>(ingredientModel);
+            var ingredientToReturn = _mapper.Map<IngredientDto>(ingredientModel);
 
             _hubContext.Clients.All.SendAsync("ingredient-added", foodId, ingredientToReturn);
 
@@ -119,24 +118,19 @@ namespace FoodAPICore.Controllers
                 return BadRequest();
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             FoodItem foodItem = _foodRepository.GetSingle(foodId);
             if (foodItem == null)
             {
                 return NotFound("FoodNotFound");
             }
 
-            var singleItem = _repository.GetAll().Where(x => x.FoodItem.Id == foodId && x.Id == id).FirstOrDefault();
+            var singleItem = _repository.GetAll().FirstOrDefault(x => x.FoodItem.Id == foodId && x.Id == id);
             if (singleItem == null)
             {
                 return NotFound();
             }
 
-            Mapper.Map(ingredient, singleItem);
+            _mapper.Map(ingredient, singleItem);
 
             _repository.Update(singleItem);
 
@@ -145,7 +139,7 @@ namespace FoodAPICore.Controllers
                 throw new Exception("Updating an ingredient failed on save.");
             }
 
-            var updatedIngredientDto = Mapper.Map<IngredientDto>(singleItem);
+            var updatedIngredientDto = _mapper.Map<IngredientDto>(singleItem);
 
             _hubContext.Clients.All.SendAsync("ingredient-updated", foodId, updatedIngredientDto);
 

@@ -1,5 +1,4 @@
-﻿using FoodAPICore.Models;
-using FoodAPICore.Repositories.Food;
+﻿using FoodAPICore.Repositories.Food;
 using FoodAPICore.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -11,13 +10,14 @@ using Microsoft.AspNetCore.Http;
 using FoodAPICore.Entities;
 using Microsoft.EntityFrameworkCore;
 using FoodAPICore.Services;
-using FoodAPICore.Dtos;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Newtonsoft.Json.Serialization;
 using FoodAPICore.Hubs;
+using AutoMapper;
+using FoodAPICore.MappingProfiles;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace FoodAPICore
 {
@@ -68,24 +68,19 @@ namespace FoodAPICore
 
             services.AddSignalR();
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddHttpsRedirection(options =>
-            {
-                options.HttpsPort = 443;
-            });
+            services.AddControllers()
+                  .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "FoodAPICore", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+
+            services.AddAutoMapper(new[] { typeof(FoodMappings), typeof(IngredientMappings) });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -112,24 +107,16 @@ namespace FoodAPICore
                 });
             }
 
-            app.UseCors("AllowAllOrigins");
             app.UseHttpsRedirection();
-
-            AutoMapper.Mapper.Initialize(mapper =>
-            {
-                mapper.CreateMap<FoodItem, FoodItemDto>().ReverseMap();
-                mapper.CreateMap<FoodItem, FoodItemUpdateDto>().ReverseMap();
-                mapper.CreateMap<FoodItem, FoodItemCreateDto>().ReverseMap();
-                mapper.CreateMap<Ingredient, IngredientDto>().ReverseMap();
-                mapper.CreateMap<Ingredient, IngredientUpdateDto>().ReverseMap();
-            });
-            
+            app.UseRouting();
+            app.UseCors("AllowAllOrigins");
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
-            app.UseSignalR(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<FoodHub>("/foodhub");
+                endpoints.MapControllers();
+                endpoints.MapHub<FoodHub>("/foodhub");
             });
 
             app.UseSwagger();
@@ -137,8 +124,6 @@ namespace FoodAPICore
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FoodAPICore V1");
             });
-
-            app.UseMvcWithDefaultRoute();
         }
     }
 }

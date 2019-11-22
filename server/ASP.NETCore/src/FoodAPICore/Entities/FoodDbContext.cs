@@ -1,11 +1,9 @@
 ﻿using FoodAPICore.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodAPICore.Entities
 {
-    public class FoodDbContext : IdentityDbContext<IdentityUser>
+    public class FoodDbContext : DbContext
     {
         public FoodDbContext(DbContextOptions<FoodDbContext> options)
            : base(options)

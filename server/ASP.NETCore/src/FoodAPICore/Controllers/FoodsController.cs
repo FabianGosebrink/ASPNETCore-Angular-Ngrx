@@ -19,12 +19,18 @@ namespace FoodAPICore.Controllers
     {
         private readonly IFoodRepository _foodRepository;
         private readonly IHubContext<FoodHub> _hubContext;
+        private readonly IMapper _mapper;
         private readonly IUrlHelper _urlHelper;
 
-        public FoodsController(IUrlHelper urlHelper, IFoodRepository foodRepository, IHubContext<FoodHub> hubContext)
+        public FoodsController(
+            IUrlHelper urlHelper, 
+            IFoodRepository foodRepository, 
+            IHubContext<FoodHub> hubContext,
+            IMapper mapper)
         {
             _foodRepository = foodRepository;
             _hubContext = hubContext;
+            _mapper = mapper;
             _urlHelper = urlHelper;
         }
 
@@ -62,7 +68,7 @@ namespace FoodAPICore.Controllers
             ICollection<FoodItem> foodItems = _foodRepository.GetRandomMeal();
 
             IEnumerable<FoodItemDto> dtos = foodItems
-                .Select(x => Mapper.Map<FoodItemDto>(x));
+                .Select(x => _mapper.Map<FoodItemDto>(x));
 
             var links = new List<LinkDto>();
 
@@ -77,19 +83,14 @@ namespace FoodAPICore.Controllers
         }
 
         [HttpPost(Name = nameof(AddFood))]
-        public IActionResult AddFood([FromBody] FoodItemCreateDto foodItemViewModel)
+        public IActionResult AddFood([FromBody] FoodCreateDto foodItemViewModel)
         {
             if (foodItemViewModel == null)
             {
                 return BadRequest();
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            FoodItem toAdd = Mapper.Map<FoodItem>(foodItemViewModel);
+            FoodItem toAdd = _mapper.Map<FoodItem>(foodItemViewModel);
 
             _foodRepository.Add(toAdd);
 
@@ -99,13 +100,13 @@ namespace FoodAPICore.Controllers
             }
 
             FoodItem newFoodItem = _foodRepository.GetSingle(toAdd.Id);
-            _hubContext.Clients.All.SendAsync("food-added", Mapper.Map<FoodItemDto>(newFoodItem));
+            _hubContext.Clients.All.SendAsync("food-added", _mapper.Map<FoodItemDto>(newFoodItem));
             return CreatedAtRoute(nameof(GetSingleFood), new { id = newFoodItem.Id },
-                Mapper.Map<FoodItemDto>(newFoodItem));
+                _mapper.Map<FoodItemDto>(newFoodItem));
         }
 
         [HttpPatch("{id}", Name = nameof(PartiallyUpdateFood))]
-        public IActionResult PartiallyUpdateFood(Guid id, [FromBody] JsonPatchDocument<FoodItemUpdateDto> patchDoc)
+        public IActionResult PartiallyUpdateFood(Guid id, [FromBody] JsonPatchDocument<FoodUpdateDto> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -119,17 +120,12 @@ namespace FoodAPICore.Controllers
                 return NotFound();
             }
 
-            FoodItemUpdateDto foodItemToPatch = Mapper.Map<FoodItemUpdateDto>(foodItemFromRepo);
+            FoodUpdateDto foodItemToPatch = _mapper.Map<FoodUpdateDto>(foodItemFromRepo);
             patchDoc.ApplyTo(foodItemToPatch, ModelState);
 
             TryValidateModel(foodItemToPatch);
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Mapper.Map(foodItemToPatch, foodItemFromRepo);
+            _mapper.Map(foodItemToPatch, foodItemFromRepo);
 
             _foodRepository.Update(foodItemFromRepo);
 
@@ -137,8 +133,8 @@ namespace FoodAPICore.Controllers
             {
                 throw new Exception("Updating a fooditem failed on save.");
             }
-            _hubContext.Clients.All.SendAsync("food-updated", Mapper.Map<FoodItemDto>(foodItemFromRepo));
-            return Ok(Mapper.Map<FoodItemDto>(foodItemFromRepo));
+            _hubContext.Clients.All.SendAsync("food-updated", _mapper.Map<FoodItemDto>(foodItemFromRepo));
+            return Ok(_mapper.Map<FoodItemDto>(foodItemFromRepo));
         }
 
         [HttpGet]
@@ -178,7 +174,7 @@ namespace FoodAPICore.Controllers
 
         [HttpPut]
         [Route("{id}", Name = nameof(UpdateFood))]
-        public IActionResult UpdateFood(Guid id, [FromBody]FoodItemUpdateDto foodItem)
+        public IActionResult UpdateFood(Guid id, [FromBody]FoodUpdateDto foodItem)
         {
             if (foodItem == null)
             {
@@ -192,12 +188,7 @@ namespace FoodAPICore.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Mapper.Map(foodItem, existingFoodItem);
+            _mapper.Map(foodItem, existingFoodItem);
 
             _foodRepository.Update(existingFoodItem);
 
@@ -207,7 +198,7 @@ namespace FoodAPICore.Controllers
             }
 
             _hubContext.Clients.All.SendAsync("food-updated", existingFoodItem);
-            return Ok(Mapper.Map<FoodItemDto>(existingFoodItem));
+            return Ok(_mapper.Map<FoodItemDto>(existingFoodItem));
         }
 
         private List<LinkDto> CreateLinksForCollection(QueryParameters queryParameters, int totalCount)
@@ -263,7 +254,7 @@ namespace FoodAPICore.Controllers
         private dynamic ExpandSingleFoodItem(FoodItem foodItem)
         {
             var links = GetLinks(foodItem.Id);
-            FoodItemDto item = Mapper.Map<FoodItemDto>(foodItem);
+            FoodItemDto item = _mapper.Map<FoodItemDto>(foodItem);
 
             var resourceToReturn = item.ToDynamic() as IDictionary<string, object>;
             resourceToReturn.Add("links", links);
