@@ -69,6 +69,7 @@ namespace FoodAPICore
             services.AddSignalR();
 
             services.AddControllers()
+                    .AddNewtonsoftJson(options => options.UseCamelCasing(true))
                   .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c =>
