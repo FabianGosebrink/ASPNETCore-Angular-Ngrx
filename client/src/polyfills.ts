@@ -55,14 +55,9 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone'; // Included with Angular CLI.
+import "zone.js/dist/zone"; // Included with Angular CLI.
 
-/***************************************************************************************************
- * APPLICATION IMPORTS
- */
-import 'zone.js/dist/zone'; // Included with Angular CLI.
-import * as jquery from 'jquery';
-getWindow().$ = getWindow().jQuery = require('jquery');
+getWindow().$ = getWindow().jQuery = require("jquery");
 
 function getWindow(): any {
   return window;

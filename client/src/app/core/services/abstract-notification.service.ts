@@ -20,6 +20,16 @@ export function notificationFactory(
   return new WebNotificationService(toastrService);
 }
 
+export interface INotificationService {
+  showError(title: string, message: string, icon?: string);
+
+  showInfo(title: string, message: string, icon?: string);
+
+  showSuccess(title: string, message: string, icon?: string);
+
+  showWarning(title: string, message: string, icon?: string);
+}
+
 @Injectable({
   providedIn: 'root',
   useFactory: notificationFactory,
@@ -34,14 +44,4 @@ export abstract class AbstractNotificationService
   abstract showSuccess(title: string, message: string, icon?: string);
 
   abstract showWarning(title: string, message: string, icon?: string);
-}
-
-export interface INotificationService {
-  showError(title: string, message: string, icon?: string);
-
-  showInfo(title: string, message: string, icon?: string);
-
-  showSuccess(title: string, message: string, icon?: string);
-
-  showWarning(title: string, message: string, icon?: string);
 }
