@@ -49,7 +49,7 @@
     "bootstrap": "^4.4.1",
     "cordova": "^9.0.0",
     "core-js": "^2.5.4",
-    "electron": "8.0.0",
+    "electron": "9.4.0",
     "electron-installer-windows": "3.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
